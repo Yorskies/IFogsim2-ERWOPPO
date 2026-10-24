@@ -26,3 +26,8 @@ results/
 .idea/
 .DS_Store
 Thumbs.db
+
+# Local Windows runtime files and generated Java build artifacts
+/Microsoft/
+/ifogsim/build/
+/ifogsim/dist/*.jar
