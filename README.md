@@ -12,17 +12,23 @@ Kerangka kerja riset terintegrasi yang menggabungkan **Multi-Objective Evolution
    - [Ruang Observasi (46 Dimensi)](#a-ruang-observasi-46-dimensi)
    - [Ruang Aksi (Discrete 7)](#b-ruang-aksi-discrete-7)
    - [Skema 4 Sub-Reward Multi-Objektif](#c-skema-4-sub-reward-multi-objektif)
-4. [Rincian Komponen & Struktur Direktori](#4-rincian-komponen--struktur-direktori)
-5. [📖 Tutorial Walkthrough & Langkah Reproduksi Lengkap](#5--tutorial-walkthrough--langkah-reproduksi-lengkap)
+4. [Penjabaran Skenario Beban Kerja (Workload Scenarios)](#4-penjabaran-skenario-beban-kerja-workload-scenarios)
+   - [4.1 Spektrum 4 Profil Beban Simulasi (`--workload`)](#41-spektrum-4-profil-beban-simulasi---workload)
+   - [4.2 Arsitektur Pembangkit Beban: Fleet 100 Perangkat IoT](#42-arsitektur-pembangkit-beban-fleet-100-perangkat-iot)
+   - [4.3 Skenario Beban yang Dijalankan pada Publikasi Riset](#43-skenario-beban-yang-dijalankan-pada-publikasi-riset)
+   - [4.4 Dinamika Fluktuasi Beban & Respon Fisik Node](#44-dinamika-fluktuasi-beban--respon-fisik-node)
+   - [4.5 Tabel Matriks Komparasi Skenario Beban Kerja](#45-tabel-matriks-komparasi-skenario-beban-kerja)
+5. [Rincian Komponen & Struktur Direktori](#5-rincian-komponen--struktur-direktori)
+6. [📖 Tutorial Walkthrough & Langkah Reproduksi Lengkap](#6--tutorial-walkthrough--langkah-reproduksi-lengkap)
    - [Langkah 1: Persiapan Environment Python (3.10)](#langkah-1-persiapan-environment-python-310)
    - [Langkah 2: Kompilasi & Menjalankan Server Java iFogSim2](#langkah-2-kompilasi--menjalankan-server-java-ifogsim2)
    - [Langkah 3: Menjalankan Benchmark Lengkap 8 Metode](#langkah-3-menjalankan-benchmark-lengkap-8-metode)
    - [Langkah 4: Menghasilkan Visualisasi Grafik Ilmiah (Figures 3 s/d 10)](#langkah-4-menghasilkan-visualisasi-grafik-ilmiah-figures-3-sd-10)
    - [Langkah 5: Memeriksa Hasil Data & Laporan Audit](#langkah-5-memeriksa-hasil-data--laporan-audit)
    - [Langkah 6: Visualisasi Real-Time & Live Web Dashboard](#langkah-6-visualisasi-real-time--live-web-dashboard)
-6. [Opsi Argumen Baris Perintah (CLI Options)](#6-opsi-argumen-baris-perintah-cli-options)
-7. [Protokol Komunikasi Inter-Process (TCP Socket IPC)](#7-protokol-komunikasi-inter-process-tcp-socket-ipc)
-8. [Struktur Laporan & Hasil Publikasi (Data.md & report.md)](#8-struktur-laporan--hasil-publikasi-datamd--reportmd)
+7. [Opsi Argumen Baris Perintah (CLI Options)](#7-opsi-argumen-baris-perintah-cli-options)
+8. [Protokol Komunikasi Inter-Process (TCP Socket IPC)](#8-protokol-komunikasi-inter-process-tcp-socket-ipc)
+9. [Struktur Laporan & Hasil Publikasi (Data.md & report.md)](#9-struktur-laporan--hasil-publikasi-datamd--reportmd)
 
 ---
 
@@ -156,7 +162,203 @@ dengan kendala normalisasi $\alpha + \beta + \lambda + \gamma = 1.0$ dan $\alpha
 
 ---
 
-## 4. Rincian Komponen & Struktur Direktori
+## 4. Penjabaran Skenario Beban Kerja (Workload Scenarios)
+
+Untuk mengevaluasi ketahanan (*robustness*), kemampuan generalisasi, dan efisiensi algoritma penempatan tugas, sistem mengimplementasikan pemodelan beban kerja berbasis simulasi kejadian diskrit (*discrete-event simulation*) yang komprehensif di lingkungan **iFogSim2**.
+
+### 4.1 Spektrum 4 Profil Beban Simulasi (`--workload`)
+
+Sistem menyediakan 4 spektrum konfigurasi beban kerja komputasi dan jaringan yang dapat dipilih via parameter baris perintah `--workload`. Masing-masing skenario merepresentasikan tingkat intensitas, tekanan antrean (*queue buildup*), dan pola kedatangan tugas yang berbeda secara spesifik:
+
+#### 1. Skenario `light` (Beban Ringan / Low-Intensity Smoke Test)
+- **Durasi & Volume Tugas**: $T_{\text{max}} = 50\text{ langkah/episode}$ ($50\text{ tugas}$ per episode; total $1.500\text{ tugas}$ pada evaluasi $n=30$).
+- **Spesifikasi Beban Komputasi ($c_{\text{task}}$)**: Beban instruksi rata-rata rendah hingga moderat ($\approx 1.500 - 4.500\text{ MI}$ per tugas; total beban kumulatif per episode $\approx 150.000 - 200.000\text{ MI}$).
+- **Ukuran Payload Data ($d_{\text{task}}$)**: Data transmisi kecil ($\approx 150 - 400\text{ KB}$), transmisi nirkabel sangat cepat selesai tanpa saturasi bandwidth link radio.
+- **Dinamika Antrean & CPU Node**: Laju kedatangan tugas berada di bawah laju penyelesaian beban (*natural decay* $-0.08$ CPU dan $-0.10$ antrean). Akibatnya, antrean pada seluruh Fog Node hampir selalu kosong ($q^{\text{len}} \le 0.10$) dan utilisasi CPU node tetap stabil di bawah $30\%$.
+- **Kondisi Toleransi SLA (Deadline)**: Batas waktu SLA longgar ($T_{\text{deadline}} \ge 500\text{ ms}$). Risiko terjadinya *deadline violation* sangat minim ($< 5\%$).
+- **Profil Baterai Armada IoT**: Konsumsi daya baterai sangat hemat. Tidak ada perangkat IoT yang menyentuh ambang batas baterai kritis ($< 8\%$). Rata-rata kapasitas baterai armada IoT tetap terjaga di atas $95\%$.
+- **Tujuan & Peruntukan Riset**: Validasi fungsionalitas dasar sistem (*smoke testing*), uji konektivitas dan latensi IPC TCP socket Python-Java, serta penentuan batas atas efisiensi energi (*theoretical upper bound*) ketika sumber daya komputasi melimpah.
+
+#### 2. Skenario `moderate` (Beban Nominal / Daily Balanced Workload)
+- **Durasi & Volume Tugas**: $T_{\text{max}} = 100\text{ langkah/episode}$ ($100\text{ tugas}$ per episode; total $3.000\text{ tugas}$ pada evaluasi $n=30$).
+- **Spesifikasi Beban Komputasi ($c_{\text{task}}$)**: Beban instruksi menengah ($\approx 3.000 - 6.500\text{ MI}$ per tugas; total beban kumulatif per episode $\approx 450.000 - 550.000\text{ MI}$).
+- **Ukuran Payload Data ($d_{\text{task}}$)**: Payload transmisi nominal ($\approx 350 - 650\text{ KB}$), membutuhkan alokasi bandwidth link nirkabel yang stabil.
+- **Dinamika Antrean & CPU Node**: Beban kedatangan tugas seimbang dengan kapasitas pemrosesan Fog Nodes ($4.000\text{ MIPS}$). Terjadi fluktuasi antrean moderat ($q^{\text{len}} \approx 0.15 - 0.35$). Node yang terpilih mengalami kenaikan beban bertahap ($+0.20 \cdot c_{\text{task}}$), namun memiliki waktu jeda yang cukup untuk memulihkan kapasitas sebelum menerima tugas berikutnya.
+- **Kondisi Toleransi SLA (Deadline)**: Batas waktu SLA realistis ($T_{\text{deadline}} \approx 350 - 650\text{ ms}$). Kebijakan penempatan yang buruk (seperti terus memilih Node Lokal) mulai memperlihatkan kenaikan penalti latensi dan pelanggaran SLA hingga $\approx 40\%$.
+- **Profil Baterai Armada IoT**: Laju penurunan daya baterai normal. Rata-rata baterai armada berada pada rentang $80\% - 90\%$.
+- **Tujuan & Peruntukan Riset**: Tolok ukur beban nominal harian (*operational baseline*) pada lingkungan Fog-Cloud terdistribusi untuk mengamati pembentukan kurva konvergensi pembelajaran kebijakan RL dalam kondisi beban stabil.
+
+#### 3. Skenario `heavy` (Beban Padat / Stress & Congestion Test)
+- **Durasi & Volume Tugas**: $T_{\text{max}} = 150\text{ langkah/episode}$ ($150\text{ tugas}$ per episode tanpa jeda; total $4.500\text{ tugas}$ pada evaluasi $n=30$).
+- **Spesifikasi Beban Komputasi ($c_{\text{task}}$)**: Beban instruksi berat ($\approx 5.000 - 8.500\text{ MI}$ per tugas; total beban kumulatif per episode mencapai $\approx 900.000 - 1.200.000\text{ MI}$).
+- **Ukuran Payload Data ($d_{\text{task}}$)**: Payload transmisi masif ($\approx 600 - 850\text{ KB}$), memicu peningkatan latensi propagasi transmisi nirkabel dan WAN.
+- **Dinamika Antrean & CPU Node**: Tekanan komputasi beruntun berdurasi panjang melampaui kemampuan peluruhan alami node ($+0.20 \text{ kenaikan CPU per tugas} \gg -0.08 \text{ decay}$). Terjadi penumpukan antrean berkepanjangan (*backlog buildup*), di mana utilisasi CPU Fog Nodes terdorong ke zona saturasi kritis ($u^{\text{cpu}} \ge 0.85$ hingga $1.00$) dan antrean membengkak ($q^{\text{len}} \ge 0.60$).
+- **Kondisi Toleransi SLA (Deadline)**: Batas waktu SLA sangat ketat dibandingkan dengan waktu tunggu antrean ($T_{\text{queue}} \gg T_{\text{exec}}$). Hal ini memicu lonjakan pelanggaran deadline masif ($> 75\%$) pada algoritma yang tidak mampu melakukan *dynamic offloading* ke Cloud.
+- **Profil Baterai Armada IoT**: Pengurasan baterai drastis pada perangkat pemohon aktif. Jika tugas dipaksakan dieksekusi lokal, perangkat akan cepat kehabisan daya ($< 8\%$), yang memicu penalti degradasi waktu eksekusi $2.2\times$ dan energi $1.4\times$.
+- **Tujuan & Peruntukan Riset**: Uji batas ketahanan ekstrem (*stress testing*), evaluasi ketahanan terhadap kongesti antrean (*congestion resilience*), dan pembuktian kemampuan agen cerdas dalam memanfaatkan Cloud Data Center sebagai katup pelepas beban (*relief valve*) saat seluruh Fog Nodes jenuh.
+
+#### 4. Skenario `dynamic` (Beban Dinamis Non-Stasioner — Tolok Ukur Utama Publikasi)
+- **Durasi & Volume Tugas**: $T_{\text{max}} = 100\text{ langkah/episode}$ per run, dievaluasi secara masif pada $n = 30$ episode berpasangan (*Paired Seed Protocol*: `seed = 1000..1029`), memproses total **$3.000\text{ tugas}$ per metode** (akumulatif **$24.000\text{ keputusan komputasi}$** lintas 8 metode).
+- **Spesifikasi Beban Komputasi ($c_{\text{task}}$)**: Distribusi acak kontinu non-stasioner $c_{\text{task}} \in [0.15, 0.85]$ (setara $\approx 1.500 - 8.500\text{ MI}$), menghasilkan variasi tugas ringan, sedang, dan komputasi intensif secara berselang-seling.
+- **Ukuran Payload Data ($d_{\text{task}}$)**: Distribusi acak kontinu $d_{\text{task}} \in [0.15, 0.85]$ (setara $\approx 150 - 850\text{ KB}$), menuntut evaluasi trade-off bandwidth link nirkabel vs WAN secara real-time.
+- **Dinamika Antrean & CPU Node**: Pola kedatangan tugas stokastik dari **100 perangkat IoT terdistribusi**. Beban antrean dan utilisasi CPU berosilasi dinamis di antara 5 Fog Nodes, menuntut agen untuk terus memantau metrik *Load Imbalance* ($\sigma_{\text{CPU}}$) agar tidak terjadi ketimpangan beban antar node.
+- **Kondisi Toleransi SLA (Deadline)**: Tenggat waktu bergerak secara acak $T_{\text{deadline}} \in [0.25, 0.80]$ (setara $\approx 250 - 800\text{ ms}$) dengan kombinasi prioritas QoS ($p_{\text{qos}} \in [0.10, 1.00]$).
+- **Profil Baterai Armada IoT**: Penurunan baterai heterogen di 100 perangkat dengan laju pemulihan mikro ($+0.0008$/step) pada perangkat idle, mencerminkan ekosistem IoT nyata di mana perangkat aktif bergantian membangkitkan komputasi.
+- **Tujuan & Peruntukan Riset**: **Skenario beban utama yang digunakan untuk seluruh hasil publikasi resmi jurnal (Tabel 10 s/d Tabel 14 dan Figures 3 s/d 10)**. Menjadi medan pengujian definitif yang membuktikan bahwa ERWO-PPO mengungguli baseline heuristik dan model RL konvensional secara signifikan ($p = 3.72 \times 10^{-9}$, $d = 1.1371$).
+
+---
+
+#### Ringkasan Parameter Kuantitatif Spesifik per Skenario Beban
+
+| Parameter / Metrik Spesifik | `light` | `moderate` | `heavy` | `dynamic` (*Publikasi*) |
+|:---|:---:|:---:|:---:|:---:|
+| **Batas Langkah Episode ($T_{\text{max}}$)** | $50\text{ langkah}$ | $100\text{ langkah}$ | $150\text{ langkah}$ | $100\text{ langkah}$ |
+| **Total Tugas per Episode** | $50\text{ task}$ | $100\text{ task}$ | $150\text{ task}$ | $100\text{ task}$ |
+| **Rentang Instruksi Tugas ($c_{\text{task}}$)** | $1.500 - 4.500\text{ MI}$ | $3.000 - 6.500\text{ MI}$ | $5.000 - 8.500\text{ MI}$ | **$1.500 - 8.500\text{ MI}$ (Stokastik)** |
+| **Akumulasi Komputasi / Episode** | $\approx 150 - 200\text{ kMI}$ | $\approx 450 - 550\text{ kMI}$ | $\approx 900 - 1.200\text{ kMI}$ | **$\approx 500\text{ kMI}$ (Fluktuatif)** |
+| **Rentang Ukuran Payload ($d_{\text{task}}$)** | $150 - 400\text{ KB}$ | $350 - 650\text{ KB}$ | $600 - 850\text{ KB}$ | **$150 - 850\text{ KB}$ (Stokastik)** |
+| **Toleransi Deadline ($T_{\text{deadline}}$)** | Longgar ($\ge 500\text{ ms}$) | Moderat ($350 - 650\text{ ms}$) | Sangat Ketat ($\le 350\text{ ms}$) | **Dinamis ($250 - 800\text{ ms}$)** |
+| **Status Antrean Node ($q^{\text{len}}$)** | Buffer Kosong ($< 0.10$) | Buffer Terkendali ($0.15 - 0.35$) | Jenuh / Kongesti ($> 0.60$) | **Multi-Node Oslatif** |
+| **Rata-rata Utilisasi CPU Fog** | $< 30\%$ | $35\% - 65\%$ | $85\% - 100\%$ (Saturasi) | **Adaptif Terdistribusi** |
+| **Laju Pengurasan Baterai IoT** | Sangat Rendah | Moderat / Terkendali | Sangat Cepat (Risiko $<8\%$) | **Heterogen 100 Perangkat** |
+| **Total Keputusan ($n=30$ Episode)** | $1.500\text{ keputusan}$ | $3.000\text{ keputusan}$ | $4.500\text{ keputusan}$ | **$3.000\text{ keputusan}$ / metode** |
+| **Fokus Pengujian Ilmiah** | *Smoke & Sanity Test* | *Baseline Profiling* | *Stress & Failure Test* | **Benchmark Publikasi (Q1)** |
+
+---
+
+### 4.2 Arsitektur Pembangkit Beban: Fleet 100 Perangkat IoT
+
+Pembangkitan beban tidak hanya berasal dari 1 perangkat tunggal, melainkan mengadopsi model **Armada 100 Perangkat IoT Terdistribusi** (*Tier 1 Broker-Based Multi-Device Architecture*):
+
+```mermaid
+graph TD
+    subgraph IoT_Fleet ["Armada 100 Perangkat IoT Terdistribusi (Tier 1)"]
+        D0["Perangkat 0 (Batt: 85%, CPU: 12%)"]
+        D1["Perangkat 1 (Batt: 92%, CPU: 24%)"]
+        D2["... Perangkat d ..."]
+        D99["Perangkat 99 (Batt: 71%, CPU: 18%)"]
+    end
+
+    Broker["Broker Penjadwal Acak (Stochastic Device Selector)"]
+    D0 -.-> Broker
+    D1 -.-> Broker
+    D2 -.-> Broker
+    D99 -.-> Broker
+
+    Broker -->|"Perangkat Pemohon Aktif (currentSourceDevice)"| TaskGen["Task Attribute Generator"]
+    
+    subgraph Task_Profile ["Karakteristik Tugas Stokastik Baru (State [42:46])"]
+        T1["Data Size: 0.15 - 0.85 (KB/MB)"]
+        T2["MI Length: 0.15 - 0.85 (MIPS Complexity)"]
+        T3["Deadline: 0.25 - 0.80 (Latency SLA)"]
+        T4["Priority: 0.10 - 1.00 (QoS Importance)"]
+    end
+    
+    TaskGen --> Task_Profile
+    Task_Profile -->|"Keputusan Offloading (a_t: 0-6)"| Decision["Agen ERWO-PPO / Baselines"]
+```
+
+- **Inisialisasi Kondisi Awal Armada**:
+  - Tingkat baterai awal heterogen: $E_d \sim \mathcal{U}(0.65, 1.00)$ ($65\% - 100\%$).
+  - Utilisasi CPU awal: $u_d \sim \mathcal{U}(0.10, 0.35)$ ($10\% - 35\%$).
+  - Panjang antrean awal: $q_d \sim \mathcal{U}(0.00, 0.10)$.
+- **Pemilihan Perangkat Stokastik**: Pada setiap langkah $t$, perangkat pemohon $d_{\text{src}} \in [0, 99]$ dipilih secara acak untuk mengirimkan permintaan tugas offloading.
+- **Karakteristik 4 Atribut Tugas Baru** (dimasukkan ke ruang observasi `[42:45]`):
+  1. **Ukuran Data Payload ($d_{\text{task}}$)**: Nilai kontinu $0.15 - 0.85$, menentukan volume transmisi data nirkabel/WAN.
+  2. **Kompleksitas Komputasi ($c_{\text{task}}$)**: Nilai kontinu $0.15 - 0.85$ (Million Instructions / MI), menentukan beban siklus CPU.
+  3. **Batas Waktu Toleransi SLA ($T_{\text{deadline}}$)**: Nilai kontinu $0.25 - 0.80$, menentukan ambang batas pelanggaran deadline ($T_{\text{total}} > 1.35 \cdot T_{\text{deadline}}$).
+  4. **Derajat Kepentingan QoS ($p_{\text{qos}}$)**: Nilai kontinu $0.10 - 1.00$, menentukan bobot sensitivitas kualitas layanan.
+
+---
+
+### 4.3 Skenario Beban yang Dijalankan pada Publikasi Riset
+
+Seluruh hasil komparasi formal pada [**`report.md`**](file:///c:/Projects/erwo_ppo_project/report.md) dan [**`Data.md`**](file:///c:/Projects/erwo_ppo_project/Data.md) diperoleh dari eksekusi skenario beban dengan tahapan sistematis berikut:
+
+```
++---------------------------------------------------------------------------------------------------------+
+|                               TAHAPAN SKENARIO BEBAN EKSPERIMEN PUBLIKASI                               |
++---------------------------------------------------------------------------------------------------------+
+|  [Fase 1: Meta-Optimasi NSGA-II]  -->  [Fase 2: Training PPO 25k]  -->  [Fase 3: Paired Benchmark n=30] |
+|  - Workload: dynamic                   - Workload: dynamic              - Workload: dynamic             |
+|  - 40 Evaluasi Kandidat                - 25.000 Timesteps per Model     - 30 Episode x 100 Step         |
+|  - 3 Episode Validasi per Calon        - 4 Model (ERWO, Equal, Manual,  - 3.000 Tugas per Metode        |
+|  - Seleksi Knee-Point w*                 DQN-Equal)                     - Uji Wilcoxon & Cohen's d      |
++---------------------------------------------------------------------------------------------------------+
+```
+
+1. **Fase 1: Skenario Beban Optimasi Meta-Bobot NSGA-II**
+   - **Tujuan**: Menemukan kombinasi bobot reward optimal $w^* = [\alpha, \beta, \lambda, \gamma]$ di atas Pareto Front.
+   - **Konfigurasi**: Populasi $\text{Pop} = 10$, Generasi $\text{Gen} = 4$ (total $40$ evaluasi kandidat).
+   - **Beban Kerja**: Setiap kandidat bobot diuji melalui pelatihan singkat ($2.000$ timesteps) dan divalidasi pada $3$ episode beban `dynamic` dengan *fixed candidate evaluation seeds*.
+   - **Hasil**: Menghasilkan bobot Knee-Point optimal $w^* = [0.2546, 0.1209, 0.3251, 0.2994]$.
+
+2. **Fase 2: Skenario Beban Pelatihan Model Kebijakan RL**
+   - **Tujuan**: Melatih model jaringan kebijakan neural hingga konvergensi penuh.
+   - **Konfigurasi**: $25.000$ timesteps interaksi online langsung dengan lingkungan simulasi fisik iFogSim2.
+   - **Model yang Dilatih**: Dilakukan secara paralel dan setara untuk 4 model pembelajaran penguatan:
+     - `ERWO-PPO` (menggunakan bobot optimal $w^*$)
+     - `PPO-Equal` (bobot seragam $[0.25, 0.25, 0.25, 0.25]$)
+     - `PPO-Manual` (bobot intuisi pakar $[0.40, 0.20, 0.30, 0.10]$)
+     - `DQN-Equal` (arsitektur Deep Q-Network dengan kapasitas neuron setara)
+
+3. **Fase 3: Skenario Beban Evaluasi Benchmark Berpasangan (*Paired Seed Protocol*)**
+   - **Tujuan**: Menilai performa komparatif 8 metode secara adil dan bebas bias stokastik.
+   - **Konfigurasi Pengujian**:
+     - Jumlah episode evaluasi: $n = 30$ episode independen.
+     - Protokol Seed: `seed = 1000..1029` (ke-8 metode diuji pada urutan tugas dan fluktuasi jaringan yang **persis sama** per seed).
+     - Durasi per episode: $100$ langkah keputusan $\to$ **$3.000$ tugas offloading per metode**, atau total **$24.000$ keputusan komputasi** diuji di seluruh sistem.
+   - **Validasi Statistik**: Hasil dievaluasi menggunakan *Shapiro-Wilk Normality Test*, *Wilcoxon Signed-Rank Test* dengan koreksi *Holm*, dan ukuran efek *Cohen's d*.
+
+4. **Rekam Jejak Evolusi Eksperimen (Trial 1 s/d Trial 3)**:
+   - **Trial 1 (Prototipe Awal)**: $n = 10$ episode, NSGA-II Pop 6, Gen 3, model beban antrean statis ($0/7$ uji signifikan).
+   - **Trial 2 (Scaling Evaluasi)**: $n = 30$ episode, NSGA-II Pop 10, Gen 4, mendeteksi fenomena *Policy Collapse* akibat dominasi reward lokal ($1/7$ uji signifikan).
+   - **Trial 3 (Final Breakthrough — Yang Diterbitkan)**: $n = 30$ episode, implementasi model fisik heterogen dinamis, penyesuaian `ent_coef = 0.03`, berhasil membuktikan **$6 \text{ dari } 7$ uji statistik signifikan secara meyakinkan** ($p = 3.72 \times 10^{-9}, d = 1.1371$).
+
+---
+
+### 4.4 Dinamika Fluktuasi Beban & Respon Fisik Node
+
+Lingkungan simulasi menerapkan model umpan balik tertutup (*closed-loop dynamics*), di mana setiap aksi penempatan tugas secara langsung mengubah kondisi fisik sistem:
+
+1. **Respon pada Node Target Terpilih ($a_t$)**:
+   - **Eksekusi Lokal ($a_t = 0$)**:
+     $$\mathbf{u}^{\text{cpu}}_0 \leftarrow \min(1.0, \mathbf{u}^{\text{cpu}}_0 + 0.22 \cdot c_{\text{task}}), \quad \mathbf{q}^{\text{len}}_0 \leftarrow \min(1.0, \mathbf{q}^{\text{len}}_0 + 0.25 \cdot d_{\text{task}})$$
+     $$\text{Battery Drain} = 0.04 \cdot c_{\text{task}} \cdot (1.0 + \mathbf{u}^{\text{cpu}}_0)$$
+     *Penalti Kritis*: Jika baterai perangkat $< 8\%$, waktu eksekusi melambat $2.2\times$ dan energi naik $1.4\times$.
+   - **Offloading ke Fog Nodes ($a_t \in [1, 5]$)**:
+     $$\mathbf{u}^{\text{cpu}}_{a_t} \leftarrow \min(1.0, \mathbf{u}^{\text{cpu}}_{a_t} + 0.20 \cdot c_{\text{task}}), \quad \mathbf{q}^{\text{len}}_{a_t} \leftarrow \min(1.0, \mathbf{q}^{\text{len}}_{a_t} + 0.25 \cdot d_{\text{task}})$$
+     $$\text{Battery Drain Transmisi Nirkabel} = 0.006 \cdot d_{\text{task}} \cdot (1.0 + \mathbf{l}^{\text{net}}_{a_t})$$
+   - **Offloading ke Cloud Data Center ($a_t = 6$)**:
+     $$\mathbf{u}^{\text{cpu}}_6 \leftarrow \min(1.0, \mathbf{u}^{\text{cpu}}_6 + 0.10 \cdot c_{\text{task}}), \quad \mathbf{q}^{\text{len}}_6 \leftarrow \min(1.0, \mathbf{q}^{\text{len}}_6 + 0.15 \cdot d_{\text{task}})$$
+     $$\text{Battery Drain Transmisi WAN} = 0.012 \cdot d_{\text{task}} \cdot (1.0 + \mathbf{l}^{\text{net}}_6)$$
+
+2. **Peluruhan Beban Alami (*Natural Resource Decay*) pada Node Idle**:
+   - Node Fog dan Cloud yang tidak dipilih ($i \neq a_t$) mengalami penurunan beban CPU dan pengosongan antrean secara alami di setiap langkah:
+     $$\mathbf{u}^{\text{cpu}}_i \leftarrow \max(0.05, \mathbf{u}^{\text{cpu}}_i - 0.08), \quad \mathbf{q}^{\text{len}}_i \leftarrow \max(0.0, \mathbf{q}^{\text{len}}_i - 0.10)$$
+   - Sebanyak 99 perangkat IoT idle lainnya mengalami penurunan CPU ($-0.05$), antrean ($-0.08$), dan pengisian daya mikro ($+0.0008$).
+
+3. **Perhitungan Metrik Ketidakseimbangan Beban (*Load Imbalance*)**:
+   $$\sigma_{\text{CPU}} = \sqrt{\frac{1}{7} \sum_{j=0}^{6} \left(\mathbf{u}_j^{\text{cpu}} - \overline{\mathbf{u}}^{\text{cpu}}\right)^2}$$
+   ERWO-PPO terbukti berhasil mereduksi $\sigma_{\text{CPU}}$ dari $0.3271$ (Local-only) menjadi **$0.0450$**, mendistribusikan beban secara merata di 5 Fog Nodes.
+
+---
+
+### 4.5 Tabel Matriks Komparasi Skenario Beban Kerja
+
+| Parameter / Dimensi | `light` | `moderate` | `heavy` | `dynamic` (*Publikasi*) |
+|:---|:---:|:---:|:---:|:---:|
+| **Panjang Episode ($T_{\text{max}}$)** | $50\text{ langkah}$ | $100\text{ langkah}$ | $150\text{ langkah}$ | $100\text{ langkah}$ |
+| **Total Keputusan ($n=30$)** | $1.500\text{ tugas}$ | $3.000\text{ tugas}$ | $4.500\text{ tugas}$ | **$3.000\text{ tugas}$** |
+| **Tingkat Kedatangan Beban** | Rendah / Santai | Sedang / Nominal | Sangat Padat / Beruntun | **Stokastik / Fluktuatif** |
+| **Tekanan Antrean Node** | Buffer Minimal | Buffer Seimbang | Rentan Saturasi/Overflow | **Dinamis Multi-Node** |
+| **Dinamika Armada Baterai IoT** | Konsumsi Rendah | Konsumsi Sedang | Cepat Kritis ($<8\%$) | **Heterogen 100 Perangkat** |
+| **Variabilitas Karakteristik Task** | Rendah | Sedang | Tinggi | **Non-Stasioner Lengkap** |
+| **Peran dalam Siklus Riset** | *Smoke Test & Sanity* | *Baseline Profiling* | *Stress & Failure Testing* | **Tolok Ukur Utama (Tabel 10-14)** |
+
+---
+
+## 5. Rincian Komponen & Struktur Direktori
 
 ```text
 c:/Projects/erwo_ppo_project/
@@ -183,7 +385,7 @@ c:/Projects/erwo_ppo_project/
 
 ---
 
-## 5. 📖 Tutorial Walkthrough & Langkah Reproduksi Lengkap
+## 6. 📖 Tutorial Walkthrough & Langkah Reproduksi Lengkap
 
 Ikuti langkah-langkah di bawah ini untuk menjalankan ulang seluruh eksperimen dari awal hingga akhir:
 
@@ -296,7 +498,7 @@ Buka browser di: [**http://127.0.0.1:8000**](http://127.0.0.1:8000)
 
 ---
 
-## 6. Opsi Argumen Baris Perintah (CLI Options)
+## 7. Opsi Argumen Baris Perintah (CLI Options)
 
 Skrip `main.py` mendukung berbagai parameter kustomisasi fleksibel:
 
@@ -322,7 +524,7 @@ python main.py --workload dynamic --pop-size 20 --generations 15 --eval-episodes
 
 ---
 
-## 7. Protokol Komunikasi Inter-Process (TCP Socket IPC)
+## 8. Protokol Komunikasi Inter-Process (TCP Socket IPC)
 
 Komunikasi antara Python dan Java berjalan melalui pertukaran string teks berbasis baris JSON:
 
@@ -338,7 +540,7 @@ Komunikasi antara Python dan Java berjalan melalui pertukaran string teks berbas
 
 ---
 
-## 8. Struktur Laporan & Hasil Publikasi (Data.md & report.md)
+## 9. Struktur Laporan & Hasil Publikasi (Data.md & report.md)
 
 Hasil eksekusi otomatis memetakan luaran ke dalam format publikasi standar:
 
