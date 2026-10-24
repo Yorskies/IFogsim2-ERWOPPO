@@ -476,6 +476,8 @@ Jika Anda menyusun Bab Hasil dan Pembahasan (*Results and Discussion*), poin-poi
    Evaluasi menggunakan **Paired Seed Protocol ($n=30$)** memastikan bahwa seluruh algoritma diuji pada beban stokastik yang persis sama. Uji **Wilcoxon Signed-Rank Test** dengan $p$-value orde $10^{-5}$ hingga $10^{-9}$ menjamin hasil ini lolos uji *peer-review* di jurnal Q1 (seperti IEEE Internet of Things Journal, IEEE TPDS, atau Future Generation Computer Systems).
 3. **Reproducibility & Audit Trail**:
    Seluruh data eksperimen mentah per episode telah disimpan di [`logs/experiments/exp_20260819_152247_dynamic/`](file:///c:/Projects/erwo_ppo_project/logs/experiments/exp_20260819_152247_dynamic/) dan siap dijadikan *supplementary material* untuk verifikasi independen oleh reviewer.
+4. **Audit Dinamika Inferensi & Asimetri Beban Node**:
+   Investigasi mendalam terkait sensitivitas gradien, efek `deterministic=True`, dan dinamika saturasi beban Fog Node telah didokumentasikan secara rinci pada berkas teknis [`ANALISIS_INFERENSI_MODEL.md`](file:///c:/Projects/erwo_ppo_project/ANALISIS_INFERENSI_MODEL.md).
 
 ---
 

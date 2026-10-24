@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ERWO-PPO Interactive Research Dashboard</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- HEADER -->
+        <header>
+            <div class="header-left">
+                <h1><span class="neon-cyan">ERWO-PPO</span> <span class="header-sub">Task Offloading Live Dashboard</span></h1>
+                <p class="tagline">Multi-Objective Evolutionary RL on 3-Tier Heterogeneous Fog-Cloud Architecture</p>
+            </div>
+            <div class="header-right">
+                <div class="status-indicator">
+                    <span class="dot" id="conn-dot"></span>
+                    <span id="conn-status">Connecting...</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- INTERACTIVE CONTROL TOOLBAR -->
+        <section class="toolbar-panel glass">
+            <div class="toolbar-group">
+                <button id="btn-play" class="btn btn-primary" title="Start / Resume Simulation">
+                    <span class="btn-icon">▶</span> Run
+                </button>
+                <button id="btn-pause" class="btn btn-secondary" title="Pause Simulation">
+                    <span class="btn-icon">⏸</span> Pause
+                </button>
+                <button id="btn-reset" class="btn btn-danger" title="Reset Environment">
+                    <span class="btn-icon">🔄</span> Reset
+                </button>
+            </div>
+
+            <div class="toolbar-divider"></div>
+
+            <div class="toolbar-group">
+                <div class="control-item">
+                    <label for="select-method">Offloading Method:</label>
+                    <select id="select-method" class="select-box">
+                        <option value="ERWO-PPO" selected>ERWO-PPO (Optimized w*)</option>
+                        <option value="Least-loaded fog">Least-Loaded Fog (Dynamic)</option>
+                        <option value="Nearest-fog">Nearest-Fog (Latency-driven)</option>
+                        <option value="Cloud-only">Cloud-Only (High Compute)</option>
+                        <option value="Local-only">Local-Only (IoT Device)</option>
+                    </select>
+                </div>
+
+                <div class="control-item">
+                    <label for="select-workload">Workload Scenario:</label>
+                    <select id="select-workload" class="select-box">
+                        <option value="dynamic" selected>Dynamic (Fluctuating)</option>
+                        <option value="heavy">Heavy (High Stress)</option>
+                        <option value="moderate">Moderate</option>
+                        <option value="light">Light</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="toolbar-divider"></div>
+
+            <div class="toolbar-group speed-group">
+                <label for="slider-speed">Step Delay: <span id="speed-display" class="neon-purple">150 ms</span></label>
+                <input type="range" id="slider-speed" min="30" max="600" step="10" value="150" class="slider">
+            </div>
+        </section>
+
+        <!-- STATS OVERVIEW CARDS -->
+        <section class="stats-overview">
+            <div class="stat-card glass">
+                <span class="stat-label">Progress</span>
+                <p id="stat-step" class="stat-val">Step 0</p>
+                <span id="stat-episode" class="stat-sub">Episode 1</span>
+            </div>
+
+            <div class="stat-card glass">
+                <span class="stat-label">Offloading Target</span>
+                <p id="stat-action" class="stat-val neon-cyan">-</p>
+                <span id="stat-tier" class="stat-sub">Waiting for action...</span>
+            </div>
+
+            <div class="stat-card glass">
+                <span class="stat-label">SLA Deadline Status</span>
+                <p id="stat-sla" class="stat-val"><span class="badge badge-success">COMPLIANT</span></p>
+                <span id="stat-sla-sub" class="stat-sub">Latency within limit</span>
+            </div>
+
+            <div class="stat-card glass">
+                <span class="stat-label">Load Imbalance ($\sigma$)</span>
+                <p id="stat-load" class="stat-val neon-purple">0.0000</p>
+                <span class="stat-sub">CPU Distribution SD</span>
+            </div>
+
+            <div class="stat-card glass">
+                <span class="stat-label">Reward (Step / Total)</span>
+                <p id="stat-reward" class="stat-val">0.00</p>
+                <span id="stat-cum-reward" class="stat-sub">Cumulative: 0.00</span>
+            </div>
+
+            <div class="stat-card glass">
+                <span class="stat-label">QoS Satisfaction</span>
+                <p id="stat-qos" class="stat-val neon-green">0.00</p>
+                <span class="stat-sub">Quality Factor</span>
+            </div>
+        </section>
+
+        <!-- MAIN GRID: TOPOLOGY & NODE RESOURCE MONITOR -->
+        <main class="grid-main">
+            <!-- LEFT PANEL: VIS.JS NETWORK TOPOLOGY -->
+            <section class="panel glass">
+                <div class="panel-header">
+                    <h2>3-Tier Hierarchical Network Topology</h2>
+                    <div class="legend">
+                        <span class="legend-item"><span class="legend-dot cloud-dot"></span> Tier 3: Cloud</span>
+                        <span class="legend-item"><span class="legend-dot fog-dot"></span> Tier 2: Fog 1-5</span>
+                        <span class="legend-item"><span class="legend-dot iot-dot"></span> Tier 1: Local IoT</span>
+                    </div>
+                </div>
+                <div id="network-graph" class="graph-container"></div>
+                <div class="topology-caption">
+                    *Ukuran & warna lingkaran merepresentasikan utilisasi CPU node (Biru: Rendah, Kuning: Sedang, Merah: Padat). Halo Cyan menandakan node terpilih.
+                </div>
+            </section>
+
+            <!-- RIGHT PANEL: TASK PROFILE & 7-NODE STATUS MONITOR -->
+            <section class="panel glass">
+                <div class="panel-header">
+                    <h2>Current Task & Node Resource Monitor</h2>
+                    <span id="live-method-badge" class="badge badge-method">ERWO-PPO</span>
+                </div>
+
+                <!-- TASK PROFILE SUMMARY -->
+                <div class="task-profile-box">
+                    <div class="task-metric">
+                        <span class="task-metric-title">Data Size:</span>
+                        <span id="task-size" class="task-metric-val">0.00 KB</span>
+                    </div>
+                    <div class="task-metric">
+                        <span class="task-metric-title">MI Length:</span>
+                        <span id="task-mi" class="task-metric-val">0.00 MI</span>
+                    </div>
+                    <div class="task-metric">
+                        <span class="task-metric-title">Deadline:</span>
+                        <span id="task-deadline" class="task-metric-val">0.00 s</span>
+                    </div>
+                    <div class="task-metric">
+                        <span class="task-metric-title">Priority:</span>
+                        <span id="task-priority" class="task-metric-val">High</span>
+                    </div>
+                </div>
+
+                <!-- 7 NODES REAL-TIME STATUS BARS -->
+                <div class="node-table-container">
+                    <table class="node-table">
+                        <thead>
+                            <tr>
+                                <th>Node ID & Name</th>
+                                <th>Tier</th>
+                                <th>CPU Load</th>
+                                <th>Queue Length</th>
+                            </tr>
+                        </thead>
+                        <tbody id="node-tbody">
+                            <!-- Injected by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+
+        <!-- 100 EDGE DEVICES FLEET HEALTH MONITOR (TIER 1 BROKER MODEL) -->
+        <section class="panel glass fleet-panel">
+            <div class="panel-header">
+                <div>
+                    <h2>Tier 1: 100 Edge Devices Fleet Health & Battery Monitor</h2>
+                    <p class="tagline">Broker-Based Edge Architecture: Real-time individual battery drain & task generation</p>
+                </div>
+                <div class="fleet-summary-badges">
+                    <span class="fleet-badge">Active Requester: <strong id="fleet-active-src" class="neon-cyan">Device #0</strong></span>
+                    <span class="fleet-badge">Fleet Mean Battery: <strong id="fleet-mean-batt" class="neon-green">100.0%</strong></span>
+                    <span class="fleet-badge">Critical (&lt;10%): <strong id="fleet-depleted-count" class="badge badge-success">0 Units</strong></span>
+                </div>
+            </div>
+
+            <!-- 10x10 INTERACTIVE BATTERY MATRIX -->
+            <div class="fleet-matrix-wrapper">
+                <div id="fleet-grid" class="fleet-grid">
+                    <!-- 100 cells generated dynamically in app.js -->
+                </div>
+                <div class="fleet-legend">
+                    <span class="legend-item"><span class="legend-box batt-good"></span> &gt; 60% Healthy</span>
+                    <span class="legend-item"><span class="legend-box batt-mid"></span> 25% - 60% Warning</span>
+                    <span class="legend-item"><span class="legend-box batt-low"></span> &lt; 25% Low</span>
+                    <span class="legend-item"><span class="legend-box batt-depleted"></span> &lt; 10% Critical</span>
+                    <span class="legend-item"><span class="legend-box batt-active"></span> Active Device Halo</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- CHARTS GRID -->
+        <section class="grid-charts">
+            <div class="panel glass">
+                <div class="panel-header">
+                    <h2>Live Reward Trajectory</h2>
+                    <span class="chart-tag">Step-by-Step Optimization</span>
+                </div>
+                <div class="chart-wrapper">
+                    <canvas id="rewardChart"></canvas>
+                </div>
+            </div>
+
+            <div class="panel glass">
+                <div class="panel-header">
+                    <h2>Multi-Objective Performance Tracking</h2>
+                    <span class="chart-tag">Latency vs. Energy vs. QoS</span>
+                </div>
+                <div class="chart-wrapper">
+                    <canvas id="performanceChart"></canvas>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script src="/static/app.js"></script>
+</body>
+</html>

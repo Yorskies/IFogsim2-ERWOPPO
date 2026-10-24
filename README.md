@@ -19,6 +19,7 @@ Kerangka kerja riset terintegrasi yang menggabungkan **Multi-Objective Evolution
    - [Langkah 3: Menjalankan Benchmark Lengkap 8 Metode](#langkah-3-menjalankan-benchmark-lengkap-8-metode)
    - [Langkah 4: Menghasilkan Visualisasi Grafik Ilmiah (Figures 3 s/d 10)](#langkah-4-menghasilkan-visualisasi-grafik-ilmiah-figures-3-sd-10)
    - [Langkah 5: Memeriksa Hasil Data & Laporan Audit](#langkah-5-memeriksa-hasil-data--laporan-audit)
+   - [Langkah 6: Visualisasi Real-Time & Live Web Dashboard](#langkah-6-visualisasi-real-time--live-web-dashboard)
 6. [Opsi Argumen Baris Perintah (CLI Options)](#6-opsi-argumen-baris-perintah-cli-options)
 7. [Protokol Komunikasi Inter-Process (TCP Socket IPC)](#7-protokol-komunikasi-inter-process-tcp-socket-ipc)
 8. [Struktur Laporan & Hasil Publikasi (Data.md & report.md)](#8-struktur-laporan--hasil-publikasi-datamd--reportmd)
@@ -271,6 +272,27 @@ Skrip ini akan otomatis merender 8 gambar resolusi tinggi (PNG 300 DPI untuk tin
 1. **Tabel Data Publikasi**: Buka [**`Data.md`**](file:///c:/Projects/erwo_ppo_project/Data.md) untuk melihat data Tabel 10 s/d Tabel 14 yang terisi 100% rapi.
 2. **Laporan Komprehensif Riset**: Buka [**`report.md`**](file:///c:/Projects/erwo_ppo_project/report.md) untuk membaca metodologi lengkap (Section 5.6–5.12), grafik Figures 3–10 yang tertanam, riwayat Trial 1–3, dan narasi pembahasan akademik.
 3. **Audit Trail Mentah**: Periksa folder `logs/experiments/exp_.../` untuk file data mentah per episode `benchmark_episodes.csv` atau uji statistik `statistical_tests.json`.
+
+---
+
+### Langkah 6: Visualisasi Real-Time & Live Web Dashboard
+
+Proyek ini menyediakan antarmuka visualisasi web interaktif berbasis **FastAPI**, **WebSocket**, **Vis.js**, dan **Chart.js** untuk melihat proses offloading secara langsung:
+
+#### 1. Menjalankan Server Dashboard:
+```powershell
+# Buka Terminal dan jalankan:
+python run_dashboard.py
+```
+Buka browser di: [**http://127.0.0.1:8000**](http://127.0.0.1:8000)
+
+#### 2. Menjalankan Simulasi (Dua Pilihan):
+- **Opsi A (Langsung dari Web UI)**: Klik tombol **Run (▶)** di toolbar halaman dashboard. Anda dapat mengatur delay step (30–600 ms), memilih metode (`ERWO-PPO`, `Least-loaded fog`, `Nearest-fog`, dll.), menjeda (Pause), atau me-reset simulasi langsung dari browser.
+- **Opsi B (Via CLI Demo Playback)**: Buka terminal baru dan jalankan skrip demo:
+  ```powershell
+  python run_demo.py --method ERWO-PPO --workload dynamic --delay 0.12
+  ```
+  Data telemetri akan disiarkan secara real-time ke web dashboard.
 
 ---
 

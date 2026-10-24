@@ -164,6 +164,15 @@ public class IFogSimSocketServer {
         // Generator bilangan acak untuk simulasi stokastik
         Random random = new Random(System.nanoTime());
 
+        // -----------------------------------------------------------------
+        // PEMODELAN FLEET 100 PERANGKAT IoT (TIER 1 - BROKER BASED MODEL)
+        // -----------------------------------------------------------------
+        final int NUM_IOT_DEVICES = 100;
+        double[] iotDeviceCpu = new double[NUM_IOT_DEVICES];
+        double[] iotDeviceBattery = new double[NUM_IOT_DEVICES];
+        double[] iotDeviceQueue = new double[NUM_IOT_DEVICES];
+        int currentSourceDevice = 0;
+
         try (
                 // Stream pembaca baris teks perintah dari Python
                 BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream(), "UTF-8"));
@@ -216,14 +225,22 @@ public class IFogSimSocketServer {
                     }
 
                     // -----------------------------------------------------------------
-                    // Inisialisasi Fitur Observasi 46 Dimensi:
+                    // Inisialisasi Fitur Observasi 46 Dimensi & Fleet 100 Perangkat IoT:
                     // -----------------------------------------------------------------
 
+                    // Inisialisasi 100 Perangkat IoT
+                    for (int d = 0; d < NUM_IOT_DEVICES; d++) {
+                        iotDeviceCpu[d] = 0.10 + (0.25 * random.nextDouble());
+                        iotDeviceBattery[d] = 0.65 + (0.35 * random.nextDouble());
+                        iotDeviceQueue[d] = 0.08 * random.nextDouble();
+                    }
+                    currentSourceDevice = random.nextInt(NUM_IOT_DEVICES);
+
                     // 1. Inisialisasi Utilisasi CPU Awal ([0..6]):
-                    // - Node 0 (Local IoT): CPU 30% - 50%
-                    // - Node 1..5 (Fog Nodes): CPU 20% - 40%
-                    // - Node 6 (Cloud Server): CPU 10% - 30%
-                    currentState[0] = 0.3 + (0.2 * random.nextDouble());
+                    // - Node 0: mewakili CPU perangkat pemohon saat ini (currentSourceDevice)
+                    // - Node 1..5: Fog Nodes (20% - 40%)
+                    // - Node 6: Cloud Server (10% - 30%)
+                    currentState[0] = iotDeviceCpu[currentSourceDevice];
                     for (int i = 1; i < 6; i++) {
                         currentState[i] = 0.2 + (0.2 * random.nextDouble());
                     }
@@ -249,13 +266,15 @@ public class IFogSimSocketServer {
                     }
                     currentState[27] = 0.65 + (0.2 * random.nextDouble());
 
-                    // 5. Inisialisasi Panjang Antrean Awal ([28..34]): Antrean longgar 0.05 - 0.25
-                    for (int i = 28; i < 35; i++) {
+                    // 5. Inisialisasi Panjang Antrean Awal ([28..34]):
+                    currentState[28] = iotDeviceQueue[currentSourceDevice];
+                    for (int i = 29; i < 35; i++) {
                         currentState[i] = 0.05 + (0.20 * random.nextDouble());
                     }
 
-                    // 6. Inisialisasi Riwayat Konsumsi Energi ([35..41]): 0.1 - 0.4
-                    for (int i = 35; i < 42; i++) {
+                    // 6. Inisialisasi Riwayat Konsumsi Energi ([35..41]):
+                    currentState[35] = Math.max(0.0, 1.0 - iotDeviceBattery[currentSourceDevice]);
+                    for (int i = 36; i < 42; i++) {
                         currentState[i] = 0.10 + (0.30 * random.nextDouble());
                     }
 
@@ -265,6 +284,15 @@ public class IFogSimSocketServer {
                     currentState[44] = 0.3 + (0.5 * random.nextDouble()); // Batas waktu toleransi (task deadline)
                     currentState[45] = 0.2 + (0.8 * random.nextDouble()); // Derajat prioritas QoS (task priority)
 
+                    // Hitung rata-rata baterai fleet
+                    double bSum = 0.0;
+                    int bDep = 0;
+                    for (int d = 0; d < NUM_IOT_DEVICES; d++) {
+                        bSum += iotDeviceBattery[d];
+                        if (iotDeviceBattery[d] < 0.10) bDep++;
+                    }
+                    double meanFleetBatt = bSum / NUM_IOT_DEVICES;
+
                     // Membangun string balasan JSON status reset
                     StringBuilder sb = new StringBuilder();
                     sb.append("{\"status\":\"ok\",\"obs\":[");
@@ -273,7 +301,16 @@ public class IFogSimSocketServer {
                         if (i < STATE_DIM - 1)
                             sb.append(",");
                     }
-                    sb.append("],\"step\":0,\"workload\":\"").append(currentWorkload).append("\"}");
+                    sb.append("],\"step\":0,\"workload\":\"").append(currentWorkload).append("\",");
+                    sb.append("\"source_device_id\":").append(currentSourceDevice).append(",");
+                    sb.append("\"mean_fleet_battery\":").append(String.format(Locale.US, "%.4f", meanFleetBatt)).append(",");
+                    sb.append("\"depleted_devices_count\":").append(bDep).append(",");
+                    sb.append("\"devices_battery\":[");
+                    for (int d = 0; d < NUM_IOT_DEVICES; d++) {
+                        sb.append(String.format(Locale.US, "%.3f", iotDeviceBattery[d]));
+                        if (d < NUM_IOT_DEVICES - 1) sb.append(",");
+                    }
+                    sb.append("]}");
 
                     // Mengirimkan observasi awal ke Python
                     out.println(sb.toString());
@@ -317,85 +354,115 @@ public class IFogSimSocketServer {
                     double energySpent; // Konsumsi daya listrik baterai perangkat IoT lokal
 
                     // -----------------------------------------------------------------
-                    // PEMODELAN FISIK KOMPUTASI & JARINGAN 3-TIER:
+                    // PEMODELAN FISIK KOMPUTASI & JARINGAN 3-TIER (BROKER 100 PERANGKAT):
                     // -----------------------------------------------------------------
+                    int srcDev = currentSourceDevice;
+
                     if (targetNode == 0) {
-                        // KASUS A: Eksekusi Lokal di IoT Gateway (Node 0)
-                        // - Transmisi nirkabel = 0.0 ms (karena tidak keluar dari perangkat)
-                        // - Eksekusi lambat (1.60x) karena kapasitas CPU IoT yang sangat lemah
-                        // - Antrean lokal cepat menumpuk (0.60x)
-                        // - Konsumsi energi baterai lokal SANGAT TINGGI (1.25x taskMi)
+                        // KASUS A: Eksekusi Lokal di Perangkat IoT Pemohon (srcDev)
                         transTime = 0.0;
-                        execTime = 1.60 * taskMi * (1.0 + nodeCpuLoad);
-                        queueTime = nodeQueueLoad * 0.60;
+                        execTime = 1.60 * taskMi * (1.0 + iotDeviceCpu[srcDev]);
+                        queueTime = iotDeviceQueue[srcDev] * 0.60;
                         energySpent = 1.25 * taskMi;
+
+                        // Pengurangan baterai nyata pada perangkat pemohon
+                        double drain = 0.04 * taskMi * (1.0 + iotDeviceCpu[srcDev]);
+                        iotDeviceBattery[srcDev] = Math.max(0.0, iotDeviceBattery[srcDev] - drain);
+
+                        // Penalti degradasi jika baterai kritis (< 8%)
+                        if (iotDeviceBattery[srcDev] < 0.08) {
+                            execTime *= 2.2;
+                            energySpent *= 1.4;
+                        }
+
+                        // Kenaikan beban CPU dan antrean perangkat pemohon
+                        iotDeviceCpu[srcDev] = Math.min(1.0, iotDeviceCpu[srcDev] + 0.22 * taskMi);
+                        iotDeviceQueue[srcDev] = Math.min(1.0, iotDeviceQueue[srcDev] + 0.25 * taskDataSize);
+
                     } else if (targetNode >= 1 && targetNode <= 5) {
                         // KASUS B: Offloading ke Fog Nodes Terdistribusi (Node 1 s/d 5)
-                        // - Transmisi nirkabel 5G/Wi-Fi berkecepatan tinggi (0.35x taskData)
-                        // - Eksekusi CPU Fog cepat dan responsif (0.45x taskMi)
-                        // - Antrean terbagi di multi-node (0.35x queue)
-                        // - Sangat hemat energi baterai IoT (hanya 0.25x untuk radio transmitter)
                         transTime = 0.35 * taskDataSize * (1.0 + nodeNetLatency);
                         execTime = 0.45 * taskMi * (1.0 + nodeCpuLoad);
                         queueTime = nodeQueueLoad * 0.35;
                         energySpent = 0.25 * taskDataSize * (1.0 + nodeNetLatency);
+
+                        // Pengurangan baterai ringan untuk transmisi nirkabel
+                        double drain = 0.006 * taskDataSize * (1.0 + nodeNetLatency);
+                        iotDeviceBattery[srcDev] = Math.max(0.0, iotDeviceBattery[srcDev] - drain);
+
+                        // Beban Fog Node terpilih meningkat
+                        currentState[targetNode] = Math.min(1.0, currentState[targetNode] + 0.20 * taskMi);
+                        currentState[28 + targetNode] = Math.min(1.0, currentState[28 + targetNode] + 0.25 * taskDataSize);
+
                     } else {
                         // KASUS C: Offloading ke Cloud Data Center Terpusat (Node 6)
-                        // - Mengalami penalti transmisi WAN jarak jauh yang tinggi (1.15x taskData)
-                        // - Eksekusi CPU Cloud SANGAT CEPAT (0.10x taskMi) berkat skala server besar
-                        // - Kapasitas antrean Cloud sangat longgar (0.15x queue)
-                        // - Konsumsi energi transmisi daya tinggi ke gateway WAN (0.45x)
                         transTime = 1.15 * taskDataSize * (1.0 + nodeNetLatency);
                         execTime = 0.10 * taskMi * (1.0 + nodeCpuLoad);
                         queueTime = nodeQueueLoad * 0.15;
                         energySpent = 0.45 * taskDataSize * (1.0 + nodeNetLatency);
+
+                        // Pengurangan baterai sedang untuk transmisi WAN
+                        double drain = 0.012 * taskDataSize * (1.0 + nodeNetLatency);
+                        iotDeviceBattery[srcDev] = Math.max(0.0, iotDeviceBattery[srcDev] - drain);
+
+                        // Beban Cloud meningkat
+                        currentState[6] = Math.min(1.0, currentState[6] + 0.10 * taskMi);
+                        currentState[28 + 6] = Math.min(1.0, currentState[28 + 6] + 0.15 * taskDataSize);
                     }
 
                     // -----------------------------------------------------------------
                     // PERHITUNGAN 4 PARAMETER SUB-REWARD MULTI-OBJEKTIF:
                     // -----------------------------------------------------------------
 
-                    // 1. Total Latensi dan Sub-Reward Latensi (alpha):
-                    // Fungsi peluruhan eksponensial exp(-1.3 * totalLatency) ternormalisasi [0..1]
+                    // 1. Total Latensi dan Sub-Reward Latensi (alpha)
                     double totalLatency = transTime + queueTime + execTime;
                     double rLatency = Math.min(1.0, Math.max(0.0, Math.exp(-1.30 * totalLatency)));
 
-                    // 2. Sub-Reward Efisiensi Energi Baterai IoT (beta):
-                    // Ternormalisasi linear 1.0 - (energySpent / 1.5)
+                    // 2. Sub-Reward Efisiensi Energi Baterai IoT (beta)
                     double rEnergy = Math.min(1.0, Math.max(0.0, 1.0 - (energySpent / 1.50)));
 
-                    // 3. Sub-Reward Kepatuhan Batas Waktu SLA / Deadline (lambda):
-                    // Memberikan reward 1.0 jika tepat waktu, atau 0.0 jika melanggar batas
-                    // (violated)
+                    // 3. Sub-Reward Kepatuhan Batas Waktu SLA / Deadline (lambda)
                     boolean isViolated = totalLatency > (taskDeadline * 1.35);
                     double rDeadline = isViolated ? 0.0 : 1.0;
 
-                    // 4. Sub-Reward Kepuasan Kualitas Layanan / QoS (gamma):
-                    // Memperhitungkan kekosongan antrean, beban CPU, dan prioritas urgensi tugas
+                    // 4. Sub-Reward Kepuasan Kualitas Layanan / QoS (gamma)
                     double qosFactor = (1.0 - nodeQueueLoad) * (1.0 - nodeCpuLoad);
                     double rQoS = isViolated ? Math.min(1.0, Math.max(0.0, 0.15 * qosFactor))
                             : Math.min(1.0, Math.max(0.0, 0.65 * qosFactor + 0.35 * taskPriority));
 
                     // -----------------------------------------------------------------
-                    // UPDATE DINAMIKA BEBAN BERBASIS AKSI (ACTION-BASED STATE DYNAMICS):
+                    // UPDATE DINAMIKA BEBAN BERBASIS AKSI:
                     // -----------------------------------------------------------------
 
-                    // Node yang dipilih menerima lonjakan beban komputasi CPU dan antrean tugas
-                    currentState[targetNode] = Math.min(1.0, currentState[targetNode] + 0.20 * taskMi);
-                    currentState[28 + targetNode] = Math.min(1.0, currentState[28 + targetNode] + 0.25 * taskDataSize);
-
-                    // Node lain yang tidak dipilih menyelesaikan tugas dalam antreannya secara
-                    // bertahap (natural decay)
-                    for (int i = 0; i < NUM_NODES; i++) {
+                    // Peluruhan alami Fog Nodes 1..5 dan Cloud yang tidak dipilih
+                    for (int i = 1; i < NUM_NODES; i++) {
                         if (i != targetNode) {
-                            currentState[i] = Math.max(0.05, currentState[i] - 0.08); // Peluruhan beban CPU
-                            currentState[28 + i] = Math.max(0.0, currentState[28 + i] - 0.10); // Pengurangan panjang
-                                                                                               // antrean
+                            currentState[i] = Math.max(0.05, currentState[i] - 0.08);
+                            currentState[28 + i] = Math.max(0.0, currentState[28 + i] - 0.10);
                         }
                     }
 
-                    // Membangkitkan karakteristik profil tugas baru yang tiba untuk timestep
-                    // berikutnya
+                    // Peluruhan alami 99 perangkat IoT lainnya yang idle
+                    for (int d = 0; d < NUM_IOT_DEVICES; d++) {
+                        if (d != srcDev) {
+                            iotDeviceCpu[d] = Math.max(0.05, iotDeviceCpu[d] - 0.05);
+                            iotDeviceQueue[d] = Math.max(0.0, iotDeviceQueue[d] - 0.08);
+                            if (iotDeviceBattery[d] < 1.0) {
+                                iotDeviceBattery[d] = Math.min(1.0, iotDeviceBattery[d] + 0.0008);
+                            }
+                        }
+                    }
+
+                    // Pemilihan perangkat IoT yang menghasilkan tugas berikutnya
+                    int nextSourceDevice = random.nextInt(NUM_IOT_DEVICES);
+                    currentSourceDevice = nextSourceDevice;
+
+                    // Update observasi indeks 0, 28, 35 dengan profil perangkat pemohon berikutnya
+                    currentState[0] = iotDeviceCpu[nextSourceDevice];
+                    currentState[28] = iotDeviceQueue[nextSourceDevice];
+                    currentState[35] = Math.max(0.0, 1.0 - iotDeviceBattery[nextSourceDevice]);
+
+                    // Membangkitkan karakteristik profil tugas baru yang tiba untuk timestep berikutnya
                     currentState[42] = 0.15 + 0.70 * random.nextDouble(); // Data size baru
                     currentState[43] = 0.15 + 0.70 * random.nextDouble(); // MI length baru
                     currentState[44] = 0.25 + 0.55 * random.nextDouble(); // Deadline baru
@@ -403,7 +470,6 @@ public class IFogSimSocketServer {
 
                     // -----------------------------------------------------------------
                     // PERHITUNGAN STANDAR DEVIASI LOAD IMBALANCE (sigma_CPU):
-                    // Mengukur tingkat ketidakseimbangan beban komputasi CPU di seluruh 7 node
                     // -----------------------------------------------------------------
                     double sum = 0.0;
                     for (int i = 0; i < NUM_NODES; i++)
@@ -416,9 +482,18 @@ public class IFogSimSocketServer {
                     }
                     double loadImbalance = Math.sqrt(varSum / NUM_NODES);
 
-                    // Penentuan kondisi akhir episode (terminasi / batas maksimum step)
+                    // Kondisi selesai
                     boolean done = false;
                     boolean truncated = currentStep >= maxSteps;
+
+                    // Statistik baterai fleet 100 perangkat
+                    double fleetBattSum = 0.0;
+                    int fleetDepleted = 0;
+                    for (int d = 0; d < NUM_IOT_DEVICES; d++) {
+                        fleetBattSum += iotDeviceBattery[d];
+                        if (iotDeviceBattery[d] < 0.10) fleetDepleted++;
+                    }
+                    double meanFleetBatt = fleetBattSum / NUM_IOT_DEVICES;
 
                     // -----------------------------------------------------------------
                     // FORMATTING DAN PENGIRIMAN RESPON JSON KE PYTHON:
@@ -446,14 +521,21 @@ public class IFogSimSocketServer {
                     // Metrik diagnostik performa tambahan
                     sb.append("\"total_latency\":").append(String.format(Locale.US, "%.5f", totalLatency)).append(",");
                     sb.append("\"energy_spent\":").append(String.format(Locale.US, "%.5f", energySpent)).append(",");
-                    sb.append("\"load_imbalance\":").append(String.format(Locale.US, "%.5f", loadImbalance))
-                            .append(",");
+                    sb.append("\"load_imbalance\":").append(String.format(Locale.US, "%.5f", loadImbalance)).append(",");
                     sb.append("\"is_violated\":").append(isViolated).append(",");
                     sb.append("\"target_node\":").append(targetNode).append(",");
                     sb.append("\"step\":").append(currentStep).append(",");
                     sb.append("\"done\":").append(done).append(",");
-                    sb.append("\"truncated\":").append(truncated);
-                    sb.append("}");
+                    sb.append("\"truncated\":").append(truncated).append(",");
+                    sb.append("\"source_device_id\":").append(srcDev).append(",");
+                    sb.append("\"mean_fleet_battery\":").append(String.format(Locale.US, "%.4f", meanFleetBatt)).append(",");
+                    sb.append("\"depleted_devices_count\":").append(fleetDepleted).append(",");
+                    sb.append("\"devices_battery\":[");
+                    for (int d = 0; d < NUM_IOT_DEVICES; d++) {
+                        sb.append(String.format(Locale.US, "%.3f", iotDeviceBattery[d]));
+                        if (d < NUM_IOT_DEVICES - 1) sb.append(",");
+                    }
+                    sb.append("]}");
 
                     // Mengirimkan baris JSON ke socket Python
                     out.println(sb.toString());
