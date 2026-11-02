@@ -46,10 +46,12 @@
                     <label for="select-method">Offloading Method:</label>
                     <select id="select-method" class="select-box">
                         <option value="ERWO-PPO" selected>ERWO-PPO (Optimized w*)</option>
-                        <option value="Least-loaded fog">Least-Loaded Fog (Dynamic)</option>
-                        <option value="Nearest-fog">Nearest-Fog (Latency-driven)</option>
-                        <option value="Cloud-only">Cloud-Only (High Compute)</option>
-                        <option value="Local-only">Local-Only (IoT Device)</option>
+                        <option value="PPO-Equal">PPO (Equal)</option>
+                        <option value="DQN-Equal">DQN (Equal)</option>
+                        <option value="DDPG-Equal">DDPG (Equal)</option>
+                        <option value="Q-Learning-Equal">Q-Learning (Equal)</option>
+                        <option value="Least Fog">Least Fog (Dynamic)</option>
+                        <option value="Nearest Fog">Nearest Fog (Latency-driven)</option>
                     </select>
                 </div>
 
@@ -231,3 +233,4 @@
     <script src="/static/app.js"></script>
 </body>
 </html>
+

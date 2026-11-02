@@ -147,9 +147,51 @@ def get_policy_model(method_name: str):
         else:
             print("[SimWorker] Model PPO belum ditemukan, fallback ke LeastLoadedFogPolicy")
             return LeastLoadedFogPolicy()
-    elif method_name == "Least-loaded fog":
+    elif method_name in ("PPO-Equal", "PPO (Equal)"):
+        model_path = os.path.join(ROOT_DIR, "models", "ppo_equal.zip")
+        if os.path.exists(model_path):
+            try:
+                from stable_baselines3 import PPO
+                return PPO.load(model_path)
+            except Exception:
+                pass
         return LeastLoadedFogPolicy()
-    elif method_name == "Nearest-fog":
+
+    elif method_name in ("DQN", "DQN-Equal"):
+        model_path = os.path.join(ROOT_DIR, "models", "dqn_equal.zip")
+        if os.path.exists(model_path):
+            try:
+                from stable_baselines3 import DQN
+                return DQN.load(model_path)
+            except Exception:
+                pass
+        return LeastLoadedFogPolicy()
+
+    elif method_name in ("DDPG", "DDPG-Equal"):
+        model_path = os.path.join(ROOT_DIR, "models", "ddpg_equal.zip")
+        if os.path.exists(model_path):
+            try:
+                from stable_baselines3 import DDPG
+                from agent_baselines import DDPGPolicyWrapper
+                return DDPGPolicyWrapper(DDPG.load(model_path))
+            except Exception:
+                pass
+        return LeastLoadedFogPolicy()
+
+    elif method_name in ("Q-Learning", "Q-Learning-Equal", "Q-learning"):
+        model_path = os.path.join(ROOT_DIR, "models", "qlearning_equal.pkl")
+        if os.path.exists(model_path):
+            try:
+                import pickle
+                with open(model_path, "rb") as f:
+                    return pickle.load(f)
+            except Exception:
+                pass
+        return LeastLoadedFogPolicy()
+
+    elif method_name in ("Least Fog", "Least-loaded fog"):
+        return LeastLoadedFogPolicy()
+    elif method_name in ("Nearest Fog", "Nearest-fog"):
         return NearestFogPolicy()
     elif method_name == "Cloud-only":
         return CloudOnlyPolicy()
@@ -380,3 +422,4 @@ if __name__ == "__main__":
     print(f"   Akses Dashboard di Browser: http://{args.host}:{args.port}")
     print("=" * 70)
     uvicorn.run("dashboard.server:app", host=args.host, port=args.port, reload=False)
+

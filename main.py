@@ -25,10 +25,28 @@ from agent_baselines import (
     NearestFogPolicy,
     LeastLoadedFogPolicy,
     train_dqn_agent_with_weights,
+    train_ddpg_agent_with_weights,
+    train_qlearning_agent_with_weights,
     evaluate_benchmark_method,
     compute_statistical_comparison,
+    apply_holm_bonferroni,
 )
 from logger import ExperimentLogger
+
+METHODS_ORDER = [
+    "Nearest Fog",
+    "Least Fog",
+    "Q-Learning-Equal",
+    "DQN-Equal",
+    "DDPG-Equal",
+    "PPO-Equal",
+    "ERWO-PPO",
+]
+
+STAT_BASELINES = ["PPO-Equal", "DQN-Equal", "DDPG-Equal", "Q-Learning-Equal"]
+STAT_METRICS = [("Latency", "latency"), ("Energy", "energy"), ("Violation rate", "violation_rate"),
+                ("Load imbalance", "load_imbalance"), ("QoS", "qos")]
+STAT_COMPARISONS = [(m, f"ERWO-PPO vs. {b}") for b in STAT_BASELINES for m, _ in STAT_METRICS]
 
 
 def export_results_to_data_md(
@@ -45,7 +63,6 @@ def export_results_to_data_md(
     
     # Table 10
     eq_res = benchmark_results["PPO-Equal"]
-    man_res = benchmark_results["PPO-Manual"]
     erwo_res = benchmark_results["ERWO-PPO"]
 
     content = f"""### Table 10. Reward-weight configurations and corresponding validation performance
@@ -53,7 +70,6 @@ def export_results_to_data_md(
 | Configuration | $\\alpha$ | $\\beta$ | $\\lambda$ | $\\gamma$ | Latency (Score) | Energy (Efficiency) | Violation rate (%) | Load imbalance | QoS (Satisfaction) |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
 | Equal weights | 0.2500 | 0.2500 | 0.2500 | 0.2500 | {eq_res['latency']:.2f} | {eq_res['energy']:.2f} | {eq_res['violation_rate']:.2f} | {eq_res['load_imbalance']:.4f} | {eq_res['qos']:.2f} |
-| Manual weights | {manual_weights[0]:.4f} | {manual_weights[1]:.4f} | {manual_weights[2]:.4f} | {manual_weights[3]:.4f} | {man_res['latency']:.2f} | {man_res['energy']:.2f} | {man_res['violation_rate']:.2f} | {man_res['load_imbalance']:.4f} | {man_res['qos']:.2f} |
 | Optimized ($w^*$) | {best_weights[0]:.4f} | {best_weights[1]:.4f} | {best_weights[2]:.4f} | {best_weights[3]:.4f} | {erwo_res['latency']:.2f} | {erwo_res['energy']:.2f} | {erwo_res['violation_rate']:.2f} | {erwo_res['load_imbalance']:.4f} | {erwo_res['qos']:.2f} |
 
 ---
@@ -64,16 +80,7 @@ def export_results_to_data_md(
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: |
 """
 
-    methods_order = [
-        "Local-only",
-        "Cloud-only",
-        "Nearest-fog",
-        "Least-loaded fog",
-        "DQN-Equal",
-        "PPO-Equal",
-        "PPO-Manual",
-        "ERWO-PPO",
-    ]
+    methods_order = METHODS_ORDER
 
     for m in methods_order:
         r = benchmark_results[m]
@@ -92,7 +99,7 @@ def export_results_to_data_md(
 | Configuration | Latency Score | Energy Efficiency | Violation rate (%) | Load imbalance | QoS Satisfaction |
 | :--- | :---: | :---: | :---: | :---: | :---: |
 """
-    for m in ["PPO-Equal", "PPO-Manual", "ERWO-PPO"]:
+    for m in ["PPO-Equal", "ERWO-PPO"]:
         r = benchmark_results[m]
         content += (
             f"| {m} | {r['latency']:.2f} | {r['energy']:.2f} | {r['violation_rate']:.2f} | "
@@ -102,24 +109,17 @@ def export_results_to_data_md(
     content += """
 ---
 
-### Table 13. Statistical comparison of ERWO-PPO with PPO baselines
+### Table 13. Statistical comparison of ERWO-PPO with equal-weight RL baselines
 
 | Metric | Comparison | Test | Adjusted p-value | Effect size | Significant |
-| :--- | :--- | :---: | :---: | :---: | :---: |
+| :--- | :---: | :---: | :---: | :---: | :---: |
 """
-    stat_order = [
-        ("Latency", "ERWO-PPO vs. PPO-Equal"),
-        ("Energy", "ERWO-PPO vs. PPO-Equal"),
-        ("Violation rate", "ERWO-PPO vs. PPO-Equal"),
-        ("Load imbalance", "ERWO-PPO vs. PPO-Equal"),
-        ("QoS", "ERWO-PPO vs. PPO-Equal"),
-        ("Latency", "ERWO-PPO vs. PPO-Manual"),
-        ("QoS", "ERWO-PPO vs. PPO-Manual"),
-    ]
+    stat_order = STAT_COMPARISONS
 
     for metric, comp in stat_order:
         s = statistical_results.get((metric, comp), {})
-        p_val_str = f"{s.get('p_value', 1.0):.4e}" if s.get('p_value', 1.0) < 0.001 else f"{s.get('p_value', 1.0):.4f}"
+        p_val = s.get('adj_p_value', s.get('p_value', 1.0))
+        p_val_str = f"{p_val:.4e}" if p_val < 0.001 else f"{p_val:.4f}"
         content += (
             f"| {metric} | {comp} | {s.get('test_name', 'Wilcoxon')} | "
             f"{p_val_str} | {s.get('effect_size', 0.0):.4f} | {s.get('significant', 'NO')} |\n"
@@ -225,7 +225,7 @@ def main():
         print("\n>>> TAHAP 2: Pelatihan Model RL (ERWO-PPO, PPO-Equal, PPO-Manual, DQN-Equal)")
         
         # 2.1 ERWO-PPO
-        print(f"[1/4] Melatih ERWO-PPO (Bobot Optimal w*) selama {args.final_timesteps:,} timesteps...")
+        print(f"[1/5] Melatih ERWO-PPO (Bobot Optimal w*) selama {args.final_timesteps:,} timesteps...")
         t_start_erwo = time.perf_counter()
         erwo_agent, env_erwo = train_agent_with_weights(
             weights=best_weights,
@@ -239,7 +239,8 @@ def main():
 
         # 2.2 PPO-Equal
         equal_weights = np.array([0.25, 0.25, 0.25, 0.25], dtype=np.float32)
-        print(f"[2/4] Melatih PPO-Equal (Bobot Seragam 0.25) selama {args.final_timesteps:,} timesteps...")
+        manual_weights = np.array([0.40, 0.20, 0.30, 0.10], dtype=np.float32)  # hanya referensi ekspor
+        print(f"[2/5] Melatih PPO-Equal (Bobot Seragam 0.25) selama {args.final_timesteps:,} timesteps...")
         ppo_equal_agent, env_eq = train_agent_with_weights(
             weights=equal_weights,
             workload=args.workload,
@@ -249,20 +250,8 @@ def main():
         )
         env_eq.close()
 
-        # 2.3 PPO-Manual
-        manual_weights = np.array([0.40, 0.20, 0.30, 0.10], dtype=np.float32)
-        print(f"[3/4] Melatih PPO-Manual (Bobot Manual 0.40, 0.20, 0.30, 0.10) selama {args.final_timesteps:,} timesteps...")
-        ppo_manual_agent, env_man = train_agent_with_weights(
-            weights=manual_weights,
-            workload=args.workload,
-            timesteps=args.final_timesteps,
-            seed=42,
-            verbose=0,
-        )
-        env_man.close()
-
-        # 2.4 DQN-Equal
-        print(f"[4/4] Melatih DQN-Equal (Bobot Seragam 0.25) selama {args.final_timesteps:,} timesteps...")
+        # 2.3 DQN-Equal
+        print(f"[3/5] Melatih DQN-Equal (Bobot Seragam 0.25) selama {args.final_timesteps:,} timesteps...")
         dqn_agent, env_dqn = train_dqn_agent_with_weights(
             weights=equal_weights,
             workload=args.workload,
@@ -272,19 +261,40 @@ def main():
         )
         env_dqn.close()
 
+        # 2.4 DDPG-Equal
+        print(f"[4/5] Melatih DDPG-Equal (Bobot Seragam 0.25) selama {args.final_timesteps:,} timesteps...")
+        ddpg_agent, env_ddpg = train_ddpg_agent_with_weights(
+            weights=equal_weights,
+            workload=args.workload,
+            timesteps=args.final_timesteps,
+            seed=42,
+            verbose=0,
+        )
+        env_ddpg.close()
+
+        # 2.5 Q-Learning-Equal
+        print(f"[5/5] Melatih Q-Learning-Equal (Bobot Seragam 0.25) selama {args.final_timesteps:,} timesteps...")
+        qlearn_agent, env_ql = train_qlearning_agent_with_weights(
+            weights=equal_weights,
+            workload=args.workload,
+            timesteps=args.final_timesteps,
+            seed=42,
+            verbose=0,
+        )
+        env_ql.close()
+
         # ==============================================================================
-        # 3. TAHAP 3: BENCHMARK EVALUASI 8 METODE (PAIRED SEED: n=30)
+        # 3. TAHAP 3: BENCHMARK EVALUASI 7 METODE (PAIRED SEED: n=30)
         # ==============================================================================
-        print(f"\n>>> TAHAP 3: Mengevaluasi Seluruh 8 Metode Benchmark ({args.eval_episodes} Episode Berpasangan)")
+        print(f"\n>>> TAHAP 3: Mengevaluasi Seluruh 7 Metode Benchmark ({args.eval_episodes} Episode Berpasangan)")
         
         benchmark_models = {
-            "Local-only": LocalOnlyPolicy(),
-            "Cloud-only": CloudOnlyPolicy(),
-            "Nearest-fog": NearestFogPolicy(),
-            "Least-loaded fog": LeastLoadedFogPolicy(),
+            "Nearest Fog": NearestFogPolicy(),
+            "Least Fog": LeastLoadedFogPolicy(),
+            "Q-Learning-Equal": qlearn_agent,
             "DQN-Equal": dqn_agent,
+            "DDPG-Equal": ddpg_agent,
             "PPO-Equal": ppo_equal_agent,
-            "PPO-Manual": ppo_manual_agent,
             "ERWO-PPO": erwo_agent,
         }
 
@@ -323,7 +333,7 @@ def main():
         header_12 = f"{'Configuration':<18} | {'Latency Score':<14} | {'Energy Efficiency':<18} | {'Violation Rate(%)':<17} | {'Load Imbalance':<14} | {'QoS':<8}"
         print(header_12)
         print("-" * len(header_12))
-        for m in ["PPO-Equal", "PPO-Manual", "ERWO-PPO"]:
+        for m in ["PPO-Equal", "ERWO-PPO"]:
             r = benchmark_results[m]
             print(
                 f"{m:<18} | {r['latency']:<14.2f} | {r['energy']:<18.2f} | {r['violation_rate']:<17.2f} | "
@@ -340,33 +350,33 @@ def main():
         print("\n>>> TAHAP 4: Pengujian Signifikansi Statistik (Table 13)")
         
         erwo_raw = benchmark_results["ERWO-PPO"]["raw"]
-        ppo_eq_raw = benchmark_results["PPO-Equal"]["raw"]
-        ppo_man_raw = benchmark_results["PPO-Manual"]["raw"]
 
-        stat_comparisons = [
-            ("Latency", "ERWO-PPO vs. PPO-Equal", erwo_raw["latency"], ppo_eq_raw["latency"]),
-            ("Energy", "ERWO-PPO vs. PPO-Equal", erwo_raw["energy"], ppo_eq_raw["energy"]),
-            ("Violation rate", "ERWO-PPO vs. PPO-Equal", erwo_raw["violation_rate"], ppo_eq_raw["violation_rate"]),
-            ("Load imbalance", "ERWO-PPO vs. PPO-Equal", erwo_raw["load_imbalance"], ppo_eq_raw["load_imbalance"]),
-            ("QoS", "ERWO-PPO vs. PPO-Equal", erwo_raw["qos"], ppo_eq_raw["qos"]),
-            ("Latency", "ERWO-PPO vs. PPO-Manual", erwo_raw["latency"], ppo_man_raw["latency"]),
-            ("QoS", "ERWO-PPO vs. PPO-Manual", erwo_raw["qos"], ppo_man_raw["qos"]),
-        ]
+        stat_comparisons = []
+        for base in STAT_BASELINES:
+            base_raw = benchmark_results[base]["raw"]
+            for metric_label, key in STAT_METRICS:
+                stat_comparisons.append(
+                    (metric_label, f"ERWO-PPO vs. {base}", erwo_raw[key], base_raw[key])
+                )
 
         statistical_results = {}
         for metric, comp, data_a, data_b in stat_comparisons:
             stat_res = compute_statistical_comparison(data_a, data_b, alpha_sig=0.05)
             statistical_results[(metric, comp)] = stat_res
 
+        # Terapkan koreksi multi-hipotesis Holm-Bonferroni
+        statistical_results = apply_holm_bonferroni(statistical_results, alpha_sig=0.05)
+
         print("\n" + "=" * 90)
-        print("            TABLE 13. STATISTICAL COMPARISON OF ERWO-PPO WITH PPO BASELINES             ")
+        print("       TABLE 13. STATISTICAL COMPARISON OF ERWO-PPO WITH EQUAL-WEIGHT RL BASELINES      ")
         print("=" * 90)
         header_13 = f"{'Metric':<16} | {'Comparison':<25} | {'Test':<12} | {'Adj. p-value':<14} | {'Effect Size':<12} | {'Significant':<11}"
         print(header_13)
         print("-" * len(header_13))
         for metric, comp, _, _ in stat_comparisons:
             s = statistical_results[(metric, comp)]
-            p_val_str = f"{s['p_value']:.4e}" if s['p_value'] < 0.001 else f"{s['p_value']:.4f}"
+            p_val = s.get('adj_p_value', s.get('p_value', 1.0))
+            p_val_str = f"{p_val:.4e}" if p_val < 0.001 else f"{p_val:.4f}"
             print(
                 f"{metric:<16} | {comp:<25} | {s['test_name']:<12} | {p_val_str:<14} | "
                 f"{s['effect_size']:<12.4f} | {s['significant']:<11}"
@@ -405,11 +415,17 @@ def main():
         # Catat Overhead ke JSON
         logger.log_overhead(overhead_results)
 
-        # Simpan Model ERWO-PPO
+        # Simpan Seluruh Model RL Terlatih
         os.makedirs("models", exist_ok=True)
         model_path = os.path.join("models", "ppo_ifogsim2_erwo.zip")
         erwo_agent.save(model_path)
-        print(f"\n[SELESAI] Model PPO tersimpan di: {model_path}")
+        ppo_equal_agent.save(os.path.join("models", "ppo_equal.zip"))
+        dqn_agent.save(os.path.join("models", "dqn_equal.zip"))
+        ddpg_agent.model.save(os.path.join("models", "ddpg_equal.zip"))
+        import pickle
+        with open(os.path.join("models", "qlearning_equal.pkl"), "wb") as f:
+            pickle.dump(qlearn_agent, f)
+        print(f"\n[SELESAI] Seluruh model RL (ERWO-PPO, PPO-Equal, DQN, DDPG, Q-Learning) tersimpan di direktori models/")
 
         # Catat ke Master Cumulative Ledger
         logger.log_to_master_history(

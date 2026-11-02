@@ -42,9 +42,51 @@ def load_model_or_policy(method_name: str):
             print(f"[Model] File {model_path} tidak ditemukan, fallback ke Least-loaded fog.")
         return LeastLoadedFogPolicy(), "Policy"
     
-    elif method_name.lower() in ["least-loaded", "least-loaded fog", "least_loaded"]:
+    elif method_name.upper() in ["PPO-EQUAL", "PPO_EQUAL"]:
+        model_path = os.path.join("models", "ppo_equal.zip")
+        if os.path.exists(model_path):
+            try:
+                from stable_baselines3 import PPO
+                return PPO.load(model_path), "PPO"
+            except Exception:
+                pass
         return LeastLoadedFogPolicy(), "Policy"
-    elif method_name.lower() in ["nearest", "nearest-fog", "nearest_fog"]:
+
+    elif method_name.upper() in ["DQN", "DQN-EQUAL"]:
+        model_path = os.path.join("models", "dqn_equal.zip")
+        if os.path.exists(model_path):
+            try:
+                from stable_baselines3 import DQN
+                return DQN.load(model_path), "DQN"
+            except Exception:
+                pass
+        return LeastLoadedFogPolicy(), "Policy"
+
+    elif method_name.upper() in ["DDPG", "DDPG-EQUAL"]:
+        model_path = os.path.join("models", "ddpg_equal.zip")
+        if os.path.exists(model_path):
+            try:
+                from stable_baselines3 import DDPG
+                from agent_baselines import DDPGPolicyWrapper
+                return DDPGPolicyWrapper(DDPG.load(model_path)), "Policy"
+            except Exception:
+                pass
+        return LeastLoadedFogPolicy(), "Policy"
+
+    elif method_name.upper() in ["Q-LEARNING", "Q-LEARNING-EQUAL", "QLEARNING"]:
+        model_path = os.path.join("models", "qlearning_equal.pkl")
+        if os.path.exists(model_path):
+            try:
+                import pickle
+                with open(model_path, "rb") as f:
+                    return pickle.load(f), "Policy"
+            except Exception:
+                pass
+        return LeastLoadedFogPolicy(), "Policy"
+
+    elif method_name.lower() in ["least-loaded", "least-loaded fog", "least_loaded", "least fog"]:
+        return LeastLoadedFogPolicy(), "Policy"
+    elif method_name.lower() in ["nearest", "nearest-fog", "nearest_fog", "nearest fog"]:
         return NearestFogPolicy(), "Policy"
     elif method_name.lower() in ["cloud", "cloud-only", "cloud_only"]:
         return CloudOnlyPolicy(), "Policy"
@@ -73,7 +115,7 @@ def push_to_dashboard(url: str, data: dict):
 def run_demo():
     parser = argparse.ArgumentParser(description="Live Task Offloading Simulation Demo for ERWO-PPO Dashboard")
     parser.add_argument("--method", type=str, default="ERWO-PPO",
-                        choices=["ERWO-PPO", "Least-loaded fog", "Nearest-fog", "Cloud-only", "Local-only"],
+                        choices=["ERWO-PPO", "PPO-Equal", "DQN", "DDPG", "Q-Learning", "Least Fog", "Nearest Fog", "Least-loaded fog", "Nearest-fog", "Cloud-only", "Local-only"],
                         help="Metode penempatan tugas yang diuji (default: ERWO-PPO)")
     parser.add_argument("--workload", type=str, default="dynamic",
                         choices=["light", "moderate", "heavy", "dynamic"],
@@ -205,3 +247,4 @@ def run_demo():
 
 if __name__ == "__main__":
     run_demo()
+
