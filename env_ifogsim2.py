@@ -14,6 +14,7 @@ Spesifikasi:
 
 from typing import Any, Dict, Optional, Tuple, Union
 import json
+import os
 import socket
 import subprocess
 import gymnasium as gym
@@ -46,6 +47,8 @@ class iFogSim2Env(gym.Env):
         self.auto_spawn = auto_spawn
         self.timeout = timeout
         self.verbose = verbose
+        self.require_java = os.environ.get("IFOGSIM_REQUIRE_JAVA") == "1"
+        self.disable_dashboard = os.environ.get("IFOGSIM_DISABLE_DASHBOARD") == "1"
         
         self.sock: Optional[socket.socket] = None
         self.sock_file = None
@@ -95,10 +98,13 @@ class iFogSim2Env(gym.Env):
             if self.verbose > 0:
                 print(f"[iFogSim2Env] Terhubung ke Java Server ({self.host}:{self.port})")
         except (ConnectionRefusedError, socket.timeout, OSError):
-            self.is_connected = False
-            self.sock = None
-            self.sock_file = None
+            self.close()
+            self._check_java_required()
             self._init_workload_steps()
+
+    def _check_java_required(self) -> None:
+        if self.require_java:
+            raise RuntimeError(f"Socket Java {self.host}:{self.port} tidak tersedia atau respons gagal; fallback Python dinonaktifkan.")
 
     def _init_workload_steps(self) -> None:
         """Menyesuaikan panjang episode berdasarkan skenario workload."""
@@ -203,6 +209,7 @@ class iFogSim2Env(gym.Env):
                     print(f"[iFogSim2Env] IPC Socket Error saat Reset ({e}), beralih ke internal engine.")
                 self.close()
 
+        self._check_java_required()
         # Inisialisasi Fleet 100 Perangkat IoT (Tier 1 Broker-Based)
         self._init_workload_steps()
         self.state = np.zeros(46, dtype=np.float32)
@@ -312,6 +319,7 @@ class iFogSim2Env(gym.Env):
                     print(f"[iFogSim2Env] IPC Socket Error saat Step ({e}), beralih ke internal engine.")
                 self.close()
 
+        self._check_java_required()
         # Pemodelan Fisik Broker-Based 100 Edge / IoT Devices
         target_node = action
         src_dev = self.current_source_device

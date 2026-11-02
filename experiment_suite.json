@@ -1,0 +1,10 @@
+{
+  "workloads": ["light", "moderate", "heavy", "dynamic"],
+  "final_timesteps": [5000, 25000, 50000, 100000],
+  "seeds": [0, 1, 2, 3, 4],
+  "candidate_timesteps": 5000,
+  "pop_size": 10,
+  "generations": 4,
+  "eval_episodes": 100,
+  "device": "cpu"
+}

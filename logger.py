@@ -167,6 +167,7 @@ class ExperimentLogger:
                 "comparison": comp,
                 "test_name": res["test_name"],
                 "p_value": res["p_value"],
+                "adj_p_value": res.get("adj_p_value", res["p_value"]),
                 "effect_size_cohen_d": res["effect_size"],
                 "significant": res["significant"],
             }

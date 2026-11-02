@@ -152,17 +152,28 @@ def main():
     parser.add_argument("--pop-size", type=int, default=10, help="Ukuran populasi NSGA-II (default: 10)")
     parser.add_argument("--generations", type=int, default=4, help="Jumlah generasi NSGA-II (default: 4)")
     parser.add_argument("--final-timesteps", type=int, default=25000, help="Timesteps pelatihan RL akhir (default: 25000)")
+    parser.add_argument("--candidate-timesteps", type=int, default=5000, help="Timesteps training setiap kandidat NSGA-II (default: 5000)")
+    parser.add_argument("--require-java", action="store_true", help="Hentikan eksperimen jika socket Java tidak tersedia atau terputus")
     parser.add_argument("--eval-episodes", type=int, default=30, help="Jumlah episode evaluasi benchmark (default: 30)")
     parser.add_argument("--seed", type=int, default=42, help="Seed NSGA-II dan training seluruh agen (default: 42)")
     parser.add_argument("--tag", type=str, default=None, help="Tag identifikasi opsional untuk log eksperimen")
     args = parser.parse_args()
     if not 0 <= args.seed < 2**32:
         parser.error("--seed harus berada dalam rentang 0 sampai 4294967295")
+    if min(args.candidate_timesteps, args.final_timesteps, args.eval_episodes, args.pop_size, args.generations) <= 0:
+        parser.error("Timesteps, jumlah episode, populasi, dan generasi harus positif")
+    if args.require_java:
+        os.environ["IFOGSIM_REQUIRE_JAVA"] = "1"
 
     # Inisialisasi Logger Permanen
     with ExperimentLogger(workload=args.workload, exp_tag=args.tag) as logger:
         logger.log_config({
             "seed": args.seed,
+            "candidate_timesteps": args.candidate_timesteps,
+            "candidate_eval_episodes": 3,
+            "candidate_eval_base_seed": 42,
+            "benchmark_base_seed": 1000,
+            "require_java": os.environ.get("IFOGSIM_REQUIRE_JAVA") == "1",
             "pop_size": args.pop_size,
             "generations": args.generations,
             "final_timesteps": args.final_timesteps,
@@ -192,7 +203,7 @@ def main():
             workload=args.workload,
             pop_size=args.pop_size,
             n_gen=args.generations,
-            timesteps_per_eval=5000,
+            timesteps_per_eval=args.candidate_timesteps,
             eval_episodes=3,
             seed=args.seed,
         )

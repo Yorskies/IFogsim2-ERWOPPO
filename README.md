@@ -27,6 +27,7 @@ Kerangka kerja riset terintegrasi yang menggabungkan **Multi-Objective Evolution
    - [Langkah 5: Memeriksa Hasil Data & Laporan Audit](#langkah-5-memeriksa-hasil-data--laporan-audit)
    - [Langkah 6: Visualisasi Real-Time & Live Web Dashboard](#langkah-6-visualisasi-real-time--live-web-dashboard)
 7. [Opsi Argumen Baris Perintah (CLI Options)](#7-opsi-argumen-baris-perintah-cli-options)
+   - [Training otomatis seluruh workload, anggaran, dan seed](#training-otomatis-seluruh-workload-anggaran-dan-seed)
 8. [Protokol Komunikasi Inter-Process (TCP Socket IPC)](#8-protokol-komunikasi-inter-process-tcp-socket-ipc)
 9. [Struktur Laporan & Hasil Publikasi (Data.md & report.md)](#9-struktur-laporan--hasil-publikasi-datamd--reportmd)
 
@@ -498,6 +499,44 @@ Buka browser di: [**http://127.0.0.1:8000**](http://127.0.0.1:8000)
 
 ---
 
+## Training otomatis seluruh workload, anggaran, dan seed
+
+Setelah server Java aktif di `127.0.0.1:5555` dan virtual environment Python diaktifkan, jalankan dari folder proyek:
+
+```bash
+python run_experiments.py
+```
+
+Satu perintah menjalankan **80 percobaan** secara berurutan: empat workload (`light`, `moderate`, `heavy`, `dynamic`), empat anggaran training akhir (`5000`, `25000`, `50000`, `100000`), dan lima seed (`0`, `1`, `2`, `3`, `4`). Default lain: **5000 timestep per kandidat**, populasi NSGA-II 10, generasi 4, serta 100 episode benchmark per metode. Nilainya tersedia di `experiment_suite.json`; tidak perlu mengisi flag per percobaan.
+
+Setiap anggaran dilatih **dari awal**, termasuk pencarian bobot NSGA-II, bukan melanjutkan checkpoint anggaran sebelumnya. Seluruh metode RL dalam satu percobaan mendapat anggaran akhir yang sama. Anggaran yang diminta dapat dibulatkan oleh PPO ke batas rollout. Batch memakai CPU secara default untuk MLP PPO dan menonaktifkan pengiriman dashboard. Untuk mempertahankan pemilihan device otomatis Stable-Baselines3, ubah `device` menjadi `auto` di konfigurasi JSON.
+
+Hasil tersimpan pada `results/suite_<timestamp>/`:
+
+| File/direktori | Isi |
+|---|---|
+| `Data_final.md` | Satu laporan seluruh workload dan anggaran, rata-rata ± standar deviasi antar-seed |
+| `summary.json` | Agregat seluruh metrik, bobot terpilih, dan overhead |
+| `runs.csv` | Nilai tiap metode per workload, anggaran, dan seed |
+| `manifest.json` | Konfigurasi, fingerprint source, command, serta status seluruh percobaan |
+| `runs/<workload>_t<budget>_seed<seed>/` | Model, `Data.md`, `runner.log`, dan seluruh log/CSV/statistik tiap run |
+
+`Data.md` dan model pada folder utama proyek tidak ditimpa oleh runner. Setiap run memiliki direktori kerja sendiri. Laporan diperbarui setelah setiap run selesai dan menandai hasil parsial; simpangan baku dihitung antar-seed training, bukan dengan mencampur seluruh episode menjadi seed independen. Skor latensi/energi/QoS masih berupa jumlah sub-reward per episode; jangan membandingkan jumlah skor mentah lintas workload yang panjang episodenya berbeda. Uji statistik per-run disimpan terpisah, p-value tidak dirata-ratakan.
+
+Periksa rencana tanpa memulai training:
+
+```bash
+python run_experiments.py --dry-run
+```
+
+Jika terputus, gunakan path suite yang dicetak runner untuk melanjutkan percobaan yang belum selesai:
+
+```bash
+python run_experiments.py --resume "results/suite_<timestamp>"
+```
+
+Model dan hasil run yang sudah selesai tidak dilatih ulang. Run yang gagal diulang dari awal. Resume memerlukan konfigurasi dan versi source yang sama; jika source berubah, mulai suite baru. Jangan menjalankan dua proses pada direktori suite yang sama. `runner.log` dapat dipantau dengan `tail -f` di Ubuntu. Koneksi socket Java wajib tersedia sepanjang batch; fallback Python dinonaktifkan agar hasil satu suite memakai engine yang konsisten. Server Java dijalankan secara terpisah, bukan otomatis oleh runner.
+
 ## 7. Opsi Argumen Baris Perintah (CLI Options)
 
 Skrip `main.py` mendukung berbagai parameter kustomisasi fleksibel:
@@ -522,6 +561,8 @@ python main.py --workload dynamic --seed 0 --final-timesteps 100000 --tag "dynam
 | `--pop-size` | `int` | `10` | Ukuran populasi kromosom NSGA-II |
 | `--generations` | `int` | `4` | Jumlah generasi iterasi evolusi NSGA-II |
 | `--final-timesteps` | `int` | `25000` | Jumlah timesteps pelatihan model RL utama |
+| `--candidate-timesteps` | `int` | `5000` | Anggaran training setiap kandidat NSGA-II |
+| `--require-java` | flag | Nonaktif | Gagalkan run jika Java tidak tersedia; aktif otomatis pada batch |
 | `--eval-episodes` | `int` | `30` | Jumlah episode evaluasi berpasangan ($n$) |
 | `--tag` | `str` | `None` | Label identifikasi khusus untuk folder log eksperimen |
 | `--seed` | `int` | `42` | Seed NSGA-II, training kandidat, dan training akhir seluruh agen; rentang 0–4294967295 |
