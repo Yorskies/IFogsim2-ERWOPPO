@@ -153,12 +153,16 @@ def main():
     parser.add_argument("--generations", type=int, default=4, help="Jumlah generasi NSGA-II (default: 4)")
     parser.add_argument("--final-timesteps", type=int, default=25000, help="Timesteps pelatihan RL akhir (default: 25000)")
     parser.add_argument("--eval-episodes", type=int, default=30, help="Jumlah episode evaluasi benchmark (default: 30)")
+    parser.add_argument("--seed", type=int, default=42, help="Seed NSGA-II dan training seluruh agen (default: 42)")
     parser.add_argument("--tag", type=str, default=None, help="Tag identifikasi opsional untuk log eksperimen")
     args = parser.parse_args()
+    if not 0 <= args.seed < 2**32:
+        parser.error("--seed harus berada dalam rentang 0 sampai 4294967295")
 
     # Inisialisasi Logger Permanen
     with ExperimentLogger(workload=args.workload, exp_tag=args.tag) as logger:
         logger.log_config({
+            "seed": args.seed,
             "pop_size": args.pop_size,
             "generations": args.generations,
             "final_timesteps": args.final_timesteps,
@@ -176,6 +180,7 @@ def main():
         print(f"  - Workload Scenario : {args.workload.upper()}")
         print(f"  - Eval Episodes (n) : {args.eval_episodes} (Paired Seed Protocol: 1000..{1000 + args.eval_episodes - 1})")
         print(f"  - Final RL Timestep : {args.final_timesteps:,} steps")
+        print(f"  - Training Seed     : {args.seed}")
         print(f"  - NSGA-II Config    : Pop={args.pop_size}, Gen={args.generations} (Total Evaluasi: {args.pop_size * args.generations})")
         print("-" * 85)
 
@@ -189,7 +194,7 @@ def main():
             n_gen=args.generations,
             timesteps_per_eval=5000,
             eval_episodes=3,
-            seed=42,
+            seed=args.seed,
         )
 
         print("\n[HASIL PARETO FRONT - 4 PARAMETER REWARD (TABLE 10)]")
@@ -231,7 +236,7 @@ def main():
             weights=best_weights,
             workload=args.workload,
             timesteps=args.final_timesteps,
-            seed=42,
+            seed=args.seed,
             verbose=0,
         )
         t_final_ppo_train = time.perf_counter() - t_start_erwo
@@ -245,7 +250,7 @@ def main():
             weights=equal_weights,
             workload=args.workload,
             timesteps=args.final_timesteps,
-            seed=42,
+            seed=args.seed,
             verbose=0,
         )
         env_eq.close()
@@ -256,7 +261,7 @@ def main():
             weights=equal_weights,
             workload=args.workload,
             timesteps=args.final_timesteps,
-            seed=42,
+            seed=args.seed,
             verbose=0,
         )
         env_dqn.close()
@@ -267,7 +272,7 @@ def main():
             weights=equal_weights,
             workload=args.workload,
             timesteps=args.final_timesteps,
-            seed=42,
+            seed=args.seed,
             verbose=0,
         )
         env_ddpg.close()
@@ -278,7 +283,7 @@ def main():
             weights=equal_weights,
             workload=args.workload,
             timesteps=args.final_timesteps,
-            seed=42,
+            seed=args.seed,
             verbose=0,
         )
         env_ql.close()

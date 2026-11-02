@@ -34,7 +34,7 @@ class RewardWeightProblem(ElementwiseProblem):
     - F4: Memaksimalkan QoS Satisfaction Score (negasi)
     """
 
-    def __init__(self, workload: str = "dynamic", timesteps_per_eval: int = 5000, eval_episodes: int = 3):
+    def __init__(self, workload: str = "dynamic", timesteps_per_eval: int = 5000, eval_episodes: int = 3, seed: int = 42):
         # 4 variabel bobot (n_var=4), 4 objektif (n_obj=4)
         super().__init__(
             n_var=4,
@@ -46,6 +46,7 @@ class RewardWeightProblem(ElementwiseProblem):
         self.workload = workload
         self.timesteps_per_eval = timesteps_per_eval
         self.eval_episodes = eval_episodes
+        self.seed = seed
         self.eval_history: List[Dict] = []
         
         # Pelacakan Waktu Komputasi (Overhead)
@@ -63,7 +64,7 @@ class RewardWeightProblem(ElementwiseProblem):
             weights=weights,
             workload=self.workload,
             timesteps=self.timesteps_per_eval,
-            seed=42,
+            seed=self.seed,
             verbose=0,
         )
         t_train_end = time.perf_counter()
@@ -114,6 +115,7 @@ def run_nsga2_optimization(
         problem: Instance problem beserta history evaluasinya dan overhead waktu.
     """
     problem = RewardWeightProblem(
+        seed=seed,
         workload=workload,
         timesteps_per_eval=timesteps_per_eval,
         eval_episodes=eval_episodes,

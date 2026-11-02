@@ -511,6 +511,9 @@ python main.py --workload heavy
 
 # Contoh 3: Eksplorasi Skala Besar (NSGA-II Pop 20, Gen 15, Eval 50 Episode)
 python main.py --workload dynamic --pop-size 20 --generations 15 --eval-episodes 50 --final-timesteps 50000 --tag "large_scale_exp"
+
+# Contoh 4: Training dengan seed eksperimen tertentu
+python main.py --workload dynamic --seed 0 --final-timesteps 100000 --tag "dynamic_seed0"
 ```
 
 | Argumen | Tipe | Nilai Default | Keterangan |
@@ -521,6 +524,9 @@ python main.py --workload dynamic --pop-size 20 --generations 15 --eval-episodes
 | `--final-timesteps` | `int` | `25000` | Jumlah timesteps pelatihan model RL utama |
 | `--eval-episodes` | `int` | `30` | Jumlah episode evaluasi berpasangan ($n$) |
 | `--tag` | `str` | `None` | Label identifikasi khusus untuk folder log eksperimen |
+| `--seed` | `int` | `42` | Seed NSGA-II, training kandidat, dan training akhir seluruh agen; rentang 0–4294967295 |
+
+Gunakan `--seed 0`, `--seed 1`, hingga `--seed 4` pada run terpisah untuk mengukur variasi training. Seed dicatat di `config.json` eksperimen. Seed validasi kandidat tetap `42 + episode`, sedangkan seed evaluasi akhir tetap `1000 + episode`, sama untuk semua metode. Flag ini tidak mengubah seed evaluasi atau menjamin hasil identik antarperangkat. `--tag` membedakan folder log; model akhir dan `Data.md` tetap perlu disalin sebelum run berikutnya agar tidak tertimpa.
 
 ---
 
