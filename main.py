@@ -187,7 +187,7 @@ def main():
             workload=args.workload,
             pop_size=args.pop_size,
             n_gen=args.generations,
-            timesteps_per_eval=2000,
+            timesteps_per_eval=5000,
             eval_episodes=3,
             seed=42,
         )

@@ -34,7 +34,7 @@ class RewardWeightProblem(ElementwiseProblem):
     - F4: Memaksimalkan QoS Satisfaction Score (negasi)
     """
 
-    def __init__(self, workload: str = "dynamic", timesteps_per_eval: int = 2500, eval_episodes: int = 3):
+    def __init__(self, workload: str = "dynamic", timesteps_per_eval: int = 5000, eval_episodes: int = 3):
         # 4 variabel bobot (n_var=4), 4 objektif (n_obj=4)
         super().__init__(
             n_var=4,
@@ -101,7 +101,7 @@ def run_nsga2_optimization(
     workload: str = "dynamic",
     pop_size: int = 6,
     n_gen: int = 3,
-    timesteps_per_eval: int = 2000,
+    timesteps_per_eval: int = 5000,
     eval_episodes: int = 3,
     seed: int = 42,
 ) -> Tuple[np.ndarray, np.ndarray, RewardWeightProblem]:
