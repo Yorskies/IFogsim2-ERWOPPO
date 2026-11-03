@@ -1,0 +1,1417 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:erwo:research-v2.1:config",
+  "type": "object",
+  "properties": {
+    "protocol_version": {
+      "const": "0.2"
+    },
+    "schema_version": {
+      "const": "research-v2.1"
+    },
+    "parameter_origin": {
+      "type": "string",
+      "minLength": 1
+    },
+    "units": {
+      "type": "object",
+      "properties": {
+        "time": {
+          "const": "s"
+        },
+        "cpu_work": {
+          "const": "MI"
+        },
+        "cpu_capacity": {
+          "const": "MIPS_per_PE"
+        },
+        "data": {
+          "const": "byte"
+        },
+        "bandwidth": {
+          "const": "bit_per_s"
+        },
+        "power": {
+          "const": "W"
+        },
+        "energy": {
+          "const": "J"
+        }
+      },
+      "required": [
+        "time",
+        "cpu_work",
+        "cpu_capacity",
+        "data",
+        "bandwidth",
+        "power",
+        "energy"
+      ],
+      "additionalProperties": false
+    },
+    "timing": {
+      "type": "object",
+      "properties": {
+        "arrival_window_s": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "timeout_factor": {
+          "type": "number",
+          "exclusiveMinimum": 1
+        },
+        "deadline_max_s": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "horizon_s": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "comparison_epsilon_s": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "min_event_spacing_s": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        }
+      },
+      "required": [
+        "arrival_window_s",
+        "timeout_factor",
+        "deadline_max_s",
+        "horizon_s",
+        "comparison_epsilon_s",
+        "min_event_spacing_s"
+      ],
+      "additionalProperties": false
+    },
+    "topology": {
+      "type": "object",
+      "properties": {
+        "iot_count": {
+          "const": 100
+        },
+        "iot_per_access_fog": {
+          "const": 20
+        },
+        "fog_mode": {
+          "enum": [
+            "homogeneous",
+            "heterogeneous"
+          ]
+        },
+        "iot": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "pes": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "mips_per_pe": {
+              "type": "number",
+              "exclusiveMinimum": 0
+            },
+            "ram_bytes": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "storage_bytes": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "queue_waiting": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "idle_w": {
+              "type": "number",
+              "minimum": 0
+            },
+            "busy_w": {
+              "type": "number",
+              "minimum": 0
+            }
+          },
+          "required": [
+            "id",
+            "pes",
+            "mips_per_pe",
+            "ram_bytes",
+            "storage_bytes",
+            "queue_waiting",
+            "idle_w",
+            "busy_w"
+          ],
+          "additionalProperties": false
+        },
+        "fogs": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "pes": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "mips_per_pe": {
+                "type": "number",
+                "exclusiveMinimum": 0
+              },
+              "ram_bytes": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "storage_bytes": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "queue_waiting": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "idle_w": {
+                "type": "number",
+                "minimum": 0
+              },
+              "busy_w": {
+                "type": "number",
+                "minimum": 0
+              }
+            },
+            "required": [
+              "id",
+              "pes",
+              "mips_per_pe",
+              "ram_bytes",
+              "storage_bytes",
+              "queue_waiting",
+              "idle_w",
+              "busy_w"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 5,
+          "maxItems": 5
+        },
+        "cloud": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "pes": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "mips_per_pe": {
+              "type": "number",
+              "exclusiveMinimum": 0
+            },
+            "ram_bytes": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "storage_bytes": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "queue_waiting": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "idle_w": {
+              "type": "number",
+              "minimum": 0
+            },
+            "busy_w": {
+              "type": "number",
+              "minimum": 0
+            }
+          },
+          "required": [
+            "id",
+            "pes",
+            "mips_per_pe",
+            "ram_bytes",
+            "storage_bytes",
+            "queue_waiting",
+            "idle_w",
+            "busy_w"
+          ],
+          "additionalProperties": false
+        },
+        "scheduler": {
+          "const": "fcfs_nonpreemptive_one_pe"
+        },
+        "overbooking": {
+          "const": false
+        },
+        "reroute_on_rejection": {
+          "const": false
+        }
+      },
+      "required": [
+        "iot_count",
+        "iot_per_access_fog",
+        "fog_mode",
+        "iot",
+        "fogs",
+        "cloud",
+        "scheduler",
+        "overbooking",
+        "reroute_on_rejection"
+      ],
+      "additionalProperties": false
+    },
+    "tasks": {
+      "type": "object",
+      "properties": {
+        "working_set_bytes": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "output_fraction": {
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "maximum": 1
+        },
+        "classes": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "enum": [
+                  "light",
+                  "medium",
+                  "heavy"
+                ]
+              },
+              "probability": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1
+              },
+              "cpu_mi": {
+                "type": "array",
+                "items": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "minItems": 2,
+                "maxItems": 2
+              },
+              "input_mib": {
+                "type": "array",
+                "items": {
+                  "type": "number",
+                  "exclusiveMinimum": 0
+                },
+                "minItems": 2,
+                "maxItems": 2
+              },
+              "deadline_s": {
+                "type": "array",
+                "items": {
+                  "type": "number",
+                  "exclusiveMinimum": 0
+                },
+                "minItems": 2,
+                "maxItems": 2
+              }
+            },
+            "required": [
+              "id",
+              "probability",
+              "cpu_mi",
+              "input_mib",
+              "deadline_s"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 3,
+          "maxItems": 3
+        }
+      },
+      "required": [
+        "working_set_bytes",
+        "output_fraction",
+        "classes"
+      ],
+      "additionalProperties": false
+    },
+    "workloads": {
+      "type": "object",
+      "properties": {
+        "light": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "start_s": {
+                "type": "number",
+                "minimum": 0
+              },
+              "end_s": {
+                "type": "number",
+                "exclusiveMinimum": 0
+              },
+              "rate_per_s": {
+                "type": "number",
+                "exclusiveMinimum": 0
+              }
+            },
+            "required": [
+              "start_s",
+              "end_s",
+              "rate_per_s"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 1
+        },
+        "moderate": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "start_s": {
+                "type": "number",
+                "minimum": 0
+              },
+              "end_s": {
+                "type": "number",
+                "exclusiveMinimum": 0
+              },
+              "rate_per_s": {
+                "type": "number",
+                "exclusiveMinimum": 0
+              }
+            },
+            "required": [
+              "start_s",
+              "end_s",
+              "rate_per_s"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 1
+        },
+        "heavy": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "start_s": {
+                "type": "number",
+                "minimum": 0
+              },
+              "end_s": {
+                "type": "number",
+                "exclusiveMinimum": 0
+              },
+              "rate_per_s": {
+                "type": "number",
+                "exclusiveMinimum": 0
+              }
+            },
+            "required": [
+              "start_s",
+              "end_s",
+              "rate_per_s"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 1
+        },
+        "dynamic": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "start_s": {
+                "type": "number",
+                "minimum": 0
+              },
+              "end_s": {
+                "type": "number",
+                "exclusiveMinimum": 0
+              },
+              "rate_per_s": {
+                "type": "number",
+                "exclusiveMinimum": 0
+              }
+            },
+            "required": [
+              "start_s",
+              "end_s",
+              "rate_per_s"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 1
+        }
+      },
+      "required": [
+        "light",
+        "moderate",
+        "heavy",
+        "dynamic"
+      ],
+      "additionalProperties": false
+    },
+    "network": {
+      "type": "object",
+      "properties": {
+        "access": {
+          "type": "object",
+          "properties": {
+            "bandwidth_bit_per_s": {
+              "type": "number",
+              "exclusiveMinimum": 0
+            },
+            "propagation_s": {
+              "type": "number",
+              "minimum": 0
+            },
+            "queue_waiting": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "duplex": {
+              "enum": [
+                "half",
+                "full"
+              ]
+            }
+          },
+          "required": [
+            "bandwidth_bit_per_s",
+            "propagation_s",
+            "queue_waiting",
+            "duplex"
+          ],
+          "additionalProperties": false
+        },
+        "lan": {
+          "type": "object",
+          "properties": {
+            "bandwidth_bit_per_s": {
+              "type": "number",
+              "exclusiveMinimum": 0
+            },
+            "propagation_s": {
+              "type": "number",
+              "minimum": 0
+            },
+            "queue_waiting": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "duplex": {
+              "enum": [
+                "half",
+                "full"
+              ]
+            }
+          },
+          "required": [
+            "bandwidth_bit_per_s",
+            "propagation_s",
+            "queue_waiting",
+            "duplex"
+          ],
+          "additionalProperties": false
+        },
+        "wan": {
+          "type": "object",
+          "properties": {
+            "bandwidth_bit_per_s": {
+              "type": "number",
+              "exclusiveMinimum": 0
+            },
+            "propagation_s": {
+              "type": "number",
+              "minimum": 0
+            },
+            "queue_waiting": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "duplex": {
+              "enum": [
+                "half",
+                "full"
+              ]
+            }
+          },
+          "required": [
+            "bandwidth_bit_per_s",
+            "propagation_s",
+            "queue_waiting",
+            "duplex"
+          ],
+          "additionalProperties": false
+        },
+        "radio_idle_w": {
+          "type": "number",
+          "minimum": 0
+        },
+        "radio_tx_increment_w": {
+          "type": "number",
+          "minimum": 0
+        },
+        "radio_rx_increment_w": {
+          "type": "number",
+          "minimum": 0
+        },
+        "ap_idle_w": {
+          "type": "number",
+          "minimum": 0
+        },
+        "ap_tx_increment_w": {
+          "type": "number",
+          "minimum": 0
+        },
+        "ap_rx_increment_w": {
+          "type": "number",
+          "minimum": 0
+        },
+        "lan_idle_w": {
+          "type": "number",
+          "minimum": 0
+        },
+        "wan_idle_w": {
+          "type": "number",
+          "minimum": 0
+        },
+        "lan_j_per_bit_hop": {
+          "type": "number",
+          "minimum": 0
+        },
+        "wan_j_per_bit_hop": {
+          "type": "number",
+          "minimum": 0
+        }
+      },
+      "required": [
+        "access",
+        "lan",
+        "wan",
+        "radio_idle_w",
+        "radio_tx_increment_w",
+        "radio_rx_increment_w",
+        "ap_idle_w",
+        "ap_tx_increment_w",
+        "ap_rx_increment_w",
+        "lan_idle_w",
+        "wan_idle_w",
+        "lan_j_per_bit_hop",
+        "wan_j_per_bit_hop"
+      ],
+      "additionalProperties": false
+    },
+    "evaluation": {
+      "type": "object",
+      "properties": {
+        "objective_order": {
+          "const": [
+            "latency",
+            "energy",
+            "deadline",
+            "imbalance",
+            "qos_failure"
+          ]
+        },
+        "weights": {
+          "const": [
+            0.2,
+            0.2,
+            0.2,
+            0.2,
+            0.2
+          ]
+        },
+        "latency_reference_s": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "failure_latency_penalty_s": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "energy_reference_j_per_arrival": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "imbalance_reference": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "workload_weights": {
+          "const": [
+            0.25,
+            0.25,
+            0.25,
+            0.25
+          ]
+        },
+        "clip_costs": {
+          "const": false
+        }
+      },
+      "required": [
+        "objective_order",
+        "weights",
+        "latency_reference_s",
+        "failure_latency_penalty_s",
+        "energy_reference_j_per_arrival",
+        "imbalance_reference",
+        "workload_weights",
+        "clip_costs"
+      ],
+      "additionalProperties": false
+    },
+    "observation": {
+      "type": "object",
+      "properties": {
+        "dimension": {
+          "const": 108
+        },
+        "mips_reference": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "pes_reference": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "cpu_mi_reference": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "input_reference_mib": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "output_reference_mib": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "deadline_reference_s": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "timeout_reference_s": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "bandwidth_reference_bit_per_s": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "cpu_increment_reference_j_per_mi": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "time_squash_reference_s": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "arrival_squash_reference_per_s": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "communication_squash_reference_j": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "ema_time_constant_s": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "remaining_deadline_reference_s": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        }
+      },
+      "required": [
+        "dimension",
+        "mips_reference",
+        "pes_reference",
+        "cpu_mi_reference",
+        "input_reference_mib",
+        "output_reference_mib",
+        "deadline_reference_s",
+        "timeout_reference_s",
+        "bandwidth_reference_bit_per_s",
+        "cpu_increment_reference_j_per_mi",
+        "time_squash_reference_s",
+        "arrival_squash_reference_per_s",
+        "communication_squash_reference_j",
+        "ema_time_constant_s",
+        "remaining_deadline_reference_s"
+      ],
+      "additionalProperties": false
+    },
+    "reward": {
+      "type": "object",
+      "properties": {
+        "scale": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "discount": {
+          "const": 1.0
+        },
+        "clip": {
+          "const": false
+        },
+        "adaptive_normalization": {
+          "const": false
+        }
+      },
+      "required": [
+        "scale",
+        "discount",
+        "clip",
+        "adaptive_normalization"
+      ],
+      "additionalProperties": false
+    },
+    "ppo": {
+      "type": "object",
+      "properties": {
+        "device": {
+          "const": "cpu"
+        },
+        "environments": {
+          "const": 1
+        },
+        "torch_threads": {
+          "const": 1
+        },
+        "torch_interop_threads": {
+          "const": 1
+        },
+        "actor_layers": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "minItems": 1
+        },
+        "critic_layers": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "minItems": 1
+        },
+        "activation": {
+          "const": "Tanh"
+        },
+        "learning_rate": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "n_steps": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "batch_size": {
+          "type": "integer",
+          "minimum": 2
+        },
+        "n_epochs": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "gamma": {
+          "const": 1.0
+        },
+        "gae_lambda": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "clip_range": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "ent_coef": {
+          "type": "number",
+          "minimum": 0
+        },
+        "vf_coef": {
+          "type": "number",
+          "minimum": 0
+        },
+        "max_grad_norm": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "target_kl": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "normalize_advantage": {
+          "const": true
+        },
+        "deterministic_evaluation": {
+          "const": true
+        }
+      },
+      "required": [
+        "device",
+        "environments",
+        "torch_threads",
+        "torch_interop_threads",
+        "actor_layers",
+        "critic_layers",
+        "activation",
+        "learning_rate",
+        "n_steps",
+        "batch_size",
+        "n_epochs",
+        "gamma",
+        "gae_lambda",
+        "clip_range",
+        "ent_coef",
+        "vf_coef",
+        "max_grad_norm",
+        "target_kl",
+        "normalize_advantage",
+        "deterministic_evaluation"
+      ],
+      "additionalProperties": false
+    },
+    "training": {
+      "type": "object",
+      "properties": {
+        "smoke_decisions": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "pilot_decisions": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "candidate_decisions": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "ranking_reference_decisions": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "final_decisions": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "checkpoint_decisions": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "workload_order": {
+          "const": [
+            "light",
+            "moderate",
+            "heavy",
+            "dynamic"
+          ]
+        }
+      },
+      "required": [
+        "smoke_decisions",
+        "pilot_decisions",
+        "candidate_decisions",
+        "ranking_reference_decisions",
+        "final_decisions",
+        "checkpoint_decisions",
+        "workload_order"
+      ],
+      "additionalProperties": false
+    },
+    "search": {
+      "type": "object",
+      "properties": {
+        "population": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "generations_including_initial": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "candidate_slots": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "model_repeats": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "validation_traces_per_workload": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "weight_floor": {
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "maximum": 0.199999
+        },
+        "dirichlet_alpha": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "equal_weights": {
+          "const": [
+            0.2,
+            0.2,
+            0.2,
+            0.2,
+            0.2
+          ]
+        },
+        "manual_weights": {
+          "type": "array",
+          "items": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          },
+          "minItems": 5,
+          "maxItems": 5
+        },
+        "sbx_probability": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "sbx_eta": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "mutation_probability": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "mutation_probability_per_variable": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "mutation_eta": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "tie_epsilon": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "hypervolume_reference": {
+          "type": "array",
+          "items": {
+            "type": "number",
+            "exclusiveMinimum": 1
+          },
+          "minItems": 5,
+          "maxItems": 5
+        },
+        "initial_rng_base": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "nsga_rng_base": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "random_rng_base": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "required": [
+        "population",
+        "generations_including_initial",
+        "candidate_slots",
+        "model_repeats",
+        "validation_traces_per_workload",
+        "weight_floor",
+        "dirichlet_alpha",
+        "equal_weights",
+        "manual_weights",
+        "sbx_probability",
+        "sbx_eta",
+        "mutation_probability",
+        "mutation_probability_per_variable",
+        "mutation_eta",
+        "tie_epsilon",
+        "hypervolume_reference",
+        "initial_rng_base",
+        "nsga_rng_base",
+        "random_rng_base"
+      ],
+      "additionalProperties": false
+    },
+    "seeds": {
+      "type": "object",
+      "properties": {
+        "master": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "candidate_model_base": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "final_model_base": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "pilot_simplex": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "bootstrap": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "secondary_signflip": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "outer_runs": {
+          "type": "integer",
+          "minimum": 2
+        },
+        "pilot_outer_ids": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "minItems": 3,
+          "maxItems": 3,
+          "uniqueItems": true
+        },
+        "calibration_trace_ids": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "minItems": 2,
+          "maxItems": 2
+        },
+        "validation_trace_ids": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "minItems": 2,
+          "maxItems": 2
+        },
+        "test_trace_ids": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "minItems": 2,
+          "maxItems": 2
+        },
+        "generator": {
+          "const": "PCG64"
+        },
+        "digest": {
+          "const": "SHA-256"
+        },
+        "separator": {
+          "const": "|"
+        },
+        "unused_field": {
+          "const": "-"
+        },
+        "seed_bytes": {
+          "const": 8
+        },
+        "byte_order": {
+          "const": "little"
+        }
+      },
+      "required": [
+        "master",
+        "candidate_model_base",
+        "final_model_base",
+        "pilot_simplex",
+        "bootstrap",
+        "secondary_signflip",
+        "outer_runs",
+        "pilot_outer_ids",
+        "calibration_trace_ids",
+        "validation_trace_ids",
+        "test_trace_ids",
+        "generator",
+        "digest",
+        "separator",
+        "unused_field",
+        "seed_bytes",
+        "byte_order"
+      ],
+      "additionalProperties": false
+    },
+    "statistics": {
+      "type": "object",
+      "properties": {
+        "alpha": {
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "maximum": 1
+        },
+        "primary_family_size": {
+          "const": 3
+        },
+        "secondary_family_size": {
+          "const": 60
+        },
+        "bootstrap_draws": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "secondary_signflip_draws": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "practical_relative_improvement": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "unit": {
+          "const": "outer_training_run"
+        },
+        "multiplicity": {
+          "const": "Holm"
+        }
+      },
+      "required": [
+        "alpha",
+        "primary_family_size",
+        "secondary_family_size",
+        "bootstrap_draws",
+        "secondary_signflip_draws",
+        "practical_relative_improvement",
+        "unit",
+        "multiplicity"
+      ],
+      "additionalProperties": false
+    },
+    "pilot": {
+      "type": "object",
+      "properties": {
+        "candidate_budget_ladder": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "minItems": 1
+        },
+        "minimum_median_spearman": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "minimum_spearman": {
+          "type": "number",
+          "minimum": -1,
+          "maximum": 1
+        },
+        "solo_feasible_fraction": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "heavy_failure_fraction_gt": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "heavy_reliability_gt": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        }
+      },
+      "required": [
+        "candidate_budget_ladder",
+        "minimum_median_spearman",
+        "minimum_spearman",
+        "solo_feasible_fraction",
+        "heavy_failure_fraction_gt",
+        "heavy_reliability_gt"
+      ],
+      "additionalProperties": false
+    },
+    "sensitivity": {
+      "type": "object",
+      "properties": {
+        "timeout_factors": {
+          "type": "array",
+          "items": {
+            "type": "number",
+            "exclusiveMinimum": 1
+          },
+          "minItems": 2,
+          "maxItems": 2
+        },
+        "fog_queue_waiting": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "minItems": 2,
+          "maxItems": 2
+        },
+        "wan_propagation_s": {
+          "type": "array",
+          "items": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          },
+          "minItems": 2,
+          "maxItems": 2
+        },
+        "dynamic_power_multipliers": {
+          "type": "array",
+          "items": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          },
+          "minItems": 2,
+          "maxItems": 2
+        },
+        "normalization_multipliers": {
+          "type": "array",
+          "items": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          },
+          "minItems": 2,
+          "maxItems": 2
+        }
+      },
+      "required": [
+        "timeout_factors",
+        "fog_queue_waiting",
+        "wan_propagation_s",
+        "dynamic_power_multipliers",
+        "normalization_multipliers"
+      ],
+      "additionalProperties": false
+    },
+    "execution": {
+      "type": "object",
+      "properties": {
+        "workers": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 4
+        },
+        "allowed_ports": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "minimum": 1024,
+            "maximum": 65535
+          },
+          "minItems": 4,
+          "maxItems": 4,
+          "uniqueItems": true
+        },
+        "heartbeat_wall_s": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "rpc_timeout_wall_s": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "technical_retries": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "python_fallback": {
+          "const": false
+        },
+        "resume_scope": {
+          "const": "completed_run"
+        },
+        "output_namespace": {
+          "const": "results/research_v2"
+        },
+        "target_python": {
+          "const": "3.12"
+        },
+        "target_java_release": {
+          "const": 21
+        }
+      },
+      "required": [
+        "workers",
+        "allowed_ports",
+        "heartbeat_wall_s",
+        "rpc_timeout_wall_s",
+        "technical_retries",
+        "python_fallback",
+        "resume_scope",
+        "output_namespace",
+        "target_python",
+        "target_java_release"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "protocol_version",
+    "schema_version",
+    "parameter_origin",
+    "units",
+    "timing",
+    "topology",
+    "tasks",
+    "workloads",
+    "network",
+    "evaluation",
+    "observation",
+    "reward",
+    "ppo",
+    "training",
+    "search",
+    "seeds",
+    "statistics",
+    "pilot",
+    "sensitivity",
+    "execution"
+  ],
+  "additionalProperties": false
+}

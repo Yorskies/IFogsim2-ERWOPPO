@@ -1,0 +1,621 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:erwo:research-v2.1:contracts",
+  "$defs": {
+    "task": {
+      "type": "object",
+      "properties": {
+        "task_id": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "source_iot": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 99
+        },
+        "access_fog": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 5
+        },
+        "class_id": {
+          "enum": [
+            "light",
+            "medium",
+            "heavy"
+          ]
+        },
+        "arrival_s": {
+          "type": "number",
+          "minimum": 0
+        },
+        "cpu_mi": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "input_bytes": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "output_bytes": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "deadline_relative_s": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "timeout_relative_s": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "working_set_bytes": {
+          "type": "integer",
+          "minimum": 1
+        }
+      },
+      "required": [
+        "task_id",
+        "source_iot",
+        "access_fog",
+        "class_id",
+        "arrival_s",
+        "cpu_mi",
+        "input_bytes",
+        "output_bytes",
+        "deadline_relative_s",
+        "timeout_relative_s",
+        "working_set_bytes"
+      ],
+      "additionalProperties": false
+    },
+    "resource": {
+      "type": "object",
+      "properties": {
+        "resource_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "kind": {
+          "enum": [
+            "iot",
+            "fog",
+            "cloud"
+          ]
+        },
+        "pes": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "mips_per_pe": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "ram_bytes": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "storage_bytes": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "queue_waiting": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "idle_w": {
+          "type": "number",
+          "minimum": 0
+        },
+        "busy_w": {
+          "type": "number",
+          "minimum": 0
+        }
+      },
+      "required": [
+        "resource_id",
+        "kind",
+        "pes",
+        "mips_per_pe",
+        "ram_bytes",
+        "storage_bytes",
+        "queue_waiting",
+        "idle_w",
+        "busy_w"
+      ],
+      "additionalProperties": false
+    },
+    "route": {
+      "type": "object",
+      "properties": {
+        "source_iot": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 99
+        },
+        "action": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 6
+        },
+        "input_hops": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "link_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "from_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "to_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "bandwidth_bit_per_s": {
+                "type": "number",
+                "exclusiveMinimum": 0
+              },
+              "propagation_s": {
+                "type": "number",
+                "minimum": 0
+              },
+              "server_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "queue_waiting": {
+                "type": "integer",
+                "minimum": 0
+              }
+            },
+            "required": [
+              "link_id",
+              "from_id",
+              "to_id",
+              "bandwidth_bit_per_s",
+              "propagation_s",
+              "server_id",
+              "queue_waiting"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 0
+        },
+        "result_hops": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "link_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "from_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "to_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "bandwidth_bit_per_s": {
+                "type": "number",
+                "exclusiveMinimum": 0
+              },
+              "propagation_s": {
+                "type": "number",
+                "minimum": 0
+              },
+              "server_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "queue_waiting": {
+                "type": "integer",
+                "minimum": 0
+              }
+            },
+            "required": [
+              "link_id",
+              "from_id",
+              "to_id",
+              "bandwidth_bit_per_s",
+              "propagation_s",
+              "server_id",
+              "queue_waiting"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 0
+        }
+      },
+      "required": [
+        "source_iot",
+        "action",
+        "input_hops",
+        "result_hops"
+      ],
+      "additionalProperties": false
+    },
+    "event": {
+      "type": "object",
+      "properties": {
+        "episode_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "task_id": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "at_s": {
+          "type": "number",
+          "minimum": 0
+        },
+        "kind": {
+          "enum": [
+            "CPU_COMPLETE",
+            "TRANSFER_COMPLETE",
+            "RESULT_DELIVERED",
+            "DEADLINE",
+            "TIMEOUT",
+            "ARRIVAL",
+            "HORIZON"
+          ]
+        },
+        "priority": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 3
+        },
+        "sequence": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "generation": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "resource_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "episode_id",
+        "task_id",
+        "at_s",
+        "kind",
+        "priority",
+        "sequence",
+        "generation",
+        "resource_id"
+      ],
+      "additionalProperties": false
+    },
+    "outcome": {
+      "type": "object",
+      "properties": {
+        "episode_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "task_id": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "terminal": {
+          "enum": [
+            "ON_TIME",
+            "LATE_SUCCESS",
+            "FAILED"
+          ]
+        },
+        "failure_reason": {
+          "enum": [
+            null,
+            "CPU_QUEUE_FULL",
+            "RAM_EXHAUSTED",
+            "NETWORK_QUEUE_FULL",
+            "SERVICE_TIMEOUT"
+          ]
+        },
+        "at_s": {
+          "type": "number",
+          "minimum": 0
+        },
+        "result_received_s": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "dynamic_energy_j": {
+          "type": "number",
+          "minimum": 0
+        },
+        "deadline_violated": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "episode_id",
+        "task_id",
+        "terminal",
+        "failure_reason",
+        "at_s",
+        "result_received_s",
+        "dynamic_energy_j",
+        "deadline_violated"
+      ],
+      "additionalProperties": false
+    },
+    "cost_vector": {
+      "type": "object",
+      "properties": {
+        "objective_order": {
+          "const": [
+            "latency",
+            "energy",
+            "deadline",
+            "imbalance",
+            "qos_failure"
+          ]
+        },
+        "values": {
+          "type": "array",
+          "items": {
+            "type": "number",
+            "minimum": 0
+          },
+          "minItems": 5,
+          "maxItems": 5
+        },
+        "out_of_reference": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "objective_order",
+        "values",
+        "out_of_reference"
+      ],
+      "additionalProperties": false
+    },
+    "trace": {
+      "type": "object",
+      "properties": {
+        "schema_version": {
+          "const": "research-v2.1"
+        },
+        "config_sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "payload_sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "seed_namespace": {
+          "type": "object",
+          "properties": {
+            "master": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "split": {
+              "enum": [
+                "calibration",
+                "pilot_train",
+                "pilot_validation",
+                "train_candidate",
+                "train_final",
+                "validation",
+                "test"
+              ]
+            },
+            "outer_run": {
+              "type": [
+                "integer",
+                "null"
+              ],
+              "minimum": 0
+            },
+            "model_repeat": {
+              "type": [
+                "integer",
+                "null"
+              ],
+              "minimum": 0
+            },
+            "trace_id": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "workload": {
+              "enum": [
+                "light",
+                "moderate",
+                "heavy",
+                "dynamic"
+              ]
+            }
+          },
+          "required": [
+            "master",
+            "split",
+            "outer_run",
+            "model_repeat",
+            "trace_id",
+            "workload"
+          ],
+          "additionalProperties": false
+        },
+        "arrival_window_s": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "horizon_s": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "task_count": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "tasks": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/task"
+          },
+          "minItems": 1
+        }
+      },
+      "required": [
+        "schema_version",
+        "config_sha256",
+        "payload_sha256",
+        "seed_namespace",
+        "arrival_window_s",
+        "horizon_s",
+        "task_count",
+        "tasks"
+      ],
+      "additionalProperties": false
+    },
+    "manifest": {
+      "type": "object",
+      "properties": {
+        "schema_version": {
+          "const": "research-v2.1"
+        },
+        "study_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "run_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "status": {
+          "enum": [
+            "pending",
+            "running",
+            "complete",
+            "failed",
+            "interrupted"
+          ]
+        },
+        "attempt": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "source_sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "config_sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "build_sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "trace_sha256": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          },
+          "minItems": 1
+        },
+        "artifacts": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          }
+        },
+        "invariants_valid": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "schema_version",
+        "study_id",
+        "run_id",
+        "status",
+        "attempt",
+        "source_sha256",
+        "config_sha256",
+        "build_sha256",
+        "trace_sha256",
+        "artifacts",
+        "invariants_valid"
+      ],
+      "additionalProperties": false
+    },
+    "rpc_request": {
+      "type": "object",
+      "properties": {
+        "schema_version": {
+          "const": "research-v2.1"
+        },
+        "request_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "episode_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "config_sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "trace_sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "operation": {
+          "enum": [
+            "reset",
+            "step",
+            "close",
+            "heartbeat"
+          ]
+        },
+        "action": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 6
+        }
+      },
+      "required": [
+        "schema_version",
+        "request_id",
+        "episode_id",
+        "config_sha256",
+        "trace_sha256",
+        "operation",
+        "action"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

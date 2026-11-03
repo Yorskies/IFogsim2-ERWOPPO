@@ -1,0 +1,215 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:erwo:research-v2.1:trace-bundle",
+  "type": "object",
+  "properties": {
+    "bundle_version": {
+      "const": "research-v2.trace-bundle-1"
+    },
+    "generator_version": {
+      "const": "research-v2.trace-1"
+    },
+    "status": {
+      "enum": [
+        "ready",
+        "sealed"
+      ]
+    },
+    "seed_namespace": {
+      "type": "object",
+      "properties": {
+        "master": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "split": {
+          "enum": [
+            "calibration",
+            "pilot_train",
+            "pilot_validation",
+            "train_candidate",
+            "train_final",
+            "validation",
+            "test"
+          ]
+        },
+        "outer_run": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "model_repeat": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "trace_id": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "workload": {
+          "enum": [
+            "light",
+            "moderate",
+            "heavy",
+            "dynamic"
+          ]
+        }
+      },
+      "required": [
+        "master",
+        "split",
+        "outer_run",
+        "model_repeat",
+        "trace_id",
+        "workload"
+      ],
+      "additionalProperties": false
+    },
+    "task_count": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "payload_sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "config_sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "files": {
+      "type": "object",
+      "properties": {
+        "trace.json": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "config.json": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        }
+      },
+      "required": [
+        "trace.json",
+        "config.json"
+      ],
+      "additionalProperties": false
+    },
+    "units": {
+      "type": "object",
+      "properties": {
+        "time": {
+          "const": "s"
+        },
+        "cpu_work": {
+          "const": "MI"
+        },
+        "cpu_capacity": {
+          "const": "MIPS_per_PE"
+        },
+        "data": {
+          "const": "byte"
+        },
+        "bandwidth": {
+          "const": "bit_per_s"
+        },
+        "power": {
+          "const": "W"
+        },
+        "energy": {
+          "const": "J"
+        }
+      },
+      "required": [
+        "time",
+        "cpu_work",
+        "cpu_capacity",
+        "data",
+        "bandwidth",
+        "power",
+        "energy"
+      ],
+      "additionalProperties": false
+    },
+    "component_seeds": {
+      "type": "object",
+      "properties": {
+        "arrival": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "source": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "class": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "cpu_mi": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "input_bytes": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "deadline": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "required": [
+        "arrival",
+        "source",
+        "class",
+        "cpu_mi",
+        "input_bytes",
+        "deadline"
+      ],
+      "additionalProperties": false
+    },
+    "producer": {
+      "type": "object",
+      "properties": {
+        "python": {
+          "type": "string",
+          "minLength": 1
+        },
+        "numpy": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source_sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        }
+      },
+      "required": [
+        "python",
+        "numpy",
+        "source_sha256"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "bundle_version",
+    "generator_version",
+    "status",
+    "seed_namespace",
+    "task_count",
+    "payload_sha256",
+    "config_sha256",
+    "files",
+    "units",
+    "component_seeds",
+    "producer"
+  ],
+  "additionalProperties": false
+}

@@ -1,0 +1,39 @@
+{
+  "kind": "handwritten_fixture_not_workload_sample",
+  "arrival_order": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "source_access_fogs": [
+    1,
+    1,
+    2,
+    5
+  ],
+  "simultaneous_arrival_ids": [
+    0,
+    1
+  ],
+  "task_0_boundary_cases": [
+    {
+      "hypothetical_receipt_s": 0.5,
+      "expected_terminal": "ON_TIME"
+    },
+    {
+      "hypothetical_receipt_s": 0.500001,
+      "expected_terminal": "LATE_SUCCESS"
+    },
+    {
+      "hypothetical_receipt_s": 1.5,
+      "expected_terminal": "LATE_SUCCESS"
+    },
+    {
+      "hypothetical_receipt_s": 1.500001,
+      "expected_terminal": "FAILED",
+      "reason": "SERVICE_TIMEOUT"
+    }
+  ],
+  "scope": "Expected outcomes for P02; P01 does not execute tasks or claim these outcomes observed"
+}

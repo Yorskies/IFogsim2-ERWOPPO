@@ -1,0 +1,70 @@
+{
+  "arrival_window_s": 60.0,
+  "config_sha256": "3e32379ebd2e8770e025ff9cce11be28cbffe7e535b269a070030ce6d9dae025",
+  "horizon_s": 69.0,
+  "payload_sha256": "e2af38ba181fe80c4c1669e946f8fb393a83776acd827a73e1d5c9e98cadd76c",
+  "schema_version": "research-v2.1",
+  "seed_namespace": {
+    "master": 20261103,
+    "model_repeat": null,
+    "outer_run": null,
+    "split": "calibration",
+    "trace_id": 0,
+    "workload": "dynamic"
+  },
+  "task_count": 4,
+  "tasks": [
+    {
+      "access_fog": 1,
+      "arrival_s": 0.0,
+      "class_id": "light",
+      "cpu_mi": 100,
+      "deadline_relative_s": 0.5,
+      "input_bytes": 52429,
+      "output_bytes": 2622,
+      "source_iot": 0,
+      "task_id": 0,
+      "timeout_relative_s": 1.5,
+      "working_set_bytes": 67108864
+    },
+    {
+      "access_fog": 1,
+      "arrival_s": 0.0,
+      "class_id": "light",
+      "cpu_mi": 100,
+      "deadline_relative_s": 0.5,
+      "input_bytes": 52429,
+      "output_bytes": 2622,
+      "source_iot": 19,
+      "task_id": 1,
+      "timeout_relative_s": 1.5,
+      "working_set_bytes": 67108864
+    },
+    {
+      "access_fog": 2,
+      "arrival_s": 15.0,
+      "class_id": "light",
+      "cpu_mi": 100,
+      "deadline_relative_s": 0.5,
+      "input_bytes": 52429,
+      "output_bytes": 2622,
+      "source_iot": 20,
+      "task_id": 2,
+      "timeout_relative_s": 1.5,
+      "working_set_bytes": 67108864
+    },
+    {
+      "access_fog": 5,
+      "arrival_s": 59.999999,
+      "class_id": "heavy",
+      "cpu_mi": 1500,
+      "deadline_relative_s": 3.0,
+      "input_bytes": 838861,
+      "output_bytes": 41944,
+      "source_iot": 99,
+      "task_id": 3,
+      "timeout_relative_s": 9.0,
+      "working_set_bytes": 67108864
+    }
+  ]
+}
