@@ -51,7 +51,9 @@ def main():
         print(f"Calibration: {workload} {high - low + 1} traces", flush=True)
     report = calibration_report(traces, config)
     suite = unittest.TestSuite()
-    suite.addTests(unittest.TestLoader().discover(str(ROOT / "tests/research_v2"), pattern="test_*.py"))
+    # Explicit modules keep the P01 count at 49 as later phases add their own test files.
+    for pattern in ("test_foundation.py", "test_traces.py"):
+        suite.addTests(unittest.TestLoader().discover(str(ROOT / "tests/research_v2"), pattern=pattern))
     suite.addTests(unittest.TestLoader().discover(str(ROOT / "tests"), pattern="test_experiment_suite.py"))
     log = io.StringIO()
     tests = unittest.TextTestRunner(stream=log, verbosity=2).run(suite)

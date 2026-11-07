@@ -19,6 +19,15 @@ lain. Perubahan core legacy belum dilakukan.
 | `PowerModelLinear.getPower(0)` | Mengembalikan0; constructor staticPowerPercent berbeda | Tidak dipakai tanpa koreksi; jangan menukar parameter dengan FogLinearPowerModel |
 | `TimeKeeper`, `FogUtils`, `NetworkUsageMonitor` | Singleton/map/counter global tidak seluruhnya direset CloudSim.init | P02 miliki SimulationContext/ID/ledger per episode; audit ulang saat memasukkan FogDevice; jangan bergantung statistik global lama |
 
+**Tindak lanjut P02.** Adapter `BoundedFcfsScheduler` menegakkan Qwait dan melepas `usedPes` pada
+cancel (diuji dengan injeksi bug: tes gagal jika `usedPes` tidak dilepas), menonaktifkan submit,
+cancel, pause, resume, dan `updateWaitingCloudlets` native, dan mengatur PE ber-ID terkecil.
+Hazard "satu waiting per update" tidak muncul pada desain berbasis event karena setiap pelepasan
+membebaskan tepat satu PE; loop promote-all bersifat defensif. Progres CPU memakai waktu selesai
+eksak `MI / MIPS`, bukan penghitung native yang membulatkan sisa ke bawah ke MI. Urutan event waktu
+sama ditangani koordinator, bukan antrean CloudSim. Reset state statis `FogDevice`/`TimeKeeper`/
+`NetworkUsageMonitor` masih perlu diaudit saat `FogDevice` dimasukkan (P03–P04).
+
 Rujukan source berada di `ifogsim/src/org/cloudbus/cloudsim/` dan
 `ifogsim/src/org/fog/`. Receipt build merekam SHA-256 input yang diaudit.
 Native probe hanya membuktikan integrasi API event dasar, **belum** eksekusi

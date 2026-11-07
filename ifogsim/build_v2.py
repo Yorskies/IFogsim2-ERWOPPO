@@ -95,7 +95,7 @@ def main():
         "platform": platform.platform(), "python": platform.python_version(),
         "inputs": {p.relative_to(ROOT).as_posix(): file_hash(p) for p in sources + jars + resources + [Path(__file__).resolve()]},
         "self_test": probe,
-        "scope": "foundation event/API probe; not the task offloading engine or a socket server"
+        "scope": "foundation probe (FoundationMain) plus P02 headless task engine (EngineMain, fixture transport); not a socket server"
     }
     (build / "build_receipt.json").write_text(json.dumps(receipt, indent=2) + "\n", encoding="utf-8")
     print(json.dumps({"artifact": str(ARTIFACT), "sha256": receipt["artifact_sha256"], "self_test": probe}))

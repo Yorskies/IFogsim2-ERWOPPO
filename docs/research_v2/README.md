@@ -1,9 +1,31 @@
-# Research v2 — fondasi P00 dan generator trace P01
+# Research v2 — fondasi P00, trace P01, dan engine P02
 
-**P00 dan P01 sudah selesai**: config/schema, kontrak lintas bahasa, audit API,
-build terpisah, probe native, serta generator/penyimpanan trace deterministik.
-Training PPO, task engine, serta socket v2 belum tersedia. Panduan trace dan
-guard split: [TRACES.md](TRACES.md); bukti [P01](milestones/P01_trace_validation.md).
+**P00, P01, dan P02 sudah selesai**: config/schema, kontrak lintas bahasa, audit API,
+build terpisah, probe native, generator/penyimpanan trace deterministik, serta engine
+task headless (CPU FCFS bounded, admission, deadline/timeout, horizon) di atas CloudSim.
+Jaringan nyata, energi, training PPO, dan socket v2 belum tersedia; engine P02 memakai
+transport fixture nol-jaringan yang berlabel. Panduan trace dan guard split:
+[TRACES.md](TRACES.md); bukti [P01](milestones/P01_trace_validation.md) dan
+[P02](milestones/P02_engine_validation.md).
+
+## Menjalankan engine P02 (headless, aksi tetap)
+
+Setelah build JAR (lihat bagian build), skenario dibuat dari trace P01 dan dijalankan di JVM:
+
+```python
+from research_v2.engine_runner import run_engine, scenario_from_trace
+episode = run_engine(scenario_from_trace(trace, "nearest_fog", topology={"homogeneous_fog": False}))["episodes"][0]
+```
+
+Atau audit milestone lengkap (21 tes, C01–C08), yang menulis `milestones/P02_verification.json`:
+
+```text
+python -m research_v2.verify_engine --jdk-home <JDK 21+>
+```
+
+Hasil engine memuat outcome per task, log event dengan generasi/sequence, dan ringkasan per node
+(maks PE sibuk, maks antrean, puncak RAM, `busy_pe_seconds`). Label `FIXTURE_ZERO_NETWORK` pada hasil
+berarti angka tersebut bukan benchmark sistem.
 
 ## Memeriksa config
 
@@ -48,6 +70,53 @@ python -m research_v2.verify_foundation
 Build memakai `javac --release 21` meskipun compiler lokal lebih baru. Tidak
 memerlukan `java` di PATH jika JAVA_HOME atau `--jdk-home` diberikan. Sesuaikan
 JAVA_HOME dengan lokasi JDK21 atau lebih baru yang benar-benar terpasang.
+
+### Lingkungan yang diverifikasi ulang (8 November 2026)
+
+Semua perintah di bawah dijalankan dari root repository di Windows 11:
+
+```powershell
+py -3.12 -m venv venv                       # venv/ sudah di-ignore Git
+venv\Scripts\python.exe -m pip install -r requirements-v2-traces.txt
+venv\Scripts\python.exe -m pip install -r requirements.txt   # dependency legacy
+$jdk = "$env:USERPROFILE\.jdks\jdk-21.0.13.0.2+1"             # Microsoft OpenJDK 21 (ZIP)
+venv\Scripts\python.exe ifogsim\build_v2.py --jdk-home $jdk --self-test
+venv\Scripts\python.exe -m research_v2.verify_foundation --jdk-home $jdk
+venv\Scripts\python.exe -m research_v2.verify_traces --jdk-home $jdk
+```
+
+| Komponen | Versi | Catatan |
+|---|---|---|
+| Python | 3.12.6 | Target server sama (3.12). Verifikasi awal memakai 3.11.0. |
+| JDK | Microsoft OpenJDK 21.0.13 | Sama dengan target `--release 21`; tidak perlu `--release` lebih rendah. |
+| numpy / jsonschema | 2.4.6 / 4.26.0 | Pin `requirements-v2-*.txt` tidak berubah. |
+
+Hasil: P00 **23/23**, P01 **49/49**, dan P02 **21/21** tes lulus (P02 ditambahkan kemudian
+pada hari yang sama dengan `verify_engine`), 0 failure/error/skip. Seluruh 80
+`trace.json` dan `config.json` yang dibangkitkan ulang identik byte-per-byte dengan
+bundle yang ter-commit di `results/research_v2/P01_calibration/`, jadi trace tidak
+berubah antara Python 3.11 dan 3.12.
+
+Tiga catatan:
+
+- `verify_foundation` dan `verify_traces` menulis laporan ke `docs/research_v2/milestones/`
+  secara default dan akan menimpa bukti yang sudah ter-commit. Untuk verifikasi ulang
+  gunakan `--output <path_lain>` (dan `--trace-root` untuk `verify_traces`).
+- `producer.source_sha256` pada `manifest.json` bundle menghash **byte mentah** file
+  Python. Dengan `core.autocrlf=true` (default Git for Windows) file berakhiran CRLF
+  dan hash berbeda (`72877414…`) dari fingerprint terdokumentasi (`e920381c…`), yang
+  sama dengan hash isi Git (LF). Isi trace tidak terpengaruh; hanya
+  `manifest.json` berbeda. Sebelum membandingkan manifest antar-mesin, samakan akhir
+  baris (misalnya checkout LF, atau `.gitattributes` dengan `eol=lf`).
+- `verify_foundation --baseline` gagal pada salinan repository ini (diuji 8 November
+  2026, berhenti di `experiment_suite.json`). Snapshot menghash byte mentah, sehingga
+  ada dua penyebab yang terpisah dari perubahan isi: (1) akhir baris. Dari 451 source
+  legacy, 447 cocok setelah CRLF→LF, 3 cocok apa adanya, dan 1
+  (`IFogSimSocketServer.java`) cocok hanya sebagai CRLF. Isi seluruhnya identik; (2) arsip
+  hasil. Salinan `results/` yang ter-commit hanya berisi 325 dari 1.286 file suite lama
+  (961 hilang, lihat `RENCANA_PENELITIAN_LANJUTAN.md` bagian 2), dan 243 dari 325 yang
+  ada hanya cocok setelah normalisasi LF. Opsi ini memerlukan arsip lengkap dengan
+  byte yang sama; jangan membuat ulang snapshot untuk menyiasatinya.
 
 ## Build Ubuntu — perintah untuk validasi server
 

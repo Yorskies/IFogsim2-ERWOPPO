@@ -1,10 +1,12 @@
 # Implementation plan dan milestone penelitian ERWO-PPO v2
 
-Tanggal: 3 November 2026. Status: **P00–P01 selesai dan terverifikasi lokal; P02–P12 belum dimulai**.
+Tanggal: 3 November 2026 (diperbarui 8 November 2026). Status: **P00–P02 selesai dan terverifikasi lokal; P03–P12 belum dimulai**.
 
 Phase pertama yang telah dikerjakan adalah **P00 — Kontrak dan fondasi proyek**. Bukti: [catatan P00](docs/research_v2/milestones/P00_foundation.md) dan [laporan verifikasi](docs/research_v2/milestones/P00_verification.json): 23 tes lulus, tanpa failure/error/skip. Build menargetkan Java 21; lingkungan aktual Windows/Python 3.11/JDK 27. Pengujian langsung Ubuntu/Python 3.12/JDK 21 tetap menjadi preflight server sebelum penguncian protokol P10.
 
 **P01 — Konfigurasi dan generator trace** juga selesai. Bukti: [laporan P01](docs/research_v2/milestones/P01_trace_validation.md) dan [verifikasi mesin](docs/research_v2/milestones/P01_verification.json): 49 tes lulus, 80 trace calibration, serta 468/468 pemeriksaan distribusi lulus. Test tetap tersegel; belum ada eksekusi offloading atau training v2.
+
+**P02 — Event engine dan siklus tugas** selesai pada 8 November 2026. Bukti: [laporan P02](docs/research_v2/milestones/P02_engine_validation.md) dan [verifikasi mesin](docs/research_v2/milestones/P02_verification.json): 21 tes lulus, acceptance C01–C08 lulus, serta empat trace kalibrasi nyata berjalan sampai horizon dengan konservasi task. Transport masih fixture nol-jaringan; belum ada jaringan, energi, socket, atau training.
 
 Dasar teknis: [Kesepakatan Rancangan Penelitian v0.2](KESEPAKATAN_RANCANGAN_PENELITIAN.md). Latar temuan dan tujuan perbaikan: [Rencana Penelitian Lanjutan](RENCANA_PENELITIAN_LANJUTAN.md).
 
@@ -28,7 +30,7 @@ Dokumen ini mengatur urutan kerja, dependensi, deliverable, verifikasi, dan krit
 |---|---|---|---|---|
 | P00 | Kontrak dan fondasi proyek | Struktur v2, schema, rencana validasi, build dasar | Spesifikasi v0.2 | **Selesai — verifikasi lokal 23/23** |
 | P01 | Konfigurasi dan trace | Generator empat workload yang deterministik | P00 | **Selesai — verifikasi lokal 49/49** |
-| P02 | Event engine dan siklus tugas | CPU, FCFS, admission, deadline, timeout, horizon | P00–P01 | Belum dimulai |
+| P02 | Event engine dan siklus tugas | CPU, FCFS, admission, deadline, timeout, horizon | P00–P01 | **Selesai — verifikasi lokal 21/21** |
 | P03 | Transport jaringan | Queue, routing, transfer input/hasil, cancellation | P02 | Belum dimulai |
 | P04 | Energi dan metrik | Ledger energi serta lima biaya tervalidasi | P02–P03 | Belum dimulai |
 | P05 | Socket dan Gymnasium | Protokol v2, observasi 108, reward tertunda | P01–P04 | Belum dimulai |
@@ -44,7 +46,7 @@ Dependensi utama bersifat berurutan. Perancangan schema dan pembacaan source bol
 
 ## 3. Arsitektur implementasi yang dituju
 
-Struktur berikut adalah target. Fondasi config/schema/package/build, generator dan penyimpanan trace, serta catatan P00–P01 sudah dibuat; engine, Gym, training, search, runner studi, dan analisis merupakan pekerjaan phase selanjutnya. Pemetaan aktual dijelaskan pada [arsitektur](docs/research_v2/ARCHITECTURE.md) dan [kontrak trace](docs/research_v2/TRACES.md).
+Struktur berikut adalah target. Fondasi config/schema/package/build, generator dan penyimpanan trace, engine CPU/lifecycle headless (P02), serta catatan P00–P02 sudah dibuat; jaringan, energi, Gym, training, search, runner studi, dan analisis merupakan pekerjaan phase selanjutnya. Pemetaan aktual dijelaskan pada [arsitektur](docs/research_v2/ARCHITECTURE.md) dan [kontrak trace](docs/research_v2/TRACES.md).
 
 | Area | Lokasi yang direncanakan | Tanggung jawab |
 |---|---|---|
@@ -121,21 +123,23 @@ Batas tahap: test trace boleh disiapkan sebagai artefak terkunci, tetapi belum d
 
 Pekerjaan:
 
-- [ ] Bangun kasus satu IoT/satu node dahulu, kemudian factory topologi 100 IoT–5 fog–1 cloud.
-- [ ] Buat host, VM/module, PE, dan Cloudlet nyata; jangan mengaktifkan overbooking atau scheduler time-shared secara tidak sengaja.
-- [ ] Implementasikan FCFS satu PE per tugas, multi-PE per node, bounded waiting queue, dan admission RAM.
-- [ ] Implementasikan deadline flag, timeout proporsional, terminal outcome, dan penolakan tanpa rerouting.
-- [ ] Implementasikan pembatalan cloudlet/queue, pelepasan resource, serta invalidasi event usang.
-- [ ] Implementasikan T=60 s, drain sampai H=69 s, dan pencatatan tugas unresolved sebagai error.
-- [ ] Terapkan prioritas completion/delivery, deadline/timeout, lalu external arrival pada waktu sama.
-- [ ] Pastikan reset episode menghapus state statis yang relevan dan tidak meninggalkan event/resource.
-- [ ] Sediakan headless driver dengan tindakan tetap agar validasi tidak bergantung pada Python/RL.
+- [x] Bangun kasus satu IoT/satu node dahulu, kemudian factory topologi 100 IoT–5 fog–1 cloud.
+- [x] Buat host, VM/module, PE, dan Cloudlet nyata; jangan mengaktifkan overbooking atau scheduler time-shared secara tidak sengaja.
+- [x] Implementasikan FCFS satu PE per tugas, multi-PE per node, bounded waiting queue, dan admission RAM.
+- [x] Implementasikan deadline flag, timeout proporsional, terminal outcome, dan penolakan tanpa rerouting.
+- [x] Implementasikan pembatalan cloudlet/queue, pelepasan resource, serta invalidasi event usang.
+- [x] Implementasikan T=60 s, drain sampai H=69 s, dan pencatatan tugas unresolved sebagai error. (Pencegahan saat load teruji; jalur error di event horizon tidak teruji langsung.)
+- [x] Terapkan prioritas completion/delivery, deadline/timeout, lalu external arrival pada waktu sama.
+- [x] Pastikan reset episode menghapus state statis yang relevan dan tidak meninggalkan event/resource. (Teruji untuk clock/queue CloudSim dan objek engine; `FogDevice`/`TimeKeeper`/`NetworkUsageMonitor` belum diinstansiasi.)
+- [x] Sediakan headless driver dengan tindakan tetap agar validasi tidak bergantung pada Python/RL.
 
 Deliverable: engine CPU dan lifecycle, task/event log awal, serta `P02_engine_validation.md`.
 
 **Kriteria lulus:** MI/MIPS menghasilkan waktu yang benar; FCFS dan kapasitas PE benar; task tidak menyalip antrean; deadline tidak membatalkan tugas; timeout tidak menghidupkan kembali tugas; hasil tepat pada batas mengikuti aturan; konservasi task terpenuhi.
 
 Validasi pada fase ini boleh menggunakan jalur lokal atau jaringan nol-delay yang jelas diberi label fixture. Hasil fixture bukan benchmark sistem lengkap.
+
+**Hasil aktual:** lulus pada lingkungan lokal (Windows, Python 3.12.6, OpenJDK 21.0.13). 21 tes tanpa failure/error/skip; C01–C08 lulus; trace kalibrasi light/moderate/heavy/dynamic berjalan pada topologi 100+5+1 dengan busy PE-seconds yang cocok dengan penghitungan ulang independen. Tes diperiksa dengan bug yang disuntikkan: dua dari tiga mutan terbunuh, dan yang ketiga ekuivalen (lihat laporan). Rincian dan keputusan desain: [P02_engine_validation.md](docs/research_v2/milestones/P02_engine_validation.md).
 
 ## 7. P03 — Jaringan dan jalur offloading
 
@@ -406,10 +410,10 @@ Status `blocked` pada catatan proyek berarti dependensi/masalah milestone belum 
 4. Tulis acceptance cases untuk P01–P05 beserta nilai analitis yang diharapkan.
 5. Serahkan catatan P00 sebelum memperluas implementasi ke generator trace dan simulator.
 
-P01 trace deterministik juga sudah selesai. **Milestone berikutnya adalah P02: event engine, CPU, dan siklus tugas**, mulai dari satu IoT/satu node serta fixture CPU/FCFS sebelum skala penuh. Tidak langsung mengubah runner legacy menjadi training besar, memigrasikan model lama ke 108 fitur, atau menjalankan 20 outer run.
+P01 trace deterministik dan P02 engine CPU/lifecycle juga sudah selesai. **Milestone berikutnya adalah P03: transport jaringan**, yang menggantikan transport fixture P02 dengan kanal akses half-duplex, link LAN/WAN, antrean transfer, dan pembatalan transfer parsial. Tidak langsung mengubah runner legacy menjadi training besar, memigrasikan model lama ke 108 fitur, atau menjalankan 20 outer run.
 
 ## 20. Batas dokumen ini
 
-P00–P01 telah diimplementasikan dan diverifikasi secara lokal; P02–P12 belum dimulai. Config, schema, package fondasi, CLI validasi/generator, trace immutable, guard split, build terpisah, serta probe native/numerik sudah tersedia. Scheduler v2, task engine, server, analisis statistik konfirmatori, serta eksperimen utama belum tersedia. Status selesai P00–P01 tidak berarti simulator sudah siap untuk training; setiap phase berikutnya tetap harus memenuhi kriterianya sendiri.
+P00–P02 telah diimplementasikan dan diverifikasi secara lokal; P03–P12 belum dimulai. Config, schema, package fondasi, CLI validasi/generator, trace immutable, guard split, build terpisah, probe native/numerik, scheduler FCFS bounded, dan engine task headless dengan transport fixture sudah tersedia. Jaringan, ledger energi, server socket, Gym, analisis statistik konfirmatori, serta eksperimen utama belum tersedia. Status selesai P00–P02 tidak berarti simulator sudah siap untuk training; setiap phase berikutnya tetap harus memenuhi kriterianya sendiri.
 
 Kriteria eksperimen dan parameter tetap merujuk pada dokumen kesepakatan. Jika ada konflik, perbaiki dokumen dan catat keputusan sebelum melanjutkan; jangan menyelesaikan konflik melalui perubahan kode yang tidak terdokumentasi.

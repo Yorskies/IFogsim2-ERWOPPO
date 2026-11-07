@@ -1,7 +1,13 @@
 # Kontrak arsitektur P00
 
-Status implementasi: fondasi saja. Arsitektur ini memetakan fase lanjutan;
-keberadaan package/schema tidak berarti task engine sudah tersedia.
+Status implementasi: fondasi P00, trace P01, dan engine headless P02. Arsitektur ini
+memetakan fase lanjutan; jaringan, energi, socket, dan training belum tersedia.
+
+Pembaruan P02 (8 November 2026): `BoundedFcfsScheduler` (adapter CloudSim space-shared), `ComputeNode`
+(Host/Vm/Pe nyata), `EngineCoordinator` (antrean berurutan dengan prioritas domain, generasi event,
+commit terminal tunggal), dan driver `EngineMain` ada di `org.fog.erwo.v2`. Lifecycle di bawah sudah
+berjalan dengan transport fixture nol-jaringan; keputusan desain dan batasannya ada di
+[P02_engine_validation.md](milestones/P02_engine_validation.md).
 
 Pembaruan P01: generator `traces.py`, guard `trace_access.py`, bundle atomik
 `trace_store.py`, laporan distribusi `trace_report.py`, dan audit `verify_traces.py`
