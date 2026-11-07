@@ -1,0 +1,1244 @@
+{
+  "manifest_status": "complete",
+  "runs": 80,
+  "groups": 16,
+  "raw_episode_rows": 56000,
+  "model_files": 400,
+  "aggregation_matches": true,
+  "source_fingerprint_matches_current": true,
+  "issues": [],
+  "stale_result_status_count": 80,
+  "candidate_evaluations_from_logs": [
+    40
+  ],
+  "moderate_dynamic_exact_benchmark_pairs": [
+    [
+      5000,
+      0
+    ],
+    [
+      5000,
+      1
+    ],
+    [
+      5000,
+      2
+    ],
+    [
+      5000,
+      3
+    ],
+    [
+      5000,
+      4
+    ],
+    [
+      25000,
+      0
+    ],
+    [
+      25000,
+      1
+    ],
+    [
+      25000,
+      2
+    ],
+    [
+      25000,
+      3
+    ],
+    [
+      25000,
+      4
+    ],
+    [
+      50000,
+      0
+    ],
+    [
+      50000,
+      1
+    ],
+    [
+      50000,
+      2
+    ],
+    [
+      50000,
+      3
+    ],
+    [
+      50000,
+      4
+    ],
+    [
+      100000,
+      0
+    ],
+    [
+      100000,
+      1
+    ],
+    [
+      100000,
+      2
+    ],
+    [
+      100000,
+      3
+    ],
+    [
+      100000,
+      4
+    ]
+  ],
+  "moderate_dynamic_exact_raw_csv_pairs": [
+    [
+      5000,
+      0
+    ],
+    [
+      5000,
+      1
+    ],
+    [
+      5000,
+      2
+    ],
+    [
+      5000,
+      3
+    ],
+    [
+      5000,
+      4
+    ],
+    [
+      25000,
+      0
+    ],
+    [
+      25000,
+      1
+    ],
+    [
+      25000,
+      2
+    ],
+    [
+      25000,
+      3
+    ],
+    [
+      25000,
+      4
+    ],
+    [
+      50000,
+      0
+    ],
+    [
+      50000,
+      1
+    ],
+    [
+      50000,
+      2
+    ],
+    [
+      50000,
+      3
+    ],
+    [
+      50000,
+      4
+    ],
+    [
+      100000,
+      0
+    ],
+    [
+      100000,
+      1
+    ],
+    [
+      100000,
+      2
+    ],
+    [
+      100000,
+      3
+    ],
+    [
+      100000,
+      4
+    ]
+  ],
+  "paired_seed_tests_erwo_vs_ppo": [
+    {
+      "workload": "light",
+      "final_timesteps": 5000,
+      "metric": "latency",
+      "differences": [
+        3.1542282104492188,
+        6.369625091552734,
+        6.1653032302856445,
+        5.186798095703125,
+        6.083462715148926
+      ],
+      "p_two_sided_unadjusted": 0.0625
+    },
+    {
+      "workload": "light",
+      "final_timesteps": 5000,
+      "metric": "energy",
+      "differences": [
+        -0.019344329833984375,
+        -0.005764007568359375,
+        -0.003936767578125,
+        -0.017055511474609375,
+        0.00107574462890625
+      ],
+      "p_two_sided_unadjusted": 0.125
+    },
+    {
+      "workload": "light",
+      "final_timesteps": 5000,
+      "metric": "violation_rate",
+      "differences": [
+        -18.0,
+        -33.64,
+        -30.699999999999996,
+        -25.78,
+        -29.9
+      ],
+      "p_two_sided_unadjusted": 0.0625
+    },
+    {
+      "workload": "light",
+      "final_timesteps": 5000,
+      "metric": "load_imbalance",
+      "differences": [
+        -0.12477190999999999,
+        -0.15798149600000003,
+        -0.07389007999999997,
+        -0.05472864200000005,
+        -0.05381314599999998
+      ],
+      "p_two_sided_unadjusted": 0.0625
+    },
+    {
+      "workload": "light",
+      "final_timesteps": 5000,
+      "metric": "qos",
+      "differences": [
+        7.094468116760254,
+        12.693140983581543,
+        11.412960529327393,
+        8.061230659484863,
+        11.176133632659912
+      ],
+      "p_two_sided_unadjusted": 0.0625
+    },
+    {
+      "workload": "light",
+      "final_timesteps": 25000,
+      "metric": "latency",
+      "differences": [
+        0.5238761901855469,
+        0.04815864562988281,
+        -0.3505516052246094,
+        -0.20928382873535156,
+        0.026233673095703125
+      ],
+      "p_two_sided_unadjusted": 0.9375
+    },
+    {
+      "workload": "light",
+      "final_timesteps": 25000,
+      "metric": "energy",
+      "differences": [
+        0.20343017578125,
+        -0.008769989013671875,
+        -0.002826690673828125,
+        0.0041656494140625,
+        0.004680633544921875
+      ],
+      "p_two_sided_unadjusted": 0.5625
+    },
+    {
+      "workload": "light",
+      "final_timesteps": 25000,
+      "metric": "violation_rate",
+      "differences": [
+        -1.7200000000000024,
+        -0.060000000000002274,
+        1.1199999999999974,
+        0.21999999999999886,
+        0.0799999999999983
+      ],
+      "p_two_sided_unadjusted": 0.9375
+    },
+    {
+      "workload": "light",
+      "final_timesteps": 25000,
+      "metric": "load_imbalance",
+      "differences": [
+        -0.009566219999999993,
+        -0.0011166140000000088,
+        0.006834976000000013,
+        0.0032039639999999966,
+        -0.0025232960000000013
+      ],
+      "p_two_sided_unadjusted": 0.8125
+    },
+    {
+      "workload": "light",
+      "final_timesteps": 25000,
+      "metric": "qos",
+      "differences": [
+        1.5936126708984375,
+        0.20816802978515625,
+        -1.21990966796875,
+        -0.6030521392822266,
+        0.13586044311523438
+      ],
+      "p_two_sided_unadjusted": 1.0
+    },
+    {
+      "workload": "light",
+      "final_timesteps": 50000,
+      "metric": "latency",
+      "differences": [
+        0.22133827209472656,
+        -0.0550994873046875,
+        -0.15804672241210938,
+        0.0038013458251953125,
+        -0.1379070281982422
+      ],
+      "p_two_sided_unadjusted": 0.875
+    },
+    {
+      "workload": "light",
+      "final_timesteps": 50000,
+      "metric": "energy",
+      "differences": [
+        0.13558578491210938,
+        0.00267791748046875,
+        -0.00543212890625,
+        0.013828277587890625,
+        -0.02019500732421875
+      ],
+      "p_two_sided_unadjusted": 0.6875
+    },
+    {
+      "workload": "light",
+      "final_timesteps": 50000,
+      "metric": "violation_rate",
+      "differences": [
+        -0.46000000000000085,
+        -0.05999999999999872,
+        0.46000000000000085,
+        0.10000000000000142,
+        0.33999999999999986
+      ],
+      "p_two_sided_unadjusted": 0.75
+    },
+    {
+      "workload": "light",
+      "final_timesteps": 50000,
+      "metric": "load_imbalance",
+      "differences": [
+        -0.004612401999999988,
+        0.002291720000000011,
+        0.00513258799999998,
+        0.0012569359999999724,
+        0.0025249000000000035
+      ],
+      "p_two_sided_unadjusted": 0.4375
+    },
+    {
+      "workload": "light",
+      "final_timesteps": 50000,
+      "metric": "qos",
+      "differences": [
+        0.5687217712402344,
+        -0.16115951538085938,
+        -0.5610733032226562,
+        -0.0829010009765625,
+        -0.4936981201171875
+      ],
+      "p_two_sided_unadjusted": 0.4375
+    },
+    {
+      "workload": "light",
+      "final_timesteps": 100000,
+      "metric": "latency",
+      "differences": [
+        0.05856895446777344,
+        -0.0042018890380859375,
+        -0.24612998962402344,
+        -0.0003223419189453125,
+        0.46602821350097656
+      ],
+      "p_two_sided_unadjusted": 0.75
+    },
+    {
+      "workload": "light",
+      "final_timesteps": 100000,
+      "metric": "energy",
+      "differences": [
+        -0.0731964111328125,
+        0.002838134765625,
+        -0.11651229858398438,
+        0.008441925048828125,
+        0.14894866943359375
+      ],
+      "p_two_sided_unadjusted": 1.0
+    },
+    {
+      "workload": "light",
+      "final_timesteps": 100000,
+      "metric": "violation_rate",
+      "differences": [
+        0.1999999999999993,
+        -0.019999999999999574,
+        -0.0799999999999983,
+        0.05999999999999872,
+        -0.9199999999999982
+      ],
+      "p_two_sided_unadjusted": 0.6875
+    },
+    {
+      "workload": "light",
+      "final_timesteps": 100000,
+      "metric": "load_imbalance",
+      "differences": [
+        -0.002467572000000008,
+        0.0006262739999999961,
+        0.0032457140000000037,
+        8.074799999998467e-05,
+        -0.002085305999999995
+      ],
+      "p_two_sided_unadjusted": 1.0
+    },
+    {
+      "workload": "light",
+      "final_timesteps": 100000,
+      "metric": "qos",
+      "differences": [
+        0.1041412353515625,
+        -0.016597747802734375,
+        -0.2934608459472656,
+        -0.035755157470703125,
+        0.5830879211425781
+      ],
+      "p_two_sided_unadjusted": 0.75
+    },
+    {
+      "workload": "moderate",
+      "final_timesteps": 5000,
+      "metric": "latency",
+      "differences": [
+        -0.050861358642578125,
+        15.953105926513672,
+        0.497467041015625,
+        9.550357818603516,
+        5.612483978271484
+      ],
+      "p_two_sided_unadjusted": 0.125
+    },
+    {
+      "workload": "moderate",
+      "final_timesteps": 5000,
+      "metric": "energy",
+      "differences": [
+        -0.0024566650390625,
+        0.00135040283203125,
+        0.00804901123046875,
+        -0.05219268798828125,
+        0.052520751953125
+      ],
+      "p_two_sided_unadjusted": 0.8125
+    },
+    {
+      "workload": "moderate",
+      "final_timesteps": 5000,
+      "metric": "violation_rate",
+      "differences": [
+        0.0799999999999983,
+        -38.239999999999995,
+        -3.220000000000006,
+        -23.299999999999997,
+        -16.39
+      ],
+      "p_two_sided_unadjusted": 0.125
+    },
+    {
+      "workload": "moderate",
+      "final_timesteps": 5000,
+      "metric": "load_imbalance",
+      "differences": [
+        0.007660014000000048,
+        -0.163655071,
+        0.008611557999999964,
+        -0.04209788999999997,
+        -0.09780786300000002
+      ],
+      "p_two_sided_unadjusted": 0.25
+    },
+    {
+      "workload": "moderate",
+      "final_timesteps": 5000,
+      "metric": "qos",
+      "differences": [
+        1.098367691040039,
+        31.273279190063477,
+        -1.1062679290771484,
+        15.434988021850586,
+        9.997404098510742
+      ],
+      "p_two_sided_unadjusted": 0.1875
+    },
+    {
+      "workload": "moderate",
+      "final_timesteps": 25000,
+      "metric": "latency",
+      "differences": [
+        0.019527435302734375,
+        0.7423629760742188,
+        0.11147308349609375,
+        -1.5437202453613281,
+        1.6121482849121094
+      ],
+      "p_two_sided_unadjusted": 0.5625
+    },
+    {
+      "workload": "moderate",
+      "final_timesteps": 25000,
+      "metric": "energy",
+      "differences": [
+        0.01714324951171875,
+        0.00089263916015625,
+        0.00072479248046875,
+        -0.0028839111328125,
+        0.12237548828125
+      ],
+      "p_two_sided_unadjusted": 0.3125
+    },
+    {
+      "workload": "moderate",
+      "final_timesteps": 25000,
+      "metric": "violation_rate",
+      "differences": [
+        0.05999999999999872,
+        -1.3099999999999987,
+        -0.35999999999999943,
+        2.5400000000000027,
+        -1.360000000000003
+      ],
+      "p_two_sided_unadjusted": 0.875
+    },
+    {
+      "workload": "moderate",
+      "final_timesteps": 25000,
+      "metric": "load_imbalance",
+      "differences": [
+        0.002565118000000012,
+        -0.010417554999999995,
+        0.0006291859999999969,
+        0.05291449499999998,
+        -0.020583930999999986
+      ],
+      "p_two_sided_unadjusted": 0.8125
+    },
+    {
+      "workload": "moderate",
+      "final_timesteps": 25000,
+      "metric": "qos",
+      "differences": [
+        -0.20279693603515625,
+        2.870098114013672,
+        0.42903900146484375,
+        -5.8627471923828125,
+        4.999671936035156
+      ],
+      "p_two_sided_unadjusted": 0.875
+    },
+    {
+      "workload": "moderate",
+      "final_timesteps": 50000,
+      "metric": "latency",
+      "differences": [
+        -0.236907958984375,
+        -0.027782440185546875,
+        0.17513656616210938,
+        -0.10351943969726562,
+        0.2780418395996094
+      ],
+      "p_two_sided_unadjusted": 0.875
+    },
+    {
+      "workload": "moderate",
+      "final_timesteps": 50000,
+      "metric": "energy",
+      "differences": [
+        -0.0137176513671875,
+        -0.02774810791015625,
+        0.00701141357421875,
+        -0.11496734619140625,
+        0.02127838134765625
+      ],
+      "p_two_sided_unadjusted": 0.4375
+    },
+    {
+      "workload": "moderate",
+      "final_timesteps": 50000,
+      "metric": "violation_rate",
+      "differences": [
+        0.23000000000000043,
+        0.0799999999999983,
+        -0.2900000000000027,
+        -0.16000000000000014,
+        -0.5
+      ],
+      "p_two_sided_unadjusted": 0.4375
+    },
+    {
+      "workload": "moderate",
+      "final_timesteps": 50000,
+      "metric": "load_imbalance",
+      "differences": [
+        0.0029522060000000128,
+        0.0008437270000000024,
+        -0.002705476999999984,
+        0.0015172760000000118,
+        -0.005244928000000003
+      ],
+      "p_two_sided_unadjusted": 0.8125
+    },
+    {
+      "workload": "moderate",
+      "final_timesteps": 50000,
+      "metric": "qos",
+      "differences": [
+        -0.7049331665039062,
+        -0.0140838623046875,
+        0.7022781372070312,
+        -0.132232666015625,
+        0.9146804809570312
+      ],
+      "p_two_sided_unadjusted": 0.75
+    },
+    {
+      "workload": "moderate",
+      "final_timesteps": 100000,
+      "metric": "latency",
+      "differences": [
+        -0.031276702880859375,
+        0.08229446411132812,
+        0.050079345703125,
+        0.2626609802246094,
+        0.11861801147460938
+      ],
+      "p_two_sided_unadjusted": 0.125
+    },
+    {
+      "workload": "moderate",
+      "final_timesteps": 100000,
+      "metric": "energy",
+      "differences": [
+        -0.01021575927734375,
+        -0.03540802001953125,
+        0.0137786865234375,
+        -0.0670623779296875,
+        0.23992156982421875
+      ],
+      "p_two_sided_unadjusted": 0.875
+    },
+    {
+      "workload": "moderate",
+      "final_timesteps": 100000,
+      "metric": "violation_rate",
+      "differences": [
+        0.14000000000000057,
+        -0.120000000000001,
+        -0.3000000000000007,
+        -0.4800000000000004,
+        0.16999999999999815
+      ],
+      "p_two_sided_unadjusted": 0.5
+    },
+    {
+      "workload": "moderate",
+      "final_timesteps": 100000,
+      "metric": "load_imbalance",
+      "differences": [
+        -4.012100000001795e-05,
+        -0.000992607999999999,
+        -0.0009653830000000002,
+        -0.004015881999999998,
+        0.0001483399999999968
+      ],
+      "p_two_sided_unadjusted": 0.1875
+    },
+    {
+      "workload": "moderate",
+      "final_timesteps": 100000,
+      "metric": "qos",
+      "differences": [
+        -0.1837158203125,
+        0.35886383056640625,
+        0.27721405029296875,
+        0.946380615234375,
+        -0.04091644287109375
+      ],
+      "p_two_sided_unadjusted": 0.25
+    },
+    {
+      "workload": "heavy",
+      "final_timesteps": 5000,
+      "metric": "latency",
+      "differences": [
+        20.551902770996094,
+        13.939308166503906,
+        19.274703979492188,
+        1.8538475036621094,
+        10.286842346191406
+      ],
+      "p_two_sided_unadjusted": 0.0625
+    },
+    {
+      "workload": "heavy",
+      "final_timesteps": 5000,
+      "metric": "energy",
+      "differences": [
+        0.0032806396484375,
+        -0.05438232421875,
+        -0.06243896484375,
+        -0.000732421875,
+        -0.02166748046875
+      ],
+      "p_two_sided_unadjusted": 0.1875
+    },
+    {
+      "workload": "heavy",
+      "final_timesteps": 5000,
+      "metric": "violation_rate",
+      "differences": [
+        -33.52000000000002,
+        -22.733333333333334,
+        -30.019999999999982,
+        -2.6866666666666674,
+        -17.63333333333334
+      ],
+      "p_two_sided_unadjusted": 0.0625
+    },
+    {
+      "workload": "heavy",
+      "final_timesteps": 5000,
+      "metric": "load_imbalance",
+      "differences": [
+        -0.07514972199999997,
+        -0.024198703333333293,
+        -0.13916440800000004,
+        -0.0015676033333332784,
+        -0.126339006
+      ],
+      "p_two_sided_unadjusted": 0.0625
+    },
+    {
+      "workload": "heavy",
+      "final_timesteps": 5000,
+      "metric": "qos",
+      "differences": [
+        37.18439340591431,
+        19.178840160369873,
+        46.48689842224121,
+        3.781949043273926,
+        20.320720672607422
+      ],
+      "p_two_sided_unadjusted": 0.0625
+    },
+    {
+      "workload": "heavy",
+      "final_timesteps": 25000,
+      "metric": "latency",
+      "differences": [
+        0.7132568359375,
+        0.9651260375976562,
+        0.40622711181640625,
+        0.5391769409179688,
+        1.4878387451171875
+      ],
+      "p_two_sided_unadjusted": 0.0625
+    },
+    {
+      "workload": "heavy",
+      "final_timesteps": 25000,
+      "metric": "energy",
+      "differences": [
+        -0.0288848876953125,
+        0.0136260986328125,
+        -0.01434326171875,
+        0.0315093994140625,
+        0.004302978515625
+      ],
+      "p_two_sided_unadjusted": 0.875
+    },
+    {
+      "workload": "heavy",
+      "final_timesteps": 25000,
+      "metric": "violation_rate",
+      "differences": [
+        -1.6466666666666647,
+        -0.2533333333333303,
+        -0.70000000000001,
+        -0.7333333333333343,
+        -1.9933333333333323
+      ],
+      "p_two_sided_unadjusted": 0.0625
+    },
+    {
+      "workload": "heavy",
+      "final_timesteps": 25000,
+      "metric": "load_imbalance",
+      "differences": [
+        -0.03482442733333334,
+        -0.004173547999999999,
+        -0.005733800000000039,
+        -0.015358973999999997,
+        -0.024305393333333328
+      ],
+      "p_two_sided_unadjusted": 0.0625
+    },
+    {
+      "workload": "heavy",
+      "final_timesteps": 25000,
+      "metric": "qos",
+      "differences": [
+        3.69818115234375,
+        3.0713882446289062,
+        1.7262191772460938,
+        2.1343765258789062,
+        5.4803314208984375
+      ],
+      "p_two_sided_unadjusted": 0.0625
+    },
+    {
+      "workload": "heavy",
+      "final_timesteps": 50000,
+      "metric": "latency",
+      "differences": [
+        -1.096649169921875,
+        0.6123733520507812,
+        -0.8222122192382812,
+        -0.82183837890625,
+        0.29480743408203125
+      ],
+      "p_two_sided_unadjusted": 0.375
+    },
+    {
+      "workload": "heavy",
+      "final_timesteps": 50000,
+      "metric": "energy",
+      "differences": [
+        0.0402984619140625,
+        0.0819091796875,
+        0.0113067626953125,
+        0.00164794921875,
+        0.0131072998046875
+      ],
+      "p_two_sided_unadjusted": 0.0625
+    },
+    {
+      "workload": "heavy",
+      "final_timesteps": 50000,
+      "metric": "violation_rate",
+      "differences": [
+        1.0800000000000054,
+        -0.9733333333333327,
+        0.9266666666666659,
+        0.7199999999999989,
+        -0.46000000000000085
+      ],
+      "p_two_sided_unadjusted": 0.5625
+    },
+    {
+      "workload": "heavy",
+      "final_timesteps": 50000,
+      "metric": "load_imbalance",
+      "differences": [
+        0.00404285733333333,
+        -0.005727297333333339,
+        0.0052117613333333215,
+        0.008383266666666674,
+        -0.0016809459999999887
+      ],
+      "p_two_sided_unadjusted": 0.5
+    },
+    {
+      "workload": "heavy",
+      "final_timesteps": 50000,
+      "metric": "qos",
+      "differences": [
+        -3.74462890625,
+        2.4441070556640625,
+        -2.933349609375,
+        -3.0270538330078125,
+        1.0654830932617188
+      ],
+      "p_two_sided_unadjusted": 0.375
+    },
+    {
+      "workload": "heavy",
+      "final_timesteps": 100000,
+      "metric": "latency",
+      "differences": [
+        0.22064208984375,
+        0.36873626708984375,
+        0.5184249877929688,
+        -0.5091400146484375,
+        0.46582794189453125
+      ],
+      "p_two_sided_unadjusted": 0.3125
+    },
+    {
+      "workload": "heavy",
+      "final_timesteps": 100000,
+      "metric": "energy",
+      "differences": [
+        0.388824462890625,
+        0.5960235595703125,
+        0.1688079833984375,
+        0.0266265869140625,
+        0.0211639404296875
+      ],
+      "p_two_sided_unadjusted": 0.0625
+    },
+    {
+      "workload": "heavy",
+      "final_timesteps": 100000,
+      "metric": "violation_rate",
+      "differences": [
+        -0.7333333333333343,
+        -0.23333333333332718,
+        -0.5200000000000031,
+        0.379999999999999,
+        -0.379999999999999
+      ],
+      "p_two_sided_unadjusted": 0.25
+    },
+    {
+      "workload": "heavy",
+      "final_timesteps": 100000,
+      "metric": "load_imbalance",
+      "differences": [
+        -0.00506566,
+        -0.0004104626666666597,
+        -0.0031561200000000053,
+        0.0015797800000000028,
+        -0.004401372666666667
+      ],
+      "p_two_sided_unadjusted": 0.1875
+    },
+    {
+      "workload": "heavy",
+      "final_timesteps": 100000,
+      "metric": "qos",
+      "differences": [
+        1.80938720703125,
+        0.5321273803710938,
+        1.5339736938476562,
+        -1.0733413696289062,
+        1.6103973388671875
+      ],
+      "p_two_sided_unadjusted": 0.1875
+    },
+    {
+      "workload": "dynamic",
+      "final_timesteps": 5000,
+      "metric": "latency",
+      "differences": [
+        -0.050861358642578125,
+        15.953105926513672,
+        0.497467041015625,
+        9.550357818603516,
+        5.612483978271484
+      ],
+      "p_two_sided_unadjusted": 0.125
+    },
+    {
+      "workload": "dynamic",
+      "final_timesteps": 5000,
+      "metric": "energy",
+      "differences": [
+        -0.0024566650390625,
+        0.00135040283203125,
+        0.00804901123046875,
+        -0.05219268798828125,
+        0.052520751953125
+      ],
+      "p_two_sided_unadjusted": 0.8125
+    },
+    {
+      "workload": "dynamic",
+      "final_timesteps": 5000,
+      "metric": "violation_rate",
+      "differences": [
+        0.0799999999999983,
+        -38.239999999999995,
+        -3.220000000000006,
+        -23.299999999999997,
+        -16.39
+      ],
+      "p_two_sided_unadjusted": 0.125
+    },
+    {
+      "workload": "dynamic",
+      "final_timesteps": 5000,
+      "metric": "load_imbalance",
+      "differences": [
+        0.007660014000000048,
+        -0.163655071,
+        0.008611557999999964,
+        -0.04209788999999997,
+        -0.09780786300000002
+      ],
+      "p_two_sided_unadjusted": 0.25
+    },
+    {
+      "workload": "dynamic",
+      "final_timesteps": 5000,
+      "metric": "qos",
+      "differences": [
+        1.098367691040039,
+        31.273279190063477,
+        -1.1062679290771484,
+        15.434988021850586,
+        9.997404098510742
+      ],
+      "p_two_sided_unadjusted": 0.1875
+    },
+    {
+      "workload": "dynamic",
+      "final_timesteps": 25000,
+      "metric": "latency",
+      "differences": [
+        0.019527435302734375,
+        0.7423629760742188,
+        0.11147308349609375,
+        -1.5437202453613281,
+        1.6121482849121094
+      ],
+      "p_two_sided_unadjusted": 0.5625
+    },
+    {
+      "workload": "dynamic",
+      "final_timesteps": 25000,
+      "metric": "energy",
+      "differences": [
+        0.01714324951171875,
+        0.00089263916015625,
+        0.00072479248046875,
+        -0.0028839111328125,
+        0.12237548828125
+      ],
+      "p_two_sided_unadjusted": 0.3125
+    },
+    {
+      "workload": "dynamic",
+      "final_timesteps": 25000,
+      "metric": "violation_rate",
+      "differences": [
+        0.05999999999999872,
+        -1.3099999999999987,
+        -0.35999999999999943,
+        2.5400000000000027,
+        -1.360000000000003
+      ],
+      "p_two_sided_unadjusted": 0.875
+    },
+    {
+      "workload": "dynamic",
+      "final_timesteps": 25000,
+      "metric": "load_imbalance",
+      "differences": [
+        0.002565118000000012,
+        -0.010417554999999995,
+        0.0006291859999999969,
+        0.05291449499999998,
+        -0.020583930999999986
+      ],
+      "p_two_sided_unadjusted": 0.8125
+    },
+    {
+      "workload": "dynamic",
+      "final_timesteps": 25000,
+      "metric": "qos",
+      "differences": [
+        -0.20279693603515625,
+        2.870098114013672,
+        0.42903900146484375,
+        -5.8627471923828125,
+        4.999671936035156
+      ],
+      "p_two_sided_unadjusted": 0.875
+    },
+    {
+      "workload": "dynamic",
+      "final_timesteps": 50000,
+      "metric": "latency",
+      "differences": [
+        -0.236907958984375,
+        -0.027782440185546875,
+        0.17513656616210938,
+        -0.10351943969726562,
+        0.2780418395996094
+      ],
+      "p_two_sided_unadjusted": 0.875
+    },
+    {
+      "workload": "dynamic",
+      "final_timesteps": 50000,
+      "metric": "energy",
+      "differences": [
+        -0.0137176513671875,
+        -0.02774810791015625,
+        0.00701141357421875,
+        -0.11496734619140625,
+        0.02127838134765625
+      ],
+      "p_two_sided_unadjusted": 0.4375
+    },
+    {
+      "workload": "dynamic",
+      "final_timesteps": 50000,
+      "metric": "violation_rate",
+      "differences": [
+        0.23000000000000043,
+        0.0799999999999983,
+        -0.2900000000000027,
+        -0.16000000000000014,
+        -0.5
+      ],
+      "p_two_sided_unadjusted": 0.4375
+    },
+    {
+      "workload": "dynamic",
+      "final_timesteps": 50000,
+      "metric": "load_imbalance",
+      "differences": [
+        0.0029522060000000128,
+        0.0008437270000000024,
+        -0.002705476999999984,
+        0.0015172760000000118,
+        -0.005244928000000003
+      ],
+      "p_two_sided_unadjusted": 0.8125
+    },
+    {
+      "workload": "dynamic",
+      "final_timesteps": 50000,
+      "metric": "qos",
+      "differences": [
+        -0.7049331665039062,
+        -0.0140838623046875,
+        0.7022781372070312,
+        -0.132232666015625,
+        0.9146804809570312
+      ],
+      "p_two_sided_unadjusted": 0.75
+    },
+    {
+      "workload": "dynamic",
+      "final_timesteps": 100000,
+      "metric": "latency",
+      "differences": [
+        -0.031276702880859375,
+        0.08229446411132812,
+        0.050079345703125,
+        0.2626609802246094,
+        0.11861801147460938
+      ],
+      "p_two_sided_unadjusted": 0.125
+    },
+    {
+      "workload": "dynamic",
+      "final_timesteps": 100000,
+      "metric": "energy",
+      "differences": [
+        -0.01021575927734375,
+        -0.03540802001953125,
+        0.0137786865234375,
+        -0.0670623779296875,
+        0.23992156982421875
+      ],
+      "p_two_sided_unadjusted": 0.875
+    },
+    {
+      "workload": "dynamic",
+      "final_timesteps": 100000,
+      "metric": "violation_rate",
+      "differences": [
+        0.14000000000000057,
+        -0.120000000000001,
+        -0.3000000000000007,
+        -0.4800000000000004,
+        0.16999999999999815
+      ],
+      "p_two_sided_unadjusted": 0.5
+    },
+    {
+      "workload": "dynamic",
+      "final_timesteps": 100000,
+      "metric": "load_imbalance",
+      "differences": [
+        -4.012100000001795e-05,
+        -0.000992607999999999,
+        -0.0009653830000000002,
+        -0.004015881999999998,
+        0.0001483399999999968
+      ],
+      "p_two_sided_unadjusted": 0.1875
+    },
+    {
+      "workload": "dynamic",
+      "final_timesteps": 100000,
+      "metric": "qos",
+      "differences": [
+        -0.1837158203125,
+        0.35886383056640625,
+        0.27721405029296875,
+        0.946380615234375,
+        -0.04091644287109375
+      ],
+      "p_two_sided_unadjusted": 0.25
+    }
+  ],
+  "best_budget_by_mean_violation": {
+    "light": {
+      "ERWO-PPO": 100000,
+      "PPO-Equal": 100000,
+      "DQN-Equal": 5000
+    },
+    "moderate": {
+      "ERWO-PPO": 100000,
+      "PPO-Equal": 100000,
+      "DQN-Equal": 5000
+    },
+    "heavy": {
+      "ERWO-PPO": 100000,
+      "PPO-Equal": 100000,
+      "DQN-Equal": 50000
+    },
+    "dynamic": {
+      "ERWO-PPO": 100000,
+      "PPO-Equal": 100000,
+      "DQN-Equal": 5000
+    }
+  },
+  "total_search_seconds": 12882.61764317844,
+  "total_final_erwo_training_seconds": 2831.3689376851544
+}

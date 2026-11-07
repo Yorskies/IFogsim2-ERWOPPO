@@ -17,7 +17,6 @@ __pycache__/
 # Logs & output
 logs/
 tensorboard/
-results/
 *.png
 *.csv
 

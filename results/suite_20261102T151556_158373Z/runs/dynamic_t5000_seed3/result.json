@@ -1,0 +1,130 @@
+{
+  "workload": "dynamic",
+  "final_timesteps": 5000,
+  "seed": 3,
+  "run_id": "dynamic_t5000_seed3",
+  "status": "running",
+  "command": [
+    "/workspace/RISET S3 Rozi/IFogsim2-ERWOPPO/venv/bin/python",
+    "-u",
+    "/workspace/RISET S3 Rozi/IFogsim2-ERWOPPO/main.py",
+    "--workload",
+    "dynamic",
+    "--seed",
+    "3",
+    "--candidate-timesteps",
+    "5000",
+    "--final-timesteps",
+    "5000",
+    "--eval-episodes",
+    "100",
+    "--pop-size",
+    "10",
+    "--generations",
+    "4",
+    "--tag",
+    "dynamic_t5000_seed3",
+    "--require-java"
+  ],
+  "benchmarks": {
+    "Nearest Fog": {
+      "latency": 28.915945053100586,
+      "energy": 90.14102172851562,
+      "deadline": 19.610000610351562,
+      "qos": 4.603363037109375,
+      "violation_rate": 80.39,
+      "load_imbalance": 0.3242541480000001,
+      "decision_time_ms": 0.0011331114917993545,
+      "reward": 35.81758531317115
+    },
+    "Least Fog": {
+      "latency": 56.231346130371094,
+      "energy": 89.60296630859375,
+      "deadline": 82.66000366210938,
+      "qos": 69.13241577148438,
+      "violation_rate": 17.34,
+      "load_imbalance": 0.03783285100000001,
+      "decision_time_ms": 0.0025842116214334966,
+      "reward": 74.40668041676282
+    },
+    "Q-Learning-Equal": {
+      "latency": 50.402523040771484,
+      "energy": 86.27061462402344,
+      "deadline": 71.97000122070312,
+      "qos": 55.818355560302734,
+      "violation_rate": 28.03,
+      "load_imbalance": 0.09860110500000001,
+      "decision_time_ms": 0.005445038061589002,
+      "reward": 66.11537579804659
+    },
+    "DQN-Equal": {
+      "latency": 55.940757751464844,
+      "energy": 89.36418914794922,
+      "deadline": 82.6500015258789,
+      "qos": 68.50257110595703,
+      "violation_rate": 17.35,
+      "load_imbalance": 0.04074739200000001,
+      "decision_time_ms": 0.05438905572518706,
+      "reward": 74.11437788486481
+    },
+    "DDPG-Equal": {
+      "latency": 29.54424285888672,
+      "energy": 89.6089096069336,
+      "deadline": 21.280000686645508,
+      "qos": 7.13447380065918,
+      "violation_rate": 78.72,
+      "load_imbalance": 0.32306705799999996,
+      "decision_time_ms": 0.07191294766962528,
+      "reward": 36.89190721541643
+    },
+    "PPO-Equal": {
+      "latency": 28.56854248046875,
+      "energy": 89.62120819091797,
+      "deadline": 19.010000228881836,
+      "qos": 4.531808853149414,
+      "violation_rate": 80.99,
+      "load_imbalance": 0.32432523499999993,
+      "decision_time_ms": 0.09627076769247651,
+      "reward": 35.43289200410247
+    },
+    "ERWO-PPO": {
+      "latency": 38.118900299072266,
+      "energy": 89.56901550292969,
+      "deadline": 42.310001373291016,
+      "qos": 19.966796875,
+      "violation_rate": 57.69,
+      "load_imbalance": 0.28222734499999996,
+      "decision_time_ms": 0.09643640937283635,
+      "reward": 47.491176114976405
+    }
+  },
+  "overhead": {
+    "avg_cand_train": 3.9262254153145477,
+    "avg_cand_eval": 0.06271200533956289,
+    "total_search_time": 159.56738780252635,
+    "final_ppo_train_time": 4.034205114468932
+  },
+  "weights": {
+    "alpha_latency": 0.32314653748080296,
+    "beta_energy": 0.26120332412572467,
+    "lambda_deadline": 0.21238472596445676,
+    "gamma_qos": 0.20326541242901563
+  },
+  "log_dir": "logs/experiments/exp_20261102_161815_dynamic_dynamic_t5000_seed3",
+  "config": {
+    "exp_id": "exp_20261102_161815_dynamic_dynamic_t5000_seed3",
+    "timestamp": "2026-11-02T16:18:15.528630",
+    "workload": "dynamic",
+    "seed": 3,
+    "candidate_timesteps": 5000,
+    "candidate_eval_episodes": 3,
+    "candidate_eval_base_seed": 42,
+    "benchmark_base_seed": 1000,
+    "require_java": true,
+    "pop_size": 10,
+    "generations": 4,
+    "final_timesteps": 5000,
+    "eval_episodes": 100,
+    "tag": "dynamic_t5000_seed3"
+  }
+}

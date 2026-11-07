@@ -1,0 +1,131 @@
+[LOGGER] Eksperimen terdaftar: exp_20261102_203331_heavy_heavy_t50000_seed4
+[LOGGER] Seluruh bukti pengujian disimpan permanen di: logs/experiments/exp_20261102_203331_heavy_heavy_t50000_seed4
+=====================================================================================
+   ERWO-PPO: PUBLICATION-GRADE MULTI-OBJECTIVE TASK OFFLOADING BENCHMARK   
+=====================================================================================
+Spesifikasi Environment iFogSim2 (v0.1.0):
+  - Observation Space : 46 Dimensi (State iFogSim2: CPU, RAM, BW, Latensi, Antrean, Task)
+  - Action Space      : Discrete(7) [0=Lokal, 1-5=Edge/Fog, 6=Cloud]
+  - Multi-Objectives  : 4 Parameter [alpha=Latensi, beta=Energi, lambda=Deadline, gamma=QoS]
+  - Workload Scenario : HEAVY
+  - Eval Episodes (n) : 100 (Paired Seed Protocol: 1000..1099)
+  - Final RL Timestep : 50,000 steps
+  - Training Seed     : 4
+  - NSGA-II Config    : Pop=10, Gen=4 (Total Evaluasi: 40)
+-------------------------------------------------------------------------------------
+
+>>> TAHAP 1: Pencarian Bobot Reward Pareto-Optimal dengan NSGA-II (Table 10)
+[NSGA-II] Memulai optimasi 4 bobot reward iFogSim2 [alpha, beta, lambda, gamma]...
+          Workload: heavy, Populasi: 10, Generasi: 4, Timesteps/eval: 5000
+==========================================================
+n_gen  |  n_eval  | n_nds  |      eps      |   indicator  
+==========================================================
+     1 |       10 |      4 |             - |             -
+     2 |       20 |      6 |  0.4823559715 |         ideal
+     3 |       30 |      6 |  0.000000E+00 |             f
+     4 |       40 |      6 |  0.000000E+00 |             f
+
+[HASIL PARETO FRONT - 4 PARAMETER REWARD (TABLE 10)]
+No  | alpha(Lat) | beta(Eng)  | lambda(Dead) | gamma(QoS) | F1(Lat)  | F2(Eng)  | F3(Dead) | F4(QoS) 
+-----------------------------------------------------------------------------------------------------
+1   | 0.3110     | 0.1954     | 0.3218       | 0.1718     | 59.98    | 133.78   | 69.67    | 42.91   
+2   | 0.3593     | 0.3446     | 0.0689       | 0.2271     | 65.13    | 133.71   | 81.33    | 48.51   
+3   | 0.3123     | 0.2554     | 0.2574       | 0.1749     | 41.70    | 133.89   | 24.67    | 5.30    
+4   | 0.1864     | 0.2345     | 0.4190       | 0.1601     | 41.53    | 133.89   | 24.67    | 5.20    
+5   | 0.2023     | 0.2136     | 0.2032       | 0.3808     | 49.67    | 133.83   | 43.00    | 22.10   
+6   | 0.3932     | 0.2044     | 0.3668       | 0.0356     | 41.53    | 133.89   | 24.67    | 5.20    
+
+[SELEKSI] Bobot Optimal Terpilih (Solusi Pareto #2):
+  alpha  (Latensi)              : 0.3593
+  beta   (Konsumsi Energi)      : 0.3446
+  lambda (Pelanggaran Deadline) : 0.0689
+  gamma  (QoS Satisfaction)     : 0.2271
+
+>>> TAHAP 2: Pelatihan Model RL (ERWO-PPO, PPO-Equal, PPO-Manual, DQN-Equal)
+[1/5] Melatih ERWO-PPO (Bobot Optimal w*) selama 50,000 timesteps...
+[2/5] Melatih PPO-Equal (Bobot Seragam 0.25) selama 50,000 timesteps...
+[3/5] Melatih DQN-Equal (Bobot Seragam 0.25) selama 50,000 timesteps...
+[4/5] Melatih DDPG-Equal (Bobot Seragam 0.25) selama 50,000 timesteps...
+[5/5] Melatih Q-Learning-Equal (Bobot Seragam 0.25) selama 50,000 timesteps...
+
+>>> TAHAP 3: Mengevaluasi Seluruh 7 Metode Benchmark (100 Episode Berpasangan)
+  • Mengevaluasi Nearest Fog...
+  • Mengevaluasi Least Fog...
+  • Mengevaluasi Q-Learning-Equal...
+  • Mengevaluasi DQN-Equal...
+  • Mengevaluasi DDPG-Equal...
+  • Mengevaluasi PPO-Equal...
+  • Mengevaluasi ERWO-PPO...
+
+====================================================================================================
+                         TABLE 11. OVERALL PERFORMANCE COMPARISON                               
+====================================================================================================
+Method             | Latency   | Energy   | Violation(%)  | Load Imbalance | QoS      | Decision(ms)
+----------------------------------------------------------------------------------------------------
+Nearest Fog        | 42.91     | 135.20   | 81.22         | 0.3270         | 6.21     | 0.0011      
+Least Fog          | 84.34     | 134.40   | 17.75         | 0.0374         | 103.50   | 0.0025      
+Q-Learning-Equal   | 63.82     | 133.12   | 54.09         | 0.2621         | 50.89    | 0.0053      
+DQN-Equal          | 83.90     | 134.38   | 18.43         | 0.0456         | 100.92   | 0.0510      
+DDPG-Equal         | 42.30     | 134.40   | 82.05         | 0.3269         | 5.96     | 0.0702      
+PPO-Equal          | 83.50     | 134.40   | 18.89         | 0.0436         | 100.24   | 0.0965      
+ERWO-PPO           | 83.79     | 134.41   | 18.43         | 0.0419         | 101.31   | 0.0968      
+====================================================================================================
+
+==========================================================================================
+                  TABLE 12. ABLATION STUDY OF PPO REWARD CONFIGURATIONS                 
+==========================================================================================
+Configuration      | Latency Score  | Energy Efficiency  | Violation Rate(%) | Load Imbalance | QoS     
+--------------------------------------------------------------------------------------------------------
+PPO-Equal          | 83.50          | 134.40             | 18.89             | 0.0436         | 100.24  
+ERWO-PPO           | 83.79          | 134.41             | 18.43             | 0.0419         | 101.31  
+==========================================================================================
+
+>>> TAHAP 4: Pengujian Signifikansi Statistik (Table 13)
+
+==========================================================================================
+       TABLE 13. STATISTICAL COMPARISON OF ERWO-PPO WITH EQUAL-WEIGHT RL BASELINES      
+==========================================================================================
+Metric           | Comparison                | Test         | Adj. p-value   | Effect Size  | Significant
+---------------------------------------------------------------------------------------------------------
+Latency          | ERWO-PPO vs. PPO-Equal    | Wilcoxon     | 1.6520e-07     | 0.2004       | YES        
+Energy           | ERWO-PPO vs. PPO-Equal    | Wilcoxon     | 1.0000         | 0.0187       | NO         
+Violation rate   | ERWO-PPO vs. PPO-Equal    | Wilcoxon     | 9.6684e-04     | 0.1298       | YES        
+Load imbalance   | ERWO-PPO vs. PPO-Equal    | Wilcoxon     | 2.6301e-07     | 0.5969       | YES        
+QoS              | ERWO-PPO vs. PPO-Equal    | Wilcoxon     | 4.8561e-08     | 0.2838       | YES        
+Latency          | ERWO-PPO vs. DQN-Equal    | Wilcoxon     | 0.4279         | 0.0753       | NO         
+Energy           | ERWO-PPO vs. DQN-Equal    | Wilcoxon     | 1.0000         | 0.0406       | NO         
+Violation rate   | ERWO-PPO vs. DQN-Equal    | Wilcoxon     | 1.0000         | 0.0018       | NO         
+Load imbalance   | ERWO-PPO vs. DQN-Equal    | Wilcoxon     | 7.2624e-13     | 1.0489       | YES        
+QoS              | ERWO-PPO vs. DQN-Equal    | Wilcoxon     | 0.3199         | 0.1014       | NO         
+Latency          | ERWO-PPO vs. DDPG-Equal   | Wilcoxon     | 7.7091e-17     | 30.8475      | YES        
+Energy           | ERWO-PPO vs. DDPG-Equal   | Wilcoxon     | 1.0000         | 0.0101       | NO         
+Violation rate   | ERWO-PPO vs. DDPG-Equal   | Wilcoxon     | 7.7091e-17     | 18.4458      | YES        
+Load imbalance   | ERWO-PPO vs. DDPG-Equal   | Wilcoxon     | 7.7091e-17     | 128.6585     | YES        
+QoS              | ERWO-PPO vs. DDPG-Equal   | Wilcoxon     | 7.7091e-17     | 34.2448      | YES        
+Latency          | ERWO-PPO vs. Q-Learning-Equal | Wilcoxon     | 7.7091e-17     | 7.4336       | YES        
+Energy           | ERWO-PPO vs. Q-Learning-Equal | Wilcoxon     | 9.9213e-17     | 1.5230       | YES        
+Violation rate   | ERWO-PPO vs. Q-Learning-Equal | Wilcoxon     | 7.7091e-17     | 6.7293       | YES        
+Load imbalance   | ERWO-PPO vs. Q-Learning-Equal | Wilcoxon     | 7.7091e-17     | 13.6244      | YES        
+QoS              | ERWO-PPO vs. Q-Learning-Equal | Wilcoxon     | 7.7091e-17     | 9.4591       | YES        
+==========================================================================================
+
+================================================================================
+                     TABLE 14. COMPUTATIONAL OVERHEAD                           
+================================================================================
+Component                                     | Time                          
+--------------------------------------------------------------------------------
+Average PPO candidate-training time           | 3.99                      s
+Average candidate-evaluation time             | 0.09                      s
+Total NSGA-II search time                     | 163.40                    s
+Final PPO training time                       | 39.40                     s
+Average ERWO-PPO decision time per task       | 0.0968                    ms
+Average PPO-Equal decision time per task      | 0.0965                    ms
+================================================================================
+
+[SELESAI] Seluruh model RL (ERWO-PPO, PPO-Equal, DQN, DDPG, Q-Learning) tersimpan di direktori models/
+[LOGGER] Entri eksperimen berhasil dicatat ke master ledger: logs/experiment_history.csv
+
+[Data.md] File berhasil diperbarui 100% dengan seluruh data eksperimen.
+=====================================================================================
+[LOGGER] Selesai merekam eksperimen exp_20261102_203331_heavy_heavy_t50000_seed4.
+
