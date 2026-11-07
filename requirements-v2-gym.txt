@@ -1,0 +1,6 @@
+# P05 Gymnasium environment pin: Windows CPython 3.12.6, verified 8 Nov 2026 (28/28 tests pass).
+# The environment needs only these; PyTorch/stable-baselines3 arrive with P07. Linux still needs validation.
+-r requirements-v2-traces.txt
+gymnasium==1.4.0
+cloudpickle==3.1.2
+Farama-Notifications==0.0.6

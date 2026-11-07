@@ -591,6 +591,7 @@
         },
         "operation": {
           "enum": [
+            "hello",
             "reset",
             "step",
             "close",
@@ -604,6 +605,28 @@
           ],
           "minimum": 0,
           "maximum": 6
+        },
+        "trace": {
+          "type": [
+            "object",
+            "null"
+          ]
+        },
+        "options": {
+          "type": "object",
+          "properties": {
+            "homogeneous_fog": {
+              "type": "boolean"
+            },
+            "log_transfers": {
+              "type": "boolean"
+            },
+            "detail": {
+              "type": "boolean"
+            }
+          },
+          "required": [],
+          "additionalProperties": false
         }
       },
       "required": [
@@ -614,6 +637,164 @@
         "trace_sha256",
         "operation",
         "action"
+      ],
+      "additionalProperties": false
+    },
+    "rpc_response": {
+      "type": "object",
+      "properties": {
+        "schema_version": {
+          "const": "research-v2.1"
+        },
+        "request_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "episode_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "operation": {
+          "enum": [
+            "hello",
+            "reset",
+            "step",
+            "close",
+            "heartbeat"
+          ]
+        },
+        "status": {
+          "enum": [
+            "ok",
+            "error"
+          ]
+        },
+        "error": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "code": {
+              "type": "string",
+              "minLength": 1
+            },
+            "message": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "code",
+            "message"
+          ],
+          "additionalProperties": false
+        },
+        "terminated": {
+          "type": "boolean"
+        },
+        "truncated": {
+          "type": "boolean"
+        },
+        "step_index": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "task_id": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "sim_time_s": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "observation": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "number"
+          },
+          "minItems": 108,
+          "maxItems": 108
+        },
+        "observation_valid": {
+          "type": "boolean"
+        },
+        "raw_snapshot": {
+          "type": [
+            "object",
+            "null"
+          ]
+        },
+        "cost_cumulative": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "number",
+            "minimum": 0
+          },
+          "minItems": 5,
+          "maxItems": 5
+        },
+        "cost_delta": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "number"
+          },
+          "minItems": 5,
+          "maxItems": 5
+        },
+        "handshake": {
+          "type": [
+            "object",
+            "null"
+          ]
+        },
+        "summary": {
+          "type": [
+            "object",
+            "null"
+          ]
+        },
+        "result": {
+          "type": [
+            "object",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "schema_version",
+        "request_id",
+        "episode_id",
+        "operation",
+        "status",
+        "error",
+        "terminated",
+        "truncated",
+        "step_index",
+        "task_id",
+        "sim_time_s",
+        "observation",
+        "observation_valid",
+        "raw_snapshot",
+        "cost_cumulative",
+        "cost_delta",
+        "handshake",
+        "summary",
+        "result"
       ],
       "additionalProperties": false
     }

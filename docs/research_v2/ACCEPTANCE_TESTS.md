@@ -66,4 +66,7 @@ node 10.000 MIPS agar waktu terima 0,5/0,5001/1,5 s dapat dibentuk dari MI integ
 (fog akses, 1 MiB masuk dan 52.429 byte kembali). **P04 E01–E04 dan M01–M03 telah dijalankan** (8 November 2026): lulus, termasuk perhitungan ulang oleh evaluator
 independen. Hasil dan pemetaan tes: [P04_accounting_validation.md](milestones/P04_accounting_validation.md) dan
 [P04_verification.json](milestones/P04_verification.json). Kasus E03 dijalankan pada mode jaringan penuh (energi hop
-diperiksa pada catatan hop, idle diperiksa tidak bertambah). Kasus G, R, L, S, B, O, dan A masih berupa spesifikasi.
+diperiksa pada catatan hop, idle diperiksa tidak bertambah). **P05 G01–G03 telah dijalankan** (8 November 2026) lewat soket dan environment Gymnasium: lulus. Hasil dan pemetaan tes:
+[P05_gym_integration.md](milestones/P05_gym_integration.md) dan [P05_verification.json](milestones/P05_verification.json). G03 diuji pada
+sisi protokol (kegagalan teknis menghentikan run tanpa pengganti); hasil antrean penuh sebagai outcome diuji pada N-kasus P03 dan
+pada tes biaya per jenis hasil P05. Kasus R, L, S, B, O, dan A masih berupa spesifikasi.

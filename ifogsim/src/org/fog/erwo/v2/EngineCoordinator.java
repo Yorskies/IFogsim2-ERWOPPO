@@ -44,9 +44,26 @@ final class EngineCoordinator extends SimEntity {
     enum State { PENDING, TRANSFER_IN, CPU_WAIT, CPU_RUN, TRANSFER_OUT, DONE }
     enum Terminal { ON_TIME, LATE_SUCCESS, FAILED }
 
-    /** Maps a task to its target node id. */
+    /**
+     * Maps a task to its target node id. {@link #decide} is called once per arrival, in event order, after every
+     * earlier-priority event at that instant; an interactive policy may block there while the simulated clock stands still.
+     */
     interface Actions {
         String targetFor(TaskSpec task);
+
+        default String decide(TaskSpec task, EngineCoordinator engine) {
+            return targetFor(task);
+        }
+    }
+
+    /** Public snapshot of one node's load at decision time (raw units, before any observation transform). */
+    static final class NodeLoad {
+        double busyFraction;
+        double queueFraction;
+        double earliestFreeS;
+        double queuedMiOverMipsS;
+        double remainingMiOverMipsS;
+        Double minRemainingDeadlineS;   // null when the node holds no active or waiting task
     }
 
     private static final class Ev implements Comparable<Ev> {
@@ -89,6 +106,7 @@ final class EngineCoordinator extends SimEntity {
         int pe = -1;
         NetworkModel.Transfer transfer;
         boolean deadlineFlag;
+        boolean deadlineCounted;
         Double arrivedAt;
         Double inputAt;
         Double admittedAt;
@@ -124,6 +142,9 @@ final class EngineCoordinator extends SimEntity {
     private final List<ComputeNode> fogNodes = new ArrayList<>();
     private double fogStdIntegral;
     private double lastStdT;
+    private double costLatency;
+    private double costDeadline;
+    private double costFailure;
     private final Map<String, ComputeNode> nodes = new LinkedHashMap<>();
     private final TreeMap<Integer, Runtime> tasks = new TreeMap<>();
     private final TreeSet<Ev> pending = new TreeSet<>();
@@ -306,7 +327,7 @@ final class EngineCoordinator extends SimEntity {
         enqueue(t.deadlineAbsoluteS, Kind.DEADLINE, t.taskId, rt.generation);
         enqueue(t.timeoutAbsoluteS, Kind.TIMEOUT, t.taskId, rt.generation);
         String own = "IoT-" + t.sourceIot;
-        String target = actions.targetFor(t);
+        String target = actions.decide(t, this);
         ComputeNode node = nodes.get(target);
         if (node == null) throw new IllegalArgumentException("Action targets unknown node '" + target + "' for task " + t.taskId);
         if (target.startsWith("IoT-") && !target.equals(own)) {
@@ -404,7 +425,13 @@ final class EngineCoordinator extends SimEntity {
 
     private void onDeadline(Runtime rt, Ev e) {
         drainBoundary(rt, e.at);
-        if (rt.state != State.DONE) rt.deadlineFlag = true; // flag only: the task keeps running
+        if (rt.state != State.DONE) {
+            rt.deadlineFlag = true; // flag only: the task keeps running
+            if (!rt.deadlineCounted) {
+                rt.deadlineCounted = true;
+                costDeadline += 1.0 / tasks.size();   // CD: first time the deadline is passed, at most once per task
+            }
+        }
     }
 
     private void onTimeout(Runtime rt, Ev e) {
@@ -454,6 +481,18 @@ final class EngineCoordinator extends SimEntity {
         rt.terminalAt = at;
         rt.state = State.DONE;
         rt.generation++;
+        int n = tasks.size();
+        double latencyReference = Json.number(evaluation, "latency_reference_s");
+        if (terminal == Terminal.FAILED) {
+            costLatency += Json.number(evaluation, "failure_latency_penalty_s") / (latencyReference * n);  // labeled convention
+            costFailure += 1.0 / n;
+            if (!rt.deadlineCounted) {
+                rt.deadlineCounted = true;
+                costDeadline += 1.0 / n;
+            }
+        } else {
+            costLatency += (at - rt.arrivedAt) / (latencyReference * n);
+        }
     }
 
     private void requireState(Runtime rt, State expected, Ev e) {
@@ -461,6 +500,66 @@ final class EngineCoordinator extends SimEntity {
             throw new IllegalStateException("Task " + rt.spec.taskId + " in " + rt.state + ", expected " + expected
                     + (e == null ? "" : " for " + e.kind));
         }
+    }
+
+    // ---- decision-time views (read-only) ---------------------------------------------------------------
+
+    double nowS() { return now; }
+    double arrivalWindowS() { return arrivalWindowS; }
+    double horizonS() { return horizonS; }
+    int taskCount() { return tasks.size(); }
+    Map<String, ComputeNode> nodeMap() { return nodes; }
+    NetworkModel network() { return network; }
+
+    /**
+     * Cumulative cost vector [CL, CE, CD, CB, CQ] at time {@code t} (>= the last event time). CL, CD and CQ move on actual
+     * outcomes; CE and CB are continuous in time. At H the vector equals the five costs z of section 16.
+     */
+    double[] costVector(double t) {
+        integrateFogImbalance(t);
+        int n = tasks.size();
+        double dynamicJ = 0.0;
+        for (ComputeNode node : nodes.values()) dynamicJ += node.dynamicJoulesAt(t);
+        if (network != null) dynamicJ += network.dynamicJoulesAt(t);
+        double energyCost = dynamicJ / (Json.number(evaluation, "energy_reference_j_per_arrival") * n);
+        double imbalanceCost = fogNodes.isEmpty() ? 0.0 : fogStdIntegral / (horizonS * Json.number(evaluation, "imbalance_reference"));
+        return new double[] {costLatency, energyCost, costDeadline, imbalanceCost, costFailure};
+    }
+
+    /** One pass over the live tasks: per-node load as seen at {@code now}. Uses only current state. */
+    Map<String, NodeLoad> nodeLoads() {
+        Map<String, NodeLoad> loads = new LinkedHashMap<>();
+        Map<String, Double> earliest = new java.util.HashMap<>();
+        for (ComputeNode node : nodes.values()) {
+            NodeLoad load = new NodeLoad();
+            load.busyFraction = node.utilization();
+            load.queueFraction = node.spec.queueWaiting == 0 ? 0.0 : (double) node.scheduler.waiting() / node.spec.queueWaiting;
+            load.earliestFreeS = 0.0;
+            loads.put(node.spec.id, load);
+            earliest.put(node.spec.id, Double.POSITIVE_INFINITY);
+        }
+        for (Runtime rt : tasks.values()) {
+            if (rt.node == null || (rt.state != State.CPU_RUN && rt.state != State.CPU_WAIT)) continue;
+            ComputeNode node = rt.node;
+            NodeLoad load = loads.get(node.spec.id);
+            double capacity = node.spec.capacityMips();
+            double remainingDeadline = rt.spec.deadlineAbsoluteS - now;
+            load.minRemainingDeadlineS = load.minRemainingDeadlineS == null ? remainingDeadline : Math.min(load.minRemainingDeadlineS, remainingDeadline);
+            if (rt.state == State.CPU_RUN) {
+                double finishIn = Math.max(0.0, rt.cpuStart + rt.spec.cpuMi / node.spec.mipsPerPe - now);
+                double remainingMi = Math.max(0.0, rt.spec.cpuMi - (now - rt.cpuStart) * node.spec.mipsPerPe);
+                load.remainingMiOverMipsS += remainingMi / capacity;
+                earliest.merge(node.spec.id, finishIn, Math::min);
+            } else {
+                load.queuedMiOverMipsS += rt.spec.cpuMi / capacity;
+                load.remainingMiOverMipsS += rt.spec.cpuMi / capacity;
+            }
+        }
+        for (ComputeNode node : nodes.values()) {
+            // A free PE means no wait; otherwise the earliest running completion.
+            if (node.scheduler.busyPes() >= node.spec.pes) loads.get(node.spec.id).earliestFreeS = earliest.get(node.spec.id);
+        }
+        return loads;
     }
 
     // ---- reporting -------------------------------------------------------------------------------------

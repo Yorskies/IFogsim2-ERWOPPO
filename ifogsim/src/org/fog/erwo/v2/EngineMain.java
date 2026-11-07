@@ -35,14 +35,14 @@ import org.json.simple.parser.JSONParser;
 public final class EngineMain {
     private EngineMain() { }
 
-    private static JSONObject loadResource(String name) throws Exception {
+    static JSONObject loadResource(String name) throws Exception {
         try (InputStream stream = EngineMain.class.getResourceAsStream(name)) {
             if (stream == null) throw new IllegalStateException("Missing resource " + name);
             return (JSONObject) new JSONParser().parse(new InputStreamReader(stream, StandardCharsets.UTF_8));
         }
     }
 
-    private static EngineCoordinator.Actions actions(Object spec) {
+    static EngineCoordinator.Actions actions(Object spec) {
         if (spec instanceof String) return task -> resolve((String) spec, task);
         if (spec instanceof Map) {
             Map<?, ?> map = (Map<?, ?>) spec;
@@ -78,13 +78,15 @@ public final class EngineMain {
         return merged;
     }
 
-    private static String resolve(String action, TaskSpec task) {
+    static String resolve(String action, TaskSpec task) {
         if ("source_iot".equals(action)) return "IoT-" + task.sourceIot;
         if ("nearest_fog".equals(action)) return "F" + task.accessFog;
         return action;
     }
 
-    private static Map<String, Object> runEpisode(String episodeId, JSONObject scenario, JSONObject config, JSONObject wire) throws Exception {
+    /** The single construction path for an episode, shared by the headless driver and the socket server. */
+    static EngineCoordinator build(String episodeId, JSONObject scenario, JSONObject config, JSONObject wire,
+                                   EngineCoordinator.Actions policy) {
         List<NodeSpec> nodes = new ArrayList<>();
         if (scenario.containsKey("nodes")) {
             for (Object o : (List<?>) scenario.get("nodes")) nodes.add(NodeSpec.fromJson((Map<?, ?>) o));
@@ -115,11 +117,15 @@ public final class EngineMain {
         Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
         calendar.setTimeInMillis(0);
         CloudSim.init(1, calendar, false, Json.number(configTiming, "min_event_spacing_s"));
-        EngineCoordinator engine = new EngineCoordinator(episodeId, nodes, tasks, actions(scenario.get("actions")),
+        return new EngineCoordinator(episodeId, nodes, tasks, policy,
                 Json.number(timing, "arrival_window_s"), Json.number(timing, "horizon_s"), epsilon,
                 Json.optionalNumber(transport, "input_delay_s", 0.0), Json.optionalNumber(transport, "result_delay_s", 0.0), wire,
                 networkConfig, ((List<?>) topologyConfig.get("fogs")).size(), Json.integer(topologyConfig, "iot_per_access_fog"), logTransfers,
                 (Map<?, ?>) config.get("evaluation"));
+    }
+
+    private static Map<String, Object> runEpisode(String episodeId, JSONObject scenario, JSONObject config, JSONObject wire) throws Exception {
+        EngineCoordinator engine = build(episodeId, scenario, config, wire, actions(scenario.get("actions")));
         CloudSim.startSimulation();
         if (!engine.finished()) throw new IllegalStateException("Simulation ended before the horizon event");
         return engine.result();

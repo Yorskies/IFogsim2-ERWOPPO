@@ -96,6 +96,7 @@ final class NetworkModel {
     private final List<Map<String, Object>> log;
     private final double radioIdleW, radioTxW, radioRxW, apIdleW, apTxW, apRxW, lanIdleW, wanIdleW, lanJPerBitHop, wanJPerBitHop;
     private final Map<Integer, Double> taskDynamicJ = new java.util.HashMap<>();
+    private double settledJ;
 
     /**
      * @param config validated {@code network} section, optionally with per-type overrides already merged
@@ -301,14 +302,61 @@ final class NetworkModel {
      * No dynamic power during propagation.
      */
     private double hopJoules(Server s, int direction, double serializationSeconds, double bytesSent, Transfer t) {
-        double joules;
-        if ("access".equals(s.linkType)) {
-            joules = serializationSeconds * (direction == UP ? radioTxW + apRxW : apTxW + radioRxW);
-        } else {
-            joules = bytesSent * 8.0 * ("lan".equals(s.linkType) ? lanJPerBitHop : wanJPerBitHop);
-        }
+        double joules = hopEnergy(s, direction, serializationSeconds, bytesSent);
         taskDynamicJ.merge(t.taskId, joules, Double::sum);
+        settledJ += joules;
         return joules;
+    }
+
+    /** Pure energy of sending {@code bytesSent} bytes over {@code serializationSeconds} on a server in one direction. */
+    private double hopEnergy(Server s, int direction, double serializationSeconds, double bytesSent) {
+        if ("access".equals(s.linkType)) {
+            return serializationSeconds * (direction == UP ? radioTxW + apRxW : apTxW + radioRxW);
+        }
+        return bytesSent * 8.0 * ("lan".equals(s.linkType) ? lanJPerBitHop : wanJPerBitHop);
+    }
+
+    /**
+     * Dynamic communication energy accrued up to {@code now}: hops already settled plus the part of every message
+     * currently being serialized. Stateless, so reward intervals can be cut at any decision time exactly.
+     */
+    double dynamicJoulesAt(double now) {
+        double joules = settledJ;
+        for (Server s : all) {
+            Transfer t = s.active;
+            if (t == null) continue;
+            int direction = t.current().direction;
+            double elapsed = Math.min(Math.max(0.0, now - t.serializationStartS), serialization(t.bytes, s));
+            joules += hopEnergy(s, direction, elapsed, Math.min((double) t.bytes, elapsed * s.bitPerS / 8.0));
+        }
+        return joules;
+    }
+
+    /** Bytes still to be serialized ahead of a new message: residual of the active one plus everything waiting. */
+    private double backlogBytes(Server s, double now) {
+        double bytes = 0.0;
+        if (s.active != null) {
+            double sent = Math.min((double) s.active.bytes, Math.max(0.0, now - s.active.serializationStartS) * s.bitPerS / 8.0);
+            bytes += s.active.bytes - sent;
+        }
+        for (Transfer t : s.waiting) bytes += t.bytes;
+        return bytes;
+    }
+
+    /**
+     * Estimate for a new message of {@code bytes} on the route to {@code target}, using only the queues that exist now:
+     * per hop (backlog + message) serialization plus propagation. Returns {delay_s, bottleneck_bit_per_s, dynamic_energy_j}.
+     * An estimate, never an outcome.
+     */
+    double[] estimate(Phase phase, int accessFog, String target, long bytes, double now) {
+        double delay = 0.0, bottleneck = Double.POSITIVE_INFINITY, energy = 0.0;
+        for (Hop h : route(phase, accessFog, target)) {
+            Server s = h.server;
+            delay += (backlogBytes(s, now) + bytes) * 8.0 / s.bitPerS + s.propagationS;
+            bottleneck = Math.min(bottleneck, s.bitPerS);
+            energy += hopEnergy(s, h.direction, serialization(bytes, s), bytes);
+        }
+        return new double[] {delay, bottleneck, energy};
     }
 
     double taskDynamicJoules(int taskId) {

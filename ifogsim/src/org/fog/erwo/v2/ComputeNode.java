@@ -153,6 +153,12 @@ final class ComputeNode {
         return m;
     }
 
+    /** Dynamic CPU energy accrued up to {@code now} without changing state (busy-PE count is constant since the last change). */
+    double dynamicJoulesAt(double now) {
+        double busy = busyPeSeconds + scheduler.busyPes() * Math.max(0.0, now - lastAccountedS);
+        return (spec.busyW - spec.idleW) / spec.pes * busy;
+    }
+
     /** Dynamic CPU energy of a busy interval on one PE of this node (used for per-task attribution). */
     double dynamicJoules(double busySeconds) {
         return (spec.busyW - spec.idleW) / spec.pes * busySeconds;

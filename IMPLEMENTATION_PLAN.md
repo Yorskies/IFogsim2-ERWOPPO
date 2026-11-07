@@ -1,6 +1,6 @@
 # Implementation plan dan milestone penelitian ERWO-PPO v2
 
-Tanggal: 3 November 2026 (diperbarui 8 November 2026). Status: **P00–P04 selesai dan terverifikasi lokal; P05–P12 belum dimulai**.
+Tanggal: 3 November 2026 (diperbarui 8 November 2026). Status: **P00–P05 selesai dan terverifikasi lokal; P06–P12 belum dimulai**.
 
 Phase pertama yang telah dikerjakan adalah **P00 — Kontrak dan fondasi proyek**. Bukti: [catatan P00](docs/research_v2/milestones/P00_foundation.md) dan [laporan verifikasi](docs/research_v2/milestones/P00_verification.json): 23 tes lulus, tanpa failure/error/skip. Build menargetkan Java 21; lingkungan aktual Windows/Python 3.11/JDK 27. Pengujian langsung Ubuntu/Python 3.12/JDK 21 tetap menjadi preflight server sebelum penguncian protokol P10.
 
@@ -11,6 +11,8 @@ Phase pertama yang telah dikerjakan adalah **P00 — Kontrak dan fondasi proyek*
 **P03 — Transport jaringan** selesai pada 8 November 2026. Bukti: [laporan P03](docs/research_v2/milestones/P03_network_validation.md) dan [verifikasi mesin](docs/research_v2/milestones/P03_verification.json): 17 tes lulus, acceptance N01–N06 lulus, regresi P00–P02 lulus pada build yang sama. Belum ada ledger energi, socket, atau training.
 
 **P04 — Ledger energi dan lima metrik** selesai pada 8 November 2026. Bukti: [laporan P04](docs/research_v2/milestones/P04_accounting_validation.md) dan [verifikasi mesin](docs/research_v2/milestones/P04_verification.json): 16 tes lulus, acceptance E01–E04 dan M01–M03 lulus, serta evaluator Python independen cocok dengan ledger Java pada trace kalibrasi nyata. Belum ada socket, reward, atau training.
+
+**P05 — Socket v2, Gymnasium, observasi, dan reward** selesai pada 8 November 2026. Bukti: [laporan P05](docs/research_v2/milestones/P05_gym_integration.md) dan [verifikasi mesin](docs/research_v2/milestones/P05_verification.json): 28 tes lulus, `check_env` Gymnasium lulus, identitas `return = −100 · w·z` terpenuhi, dan regresi P00–P04 lulus pada build yang sama. Belum ada PPO atau pencarian bobot.
 
 Dasar teknis: [Kesepakatan Rancangan Penelitian v0.2](KESEPAKATAN_RANCANGAN_PENELITIAN.md). Latar temuan dan tujuan perbaikan: [Rencana Penelitian Lanjutan](RENCANA_PENELITIAN_LANJUTAN.md).
 
@@ -37,7 +39,7 @@ Dokumen ini mengatur urutan kerja, dependensi, deliverable, verifikasi, dan krit
 | P02 | Event engine dan siklus tugas | CPU, FCFS, admission, deadline, timeout, horizon | P00–P01 | **Selesai — verifikasi lokal 21/21** |
 | P03 | Transport jaringan | Queue, routing, transfer input/hasil, cancellation | P02 | **Selesai — verifikasi lokal 17/17** |
 | P04 | Energi dan metrik | Ledger energi serta lima biaya tervalidasi | P02–P03 | **Selesai — verifikasi lokal 16/16** |
-| P05 | Socket dan Gymnasium | Protokol v2, observasi 108, reward tertunda | P01–P04 | Belum dimulai |
+| P05 | Socket dan Gymnasium | Protokol v2, observasi 108, reward tertunda | P01–P04 | **Selesai — verifikasi lokal 28/28** |
 | P06 | Baseline dan kalibrasi | Heuristik kuat dan kelulusan model fisik | P04–P05 | Belum dimulai |
 | P07 | PPO dan pilot learning | Training campuran, checkpoint, bukti belajar | P06 | Belum dimulai |
 | P08 | Pencarian bobot dan fidelity | NSGA-II/random search serta pemilihan K | P07 | Belum dimulai |
@@ -50,7 +52,7 @@ Dependensi utama bersifat berurutan. Perancangan schema dan pembacaan source bol
 
 ## 3. Arsitektur implementasi yang dituju
 
-Struktur berikut adalah target. Fondasi config/schema/package/build, generator dan penyimpanan trace, engine CPU/lifecycle headless (P02), transport jaringan (P03), ledger energi dan metrik (P04), serta catatan P00–P04 sudah dibuat; Gym, training, search, runner studi, dan analisis merupakan pekerjaan phase selanjutnya. Pemetaan aktual dijelaskan pada [arsitektur](docs/research_v2/ARCHITECTURE.md) dan [kontrak trace](docs/research_v2/TRACES.md).
+Struktur berikut adalah target. Fondasi config/schema/package/build, generator dan penyimpanan trace, engine CPU/lifecycle headless (P02), transport jaringan (P03), ledger energi dan metrik (P04), socket dan environment Gymnasium (P05), serta catatan P00–P05 sudah dibuat; training, search, runner studi, dan analisis merupakan pekerjaan phase selanjutnya. Pemetaan aktual dijelaskan pada [arsitektur](docs/research_v2/ARCHITECTURE.md) dan [kontrak trace](docs/research_v2/TRACES.md).
 
 | Area | Lokasi yang direncanakan | Tanggung jawab |
 |---|---|---|
@@ -193,21 +195,23 @@ Deliverable: energy/metric ledger, summary fisik dan lima biaya, serta `P04_acco
 
 Pekerjaan:
 
-- [ ] Implementasikan JSON Lines berversi dengan request/episode ID serta handshake source/JAR/config hash.
-- [ ] Implementasikan reset ke arrival pertama, satu aksi per arrival, dan advance event engine ke keputusan berikutnya.
-- [ ] Pastikan drain setelah arrival terakhir berlangsung tanpa meminta aksi palsu.
-- [ ] Implementasikan observasi 108 fitur; snapshot mentah/transformasi terdokumentasi dan sama untuk semua metode.
-- [ ] Implementasikan prediksi route dan queue yang hanya memakai informasi saat ini, serta EMA causal.
-- [ ] Implementasikan cumulative cost dan reward `-100 × sum(w × delta_cost)` dari outcome aktual.
-- [ ] Tentukan lifecycle `terminated/truncated`, koneksi putus, timeout RPC, heartbeat, dan cleanup.
-- [ ] Tolak model/schema legacy 46 fitur dan konfigurasi empat bobot pada jalur v2 secara eksplisit.
-- [ ] Implementasikan strict Java mode; tidak ada fallback Python pada hasil v2.
+- [x] Implementasikan JSON Lines berversi dengan request/episode ID serta handshake source/JAR/config hash.
+- [x] Implementasikan reset ke arrival pertama, satu aksi per arrival, dan advance event engine ke keputusan berikutnya.
+- [x] Pastikan drain setelah arrival terakhir berlangsung tanpa meminta aksi palsu.
+- [x] Implementasikan observasi 108 fitur; snapshot mentah/transformasi terdokumentasi dan sama untuk semua metode.
+- [x] Implementasikan prediksi route dan queue yang hanya memakai informasi saat ini, serta EMA causal.
+- [x] Implementasikan cumulative cost dan reward `-100 × sum(w × delta_cost)` dari outcome aktual.
+- [x] Tentukan lifecycle `terminated/truncated`, koneksi putus, timeout RPC, heartbeat, dan cleanup.
+- [x] Tolak model/schema legacy 46 fitur dan konfigurasi empat bobot pada jalur v2 secara eksplisit.
+- [x] Implementasikan strict Java mode; tidak ada fallback Python pada hasil v2.
 
 Deliverable: server v2, Gym environment v2, schema fixtures, serta `P05_gym_integration.md`.
 
 **Kriteria lulus:** Gymnasium environment checker lolos; aksi dan observasi konsisten; jumlah step sama dengan arrival count; tidak ada future trace dalam observasi; total reward memenuhi identitas biaya; putus socket tidak menghasilkan episode sukses; dua episode berturut-turut tidak saling mencemari.
 
 Uji end-to-end pertama menggunakan aksi tetap/random, tanpa PPO, untuk memisahkan kesalahan simulator dari kesalahan pembelajaran.
+
+**Hasil aktual:** lulus pada lingkungan lokal (Windows, Python 3.12.6, OpenJDK 21.0.13). 28 tes tanpa failure/error/skip; `check_env` lulus dengan peringatan dijadikan error; satu langkah per kedatangan; `Σ reward = −100·w·z` hingga 1e-9 untuk empat workload × empat vektor bobot dan sepakat dengan evaluator independen P04; observasi tidak berubah bila hanya tugas yang belum datang yang diubah; episode lewat soket identik dengan run headless; koneksi putus, timeout, dan server mati menghasilkan error, bukan episode sukses. Dua belas bug yang disuntikkan semuanya akhirnya terbunuh (satu selamat pada percobaan pertama dan menghasilkan tes baru). Throughput awal sekitar 1.100 langkah/detik tanpa validasi schema. Rincian: [P05_gym_integration.md](docs/research_v2/milestones/P05_gym_integration.md).
 
 ## 10. P06 — Baseline deterministik dan kalibrasi fisik
 
@@ -418,10 +422,10 @@ Status `blocked` pada catatan proyek berarti dependensi/masalah milestone belum 
 4. Tulis acceptance cases untuk P01–P05 beserta nilai analitis yang diharapkan.
 5. Serahkan catatan P00 sebelum memperluas implementasi ke generator trace dan simulator.
 
-P01 trace deterministik, P02 engine CPU/lifecycle, P03 transport jaringan, dan P04 ledger energi dan lima metrik juga sudah selesai. **Milestone berikutnya adalah P05: socket v2, Gymnasium, observasi 108 fitur, dan reward tertunda**, yang memakai biaya kumulatif dari ledger P04. Tidak langsung mengubah runner legacy menjadi training besar, memigrasikan model lama ke 108 fitur, atau menjalankan 20 outer run.
+P01 trace deterministik, P02 engine CPU/lifecycle, P03 transport jaringan, P04 ledger energi dan lima metrik, dan P05 socket/Gymnasium juga sudah selesai. **Milestone berikutnya adalah P06: baseline deterministik dan kalibrasi fisik**, yang memakai snapshot publik 108 fitur dan environment P05. Tidak langsung mengubah runner legacy menjadi training besar, memigrasikan model lama ke 108 fitur, atau menjalankan 20 outer run.
 
 ## 20. Batas dokumen ini
 
-P00–P04 telah diimplementasikan dan diverifikasi secara lokal; P05–P12 belum dimulai. Config, schema, package fondasi, CLI validasi/generator, trace immutable, guard split, build terpisah, probe native/numerik, scheduler FCFS bounded, engine task headless, transport jaringan store-and-forward, serta ledger energi dan metrik per trace sudah tersedia. Server socket, Gym, analisis statistik konfirmatori, serta eksperimen utama belum tersedia. Status selesai P00–P04 tidak berarti simulator sudah siap untuk training; setiap phase berikutnya tetap harus memenuhi kriterianya sendiri.
+P00–P05 telah diimplementasikan dan diverifikasi secara lokal; P06–P12 belum dimulai. Config, schema, package fondasi, CLI validasi/generator, trace immutable, guard split, build terpisah, probe native/numerik, scheduler FCFS bounded, engine task headless, transport jaringan store-and-forward, ledger energi dan metrik per trace, serta server socket dan environment Gymnasium sudah tersedia. Baseline heuristik, Gym, analisis statistik konfirmatori, serta eksperimen utama belum tersedia. Status selesai P00–P05 tidak berarti simulator sudah siap untuk training; setiap phase berikutnya tetap harus memenuhi kriterianya sendiri.
 
 Kriteria eksperimen dan parameter tetap merujuk pada dokumen kesepakatan. Jika ada konflik, perbaiki dokumen dan catat keputusan sebelum melanjutkan; jangan menyelesaikan konflik melalui perubahan kode yang tidak terdokumentasi.

@@ -1,14 +1,14 @@
-# Research v2 — fondasi P00, trace P01, engine P02, jaringan P03, dan akuntansi P04
+# Research v2 — fondasi P00, trace P01, engine P02, jaringan P03, akuntansi P04, dan Gym P05
 
-**P00 sampai P04 sudah selesai**: config/schema, kontrak lintas bahasa, audit API,
+**P00 sampai P05 sudah selesai**: config/schema, kontrak lintas bahasa, audit API,
 build terpisah, probe native, generator/penyimpanan trace deterministik, engine
 task headless (CPU FCFS bounded, admission, deadline/timeout, horizon) di atas CloudSim,
 dan transport store-and-forward (kanal akses half-duplex, link LAN/WAN, antrean transfer,
 pembatalan parsial), serta ledger energi dan lima metrik per trace dengan evaluator independen.
-Training PPO, reward, dan socket v2 belum tersedia. Mode fixture
+Server socket v2 dan environment Gymnasium (108 fitur, reward tertunda) tersedia; PPO dan pencarian bobot belum. Mode fixture
 nol-jaringan P02 tetap ada dan berlabel. Panduan trace dan guard split: [TRACES.md](TRACES.md);
 bukti [P01](milestones/P01_trace_validation.md), [P02](milestones/P02_engine_validation.md),
-[P03](milestones/P03_network_validation.md), dan [P04](milestones/P04_accounting_validation.md).
+[P03](milestones/P03_network_validation.md), [P04](milestones/P04_accounting_validation.md), dan [P05](milestones/P05_gym_integration.md).
 
 ## Menjalankan engine P02 (headless, aksi tetap)
 
@@ -55,6 +55,30 @@ Audit milestone P04 (16 tes, E01–E04, M01–M03, evaluator), yang menulis `mil
 
 ```text
 python -m research_v2.verify_accounting --jdk-home <JDK 21+>
+```
+
+### Environment Gymnasium (P05)
+
+```text
+python -m pip install -r requirements-v2-gym.txt
+```
+
+```python
+from research_v2.gym_env import OffloadingEnv
+env = OffloadingEnv([trace_a, trace_b], weights=[0.2] * 5)   # memulai server Java dan memverifikasi hash JAR/config
+obs, info = env.reset(seed=0)                                # obs: 108 fitur; info["raw_snapshot"]: nilai mentah
+obs, reward, terminated, truncated, info = env.step(action)  # action: 0=IoT asal, 1..5=F1..F5, 6=cloud
+```
+
+Reward adalah `-100 × Σ wⱼ ΔCⱼ` dari biaya kumulatif yang dilaporkan Java; `terminated` benar tepat pada H dan
+`truncated` tidak pernah benar. Bobot empat komponen atau model 46 fitur ditolak. Koneksi putus, timeout, atau server
+mati melempar `ConnectionLostError` dan tidak pernah menghasilkan episode yang tampak sukses. Server dapat dijalankan
+terpisah (`org.fog.erwo.v2.V2SocketServer --port <5555..5558> --config-sha256 <hash kanonik>`) dan dipakai lewat `host=`/`port=`.
+
+Audit milestone P05 (28 tes), yang menulis `milestones/P05_verification.json`:
+
+```text
+python -m research_v2.verify_gym --jdk-home <JDK 21+>
 ```
 
 ## Memeriksa config
@@ -121,8 +145,8 @@ venv\Scripts\python.exe -m research_v2.verify_traces --jdk-home $jdk
 | JDK | Microsoft OpenJDK 21.0.13 | Sama dengan target `--release 21`; tidak perlu `--release` lebih rendah. |
 | numpy / jsonschema | 2.4.6 / 4.26.0 | Pin `requirements-v2-*.txt` tidak berubah. |
 
-Hasil: P00 **23/23**, P01 **49/49**, P02 **21/21**, P03 **17/17**, dan P04 **16/16** tes lulus (P02 sampai P04
-ditambahkan kemudian pada hari yang sama dengan `verify_engine`, `verify_network`, dan `verify_accounting`), 0 failure/error/skip. Seluruh 80
+Hasil: P00 **23/23**, P01 **49/49**, P02 **21/21**, P03 **17/17**, P04 **16/16**, dan P05 **28/28** tes lulus (P02 sampai P05
+ditambahkan kemudian pada hari yang sama dengan `verify_engine`, `verify_network`, `verify_accounting`, dan `verify_gym`), 0 failure/error/skip. Seluruh 80
 `trace.json` dan `config.json` yang dibangkitkan ulang identik byte-per-byte dengan
 bundle yang ter-commit di `results/research_v2/P01_calibration/`, jadi trace tidak
 berubah antara Python 3.11 dan 3.12.

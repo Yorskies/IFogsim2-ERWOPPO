@@ -16,8 +16,11 @@ EVENT_PRIORITIES = {"CPU_COMPLETE": 0, "TRANSFER_COMPLETE": 0, "RESULT_DELIVERED
                     "DEADLINE": 1, "TIMEOUT": 1, "ARRIVAL": 2, "HORIZON": 3}
 
 
-def obj(properties):
-    return {"type": "object", "properties": properties, "required": list(properties), "additionalProperties": False}
+def obj(properties, required=None, extra_properties=None):
+    """Closed object. By default every property is required; `extra_properties` are optional additions."""
+    merged = {**properties, **(extra_properties or {})}
+    return {"type": "object", "properties": merged, "required": list(properties if required is None else required),
+            "additionalProperties": False}
 
 
 def number(minimum=0, *, positive=False, maximum=None):
@@ -175,13 +178,33 @@ def contract_schema():
                     "attempt": integer(1), "source_sha256": HASH, "config_sha256": HASH,
                     "build_sha256": HASH, "trace_sha256": array(HASH),
                     "artifacts": {"type": "object", "additionalProperties": HASH}, "invariants_valid": BOOL})
+    # P05 extension (additive): `hello` handshake, and optional `trace`/`options` carried by `reset` only.
     rpc = obj({"schema_version": const(SCHEMA_VERSION), "request_id": STRING,
                "episode_id": STRING, "config_sha256": HASH, "trace_sha256": HASH,
-               "operation": enum(["reset", "step", "close", "heartbeat"]),
-               "action": {"type": ["integer", "null"], "minimum": 0, "maximum": 6}})
+               "operation": enum(["hello", "reset", "step", "close", "heartbeat"]),
+               "action": {"type": ["integer", "null"], "minimum": 0, "maximum": 6}},
+              required=["schema_version", "request_id", "episode_id", "config_sha256", "trace_sha256", "operation", "action"],
+              extra_properties={"trace": {"type": ["object", "null"]},
+                                "options": obj({"homogeneous_fog": BOOL, "log_transfers": BOOL, "detail": BOOL}, required=[])})
+    cost5 = {"type": ["array", "null"], "items": {"type": "number", "minimum": 0}, "minItems": 5, "maxItems": 5}
+    rpc_response = obj({"schema_version": const(SCHEMA_VERSION), "request_id": STRING, "episode_id": STRING,
+                        "operation": enum(["hello", "reset", "step", "close", "heartbeat"]),
+                        "status": enum(["ok", "error"]),
+                        "error": {"type": ["object", "null"], "properties": {"code": STRING, "message": {"type": "string"}},
+                                  "required": ["code", "message"], "additionalProperties": False},
+                        "terminated": BOOL, "truncated": BOOL, "step_index": integer(0),
+                        "task_id": {"type": ["integer", "null"], "minimum": 0},
+                        "sim_time_s": {"type": ["number", "null"], "minimum": 0},
+                        "observation": {"type": ["array", "null"], "items": {"type": "number"}, "minItems": 108, "maxItems": 108},
+                        "observation_valid": BOOL,
+                        "raw_snapshot": {"type": ["object", "null"]},
+                        "cost_cumulative": cost5, "cost_delta": {**cost5, "items": {"type": "number"}},
+                        "handshake": {"type": ["object", "null"]},
+                        "summary": {"type": ["object", "null"]},
+                        "result": {"type": ["object", "null"]}})
     return document("contracts", {"$defs": {"task": task, "resource": resource, "route": route,
         "event": event, "outcome": outcome, "cost_vector": costs, "trace": trace,
-        "manifest": manifest, "rpc_request": rpc}})
+        "manifest": manifest, "rpc_request": rpc, "rpc_response": rpc_response}})
 
 
 def wire_contract():

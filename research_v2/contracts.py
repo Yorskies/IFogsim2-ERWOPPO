@@ -88,4 +88,17 @@ def validate_contract(kind, value, config=None):
         require(value["invariants_valid"] and bool(value["artifacts"]), "complete manifest requires validated artifacts")
     elif kind == "rpc_request":
         require((value["action"] is not None) == (value["operation"] == "step"), "only step requests carry an action")
+        require(value["operation"] == "reset" or (value.get("trace") is None and "options" not in value),
+                "only reset requests carry a trace or options")
+    elif kind == "rpc_response":
+        ok = value["status"] == "ok"
+        require(ok == (value["error"] is None), "error object must be present exactly when status is error")
+        require(not (value["terminated"] and value["truncated"]), "an episode cannot be both terminated and truncated")
+        if ok and value["operation"] in ("reset", "step"):
+            require(value["cost_cumulative"] is not None and value["cost_delta"] is not None, "reset/step must report costs")
+            require(value["observation"] is not None, "reset/step must carry an observation vector")
+            require(value["observation_valid"] != value["terminated"], "terminal response carries a placeholder, not a real observation")
+            require(value["terminated"] or (value["task_id"] is not None and value["raw_snapshot"] is not None), "decision response needs its task and raw snapshot")
+        if not ok:
+            require(not value["terminated"] and not value["truncated"], "an error response never ends an episode successfully")
     return value

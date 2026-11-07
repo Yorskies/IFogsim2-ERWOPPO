@@ -1,7 +1,7 @@
 # Kontrak arsitektur P00
 
-Status implementasi: fondasi P00, trace P01, engine headless P02, transport jaringan P03, dan ledger energi/metrik P04.
-Arsitektur ini memetakan fase lanjutan; socket, Gym, reward, dan training belum tersedia.
+Status implementasi: fondasi P00, trace P01, engine headless P02, transport jaringan P03, ledger energi/metrik P04, serta
+socket dan environment Gymnasium P05. Arsitektur ini memetakan fase lanjutan; PPO, pencarian bobot, dan runner studi belum tersedia.
 
 Pembaruan P02 (8 November 2026): `BoundedFcfsScheduler` (adapter CloudSim space-shared), `ComputeNode`
 (Host/Vm/Pe nyata), `EngineCoordinator` (antrean berurutan dengan prioritas domain, generasi event,
