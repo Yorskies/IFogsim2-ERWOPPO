@@ -145,4 +145,7 @@ JAVA_HOME harus menunjuk JDK yang tersedia. Untuk mesin pengembangan ini dapat
 menambahkan `--jdk-home "C:/Program Files/Java/jdk-27"` ke kedua perintah.
 Verifier menolak audit selesai yang melewati tes Java. Bukti distribusi dan tes
 tersimpan di `docs/research_v2/milestones/P01_verification.json`; calibration
-bundle berukuran lebih besar tetap di namespace results yang di-ignore Git.
+bundle calibration disimpan di `results/research_v2/P01_calibration/traces/`
+(default `verify_traces --trace-root`; CLI `generate-traces` memakai
+`results/research_v2/traces/`). Sejak `667eb42` direktori `results/` tidak lagi
+di-ignore Git dan bundle calibration tersebut ikut ter-commit.

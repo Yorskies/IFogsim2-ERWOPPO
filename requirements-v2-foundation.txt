@@ -1,5 +1,6 @@
-# P00 only. Exact package versions exercised on Windows CPython 3.11.
-# A Python 3.12/Linux lock must be produced after validation on the target server.
+# P00 only. Exact package versions exercised on Windows CPython 3.11.0 and,
+# re-verified on 8 Nov 2026, Windows CPython 3.12.6 (23/23 tests pass).
+# A Linux lock must still be produced after validation on the target server.
 attrs==26.1.0
 jsonschema==4.26.0
 jsonschema-specifications==2025.9.1

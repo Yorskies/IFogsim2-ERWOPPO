@@ -3,7 +3,9 @@
 Tanggal: 3 November 2026. Status: **complete — verifikasi lokal**.
 Spesifikasi penelitian: v0.2. Schema/wire: `research-v2.1`.
 Git HEAD awal: `02bcd1ebf6a645625b7d6c43af8a31023e12d03a`.
-Perubahan P00 masih berada di working tree; belum dibuat commit atau push.
+Pembaruan 8 November 2026: perubahan P00 sudah di-commit bersama P01 pada
+`6670200` dan sudah ada di `origin/main`. Catatan asli "belum commit/push"
+dihapus karena tidak lagi benar.
 
 ## Tujuan dan batas perubahan
 

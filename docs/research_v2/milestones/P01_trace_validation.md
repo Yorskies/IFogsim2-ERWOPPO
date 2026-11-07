@@ -3,8 +3,8 @@
 Tanggal: 3 November 2026. Status: **complete — verifikasi lokal**.
 Spesifikasi penelitian v0.2; wire `research-v2.1` tetap; generator
 `research-v2.trace-1`; bundle sidecar `research-v2.trace-bundle-1`.
-Git HEAD awal `02bcd1ebf6a645625b7d6c43af8a31023e12d03a`; perubahan masih
-di working tree, belum commit/push.
+Git HEAD awal `02bcd1ebf6a645625b7d6c43af8a31023e12d03a`. Pembaruan 8 November
+2026: perubahan P01 sudah di-commit pada `6670200` dan sudah ada di `origin/main`.
 
 ## Tujuan dan implementasi
 
@@ -86,9 +86,10 @@ ekspektasi keduanya sama900.
 
 Laporan mesin juga memuat proporsi kelas, conditional mean/range MI/input/
 deadline, source/fog counts, setiap468 check dan80 payload hash. Bundle calibration
-tersimpan di `results/research_v2/P01_calibration/traces/`, tetap di-ignore Git;
-source/golden fixture/laporan ringkas dapat ditarik ke server dan bundle
-dibangkitkan ulang. Tidak ada hasil training v2 pada direktori ini.
+tersimpan di `results/research_v2/P01_calibration/traces/`. Pembaruan 8 November
+2026: `results/` tidak lagi di-ignore Git, dan 80 bundle ini (240 file) sudah
+di-commit pada `667eb42`. Source/golden fixture/laporan ringkas tetap dapat
+ditarik ke server dan bundle dibangkitkan ulang. Tidak ada hasil training v2 pada direktori ini.
 
 ## Provenance dan integritas
 

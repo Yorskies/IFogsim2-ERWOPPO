@@ -1,3 +1,4 @@
-# P01 verified environment pin. Target Python3.12/Linux still needs validation.
+# P01 verified environment pin: Windows CPython 3.11.0 and, re-verified on
+# 8 Nov 2026, Windows CPython 3.12.6 (49/49 tests pass). Linux still needs validation.
 -r requirements-v2-foundation.txt
 numpy==2.4.6

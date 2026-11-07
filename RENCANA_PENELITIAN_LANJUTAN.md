@@ -33,7 +33,7 @@ Artefak audit lokal:
 - [Review lengkap](results/suite_20261102T151556_158373Z/Review_final.md).
 - [Rincian audit numerik](results/suite_20261102T151556_158373Z/review_audit.json).
 
-Direktori `results/` diabaikan oleh Git. Tautan tersebut memerlukan salinan artefak lokal; arsip hasil harus dibagikan terpisah dari repository kode.
+Pada saat penyusunan dokumen ini `results/` diabaikan oleh Git. Sejak commit `667eb42` (8 November 2026) aturan itu dicabut dan **salinan yang dipangkas** ikut ter-commit: suite ini hanya memuat 325 dari 1.286 file asli (tanpa model PPO/DQN/DDPG/ERWO `.zip` dan tanpa CSV episode; hanya `qlearning_equal.pkl` per run, karena `*.zip` dan `*.csv` masih ada di `.gitignore`). Ringkasan (`summary.json`, `Data_final.md`, `Review_final.md`) lengkap, tetapi audit ulang per-episode atau sign-flip memerlukan arsip lengkap yang dibagikan terpisah dari repository kode.
 
 ## 3. Temuan yang menentukan langkah berikutnya
 
