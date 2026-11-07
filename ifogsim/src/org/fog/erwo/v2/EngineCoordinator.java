@@ -29,7 +29,18 @@ import org.json.simple.JSONObject;
 final class EngineCoordinator extends SimEntity {
     private enum Tag implements CloudSimTags { WAKE }
 
-    enum Kind { CPU_COMPLETE, TRANSFER_COMPLETE, RESULT_DELIVERED, DEADLINE, TIMEOUT, ARRIVAL, HORIZON }
+    /**
+     * Event kinds. The two network kinds are engine-internal refinements of the contract's TRANSFER_COMPLETE and
+     * share its priority; every kind's priority is looked up from the wire contract by {@link #wire}.
+     */
+    enum Kind {
+        CPU_COMPLETE("CPU_COMPLETE"), TRANSFER_COMPLETE("TRANSFER_COMPLETE"), RESULT_DELIVERED("RESULT_DELIVERED"),
+        DEADLINE("DEADLINE"), TIMEOUT("TIMEOUT"), ARRIVAL("ARRIVAL"), HORIZON("HORIZON"),
+        SERIALIZATION_DONE("TRANSFER_COMPLETE"), HOP_ARRIVED("TRANSFER_COMPLETE");
+
+        final String wire;
+        Kind(String wire) { this.wire = wire; }
+    }
     enum State { PENDING, TRANSFER_IN, CPU_WAIT, CPU_RUN, TRANSFER_OUT, DONE }
     enum Terminal { ON_TIME, LATE_SUCCESS, FAILED }
 
@@ -45,14 +56,16 @@ final class EngineCoordinator extends SimEntity {
         final long sequence;
         final Kind kind;
         final int generation;
+        final Object payload;
 
-        Ev(double at, int priority, int taskId, long sequence, Kind kind, int generation) {
+        Ev(double at, int priority, int taskId, long sequence, Kind kind, int generation, Object payload) {
             this.at = at;
             this.priority = priority;
             this.taskId = taskId;
             this.sequence = sequence;
             this.kind = kind;
             this.generation = generation;
+            this.payload = payload;
         }
 
         @Override public int compareTo(Ev o) {
@@ -74,6 +87,7 @@ final class EngineCoordinator extends SimEntity {
         ComputeNode node;
         boolean local;
         int pe = -1;
+        NetworkModel.Transfer transfer;
         boolean deadlineFlag;
         Double arrivedAt;
         Double inputAt;
@@ -101,6 +115,8 @@ final class EngineCoordinator extends SimEntity {
     private final double resultDelayS;
     private final Actions actions;
     private final JSONObject wire;
+    private final NetworkModel network;
+    private final int iotPerAccessFog;
     private final Map<String, ComputeNode> nodes = new LinkedHashMap<>();
     private final TreeMap<Integer, Runtime> tasks = new TreeMap<>();
     private final TreeSet<Ev> pending = new TreeSet<>();
@@ -114,9 +130,13 @@ final class EngineCoordinator extends SimEntity {
     private double finishedAt = Double.NaN;
     private double nativeClockAtHorizon = Double.NaN;
 
+    /**
+     * @param networkConfig null selects the labeled fixture transport (constant delays); otherwise the P03 network
+     *        model built from this {@code network} config section
+     */
     EngineCoordinator(String episodeId, List<NodeSpec> nodeSpecs, List<TaskSpec> taskSpecs, Actions actions,
                       double arrivalWindowS, double horizonS, double epsilonS, double inputDelayS, double resultDelayS,
-                      JSONObject wire) {
+                      JSONObject wire, Map<?, ?> networkConfig, int fogCount, int iotPerAccessFog, boolean logTransfers) {
         super("ErwoV2Engine");
         this.episodeId = episodeId;
         this.arrivalWindowS = arrivalWindowS;
@@ -126,6 +146,8 @@ final class EngineCoordinator extends SimEntity {
         this.resultDelayS = resultDelayS;
         this.actions = actions;
         this.wire = wire;
+        this.iotPerAccessFog = iotPerAccessFog;
+        this.network = networkConfig == null ? null : new NetworkModel(networkConfig, fogCount, this::scheduleNetwork, logTransfers);
         if (!(arrivalWindowS > 0) || !(horizonS >= arrivalWindowS) || !(epsilonS > 0) || inputDelayS < 0 || resultDelayS < 0) {
             throw new IllegalArgumentException("Invalid timing parameters");
         }
@@ -138,6 +160,9 @@ final class EngineCoordinator extends SimEntity {
         if (taskSpecs.isEmpty()) throw new IllegalArgumentException("N=0 trace rejected; no resampling or forced task");
         for (TaskSpec spec : taskSpecs) {
             if (spec.arrivalS >= arrivalWindowS) throw new IllegalArgumentException("Arrival at or after T: task " + spec.taskId);
+            if (network != null && spec.accessFog != spec.sourceIot / iotPerAccessFog + 1) {
+                throw new IllegalArgumentException("Task " + spec.taskId + " access_fog " + spec.accessFog + " contradicts source_iot " + spec.sourceIot);
+            }
             if (spec.timeoutAbsoluteS > horizonS + epsilonS) {
                 throw new IllegalArgumentException("Timeout after horizon would leave the task unresolved: task " + spec.taskId);
             }
@@ -174,8 +199,16 @@ final class EngineCoordinator extends SimEntity {
     // ---- ordered event queue ---------------------------------------------------------------------------
 
     private void enqueue(double at, Kind kind, int taskId, int generation) {
+        enqueue(at, kind, taskId, generation, null);
+    }
+
+    private void enqueue(double at, Kind kind, int taskId, int generation, Object payload) {
         if (!(at >= now - epsilonS)) throw new IllegalStateException("Event scheduled in the past: " + kind + " at " + at + " < " + now);
-        pending.add(new Ev(at, Contracts.priority(wire, kind.name()), taskId < 0 ? Integer.MAX_VALUE : taskId, sequence++, kind, generation));
+        pending.add(new Ev(at, Contracts.priority(wire, kind.wire), taskId < 0 ? Integer.MAX_VALUE : taskId, sequence++, kind, generation, payload));
+    }
+
+    private void scheduleNetwork(double at, Kind kind, int taskId, int generation, Object payload) {
+        enqueue(at, kind, taskId, generation, payload);
     }
 
     private void log(Ev e, boolean stale, String note) {
@@ -208,6 +241,8 @@ final class EngineCoordinator extends SimEntity {
             case DEADLINE: onDeadline(rt, e); break;
             case TIMEOUT: onTimeout(rt, e); break;
             case HORIZON: onHorizon(e); break;
+            case SERIALIZATION_DONE: network.serializationDone(e.at, (NetworkModel.Transfer) e.payload); break;
+            case HOP_ARRIVED: onHopArrived(rt, e); break;
             default: throw new IllegalStateException("Unhandled kind " + e.kind);
         }
     }
@@ -221,7 +256,7 @@ final class EngineCoordinator extends SimEntity {
         boolean again = true;
         while (again) {
             again = false;
-            Ev probe = new Ev(upTo, Integer.MAX_VALUE, Integer.MAX_VALUE, Long.MAX_VALUE, Kind.HORIZON, 0);
+            Ev probe = new Ev(upTo, Integer.MAX_VALUE, Integer.MAX_VALUE, Long.MAX_VALUE, Kind.HORIZON, 0, null);
             for (Ev x : new ArrayList<>(pending.headSet(probe, true))) {
                 if (x.taskId == rt.spec.taskId && x.priority == 0 && x.generation == rt.generation) {
                     pending.remove(x);
@@ -252,9 +287,28 @@ final class EngineCoordinator extends SimEntity {
         rt.local = target.equals(own);
         if (rt.local) {
             admit(rt, e.at);
-        } else {
+        } else if (network == null) {
             rt.state = State.TRANSFER_IN;
             enqueue(e.at + inputDelayS, Kind.TRANSFER_COMPLETE, t.taskId, rt.generation);
+        } else {
+            rt.state = State.TRANSFER_IN;
+            rt.transfer = network.start(e.at, t.taskId, rt.generation, NetworkModel.Phase.INPUT, t.inputBytes,
+                    network.route(NetworkModel.Phase.INPUT, t.accessFog, target));
+            if (rt.transfer == null) fail(rt, "NETWORK_QUEUE_FULL", e.at);
+        }
+    }
+
+    /** A message reached the far end of a hop: forward it, fail it on a full queue, or finish the whole route. */
+    private void onHopArrived(Runtime rt, Ev e) {
+        NetworkModel.Transfer transfer = (NetworkModel.Transfer) e.payload;
+        switch (network.hopArrived(e.at, transfer)) {
+            case ACCEPTED: break;
+            case REJECTED: fail(rt, "NETWORK_QUEUE_FULL", e.at); break;
+            case COMPLETE:
+                if (transfer.phase == NetworkModel.Phase.INPUT) enqueue(e.at, Kind.TRANSFER_COMPLETE, rt.spec.taskId, rt.generation);
+                else enqueue(e.at, Kind.RESULT_DELIVERED, rt.spec.taskId, rt.generation);
+                break;
+            default: throw new IllegalStateException("Unhandled network status");
         }
     }
 
@@ -297,7 +351,15 @@ final class EngineCoordinator extends SimEntity {
         rt.executedMi = rt.spec.cpuMi;
         startPromoted(rt.node.finish(e.at, rt.spec.taskId), e.at);
         rt.state = State.TRANSFER_OUT;
-        enqueue(e.at + (rt.local ? 0.0 : resultDelayS), Kind.RESULT_DELIVERED, rt.spec.taskId, rt.generation);
+        if (rt.local) {
+            enqueue(e.at, Kind.RESULT_DELIVERED, rt.spec.taskId, rt.generation);
+        } else if (network == null) {
+            enqueue(e.at + resultDelayS, Kind.RESULT_DELIVERED, rt.spec.taskId, rt.generation);
+        } else {
+            rt.transfer = network.start(e.at, rt.spec.taskId, rt.generation, NetworkModel.Phase.RESULT, rt.spec.outputBytes,
+                    network.route(NetworkModel.Phase.RESULT, rt.spec.accessFog, rt.node.spec.id));
+            if (rt.transfer == null) fail(rt, "NETWORK_QUEUE_FULL", e.at);
+        }
     }
 
     private void onDelivered(Runtime rt, Ev e) {
@@ -324,7 +386,9 @@ final class EngineCoordinator extends SimEntity {
             BoundedFcfsScheduler.Cancelled cancelled = rt.node.cancel(e.at, rt.spec.taskId, executed);
             startPromoted(cancelled.promoted, e.at);
         }
-        // TRANSFER_IN / TRANSFER_OUT hold nothing on a node; the generation bump below voids the pending event.
+        // Transfers hold link servers or queue slots, not node resources: release them and count partial bytes.
+        // Fixture transport holds nothing; the generation bump below voids its pending event.
+        if (network != null && rt.transfer != null) network.cancel(e.at, rt.transfer);
         fail(rt, "SERVICE_TIMEOUT", e.at);
     }
 
@@ -336,6 +400,7 @@ final class EngineCoordinator extends SimEntity {
             node.close(horizonS);
             if (!node.idle()) throw new IllegalStateException("Node not idle at horizon: " + node.spec.id);
         }
+        if (network != null && !network.idle()) throw new IllegalStateException("Network not idle at horizon");
         finished = true;
         finishedAt = e.at;
         // CloudSim resets its static clock when the run ends, so the native clock is sampled here.
@@ -398,9 +463,13 @@ final class EngineCoordinator extends SimEntity {
             outcomes.add(o);
         }
         out.put("episode_id", episodeId);
-        out.put("transport", "FIXTURE_ZERO_NETWORK: constant input/result delays; local tasks cross no link. Not a system benchmark.");
-        out.put("input_delay_s", inputDelayS);
-        out.put("result_delay_s", resultDelayS);
+        if (network == null) {
+            out.put("transport", "FIXTURE_ZERO_NETWORK: constant input/result delays; local tasks cross no link. Not a system benchmark.");
+            out.put("input_delay_s", inputDelayS);
+            out.put("result_delay_s", resultDelayS);
+        } else {
+            out.put("transport", "NETWORK_P03: store-and-forward links, FCFS bounded queues, serialization separate from propagation.");
+        }
         out.put("arrival_window_s", arrivalWindowS);
         out.put("horizon_s", horizonS);
         out.put("finished", finished);
@@ -419,6 +488,10 @@ final class EngineCoordinator extends SimEntity {
         List<Map<String, Object>> nodeReports = new ArrayList<>();
         for (ComputeNode node : nodes.values()) nodeReports.add(node.report());
         out.put("nodes", nodeReports);
+        if (network != null) {
+            out.put("links", network.report());
+            if (network.transferLog() != null) out.put("transfers", network.transferLog());
+        }
         out.put("events", eventLog);
         return out;
     }

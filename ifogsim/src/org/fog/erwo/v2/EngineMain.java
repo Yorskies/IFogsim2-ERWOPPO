@@ -26,7 +26,9 @@ import org.json.simple.parser.JSONParser;
  * { "label": str, "tasks": [task...], "timing": {arrival_window_s, horizon_s, [epsilon_s]},
  *   "nodes": [node...] | "topology": {"homogeneous_fog": bool},
  *   "actions": "source_iot" | "nearest_fog" | "&lt;node id&gt;" | {"default": ..., "&lt;task id&gt;": ...},
- *   "fixture_transport": {"input_delay_s": x, "result_delay_s": y}, "repeat": n }
+ *   "fixture_transport": {"input_delay_s": x, "result_delay_s": y},      (P02 constant-delay fixture, or)
+ *   "network": {"log_transfers": bool, "overrides": {"access"|"lan"|"wan": {field: value}}},   (P03 links)
+ *   "repeat": n }
  * </pre>
  * Output is one JSON object on stdout. Any invariant failure prints a JSON error and exits non-zero.
  */
@@ -53,6 +55,29 @@ public final class EngineMain {
         throw new IllegalArgumentException("Scenario needs 'actions'");
     }
 
+    /** Copy of the config network section with per-link-type field overrides (used by tests to build small cases). */
+    private static Map<String, Object> mergedNetwork(Map<?, ?> base, Map<?, ?> overrides) {
+        Map<String, Object> merged = new LinkedHashMap<>();
+        for (Map.Entry<?, ?> entry : base.entrySet()) {
+            Object value = entry.getValue();
+            merged.put((String) entry.getKey(), value instanceof Map ? new LinkedHashMap<>((Map<?, ?>) value) : value);
+        }
+        if (overrides != null) {
+            for (Map.Entry<?, ?> entry : overrides.entrySet()) {
+                Object target = merged.get(entry.getKey());
+                if (!(target instanceof Map) || !(entry.getValue() instanceof Map)) {
+                    throw new IllegalArgumentException("Unknown network override '" + entry.getKey() + "'");
+                }
+                @SuppressWarnings("unchecked") Map<String, Object> link = (Map<String, Object>) target;
+                for (Map.Entry<?, ?> field : ((Map<?, ?>) entry.getValue()).entrySet()) {
+                    if (!link.containsKey(field.getKey())) throw new IllegalArgumentException("Unknown link field '" + field.getKey() + "'");
+                    link.put((String) field.getKey(), field.getValue());
+                }
+            }
+        }
+        return merged;
+    }
+
     private static String resolve(String action, TaskSpec task) {
         if ("source_iot".equals(action)) return "IoT-" + task.sourceIot;
         if ("nearest_fog".equals(action)) return "F" + task.accessFog;
@@ -74,6 +99,17 @@ public final class EngineMain {
         Map<?, ?> configTiming = (Map<?, ?>) config.get("timing");
         double epsilon = Json.optionalNumber(timing, "epsilon_s", Json.number(configTiming, "comparison_epsilon_s"));
         Map<?, ?> transport = scenario.containsKey("fixture_transport") ? (Map<?, ?>) scenario.get("fixture_transport") : new LinkedHashMap<>();
+        if (scenario.containsKey("network") && scenario.containsKey("fixture_transport")) {
+            throw new IllegalArgumentException("Choose either 'network' or 'fixture_transport', not both");
+        }
+        Map<String, Object> networkConfig = null;
+        boolean logTransfers = false;
+        if (scenario.containsKey("network")) {
+            Map<?, ?> network = (Map<?, ?>) scenario.get("network");
+            networkConfig = mergedNetwork((Map<?, ?>) config.get("network"), (Map<?, ?>) network.get("overrides"));
+            logTransfers = Boolean.TRUE.equals(network.get("log_transfers"));
+        }
+        Map<?, ?> topologyConfig = (Map<?, ?>) config.get("topology");
 
         // Fresh clock and event queue per episode; min spacing is the contract value verified in P00.
         Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
@@ -81,7 +117,8 @@ public final class EngineMain {
         CloudSim.init(1, calendar, false, Json.number(configTiming, "min_event_spacing_s"));
         EngineCoordinator engine = new EngineCoordinator(episodeId, nodes, tasks, actions(scenario.get("actions")),
                 Json.number(timing, "arrival_window_s"), Json.number(timing, "horizon_s"), epsilon,
-                Json.optionalNumber(transport, "input_delay_s", 0.0), Json.optionalNumber(transport, "result_delay_s", 0.0), wire);
+                Json.optionalNumber(transport, "input_delay_s", 0.0), Json.optionalNumber(transport, "result_delay_s", 0.0), wire,
+                networkConfig, ((List<?>) topologyConfig.get("fogs")).size(), Json.integer(topologyConfig, "iot_per_access_fog"), logTransfers);
         CloudSim.startSimulation();
         if (!engine.finished()) throw new IllegalStateException("Simulation ended before the horizon event");
         return engine.result();

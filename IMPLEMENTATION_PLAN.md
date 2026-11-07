@@ -1,12 +1,14 @@
 # Implementation plan dan milestone penelitian ERWO-PPO v2
 
-Tanggal: 3 November 2026 (diperbarui 8 November 2026). Status: **P00–P02 selesai dan terverifikasi lokal; P03–P12 belum dimulai**.
+Tanggal: 3 November 2026 (diperbarui 8 November 2026). Status: **P00–P03 selesai dan terverifikasi lokal; P04–P12 belum dimulai**.
 
 Phase pertama yang telah dikerjakan adalah **P00 — Kontrak dan fondasi proyek**. Bukti: [catatan P00](docs/research_v2/milestones/P00_foundation.md) dan [laporan verifikasi](docs/research_v2/milestones/P00_verification.json): 23 tes lulus, tanpa failure/error/skip. Build menargetkan Java 21; lingkungan aktual Windows/Python 3.11/JDK 27. Pengujian langsung Ubuntu/Python 3.12/JDK 21 tetap menjadi preflight server sebelum penguncian protokol P10.
 
 **P01 — Konfigurasi dan generator trace** juga selesai. Bukti: [laporan P01](docs/research_v2/milestones/P01_trace_validation.md) dan [verifikasi mesin](docs/research_v2/milestones/P01_verification.json): 49 tes lulus, 80 trace calibration, serta 468/468 pemeriksaan distribusi lulus. Test tetap tersegel; belum ada eksekusi offloading atau training v2.
 
-**P02 — Event engine dan siklus tugas** selesai pada 8 November 2026. Bukti: [laporan P02](docs/research_v2/milestones/P02_engine_validation.md) dan [verifikasi mesin](docs/research_v2/milestones/P02_verification.json): 21 tes lulus, acceptance C01–C08 lulus, serta empat trace kalibrasi nyata berjalan sampai horizon dengan konservasi task. Transport masih fixture nol-jaringan; belum ada jaringan, energi, socket, atau training.
+**P02 — Event engine dan siklus tugas** selesai pada 8 November 2026. Bukti: [laporan P02](docs/research_v2/milestones/P02_engine_validation.md) dan [verifikasi mesin](docs/research_v2/milestones/P02_verification.json): 21 tes lulus, acceptance C01–C08 lulus, serta empat trace kalibrasi nyata berjalan sampai horizon dengan konservasi task. Transport P02 adalah fixture nol-jaringan.
+
+**P03 — Transport jaringan** selesai pada 8 November 2026. Bukti: [laporan P03](docs/research_v2/milestones/P03_network_validation.md) dan [verifikasi mesin](docs/research_v2/milestones/P03_verification.json): 17 tes lulus, acceptance N01–N06 lulus, regresi P00–P02 lulus pada build yang sama. Belum ada ledger energi, socket, atau training.
 
 Dasar teknis: [Kesepakatan Rancangan Penelitian v0.2](KESEPAKATAN_RANCANGAN_PENELITIAN.md). Latar temuan dan tujuan perbaikan: [Rencana Penelitian Lanjutan](RENCANA_PENELITIAN_LANJUTAN.md).
 
@@ -31,7 +33,7 @@ Dokumen ini mengatur urutan kerja, dependensi, deliverable, verifikasi, dan krit
 | P00 | Kontrak dan fondasi proyek | Struktur v2, schema, rencana validasi, build dasar | Spesifikasi v0.2 | **Selesai — verifikasi lokal 23/23** |
 | P01 | Konfigurasi dan trace | Generator empat workload yang deterministik | P00 | **Selesai — verifikasi lokal 49/49** |
 | P02 | Event engine dan siklus tugas | CPU, FCFS, admission, deadline, timeout, horizon | P00–P01 | **Selesai — verifikasi lokal 21/21** |
-| P03 | Transport jaringan | Queue, routing, transfer input/hasil, cancellation | P02 | Belum dimulai |
+| P03 | Transport jaringan | Queue, routing, transfer input/hasil, cancellation | P02 | **Selesai — verifikasi lokal 17/17** |
 | P04 | Energi dan metrik | Ledger energi serta lima biaya tervalidasi | P02–P03 | Belum dimulai |
 | P05 | Socket dan Gymnasium | Protokol v2, observasi 108, reward tertunda | P01–P04 | Belum dimulai |
 | P06 | Baseline dan kalibrasi | Heuristik kuat dan kelulusan model fisik | P04–P05 | Belum dimulai |
@@ -46,7 +48,7 @@ Dependensi utama bersifat berurutan. Perancangan schema dan pembacaan source bol
 
 ## 3. Arsitektur implementasi yang dituju
 
-Struktur berikut adalah target. Fondasi config/schema/package/build, generator dan penyimpanan trace, engine CPU/lifecycle headless (P02), serta catatan P00–P02 sudah dibuat; jaringan, energi, Gym, training, search, runner studi, dan analisis merupakan pekerjaan phase selanjutnya. Pemetaan aktual dijelaskan pada [arsitektur](docs/research_v2/ARCHITECTURE.md) dan [kontrak trace](docs/research_v2/TRACES.md).
+Struktur berikut adalah target. Fondasi config/schema/package/build, generator dan penyimpanan trace, engine CPU/lifecycle headless (P02), transport jaringan (P03), serta catatan P00–P03 sudah dibuat; energi, Gym, training, search, runner studi, dan analisis merupakan pekerjaan phase selanjutnya. Pemetaan aktual dijelaskan pada [arsitektur](docs/research_v2/ARCHITECTURE.md) dan [kontrak trace](docs/research_v2/TRACES.md).
 
 | Area | Lokasi yang direncanakan | Tanggung jawab |
 |---|---|---|
@@ -147,18 +149,20 @@ Validasi pada fase ini boleh menggunakan jalur lokal atau jaringan nol-delay yan
 
 Pekerjaan:
 
-- [ ] Implementasikan lima kanal akses half-duplex, link LAN full-duplex, dan WAN cloud.
-- [ ] Implementasikan queue transfer FCFS dengan kapasitas per server link sesuai spesifikasi.
-- [ ] Pisahkan serialization dari propagasi; propagasi tidak menahan server link.
-- [ ] Implementasikan routing lokal, fog akses, fog lain, cloud, dan jalur hasil balik.
-- [ ] Tugas offload masuk admission CPU setelah input tiba; tidak ada reservasi CPU pada saat aksi.
-- [ ] Implementasikan kegagalan queue link penuh dan pembatalan transfer aktif/menunggu/in-propagation saat timeout.
-- [ ] Catat byte aktual yang sudah dikirim serta event stale yang diabaikan.
-- [ ] Hindari menghitung file-transfer time lagi sebagai tambahan panjang Cloudlet.
+- [x] Implementasikan lima kanal akses half-duplex, link LAN full-duplex, dan WAN cloud.
+- [x] Implementasikan queue transfer FCFS dengan kapasitas per server link sesuai spesifikasi.
+- [x] Pisahkan serialization dari propagasi; propagasi tidak menahan server link.
+- [x] Implementasikan routing lokal, fog akses, fog lain, cloud, dan jalur hasil balik.
+- [x] Tugas offload masuk admission CPU setelah input tiba; tidak ada reservasi CPU pada saat aksi.
+- [x] Implementasikan kegagalan queue link penuh dan pembatalan transfer aktif/menunggu/in-propagation saat timeout.
+- [x] Catat byte aktual yang sudah dikirim serta event stale yang diabaikan.
+- [x] Hindari menghitung file-transfer time lagi sebagai tambahan panjang Cloudlet.
 
 Deliverable: transport layer, route ledger, serta `P03_network_validation.md`.
 
 **Kriteria lulus:** contoh 1 MiB/20 Mbps menghasilkan serialization 0,4194304 s; multihop dan hasil balik sesuai perhitungan; kanal benar-benar berbagi kapasitas; timeout parsial tidak menggandakan completion atau menghitung byte yang belum terkirim.
+
+**Hasil aktual:** lulus pada lingkungan lokal (Windows, Python 3.12.6, OpenJDK 21.0.13). 17 tes tanpa failure/error/skip; N01–N06 lulus; trace kalibrasi nyata berjalan tanpa tumpang tindih pada server dan mengikuti FCFS. Empat bug transport yang disuntikkan semuanya terbunuh oleh tes. Karakterisasi pada trace kalibrasi 0 menunjukkan kegagalan seluruhnya berupa timeout (antrean akses maksimum 25 dari batas 64), dan tidak ada ledger energi. Rincian dan keputusan desain: [P03_network_validation.md](docs/research_v2/milestones/P03_network_validation.md).
 
 ## 8. P04 — Ledger energi dan lima metrik
 
@@ -410,10 +414,10 @@ Status `blocked` pada catatan proyek berarti dependensi/masalah milestone belum 
 4. Tulis acceptance cases untuk P01–P05 beserta nilai analitis yang diharapkan.
 5. Serahkan catatan P00 sebelum memperluas implementasi ke generator trace dan simulator.
 
-P01 trace deterministik dan P02 engine CPU/lifecycle juga sudah selesai. **Milestone berikutnya adalah P03: transport jaringan**, yang menggantikan transport fixture P02 dengan kanal akses half-duplex, link LAN/WAN, antrean transfer, dan pembatalan transfer parsial. Tidak langsung mengubah runner legacy menjadi training besar, memigrasikan model lama ke 108 fitur, atau menjalankan 20 outer run.
+P01 trace deterministik, P02 engine CPU/lifecycle, dan P03 transport jaringan juga sudah selesai. **Milestone berikutnya adalah P04: ledger energi dan lima metrik**, yang memakai detik serialization, byte per link, dan busy PE-seconds yang kini tercatat. Tidak langsung mengubah runner legacy menjadi training besar, memigrasikan model lama ke 108 fitur, atau menjalankan 20 outer run.
 
 ## 20. Batas dokumen ini
 
-P00–P02 telah diimplementasikan dan diverifikasi secara lokal; P03–P12 belum dimulai. Config, schema, package fondasi, CLI validasi/generator, trace immutable, guard split, build terpisah, probe native/numerik, scheduler FCFS bounded, dan engine task headless dengan transport fixture sudah tersedia. Jaringan, ledger energi, server socket, Gym, analisis statistik konfirmatori, serta eksperimen utama belum tersedia. Status selesai P00–P02 tidak berarti simulator sudah siap untuk training; setiap phase berikutnya tetap harus memenuhi kriterianya sendiri.
+P00–P03 telah diimplementasikan dan diverifikasi secara lokal; P04–P12 belum dimulai. Config, schema, package fondasi, CLI validasi/generator, trace immutable, guard split, build terpisah, probe native/numerik, scheduler FCFS bounded, engine task headless, dan transport jaringan store-and-forward sudah tersedia. Ledger energi, server socket, Gym, analisis statistik konfirmatori, serta eksperimen utama belum tersedia. Status selesai P00–P03 tidak berarti simulator sudah siap untuk training; setiap phase berikutnya tetap harus memenuhi kriterianya sendiri.
 
 Kriteria eksperimen dan parameter tetap merujuk pada dokumen kesepakatan. Jika ada konflik, perbaiki dokumen dan catat keputusan sebelum melanjutkan; jangan menyelesaikan konflik melalui perubahan kode yang tidak terdokumentasi.

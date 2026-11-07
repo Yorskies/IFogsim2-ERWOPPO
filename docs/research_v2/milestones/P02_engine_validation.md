@@ -47,6 +47,7 @@ socket/Gym (P05), atau policy. Source dan hasil legacy tidak diubah.
 5. **RAM** = `working_set + input + output` byte, ditahan dari admission sampai CPU selesai atau dibatalkan
    (spesifikasi: "dilepas saat selesai/gagal"). Buffer hasil selama pengembalian hasil belum dimodelkan;
    P03 perlu memutuskan apakah buffer output ditahan sampai hasil terkirim.
+   *Diputuskan di P03:* buffer hasil tidak ditahan setelah CPU selesai; batasnya adalah antrean link.
 6. **Toleransi 1e-9 s.** Urutan antrean memakai waktu persis. Untuk task yang sama, completion/delivery
    dalam 1e-9 s setelah instan deadline/timeout diproses lebih dulu (`boundary_tolerance_drains`), sehingga
    keberhasilan tepat di batas konsisten dengan spesifikasi tanpa comparator berbasis epsilon.

@@ -1,7 +1,7 @@
 # Kontrak arsitektur P00
 
-Status implementasi: fondasi P00, trace P01, dan engine headless P02. Arsitektur ini
-memetakan fase lanjutan; jaringan, energi, socket, dan training belum tersedia.
+Status implementasi: fondasi P00, trace P01, engine headless P02, dan transport jaringan P03.
+Arsitektur ini memetakan fase lanjutan; energi, socket, dan training belum tersedia.
 
 Pembaruan P02 (8 November 2026): `BoundedFcfsScheduler` (adapter CloudSim space-shared), `ComputeNode`
 (Host/Vm/Pe nyata), `EngineCoordinator` (antrean berurutan dengan prioritas domain, generasi event,
@@ -60,7 +60,7 @@ sequence, sehingga completion pada dua hop yang sah tidak dianggap duplikat.
 Terminal commit memiliki key episode/task dan hanya dapat dilakukan sekali.
 Pembuktian pelepasan resource dan conservation belum diimplementasikan P00.
 
-## Rute untuk P03
+## Rute untuk P03 (diimplementasikan pada `NetworkModel`; lihat [P03](milestones/P03_network_validation.md))
 
 Local: kosong. Fog akses: wireless. Fog lain: wireless → LAN fog asal → LAN
 fog tujuan. Cloud: wireless → LAN fog asal → WAN. Result memakai rute balik.

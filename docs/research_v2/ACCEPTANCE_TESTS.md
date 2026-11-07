@@ -60,5 +60,7 @@ P01 T01–T03 telah diverifikasi; protokol probabilistiknya ditetapkan pada
 **P02 C01–C08 telah dijalankan** pada engine nyata (8 November 2026): lulus, dengan transport
 fixture nol-jaringan. Hasil dan pemetaan tes: [P02_engine_validation.md](milestones/P02_engine_validation.md)
 dan [P02_verification.json](milestones/P02_verification.json). Kasus C06 dijalankan dengan
-node 10.000 MIPS agar waktu terima 0,5/0,5001/1,5 s dapat dibentuk dari MI integer. Kasus
-N, E, M, G, R, L, S, B, O, dan A masih berupa spesifikasi.
+node 10.000 MIPS agar waktu terima 0,5/0,5001/1,5 s dapat dibentuk dari MI integer. **P03 N01–N06 telah dijalankan** (8 November 2026) pada transport jaringan nyata: lulus. Hasil dan pemetaan tes:
+[P03_network_validation.md](milestones/P03_network_validation.md) dan
+[P03_verification.json](milestones/P03_verification.json). N01 dan N04 dijalankan oleh satu tes yang sama
+(fog akses, 1 MiB masuk dan 52.429 byte kembali). Kasus E, M, G, R, L, S, B, O, dan A masih berupa spesifikasi.

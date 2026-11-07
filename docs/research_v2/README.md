@@ -1,12 +1,13 @@
-# Research v2 — fondasi P00, trace P01, dan engine P02
+# Research v2 — fondasi P00, trace P01, engine P02, dan jaringan P03
 
-**P00, P01, dan P02 sudah selesai**: config/schema, kontrak lintas bahasa, audit API,
-build terpisah, probe native, generator/penyimpanan trace deterministik, serta engine
-task headless (CPU FCFS bounded, admission, deadline/timeout, horizon) di atas CloudSim.
-Jaringan nyata, energi, training PPO, dan socket v2 belum tersedia; engine P02 memakai
-transport fixture nol-jaringan yang berlabel. Panduan trace dan guard split:
-[TRACES.md](TRACES.md); bukti [P01](milestones/P01_trace_validation.md) dan
-[P02](milestones/P02_engine_validation.md).
+**P00 sampai P03 sudah selesai**: config/schema, kontrak lintas bahasa, audit API,
+build terpisah, probe native, generator/penyimpanan trace deterministik, engine
+task headless (CPU FCFS bounded, admission, deadline/timeout, horizon) di atas CloudSim,
+dan transport store-and-forward (kanal akses half-duplex, link LAN/WAN, antrean transfer,
+pembatalan parsial). Ledger energi, training PPO, dan socket v2 belum tersedia. Mode fixture
+nol-jaringan P02 tetap ada dan berlabel. Panduan trace dan guard split: [TRACES.md](TRACES.md);
+bukti [P01](milestones/P01_trace_validation.md), [P02](milestones/P02_engine_validation.md),
+dan [P03](milestones/P03_network_validation.md).
 
 ## Menjalankan engine P02 (headless, aksi tetap)
 
@@ -26,6 +27,20 @@ python -m research_v2.verify_engine --jdk-home <JDK 21+>
 Hasil engine memuat outcome per task, log event dengan generasi/sequence, dan ringkasan per node
 (maks PE sibuk, maks antrean, puncak RAM, `busy_pe_seconds`). Label `FIXTURE_ZERO_NETWORK` pada hasil
 berarti angka tersebut bukan benchmark sistem.
+
+Untuk transport jaringan P03, tambahkan kunci `network` pada skenario (menggantikan `fixture_transport`):
+
+```python
+value = scenario_from_trace(trace, "nearest_fog", topology={"homogeneous_fog": False})
+value["network"] = {"log_transfers": False}   # opsional: {"overrides": {"access": {"queue_waiting": 1}}}
+episode = run_engine(value)["episodes"][0]   # menambah episode["links"] (byte, detik serialization, antrean per server)
+```
+
+Audit milestone P03 (17 tes, N01–N06), yang menulis `milestones/P03_verification.json`:
+
+```text
+python -m research_v2.verify_network --jdk-home <JDK 21+>
+```
 
 ## Memeriksa config
 
@@ -91,8 +106,8 @@ venv\Scripts\python.exe -m research_v2.verify_traces --jdk-home $jdk
 | JDK | Microsoft OpenJDK 21.0.13 | Sama dengan target `--release 21`; tidak perlu `--release` lebih rendah. |
 | numpy / jsonschema | 2.4.6 / 4.26.0 | Pin `requirements-v2-*.txt` tidak berubah. |
 
-Hasil: P00 **23/23**, P01 **49/49**, dan P02 **21/21** tes lulus (P02 ditambahkan kemudian
-pada hari yang sama dengan `verify_engine`), 0 failure/error/skip. Seluruh 80
+Hasil: P00 **23/23**, P01 **49/49**, P02 **21/21**, dan P03 **17/17** tes lulus (P02 dan P03
+ditambahkan kemudian pada hari yang sama dengan `verify_engine` dan `verify_network`), 0 failure/error/skip. Seluruh 80
 `trace.json` dan `config.json` yang dibangkitkan ulang identik byte-per-byte dengan
 bundle yang ter-commit di `results/research_v2/P01_calibration/`, jadi trace tidak
 berubah antara Python 3.11 dan 3.12.
