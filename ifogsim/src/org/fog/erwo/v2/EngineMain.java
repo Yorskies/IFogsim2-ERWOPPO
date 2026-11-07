@@ -118,7 +118,8 @@ public final class EngineMain {
         EngineCoordinator engine = new EngineCoordinator(episodeId, nodes, tasks, actions(scenario.get("actions")),
                 Json.number(timing, "arrival_window_s"), Json.number(timing, "horizon_s"), epsilon,
                 Json.optionalNumber(transport, "input_delay_s", 0.0), Json.optionalNumber(transport, "result_delay_s", 0.0), wire,
-                networkConfig, ((List<?>) topologyConfig.get("fogs")).size(), Json.integer(topologyConfig, "iot_per_access_fog"), logTransfers);
+                networkConfig, ((List<?>) topologyConfig.get("fogs")).size(), Json.integer(topologyConfig, "iot_per_access_fog"), logTransfers,
+                (Map<?, ?>) config.get("evaluation"));
         CloudSim.startSimulation();
         if (!engine.finished()) throw new IllegalStateException("Simulation ended before the horizon event");
         return engine.result();

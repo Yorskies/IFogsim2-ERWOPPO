@@ -124,11 +124,47 @@ final class ComputeNode {
         return scheduler.busyPes() == 0 && scheduler.waiting() == 0 && ramUsed == 0 && ramHeld.isEmpty();
     }
 
-    Map<String, Object> report() {
+    /** Ledger group of this node: cpu_iot, cpu_fog, cpu_cloud, or cpu_other for fixture names. */
+    String energyGroup() {
+        if (spec.id.startsWith("IoT-")) return "cpu_iot";
+        if (isFog()) return "cpu_fog";
+        if ("cloud".equals(spec.id)) return "cpu_cloud";
+        return "cpu_other";
+    }
+
+    boolean isFog() {
+        return spec.id.length() >= 2 && spec.id.charAt(0) == 'F' && spec.id.substring(1).chars().allMatch(Character::isDigit);
+    }
+
+    double utilization() {
+        return (double) scheduler.busyPes() / spec.pes;
+    }
+
+    /**
+     * CPU-IT energy over [0, H]: P(u) = Pidle + (Pbusy - Pidle) u with u = busy PE / PE, integrated exactly because the
+     * busy-PE count is piecewise constant. Call after {@link #close(double)} so the integral ends at H.
+     */
+    Map<String, Object> energyComponent(double horizonS) {
+        Map<String, Object> m = new java.util.LinkedHashMap<>();
+        m.put("id", "cpu:" + spec.id);
+        m.put("group", energyGroup());
+        m.put("idle_j", spec.idleW * horizonS);
+        m.put("dynamic_j", (spec.busyW - spec.idleW) / spec.pes * busyPeSeconds);
+        return m;
+    }
+
+    /** Dynamic CPU energy of a busy interval on one PE of this node (used for per-task attribution). */
+    double dynamicJoules(double busySeconds) {
+        return (spec.busyW - spec.idleW) / spec.pes * busySeconds;
+    }
+
+    Map<String, Object> report(double horizonS) {
         Map<String, Object> m = new java.util.LinkedHashMap<>();
         m.put("id", spec.id);
         m.put("pes", spec.pes);
         m.put("mips_per_pe", spec.mipsPerPe);
+        m.put("idle_w", spec.idleW);
+        m.put("busy_w", spec.busyW);
         m.put("queue_waiting_limit", spec.queueWaiting);
         m.put("ram_bytes", spec.ramBytes);
         m.put("admitted", admitted);
@@ -142,6 +178,7 @@ final class ComputeNode {
         m.put("max_waiting", scheduler.maxWaitingObserved());
         m.put("ram_peak_bytes", ramPeak);
         m.put("busy_pe_seconds", busyPeSeconds);
+        m.put("cpu_utilization", busyPeSeconds / (spec.pes * horizonS));
         m.put("native_finished_cloudlets", scheduler.finishedCloudlets());
         m.put("native_used_pes_end", scheduler.busyPes());
         m.put("native_waiting_end", scheduler.waiting());

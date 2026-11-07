@@ -1,13 +1,14 @@
-# Research v2 — fondasi P00, trace P01, engine P02, dan jaringan P03
+# Research v2 — fondasi P00, trace P01, engine P02, jaringan P03, dan akuntansi P04
 
-**P00 sampai P03 sudah selesai**: config/schema, kontrak lintas bahasa, audit API,
+**P00 sampai P04 sudah selesai**: config/schema, kontrak lintas bahasa, audit API,
 build terpisah, probe native, generator/penyimpanan trace deterministik, engine
 task headless (CPU FCFS bounded, admission, deadline/timeout, horizon) di atas CloudSim,
 dan transport store-and-forward (kanal akses half-duplex, link LAN/WAN, antrean transfer,
-pembatalan parsial). Ledger energi, training PPO, dan socket v2 belum tersedia. Mode fixture
+pembatalan parsial), serta ledger energi dan lima metrik per trace dengan evaluator independen.
+Training PPO, reward, dan socket v2 belum tersedia. Mode fixture
 nol-jaringan P02 tetap ada dan berlabel. Panduan trace dan guard split: [TRACES.md](TRACES.md);
 bukti [P01](milestones/P01_trace_validation.md), [P02](milestones/P02_engine_validation.md),
-dan [P03](milestones/P03_network_validation.md).
+[P03](milestones/P03_network_validation.md), dan [P04](milestones/P04_accounting_validation.md).
 
 ## Menjalankan engine P02 (headless, aksi tetap)
 
@@ -40,6 +41,20 @@ Audit milestone P03 (17 tes, N01–N06), yang menulis `milestones/P03_verificati
 
 ```text
 python -m research_v2.verify_network --jdk-home <JDK 21+>
+```
+
+Setiap episode kini memuat `energy` (idle/dinamis/total, per komponen dan grup) dan `metrics` (violation, reliability,
+latensi mean/median/p95, throughput, lima biaya `zL..zQ`, `D`). Untuk memeriksa ledger secara independen:
+
+```python
+from research_v2.evaluator import evaluate, compare
+assert compare(episode, evaluate(episode, config)) == []   # [] = Java dan evaluator sepakat
+```
+
+Audit milestone P04 (16 tes, E01–E04, M01–M03, evaluator), yang menulis `milestones/P04_verification.json`:
+
+```text
+python -m research_v2.verify_accounting --jdk-home <JDK 21+>
 ```
 
 ## Memeriksa config
@@ -106,8 +121,8 @@ venv\Scripts\python.exe -m research_v2.verify_traces --jdk-home $jdk
 | JDK | Microsoft OpenJDK 21.0.13 | Sama dengan target `--release 21`; tidak perlu `--release` lebih rendah. |
 | numpy / jsonschema | 2.4.6 / 4.26.0 | Pin `requirements-v2-*.txt` tidak berubah. |
 
-Hasil: P00 **23/23**, P01 **49/49**, P02 **21/21**, dan P03 **17/17** tes lulus (P02 dan P03
-ditambahkan kemudian pada hari yang sama dengan `verify_engine` dan `verify_network`), 0 failure/error/skip. Seluruh 80
+Hasil: P00 **23/23**, P01 **49/49**, P02 **21/21**, P03 **17/17**, dan P04 **16/16** tes lulus (P02 sampai P04
+ditambahkan kemudian pada hari yang sama dengan `verify_engine`, `verify_network`, dan `verify_accounting`), 0 failure/error/skip. Seluruh 80
 `trace.json` dan `config.json` yang dibangkitkan ulang identik byte-per-byte dengan
 bundle yang ter-commit di `results/research_v2/P01_calibration/`, jadi trace tidak
 berubah antara Python 3.11 dan 3.12.

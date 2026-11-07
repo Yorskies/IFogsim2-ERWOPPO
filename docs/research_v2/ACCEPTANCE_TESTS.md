@@ -63,4 +63,7 @@ dan [P02_verification.json](milestones/P02_verification.json). Kasus C06 dijalan
 node 10.000 MIPS agar waktu terima 0,5/0,5001/1,5 s dapat dibentuk dari MI integer. **P03 N01–N06 telah dijalankan** (8 November 2026) pada transport jaringan nyata: lulus. Hasil dan pemetaan tes:
 [P03_network_validation.md](milestones/P03_network_validation.md) dan
 [P03_verification.json](milestones/P03_verification.json). N01 dan N04 dijalankan oleh satu tes yang sama
-(fog akses, 1 MiB masuk dan 52.429 byte kembali). Kasus E, M, G, R, L, S, B, O, dan A masih berupa spesifikasi.
+(fog akses, 1 MiB masuk dan 52.429 byte kembali). **P04 E01–E04 dan M01–M03 telah dijalankan** (8 November 2026): lulus, termasuk perhitungan ulang oleh evaluator
+independen. Hasil dan pemetaan tes: [P04_accounting_validation.md](milestones/P04_accounting_validation.md) dan
+[P04_verification.json](milestones/P04_verification.json). Kasus E03 dijalankan pada mode jaringan penuh (energi hop
+diperiksa pada catatan hop, idle diperiksa tidak bertambah). Kasus G, R, L, S, B, O, dan A masih berupa spesifikasi.

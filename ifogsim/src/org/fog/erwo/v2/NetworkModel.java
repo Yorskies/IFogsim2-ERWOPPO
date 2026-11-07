@@ -94,6 +94,8 @@ final class NetworkModel {
     private final List<Server> all = new ArrayList<>();
     private final Sink sink;
     private final List<Map<String, Object>> log;
+    private final double radioIdleW, radioTxW, radioRxW, apIdleW, apTxW, apRxW, lanIdleW, wanIdleW, lanJPerBitHop, wanJPerBitHop;
+    private final Map<Integer, Double> taskDynamicJ = new java.util.HashMap<>();
 
     /**
      * @param config validated {@code network} section, optionally with per-type overrides already merged
@@ -103,6 +105,16 @@ final class NetworkModel {
         this.fogCount = fogCount;
         this.sink = sink;
         this.log = logTransfers ? new ArrayList<>() : null;
+        radioIdleW = Json.number(config, "radio_idle_w");
+        radioTxW = Json.number(config, "radio_tx_increment_w");
+        radioRxW = Json.number(config, "radio_rx_increment_w");
+        apIdleW = Json.number(config, "ap_idle_w");
+        apTxW = Json.number(config, "ap_tx_increment_w");
+        apRxW = Json.number(config, "ap_rx_increment_w");
+        lanIdleW = Json.number(config, "lan_idle_w");
+        wanIdleW = Json.number(config, "wan_idle_w");
+        lanJPerBitHop = Json.number(config, "lan_j_per_bit_hop");
+        wanJPerBitHop = Json.number(config, "wan_j_per_bit_hop");
         Map<?, ?> a = (Map<?, ?>) config.get("access");
         Map<?, ?> l = (Map<?, ?>) config.get("lan");
         Map<?, ?> w = (Map<?, ?>) config.get("wan");
@@ -200,7 +212,7 @@ final class NetworkModel {
         }
         s.rejected[h.direction]++;
         t.done = true;
-        record(t, h, "rejected_queue_full", 0.0, Double.NaN, Double.NaN);
+        record(t, h, "rejected_queue_full", 0.0, Double.NaN, Double.NaN, 0.0);
         return Status.REJECTED;
     }
 
@@ -228,7 +240,7 @@ final class NetworkModel {
         s.busyS[h.direction] += duration;
         s.bytesSent[h.direction] += t.bytes;
         s.completed[h.direction]++;
-        record(t, h, "serialized", t.bytes, t.serializationStartS, t.serializationStartS + duration);
+        record(t, h, "serialized", t.bytes, t.serializationStartS, t.serializationStartS + duration, hopJoules(s, h.direction, duration, t.bytes, t));
         sink.schedule(now + s.propagationS, EngineCoordinator.Kind.HOP_ARRIVED, t.taskId, t.generation, t);
         startNext(now, s);
     }
@@ -267,11 +279,11 @@ final class NetworkModel {
             s.cancelled[h.direction]++;
             s.active = null;
             t.inService = false;
-            record(t, h, "cancelled_in_service", sent, t.serializationStartS, now);
+            record(t, h, "cancelled_in_service", sent, t.serializationStartS, now, hopJoules(s, h.direction, elapsed, sent, t));
             startNext(now, s);
         } else if (s.waiting.remove(t)) {
             s.cancelled[h.direction]++;
-            record(t, h, "cancelled_waiting", 0.0, Double.NaN, Double.NaN);
+            record(t, h, "cancelled_waiting", 0.0, Double.NaN, Double.NaN, 0.0);
         } else if (!t.inPropagation) {
             throw new IllegalStateException("Transfer of task " + t.taskId + " is in no server state");
         }
@@ -283,7 +295,59 @@ final class NetworkModel {
         return true;
     }
 
-    private void record(Transfer t, Hop h, String status, double bytesSent, double serStart, double serEnd) {
+    /**
+     * Dynamic energy of one hop and attribution to its task. Wireless: TX of the sender plus RX of the receiver during
+     * serialization (upload: IoT TX + AP RX; download: AP TX + IoT RX). Wired: joules per bit-hop on bits actually sent.
+     * No dynamic power during propagation.
+     */
+    private double hopJoules(Server s, int direction, double serializationSeconds, double bytesSent, Transfer t) {
+        double joules;
+        if ("access".equals(s.linkType)) {
+            joules = serializationSeconds * (direction == UP ? radioTxW + apRxW : apTxW + radioRxW);
+        } else {
+            joules = bytesSent * 8.0 * ("lan".equals(s.linkType) ? lanJPerBitHop : wanJPerBitHop);
+        }
+        taskDynamicJ.merge(t.taskId, joules, Double::sum);
+        return joules;
+    }
+
+    double taskDynamicJoules(int taskId) {
+        return taskDynamicJ.getOrDefault(taskId, 0.0);
+    }
+
+    /**
+     * Communication energy components over [0, H]: radio and AP (idle for every IoT device and AP, dynamic from access
+     * serialization seconds), switch (LAN) and WAN gateway idle plus bit-hop dynamic energy. Idle is counted once here.
+     */
+    List<Map<String, Object>> energyComponents(double horizonS, int iotDevices) {
+        double radioDyn = 0, apDyn = 0, lanDyn = 0, wanDyn = 0;
+        for (Server s : all) {
+            if ("access".equals(s.linkType)) {
+                radioDyn += radioTxW * s.busyS[UP] + radioRxW * s.busyS[DOWN];
+                apDyn += apRxW * s.busyS[UP] + apTxW * s.busyS[DOWN];
+            } else {
+                double bits = 8.0 * (s.bytesSent[UP] + s.bytesSent[DOWN]);
+                if ("lan".equals(s.linkType)) lanDyn += bits * lanJPerBitHop; else wanDyn += bits * wanJPerBitHop;
+            }
+        }
+        List<Map<String, Object>> out = new ArrayList<>();
+        out.add(component("radio", radioIdleW * iotDevices * horizonS, radioDyn));
+        out.add(component("ap", apIdleW * fogCount * horizonS, apDyn));
+        out.add(component("lan", lanIdleW * horizonS, lanDyn));
+        out.add(component("wan", wanIdleW * horizonS, wanDyn));
+        return out;
+    }
+
+    private static Map<String, Object> component(String group, double idleJ, double dynamicJ) {
+        Map<String, Object> m = new LinkedHashMap<>();
+        m.put("id", "net:" + group);
+        m.put("group", group);
+        m.put("idle_j", idleJ);
+        m.put("dynamic_j", dynamicJ);
+        return m;
+    }
+
+    private void record(Transfer t, Hop h, String status, double bytesSent, double serStart, double serEnd, double dynamicJ) {
         if (log == null) return;
         Map<String, Object> m = new LinkedHashMap<>();
         m.put("task_id", t.taskId);
@@ -294,6 +358,7 @@ final class NetworkModel {
         m.put("status", status);
         m.put("bytes_total", t.bytes);
         m.put("bytes_sent", bytesSent);
+        m.put("dynamic_j", dynamicJ);
         m.put("queue_enter_s", t.enteredS);
         m.put("serialization_start_s", Double.isNaN(serStart) ? null : serStart);
         m.put("serialization_end_s", Double.isNaN(serEnd) ? null : serEnd);
@@ -303,7 +368,7 @@ final class NetworkModel {
 
     List<Map<String, Object>> transferLog() { return log; }
 
-    List<Map<String, Object>> report() {
+    List<Map<String, Object>> report(double horizonS) {
         List<Map<String, Object>> out = new ArrayList<>();
         for (Server s : all) {
             Map<String, Object> m = new LinkedHashMap<>();
@@ -323,6 +388,7 @@ final class NetworkModel {
                 m.put(p + "rejected_queue_full", s.rejected[d]);
             }
             m.put("busy_s_total", s.busyS[UP] + s.busyS[DOWN]);
+            m.put("utilization", (s.busyS[UP] + s.busyS[DOWN]) / horizonS);
             m.put("active_end", s.active != null);
             m.put("waiting_end", s.waiting.size());
             out.add(m);

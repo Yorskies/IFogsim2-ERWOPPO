@@ -97,6 +97,8 @@ final class EngineCoordinator extends SimEntity {
         Double deliveredAt;
         Double terminalAt;
         double executedMi;
+        double cpuBusyS;
+        double cpuDynamicJ;
         Terminal terminal;
         String reason;
 
@@ -117,6 +119,11 @@ final class EngineCoordinator extends SimEntity {
     private final JSONObject wire;
     private final NetworkModel network;
     private final int iotPerAccessFog;
+    private final int configuredFogCount;
+    private final Map<?, ?> evaluation;
+    private final List<ComputeNode> fogNodes = new ArrayList<>();
+    private double fogStdIntegral;
+    private double lastStdT;
     private final Map<String, ComputeNode> nodes = new LinkedHashMap<>();
     private final TreeMap<Integer, Runtime> tasks = new TreeMap<>();
     private final TreeSet<Ev> pending = new TreeSet<>();
@@ -136,7 +143,8 @@ final class EngineCoordinator extends SimEntity {
      */
     EngineCoordinator(String episodeId, List<NodeSpec> nodeSpecs, List<TaskSpec> taskSpecs, Actions actions,
                       double arrivalWindowS, double horizonS, double epsilonS, double inputDelayS, double resultDelayS,
-                      JSONObject wire, Map<?, ?> networkConfig, int fogCount, int iotPerAccessFog, boolean logTransfers) {
+                      JSONObject wire, Map<?, ?> networkConfig, int fogCount, int iotPerAccessFog, boolean logTransfers,
+                      Map<?, ?> evaluation) {
         super("ErwoV2Engine");
         this.episodeId = episodeId;
         this.arrivalWindowS = arrivalWindowS;
@@ -147,6 +155,8 @@ final class EngineCoordinator extends SimEntity {
         this.actions = actions;
         this.wire = wire;
         this.iotPerAccessFog = iotPerAccessFog;
+        this.configuredFogCount = fogCount;
+        this.evaluation = evaluation;
         this.network = networkConfig == null ? null : new NetworkModel(networkConfig, fogCount, this::scheduleNetwork, logTransfers);
         if (!(arrivalWindowS > 0) || !(horizonS >= arrivalWindowS) || !(epsilonS > 0) || inputDelayS < 0 || resultDelayS < 0) {
             throw new IllegalArgumentException("Invalid timing parameters");
@@ -157,6 +167,7 @@ final class EngineCoordinator extends SimEntity {
                 throw new IllegalArgumentException("Duplicate node id " + spec.id);
             }
         }
+        for (ComputeNode node : nodes.values()) if (node.isFog()) fogNodes.add(node);
         if (taskSpecs.isEmpty()) throw new IllegalArgumentException("N=0 trace rejected; no resampling or forced task");
         for (TaskSpec spec : taskSpecs) {
             if (spec.arrivalS >= arrivalWindowS) throw new IllegalArgumentException("Arrival at or after T: task " + spec.taskId);
@@ -223,7 +234,25 @@ final class EngineCoordinator extends SimEntity {
         eventLog.add(m);
     }
 
+    /**
+     * Integrates the population std of the fog utilizations over time. Utilizations are constant between events and
+     * only change inside handlers, so integrating up to each event's time before handling it is exact (zB numerator).
+     */
+    private void integrateFogImbalance(double t) {
+        if (t <= lastStdT) return;
+        if (!fogNodes.isEmpty()) {
+            double mean = 0;
+            for (ComputeNode f : fogNodes) mean += f.utilization();
+            mean /= fogNodes.size();
+            double variance = 0;
+            for (ComputeNode f : fogNodes) variance += (f.utilization() - mean) * (f.utilization() - mean);
+            fogStdIntegral += Math.sqrt(variance / fogNodes.size()) * (t - lastStdT);
+        }
+        lastStdT = t;
+    }
+
     private void dispatch(Ev e) {
+        integrateFogImbalance(e.at);
         now = Math.max(now, e.at);
         Runtime rt = e.taskId == Integer.MAX_VALUE ? null : tasks.get(e.taskId);
         if (rt != null && e.generation != rt.generation) {
@@ -349,6 +378,8 @@ final class EngineCoordinator extends SimEntity {
         requireState(rt, State.CPU_RUN, e);
         rt.cpuFinish = e.at;
         rt.executedMi = rt.spec.cpuMi;
+        rt.cpuBusyS = e.at - rt.cpuStart;
+        rt.cpuDynamicJ = rt.node.dynamicJoules(rt.cpuBusyS);
         startPromoted(rt.node.finish(e.at, rt.spec.taskId), e.at);
         rt.state = State.TRANSFER_OUT;
         if (rt.local) {
@@ -383,6 +414,10 @@ final class EngineCoordinator extends SimEntity {
             double executed = rt.state == State.CPU_RUN
                     ? Math.min((double) rt.spec.cpuMi, (e.at - rt.cpuStart) * rt.node.spec.mipsPerPe) : 0.0;
             rt.executedMi = executed;
+            if (rt.state == State.CPU_RUN) {
+                rt.cpuBusyS = e.at - rt.cpuStart;
+                rt.cpuDynamicJ = rt.node.dynamicJoules(rt.cpuBusyS);
+            }
             BoundedFcfsScheduler.Cancelled cancelled = rt.node.cancel(e.at, rt.spec.taskId, executed);
             startPromoted(cancelled.promoted, e.at);
         }
@@ -459,6 +494,9 @@ final class EngineCoordinator extends SimEntity {
             o.put("timeout_abs_s", rt.spec.timeoutAbsoluteS);
             o.put("deadline_flag", rt.deadlineFlag);
             o.put("cpu_executed_mi", rt.executedMi);
+            o.put("cpu_busy_s", rt.cpuBusyS);
+            o.put("cpu_dynamic_j", rt.cpuDynamicJ);
+            o.put("comm_dynamic_j", network == null ? 0.0 : network.taskDynamicJoules(rt.spec.taskId));
             o.put("native_cloudlet_status", rt.cloudlet.getStatus().name());
             outcomes.add(o);
         }
@@ -486,10 +524,18 @@ final class EngineCoordinator extends SimEntity {
         out.put("boundary_tolerance_drains", boundaryDrains);
         out.put("tasks", outcomes);
         List<Map<String, Object>> nodeReports = new ArrayList<>();
-        for (ComputeNode node : nodes.values()) nodeReports.add(node.report());
+        List<Map<String, Object>> components = new ArrayList<>();
+        int iotDevices = 0;
+        for (ComputeNode node : nodes.values()) {
+            nodeReports.add(node.report(horizonS));
+            components.add(node.energyComponent(horizonS));
+            if (node.spec.id.startsWith("IoT-")) iotDevices++;
+        }
         out.put("nodes", nodeReports);
+        if (network != null) components.addAll(network.energyComponents(horizonS, iotDevices));
+        out.putAll(MetricsLedger.build(outcomes, components, horizonS, arrivalWindowS, evaluation, fogStdIntegral, fogNodes.size(), network != null));
         if (network != null) {
-            out.put("links", network.report());
+            out.put("links", network.report(horizonS));
             if (network.transferLog() != null) out.put("transfers", network.transferLog());
         }
         out.put("events", eventLog);
