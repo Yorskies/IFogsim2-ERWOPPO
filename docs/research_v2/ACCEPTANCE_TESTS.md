@@ -69,4 +69,7 @@ independen. Hasil dan pemetaan tes: [P04_accounting_validation.md](milestones/P0
 diperiksa pada catatan hop, idle diperiksa tidak bertambah). **P05 G01–G03 telah dijalankan** (8 November 2026) lewat soket dan environment Gymnasium: lulus. Hasil dan pemetaan tes:
 [P05_gym_integration.md](milestones/P05_gym_integration.md) dan [P05_verification.json](milestones/P05_verification.json). G03 diuji pada
 sisi protokol (kegagalan teknis menghentikan run tanpa pengganti); hasil antrean penuh sebagai outcome diuji pada N-kasus P03 dan
-pada tes biaya per jenis hasil P05. Kasus R, L, S, B, O, dan A masih berupa spesifikasi.
+pada tes biaya per jenis hasil P05. **P06 R01 telah dijalankan** (8 November 2026): 640 episode dijalankan dua kali pada JVM berbeda dan seluruh nilai terukur identik
+(wall-clock diabaikan); identitas event, outcome, dan energi pada tingkat satu episode diuji pada P02, P03, P05. Gerbang kalibrasi §24.2
+lulus; lihat [P06_calibration_gate.md](milestones/P06_calibration_gate.md) dan [P06_verification.json](milestones/P06_verification.json).
+Kasus L, S, B, O, dan A masih berupa spesifikasi.

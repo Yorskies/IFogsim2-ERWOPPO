@@ -48,13 +48,14 @@ class OffloadingEnv(gym.Env):
 
     def __init__(self, traces, weights, *, config=None, host=None, port=None, jdk_home=None, rpc_timeout_s=120.0,
                  validate=True, detail=False, log_transfers=False, homogeneous_fog=False, any_port=False,
-                 server_rpc_timeout_s=None, verify_jar=True):
+                 server_rpc_timeout_s=None, verify_jar=True, include_events=False):
         """`traces`: a list of trace dicts (selected by seed, else cycled) or a callable(seed, episode_index) -> trace."""
         super().__init__()
         self.config = config or load_config()
         self.weights = validate_weights(weights)
         self._traces = traces
-        self._options = {"homogeneous_fog": bool(homogeneous_fog), "log_transfers": bool(log_transfers), "detail": bool(detail)}
+        self._options = {"homogeneous_fog": bool(homogeneous_fog), "log_transfers": bool(log_transfers), "detail": bool(detail),
+                         "include_events": bool(include_events)}
         self._config_sha = sha256(self.config)
         self._episode_index = 0
         self._done = True

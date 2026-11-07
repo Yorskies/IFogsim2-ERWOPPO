@@ -1,6 +1,6 @@
 # Implementation plan dan milestone penelitian ERWO-PPO v2
 
-Tanggal: 3 November 2026 (diperbarui 8 November 2026). Status: **P00–P05 selesai dan terverifikasi lokal; P06–P12 belum dimulai**.
+Tanggal: 3 November 2026 (diperbarui 8 November 2026). Status: **P00–P06 selesai dan terverifikasi lokal; P07–P12 belum dimulai**.
 
 Phase pertama yang telah dikerjakan adalah **P00 — Kontrak dan fondasi proyek**. Bukti: [catatan P00](docs/research_v2/milestones/P00_foundation.md) dan [laporan verifikasi](docs/research_v2/milestones/P00_verification.json): 23 tes lulus, tanpa failure/error/skip. Build menargetkan Java 21; lingkungan aktual Windows/Python 3.11/JDK 27. Pengujian langsung Ubuntu/Python 3.12/JDK 21 tetap menjadi preflight server sebelum penguncian protokol P10.
 
@@ -13,6 +13,8 @@ Phase pertama yang telah dikerjakan adalah **P00 — Kontrak dan fondasi proyek*
 **P04 — Ledger energi dan lima metrik** selesai pada 8 November 2026. Bukti: [laporan P04](docs/research_v2/milestones/P04_accounting_validation.md) dan [verifikasi mesin](docs/research_v2/milestones/P04_verification.json): 16 tes lulus, acceptance E01–E04 dan M01–M03 lulus, serta evaluator Python independen cocok dengan ledger Java pada trace kalibrasi nyata. Belum ada socket, reward, atau training.
 
 **P05 — Socket v2, Gymnasium, observasi, dan reward** selesai pada 8 November 2026. Bukti: [laporan P05](docs/research_v2/milestones/P05_gym_integration.md) dan [verifikasi mesin](docs/research_v2/milestones/P05_verification.json): 28 tes lulus, `check_env` Gymnasium lulus, identitas `return = −100 · w·z` terpenuhi, dan regresi P00–P04 lulus pada build yang sama. Belum ada PPO atau pencarian bobot.
+
+**P06 — Baseline deterministik dan kalibrasi fisik** selesai pada 8 November 2026. Bukti: [catatan gerbang P06](docs/research_v2/milestones/P06_calibration_gate.md), [verifikasi mesin](docs/research_v2/milestones/P06_verification.json), dan [laporan kalibrasi](results/research_v2/P06_calibration/calibration_report.md): 19 tes lulus, 640 episode, **seluruh gerbang §24.2 lulus** tanpa penyetelan parameter, dan replikasi 640 episode identik. Belum ada PPO atau pencarian bobot.
 
 Dasar teknis: [Kesepakatan Rancangan Penelitian v0.2](KESEPAKATAN_RANCANGAN_PENELITIAN.md). Latar temuan dan tujuan perbaikan: [Rencana Penelitian Lanjutan](RENCANA_PENELITIAN_LANJUTAN.md).
 
@@ -40,7 +42,7 @@ Dokumen ini mengatur urutan kerja, dependensi, deliverable, verifikasi, dan krit
 | P03 | Transport jaringan | Queue, routing, transfer input/hasil, cancellation | P02 | **Selesai — verifikasi lokal 17/17** |
 | P04 | Energi dan metrik | Ledger energi serta lima biaya tervalidasi | P02–P03 | **Selesai — verifikasi lokal 16/16** |
 | P05 | Socket dan Gymnasium | Protokol v2, observasi 108, reward tertunda | P01–P04 | **Selesai — verifikasi lokal 28/28** |
-| P06 | Baseline dan kalibrasi | Heuristik kuat dan kelulusan model fisik | P04–P05 | Belum dimulai |
+| P06 | Baseline dan kalibrasi | Heuristik kuat dan kelulusan model fisik | P04–P05 | **Selesai — semua gerbang lulus, 19/19** |
 | P07 | PPO dan pilot learning | Training campuran, checkpoint, bukti belajar | P06 | Belum dimulai |
 | P08 | Pencarian bobot dan fidelity | NSGA-II/random search serta pemilihan K | P07 | Belum dimulai |
 | P09 | Orkestrasi dan budget | Runner studi v2, accounting biaya, resume | P08 | Belum dimulai |
@@ -52,7 +54,7 @@ Dependensi utama bersifat berurutan. Perancangan schema dan pembacaan source bol
 
 ## 3. Arsitektur implementasi yang dituju
 
-Struktur berikut adalah target. Fondasi config/schema/package/build, generator dan penyimpanan trace, engine CPU/lifecycle headless (P02), transport jaringan (P03), ledger energi dan metrik (P04), socket dan environment Gymnasium (P05), serta catatan P00–P05 sudah dibuat; training, search, runner studi, dan analisis merupakan pekerjaan phase selanjutnya. Pemetaan aktual dijelaskan pada [arsitektur](docs/research_v2/ARCHITECTURE.md) dan [kontrak trace](docs/research_v2/TRACES.md).
+Struktur berikut adalah target. Fondasi config/schema/package/build, generator dan penyimpanan trace, engine CPU/lifecycle headless (P02), transport jaringan (P03), ledger energi dan metrik (P04), socket dan environment Gymnasium (P05), baseline dan gerbang kalibrasi (P06), serta catatan P00–P06 sudah dibuat; training, search, runner studi, dan analisis merupakan pekerjaan phase selanjutnya. Pemetaan aktual dijelaskan pada [arsitektur](docs/research_v2/ARCHITECTURE.md) dan [kontrak trace](docs/research_v2/TRACES.md).
 
 | Area | Lokasi yang direncanakan | Tanggung jawab |
 |---|---|---|
@@ -219,17 +221,19 @@ Uji end-to-end pertama menggunakan aksi tetap/random, tanpa PPO, untuk memisahka
 
 Pekerjaan:
 
-- [ ] Implementasikan always-local dan nearest-fog sebagai baseline kalibrasi.
-- [ ] Implementasikan Least Fog dan Greedy-EFT persis dari snapshot publik yang tersedia bagi PPO.
-- [ ] Validasi estimator sebagai estimator, tanpa menggunakannya sebagai outcome nyata.
-- [ ] Jalankan 20 trace kalibrasi per workload, pada homogen dan konfigurasi heterogen utama.
-- [ ] Periksa solo-task feasibility, tekanan resource heavy, serta variasi reliability sesuai gerbang v0.2.
-- [ ] Sajikan grafik arrival, antrean, utilisasi, energi, dan distribusi status tugas.
-- [ ] Catat apakah profil daya/queue/deadline membuat masalah trivial, infeasible, atau kurang teridentifikasi.
+- [x] Implementasikan always-local dan nearest-fog sebagai baseline kalibrasi.
+- [x] Implementasikan Least Fog dan Greedy-EFT persis dari snapshot publik yang tersedia bagi PPO.
+- [x] Validasi estimator sebagai estimator, tanpa menggunakannya sebagai outcome nyata.
+- [x] Jalankan 20 trace kalibrasi per workload, pada homogen dan konfigurasi heterogen utama.
+- [x] Periksa solo-task feasibility, tekanan resource heavy, serta variasi reliability sesuai gerbang v0.2.
+- [x] Sajikan grafik arrival, antrean, utilisasi, energi, dan distribusi status tugas.
+- [x] Catat apakah profil daya/queue/deadline membuat masalah trivial, infeasible, atau kurang teridentifikasi.
 
 Deliverable: `calibration_report.md`, trace/resource plots, parameter snapshot, serta `P06_calibration_gate.md`.
 
 **Kriteria lulus:** gerbang kalibrasi pada dokumen kesepakatan terpenuhi dan belum ada pemilihan konfigurasi berdasarkan kemenangan ERWO. Jika gagal, revisi spesifikasi/config secara beralasan, beri versi, lalu ulangi kalibrasi; jangan meneruskan ke batch besar.
+
+**Hasil aktual:** gerbang lulus pada lingkungan lokal (Windows, Python 3.12.6, OpenJDK 21.0.13): kelengkapan 640/640, distribusi trace 80/80, kelayakan solo-task 98,8% pada kedua konfigurasi (ambang 95%), dan tekanan heavy terpenuhi oleh always-local dan Greedy-EFT (4 dari 8 kondisi). Parameter tidak diubah dan tidak ada seed yang dipilih. Temuan yang perlu dibawa ke fase berikutnya: `zB` bernilai nol bagi kebijakan yang tidak memakai fog, sekitar 1,2% tugas tidak layak secara struktural, dan estimator EFT bersifat optimistis. Rincian: [P06_calibration_gate.md](docs/research_v2/milestones/P06_calibration_gate.md).
 
 **Milestone tinjauan M1:** model fisik tervalidasi dan kondisi eksperimen dapat dibedakan secara empiris.
 
@@ -422,10 +426,10 @@ Status `blocked` pada catatan proyek berarti dependensi/masalah milestone belum 
 4. Tulis acceptance cases untuk P01–P05 beserta nilai analitis yang diharapkan.
 5. Serahkan catatan P00 sebelum memperluas implementasi ke generator trace dan simulator.
 
-P01 trace deterministik, P02 engine CPU/lifecycle, P03 transport jaringan, P04 ledger energi dan lima metrik, dan P05 socket/Gymnasium juga sudah selesai. **Milestone berikutnya adalah P06: baseline deterministik dan kalibrasi fisik**, yang memakai snapshot publik 108 fitur dan environment P05. Tidak langsung mengubah runner legacy menjadi training besar, memigrasikan model lama ke 108 fitur, atau menjalankan 20 outer run.
+P01 trace deterministik, P02 engine CPU/lifecycle, P03 transport jaringan, P04 ledger energi dan lima metrik, P05 socket/Gymnasium, dan P06 baseline/kalibrasi juga sudah selesai. **Milestone berikutnya adalah P07: PPO dan pilot pembelajaran**, setelah tinjauan manusia M1 atas bukti P06. Tidak langsung mengubah runner legacy menjadi training besar, memigrasikan model lama ke 108 fitur, atau menjalankan 20 outer run.
 
 ## 20. Batas dokumen ini
 
-P00–P05 telah diimplementasikan dan diverifikasi secara lokal; P06–P12 belum dimulai. Config, schema, package fondasi, CLI validasi/generator, trace immutable, guard split, build terpisah, probe native/numerik, scheduler FCFS bounded, engine task headless, transport jaringan store-and-forward, ledger energi dan metrik per trace, serta server socket dan environment Gymnasium sudah tersedia. Baseline heuristik, Gym, analisis statistik konfirmatori, serta eksperimen utama belum tersedia. Status selesai P00–P05 tidak berarti simulator sudah siap untuk training; setiap phase berikutnya tetap harus memenuhi kriterianya sendiri.
+P00–P06 telah diimplementasikan dan diverifikasi secara lokal; P07–P12 belum dimulai. Config, schema, package fondasi, CLI validasi/generator, trace immutable, guard split, build terpisah, probe native/numerik, scheduler FCFS bounded, engine task headless, transport jaringan store-and-forward, ledger energi dan metrik per trace, server socket dan environment Gymnasium, serta baseline heuristik dengan gerbang kalibrasi yang lulus sudah tersedia. PPO, Gym, analisis statistik konfirmatori, serta eksperimen utama belum tersedia. Status selesai P00–P06 tidak berarti simulator sudah siap untuk training; setiap phase berikutnya tetap harus memenuhi kriterianya sendiri.
 
 Kriteria eksperimen dan parameter tetap merujuk pada dokumen kesepakatan. Jika ada konflik, perbaiki dokumen dan catat keputusan sebelum melanjutkan; jangan menyelesaikan konflik melalui perubahan kode yang tidak terdokumentasi.

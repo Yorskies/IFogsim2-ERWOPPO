@@ -185,7 +185,7 @@ def contract_schema():
                "action": {"type": ["integer", "null"], "minimum": 0, "maximum": 6}},
               required=["schema_version", "request_id", "episode_id", "config_sha256", "trace_sha256", "operation", "action"],
               extra_properties={"trace": {"type": ["object", "null"]},
-                                "options": obj({"homogeneous_fog": BOOL, "log_transfers": BOOL, "detail": BOOL}, required=[])})
+                                "options": obj({"homogeneous_fog": BOOL, "log_transfers": BOOL, "detail": BOOL, "include_events": BOOL}, required=[])})
     cost5 = {"type": ["array", "null"], "items": {"type": "number", "minimum": 0}, "minItems": 5, "maxItems": 5}
     rpc_response = obj({"schema_version": const(SCHEMA_VERSION), "request_id": STRING, "episode_id": STRING,
                         "operation": enum(["hello", "reset", "step", "close", "heartbeat"]),

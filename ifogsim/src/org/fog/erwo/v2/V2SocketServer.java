@@ -400,6 +400,8 @@ public final class V2SocketServer {
             summary.put("metrics", result.get("metrics"));
             summary.put("task_count", result.get("task_count"));
             m.put("summary", summary);
+            // The per-event log is large (thousands of rows for heavy traces); it is sent only on request.
+            if (!Boolean.TRUE.equals(options.get("include_events"))) result.remove("events");
             if (detail) m.put("result", result);
             session.respondDecision(policy.pending, m);
             return null;
