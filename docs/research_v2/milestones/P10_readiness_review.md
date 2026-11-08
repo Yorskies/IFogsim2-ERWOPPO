@@ -45,7 +45,7 @@ p exact minimum adalah 2/16, sehingga tidak ada uji yang dapat signifikan — wa
 ## Protocol lock
 
 Membekukan (diverifikasi ulang dari disk, termasuk regenerasi hash 400 trace test): 83 file source/test/schema/config/requirements, JAR
-(`ba5a7ca8…`), config kanonik, versi Python 3.12.3 / OpenJDK 21.0.12 / paket (AMD EPYC 9135, 64 core), **K=30.720**, F=102.400, B=8.168.448,
+(`ba5a7ca8…`), config kanonik, versi Python 3.12.3 / OpenJDK 21.0.12 / paket (AMD EPYC 9135; host 64 core, tetapi kuota container 16 core / 64 GiB), **K=30.720**, F=102.400, B=8.168.448,
 seed dan split, normalisasi, manifest 20 trace validasi, hash input 400 trace test (390.154 tugas; `outcomes_observed: false`), registri
 hipotesis (3 primer, 60 sekunder, larangan: tidak ada fallback uji, tidak ada one-sided pasca-hoc, tidak ada penambahan seed, tidak
 ada tuning pada test), aturan sensitivitas §25, bukti P09, estimasi sumber daya, dan perubahan dari v0.2. Hash lock:
@@ -58,7 +58,7 @@ file terkunci yang berubah/hilang membatalkan lock.
 ## Sumber daya (P11)
 
 Lihat tabel di [P09](P09_runner_validation.md#kapasitas-studi-penuh-ekstrapolasi-bukan-pengukuran-studi-penuh): ~198 jam pada satu worker;
-**10 worker ≈ 22 jam** (direkomendasikan; 20 worker ≈ 11 jam membutuhkan rotasi log); disk ~216 GiB dengan log gzip; evaluasi test ≈ 6,2 jam
+**10 worker ≈ 22 jam** (direkomendasikan; 20 worker tidak mungkin pada kuota 16 core container); disk ~216 GiB dengan log gzip; evaluasi test ≈ 6,2 jam
 satu worker. Semua angka adalah ekstrapolasi dari fixture; efisiensi paralel hanya terukur pada 4 worker (89%).
 
 ## Tinjauan M3 — go/no-go (keputusan peneliti)
@@ -95,3 +95,52 @@ Sesuai rencana, jangan memangkas biaya atau seed secara diam-diam.
   pada `verify_lock` dan diaudit di P12.
 - Evaluator test harus menulis `results/research_v2/TEST_OPENED.json` saat test dibuka (`verify_lock` memperingatkan bila berkas ada); temuan test tidak boleh dipakai men-tuning ulang studi yang sama.
 - Hindari mengubah file terkunci; perubahan apa pun memerlukan lock/protokol versi baru dengan alasan tercatat.
+
+## Addendum — pemeriksaan pembelajaran pra-peluncuran (8 November 2026)
+
+[`results/research_v2/P10_learning_check/`](../../../results/research_v2/P10_learning_check/check.json) (skrip `run_check.py`; 2 menit 22 detik; **validasi saja,
+test tidak disentuh**; tidak ada konfigurasi yang diubah, hanya masukan untuk keputusan go/no-go). PPO-Equal, outer run 0, F=102.400 (komputasi yang sama dengan
+`equal_F` outer 0 pada studi konfirmatori), dievaluasi pada 20 trace validasi dan dibandingkan dengan heuristik pada trace yang sama.
+
+| Policy | D (makro) | aksi lokal / fog / cloud |
+|---|---:|---|
+| PPO-Equal @ 2.048 (update pertama) | 0,527 | 0 / 83 / 17 % |
+| PPO-Equal @ 10.240 | 0,366 | 75 / 25 / 0 % |
+| PPO-Equal @ 51.200 | 0,370 | 38 / 62 / 2 % |
+| **PPO-Equal @ 102.400** | **0,261** | 14 / 30 / 56 % |
+| Greedy-EFT (heuristik terbaik) | 0,267 | 40 / 32 / 28 % |
+| Always-local | 0,370 | 100 / 0 / 0 % |
+| Acak seragam | 0,448 | 14 / 71 / 14 % |
+| Least-fog / Nearest-fog | 0,484 / 0,515 | 0 / 100 / 0 % |
+
+Pembacaan yang sah: pada satu seed, PPO **belajar** pada F (D turun dari 0,527 ke 0,261, lebih baik dari acak dan always-local, setara Greedy-EFT; selisih 0,006 terhadap
+Greedy-EFT tidak bermakna pada 20 episode). Kurva tidak monoton: pada 10.240 dan 51.200 policy hanya setara always-local (0,366–0,370), sesuai pilot P07 yang gagal membaik
+pada 10.240. Pembelajaran baru terlihat antara 51.200 dan 102.400, artinya F berada dekat titik awal pembelajaran dan bisa rapuh antar seed.
+
+Belum dapat disimpulkan: satu seed, 20 episode, belum ada informasi apakah bobot mengubah hasil pada F (sensitivitas bobot), sehingga pengaruh NSGA-II belum teruji.
+
+### Koreksi — konsistensi antar-seed dan sensitivitas bobot (8 November 2026)
+
+[`sensitivity.json`](../../../results/research_v2/P10_learning_check/sensitivity.json) (skrip `run_sensitivity.py`; 26 run F=102.400, 8 pekerja paralel, 428 s; validasi saja).
+Kesimpulan "PPO belajar pada F" dari satu seed di atas **tidak berlaku umum**: outer run 0 adalah seed terbaik.
+
+- **PPO-Equal pada F, outer 0–4:** D = 0,261 / 0,486 / 0,419 / 0,437 / 0,486 (mean 0,418; SD 0,092). Pembanding pada trace yang sama: Greedy-EFT 0,267;
+  always-local 0,370; acak 0,448. Hanya 1 dari 5 seed mengalahkan always-local. Outer 0 direproduksi persis (0,26121628), jadi eksekusi deterministik.
+- **Policy runtuh ke aksi tunggal:** 7 dari 52 evaluasi checkpoint memilih ≥98% satu aksi (always-cloud, D = 0,4858 identik antar seed; atau always-local). Dari 26 run F,
+  hanya 7 yang lebih baik dari always-local dan 3 yang lebih baik dari Greedy-EFT.
+- **Bobot berpengaruh per seed tetapi tidak konsisten antar seed:** SD antar-bobot dalam satu outer run 0,06–0,13 (sebanding SD antar-seed equal 0,092). Korelasi
+  peringkat bobot antar outer run: 0,00 / −0,62 / +0,33. Bobot terbaik berbeda tiap outer run (vertex2, simplex, vertex3); selisih terhadap equal bertanda campuran.
+  Keuntungan "oracle" per outer run (0,027 / 0,034 / 0,207) dipilih in-sample pada trace validasi yang sama, sehingga optimistis.
+- **Implikasi:** keunggulan sebuah bobot pada satu seed tampak terutama sebagai ketidakstabilan training, bukan sifat bobot. Pencarian yang memilih bobot dari dua model kandidat
+  berisiko mengejar derau, dan model final dengan seed baru tidak akan mereproduksi keunggulannya. Gerbang fidelity P08 membandingkan ranking pada seed yang sama (prefix identik),
+  bukan ketahanan antar-seed; temuan ini menunjukkan hal terakhir itulah yang belum terpenuhi. Sampel kecil (3 seed × 8 bobot), tetapi arahnya konsisten dengan kegagalan gerbang asli P08.
+- **Penilaian M3 diperbarui:** premis RQ1 (bobot hasil pencarian menghasilkan agen yang lebih baik) tidak didukung data pra-peluncuran; hasil null di P11 sangat mungkin, dan
+  sebagian besar akan mencerminkan kegagalan stabilitas PPO, bukan jawaban tentang bobot. Rekomendasi bergeser dari "go bertahap" ke **diagnosis stabilitas pembelajaran lebih dulu**
+  (lock baru bila perlu).
+
+### Diagnosis stabilitas pembelajaran (8 November 2026)
+
+[Laporan diagnosis](../../../results/research_v2/P10_learning_diagnosis/report.md) — ablasi satu faktor pada namespace pilot (36 run). **Gamma = 1 adalah penyebab utama**:
+gamma 0,97 memperbaiki keenam seed (D 0,443 → 0,250), tanpa policy runtuh, seluruhnya mengalahkan always-local dan rata-rata setara/lebih baik dari Greedy-EFT; entropi, ukuran
+rollout, dan learning rate tidak memperbaiki. Gamma terkunci = 1,0 pada schema v0.2, sehingga perbaikan ini berarti **revisi protokol (v0.3)**: lock P10 tidak berlaku untuk P11,
+gerbang fidelity/K dan budget harus diulang dengan learner baru. M3: **no-go untuk v0.2**.

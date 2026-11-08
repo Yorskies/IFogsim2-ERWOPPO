@@ -1,0 +1,37 @@
+finished in 228 s
+gamma bracket (equal weights):
+  gamma 1.0   D_F mean 0.443 sd 0.034  <local 0/6  <greedy 0/6
+  gamma 0.99  D_F mean 0.376 sd 0.089  <local 2/6  <greedy 1/6
+  gamma 0.98  D_F mean 0.266 sd 0.045  <local 6/6  <greedy 2/6
+  gamma 0.97  D_F mean 0.250 sd 0.051  <local 6/6  <greedy 3/6
+  gamma 0.95  D_F mean 0.293 sd 0.109  <local 4/6  <greedy 3/6
+weights @ gamma 0.97:
+  equal    mean 0.250 sd 0.051  diff vs equal +0.000  better 0/6
+  manual   mean 0.272 sd 0.038  diff vs equal +0.022  better 2/6
+  vertex0  mean 0.368 sd 0.043  diff vs equal +0.118  better 0/6
+  vertex1  mean 0.340 sd 0.075  diff vs equal +0.090  better 1/6
+  vertex2  mean 0.205 sd 0.022  diff vs equal -0.045  better 4/6
+  vertex3  mean 0.308 sd 0.104  diff vs equal +0.058  better 2/6
+  vertex4  mean 0.365 sd 0.093  diff vs equal +0.115  better 1/6
+  simplex  mean 0.314 sd 0.062  diff vs equal +0.064  better 2/6
+rank agreement between seeds {'mean': 0.35873015873015873, 'min': -0.1666666666666667, 'max': 0.880952380952381, 'pairs': 15}
+within-seed SD across weights 0.078  equal SD across seeds 0.051
+cross-seed selection [
+ {
+  "chosen_on_repeat": 0,
+  "best_weight": "vertex2",
+  "chosen_D_on_selection_seeds": 0.20329681396003185,
+  "chosen_D_on_fresh_seeds": 0.20739602738418203,
+  "equal_D_on_fresh_seeds": 0.22090567369598588,
+  "fresh_seed_gain_vs_equal": 0.01350964631180381
+ },
+ {
+  "chosen_on_repeat": 1,
+  "best_weight": "vertex2",
+  "chosen_D_on_selection_seeds": 0.20739602738418203,
+  "chosen_D_on_fresh_seeds": 0.20329681396003185,
+  "equal_D_on_fresh_seeds": 0.2789722482342636,
+  "fresh_seed_gain_vs_equal": 0.07567543427423169
+ }
+]
+per-outer selection gain on fresh seed [-0.04, -0.193, -0.033, 0.0, 0.113, 0.082]

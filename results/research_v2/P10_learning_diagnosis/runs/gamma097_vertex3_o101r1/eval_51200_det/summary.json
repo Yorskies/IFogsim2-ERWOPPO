@@ -1,0 +1,60 @@
+{
+  "status": "complete",
+  "episodes": 20,
+  "split": "pilot_validation",
+  "cost_order": [
+    "zL",
+    "zE",
+    "zD",
+    "zB",
+    "zQ"
+  ],
+  "costs_by_workload": {
+    "light": [
+      0.15597006947891184,
+      0.05294088721899416,
+      0.6002178460058702,
+      0.0,
+      0.02924639086198188
+    ],
+    "moderate": [
+      0.20102154618037424,
+      0.048534316483379816,
+      0.6275815966719465,
+      0.0,
+      0.08529616067250381
+    ],
+    "heavy": [
+      0.8814750701317535,
+      0.027692131665950703,
+      0.9713326001695253,
+      0.0,
+      0.8175106591046072
+    ],
+    "dynamic": [
+      0.6310078526242195,
+      0.03634451540943542,
+      0.8612958708596385,
+      0.0,
+      0.5441456725073597
+    ]
+  },
+  "macro_costs": [
+    0.4673686346038148,
+    0.041377962694440024,
+    0.7651069784267452,
+    0.0,
+    0.36904972078661313
+  ],
+  "D_by_workload": {
+    "light": 0.27865613725707505,
+    "moderate": 0.29795950644744884,
+    "heavy": 0.6913140894444036,
+    "dynamic": 0.5361747707496363
+  },
+  "D_macro": 0.4339889310243195,
+  "evaluation_mode": "deterministic",
+  "sampling_seed": null,
+  "checkpoint": "/workspace/RISET S3 Rozi/IFogsim2-ERWOPPO/results/research_v2/P10_learning_diagnosis/runs/gamma097_vertex3_o101r1/train/checkpoint_00051200",
+  "model_sha256": "78d31801c85c332dbad1ef2c8fce3209c52428ed94db22a09e80a6ea40bf94cc"
+}

@@ -1,0 +1,115 @@
+{
+  "status": "complete",
+  "phase": "P07",
+  "outer": 100,
+  "repeat": 1,
+  "model_seed": 200201,
+  "offset": 1,
+  "decisions": 102400,
+  "rollouts": 200,
+  "weights": [
+    0.2,
+    0.2,
+    0.2,
+    0.2,
+    0.2
+  ],
+  "config_sha256": "3e32379ebd2e8770e025ff9cce11be28cbffe7e535b269a070030ce6d9dae025",
+  "split": "pilot_train",
+  "evaluation_split": "pilot_validation",
+  "partial_episode_resume": false,
+  "checkpoint_at": [
+    51200,
+    102400
+  ],
+  "rpc_schema_validation": false,
+  "worker_port": null,
+  "effective_ppo": {
+    "device": "cpu",
+    "environments": 1,
+    "torch_threads": 1,
+    "torch_interop_threads": 1,
+    "actor_layers": [
+      128,
+      128
+    ],
+    "critic_layers": [
+      128,
+      128
+    ],
+    "activation": "Tanh",
+    "learning_rate": 0.0003,
+    "n_steps": 512,
+    "batch_size": 128,
+    "n_epochs": 10,
+    "gamma": 0.98,
+    "gae_lambda": 0.95,
+    "clip_range": 0.2,
+    "ent_coef": 0.01,
+    "vf_coef": 0.5,
+    "max_grad_norm": 0.5,
+    "target_kl": 0.03,
+    "normalize_advantage": true,
+    "deterministic_evaluation": true
+  },
+  "learner_config_sha256": "f6ce233b32eede7084f81e6ac5c3118ee5d8f35d5aaa66a9725f77d33bdeaa43",
+  "learner_protocol": "P10-stability-diagnosis-1",
+  "instrumentation": false,
+  "policy_changed": true,
+  "wall_s": 254.99949020519853,
+  "audit": {
+    "decisions": 102400,
+    "decisions_by_workload": {
+      "moderate": 23961,
+      "heavy": 47448,
+      "dynamic": 23235,
+      "light": 7756
+    },
+    "action_counts": [
+      44872,
+      2661,
+      4657,
+      6122,
+      10285,
+      7610,
+      26193
+    ],
+    "stream": {
+      "next_episode": 106,
+      "counts": {
+        "moderate": 27,
+        "heavy": 27,
+        "dynamic": 26,
+        "light": 26
+      },
+      "current": {
+        "namespace": {
+          "master": 20261103,
+          "split": "pilot_train",
+          "outer_run": 100,
+          "model_repeat": 1,
+          "trace_id": 26,
+          "workload": "heavy"
+        },
+        "payload_sha256": "2f1091dad42528f586c1f0a6107dafd1bcf5c1ca805878fe37d3d4176f06acc5",
+        "tasks": 1748
+      }
+    },
+    "active_episode": {
+      "decisions": 762,
+      "reward_so_far": -6.824263917239876,
+      "unarrived_tasks": 986,
+      "pending_decided_outcomes": "unknown; not inferred from arrivals",
+      "pending_outcomes_not_evaluated": true,
+      "cost_cumulative": [
+        0.07207629460361036,
+        0.02104486655562677,
+        0.21453089244851206,
+        0.009533682300011177,
+        0.024027459954233433
+      ],
+      "note": "Unresolved includes future arrivals; decided tasks can also await outcomes. No success inferred."
+    }
+  },
+  "evaluation_complete": false
+}

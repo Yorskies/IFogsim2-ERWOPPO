@@ -79,10 +79,10 @@ Throughput terukur: training 804 keputusan/s per worker (termasuk update PPO), v
 | 4 | 2,3 hari | efisiensi 89% **terukur** |
 | 10 | **22 jam** | 2 outer run per worker; **direkomendasikan** |
 | 13 | 22 jam | sama dengan 10 (tetap 2 putaran); batas disk |
-| 20 | 11 jam | puncak ~790 GiB log mentah sementara: melebihi anggaran disk; perlu rotasi log |
+| 20 | 11 jam | **tidak mungkin di container ini** (kuota 16 core); juga ~790 GiB log mentah sementara |
 
 Efisiensi di atas 4 worker belum diukur dan diasumsikan sama. Batas: desain sharding per outer run (20), disk (14 dengan log mentah
-sampai job selesai), core (≈51). Evaluasi test (P11) ≈ 48,4 juta keputusan ≈ 6,2 jam pada satu worker.
+sampai job selesai), dan **kuota CPU container 16 core / memori 64 GiB** (≈12 worker; `nproc` menampilkan 64 core host — koreksi 8 Nov 2026). Evaluasi test (P11) ≈ 48,4 juta keputusan ≈ 6,2 jam pada satu worker.
 
 ## Batasan
 
