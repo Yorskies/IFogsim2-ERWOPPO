@@ -1,4 +1,4 @@
-"""Research v2 config and trace tools. Training remains unavailable."""
+"""Research v2 config and trace tools. PPO pilot CLI: python -m research_v2.learning."""
 
 import argparse
 import hashlib

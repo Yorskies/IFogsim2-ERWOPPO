@@ -1,0 +1,5 @@
+# P07 Linux Python 3.12.3 environment; smoke, three pilots and F prefix verified (7 Nov 2026 UTC).
+-r requirements-v2-calibration.txt
+stable-baselines3==2.9.2
+# Training explicitly selects CPU. Local CUDA build also satisfies this version.
+torch==2.15.0

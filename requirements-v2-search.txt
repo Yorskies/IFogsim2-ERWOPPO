@@ -1,0 +1,4 @@
+# P08 search/fidelity on Linux Python 3.12; exact installed versions.
+-r requirements-v2-learning.txt
+pymoo==0.6.2
+scipy==1.18.1
