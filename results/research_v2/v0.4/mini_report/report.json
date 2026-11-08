@@ -1,0 +1,1814 @@
+{
+  "protocol": {
+    "unit": "outer_training_run",
+    "n_units": 4,
+    "pools_tasks_or_episodes_as_replicates": false,
+    "p_values_averaged": false,
+    "alpha": 0.05,
+    "bootstrap": {
+      "draws": 10000,
+      "seed": 20261105
+    },
+    "secondary_signflip": {
+      "draws": 100000,
+      "seed": 20261106
+    },
+    "traces_per_workload": {
+      "light": 5,
+      "moderate": 5,
+      "heavy": 5,
+      "dynamic": 5
+    }
+  },
+  "primary": [
+    {
+      "id": "RQ1",
+      "label": "confirmatory_primary",
+      "description": "PPO-Equal at checkpoint F vs NSGA-II at equal final budget F",
+      "comparator": "equal_F",
+      "treatment": "nsga2",
+      "n_outer_runs": 4,
+      "differences_by_outer": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "mean_difference": 0.0,
+      "sd_difference": 0.0,
+      "relative_improvement": 0.0,
+      "meets_1pct_reporting_screen": false,
+      "ci95_difference": [
+        0.0,
+        0.0
+      ],
+      "ci95_relative": [
+        0.0,
+        0.0
+      ],
+      "effect_size_dz": {
+        "dz": null,
+        "status": "undefined_zero_sd_zero_mean"
+      },
+      "raw_p_exact_signflip": 1.0,
+      "test": "exact two-sided paired sign-flip, 2^n enumeration",
+      "direction": "positive = NSGA-II lower Dglobal (better)",
+      "holm_adjusted_p": 1.0,
+      "reject_at_alpha": false
+    },
+    {
+      "id": "RQ2",
+      "label": "confirmatory_primary",
+      "description": "Random search vs NSGA-II at equal search and final budget",
+      "comparator": "random",
+      "treatment": "nsga2",
+      "n_outer_runs": 4,
+      "differences_by_outer": [
+        -0.0006084302650155582,
+        -0.051905969845747135,
+        0.02952431736364447,
+        0.12943093195102967
+      ],
+      "mean_difference": 0.026610212300977862,
+      "sd_difference": 0.07634622400552153,
+      "relative_improvement": 0.042127690016127886,
+      "meets_1pct_reporting_screen": true,
+      "ci95_difference": [
+        -0.032637777244991395,
+        0.09696927127389975
+      ],
+      "ci95_relative": [
+        -0.04629369321793086,
+        0.18476050070572456
+      ],
+      "effect_size_dz": {
+        "dz": 0.34854654107128274,
+        "status": "ok"
+      },
+      "raw_p_exact_signflip": 0.75,
+      "test": "exact two-sided paired sign-flip, 2^n enumeration",
+      "direction": "positive = NSGA-II lower Dglobal (better)",
+      "holm_adjusted_p": 1.0,
+      "reject_at_alpha": false
+    },
+    {
+      "id": "RQ3",
+      "label": "confirmatory_primary",
+      "description": "PPO-Equal at total budget B vs NSGA-II search+final total budget",
+      "comparator": "equal_B",
+      "treatment": "nsga2",
+      "n_outer_runs": 4,
+      "differences_by_outer": [
+        -0.47154487517500443,
+        -0.4345363595509941,
+        -0.10645894683500812,
+        0.07871578577016791
+      ],
+      "mean_difference": -0.2334560989477097,
+      "sd_difference": 0.26501515605888415,
+      "relative_improvement": -0.6282629586643041,
+      "meets_1pct_reporting_screen": false,
+      "ci95_difference": [
+        -0.45605505564345383,
+        -0.012197724457426255
+      ],
+      "ci95_relative": [
+        -1.7555297210311078,
+        -0.02538026451763581
+      ],
+      "effect_size_dz": {
+        "dz": -0.8809160291792433,
+        "status": "ok"
+      },
+      "raw_p_exact_signflip": 0.25,
+      "test": "exact two-sided paired sign-flip, 2^n enumeration",
+      "direction": "positive = NSGA-II lower Dglobal (better)",
+      "holm_adjusted_p": 0.75,
+      "reject_at_alpha": false
+    }
+  ],
+  "secondary": [
+    {
+      "id": "RQ1:light:zL",
+      "label": "secondary_prespecified",
+      "primary_pair": "RQ1",
+      "workload": "light",
+      "cost": "zL",
+      "mean_difference": 0.0,
+      "ci95_difference": [
+        0.0,
+        0.0
+      ],
+      "effect_size_dz": {
+        "dz": null,
+        "status": "undefined_zero_sd_zero_mean"
+      },
+      "raw_p_montecarlo_signflip": 1.0,
+      "holm_adjusted_p": 1.0,
+      "reject_at_alpha": false,
+      "test": "Monte Carlo sign-flip, M=100000, p=(b+1)/(M+1)"
+    },
+    {
+      "id": "RQ1:light:zE",
+      "label": "secondary_prespecified",
+      "primary_pair": "RQ1",
+      "workload": "light",
+      "cost": "zE",
+      "mean_difference": 0.0,
+      "ci95_difference": [
+        0.0,
+        0.0
+      ],
+      "effect_size_dz": {
+        "dz": null,
+        "status": "undefined_zero_sd_zero_mean"
+      },
+      "raw_p_montecarlo_signflip": 1.0,
+      "holm_adjusted_p": 1.0,
+      "reject_at_alpha": false,
+      "test": "Monte Carlo sign-flip, M=100000, p=(b+1)/(M+1)"
+    },
+    {
+      "id": "RQ1:light:zD",
+      "label": "secondary_prespecified",
+      "primary_pair": "RQ1",
+      "workload": "light",
+      "cost": "zD",
+      "mean_difference": 0.0,
+      "ci95_difference": [
+        0.0,
+        0.0
+      ],
+      "effect_size_dz": {
+        "dz": null,
+        "status": "undefined_zero_sd_zero_mean"
+      },
+      "raw_p_montecarlo_signflip": 1.0,
+      "holm_adjusted_p": 1.0,
+      "reject_at_alpha": false,
+      "test": "Monte Carlo sign-flip, M=100000, p=(b+1)/(M+1)"
+    },
+    {
+      "id": "RQ1:light:zB",
+      "label": "secondary_prespecified",
+      "primary_pair": "RQ1",
+      "workload": "light",
+      "cost": "zB",
+      "mean_difference": 0.0,
+      "ci95_difference": [
+        0.0,
+        0.0
+      ],
+      "effect_size_dz": {
+        "dz": null,
+        "status": "undefined_zero_sd_zero_mean"
+      },
+      "raw_p_montecarlo_signflip": 1.0,
+      "holm_adjusted_p": 1.0,
+      "reject_at_alpha": false,
+      "test": "Monte Carlo sign-flip, M=100000, p=(b+1)/(M+1)"
+    },
+    {
+      "id": "RQ1:light:zQ",
+      "label": "secondary_prespecified",
+      "primary_pair": "RQ1",
+      "workload": "light",
+      "cost": "zQ",
+      "mean_difference": 0.0,
+      "ci95_difference": [
+        0.0,
+        0.0
+      ],
+      "effect_size_dz": {
+        "dz": null,
+        "status": "undefined_zero_sd_zero_mean"
+      },
+      "raw_p_montecarlo_signflip": 1.0,
+      "holm_adjusted_p": 1.0,
+      "reject_at_alpha": false,
+      "test": "Monte Carlo sign-flip, M=100000, p=(b+1)/(M+1)"
+    },
+    {
+      "id": "RQ1:moderate:zL",
+      "label": "secondary_prespecified",
+      "primary_pair": "RQ1",
+      "workload": "moderate",
+      "cost": "zL",
+      "mean_difference": 0.0,
+      "ci95_difference": [
+        0.0,
+        0.0
+      ],
+      "effect_size_dz": {
+        "dz": null,
+        "status": "undefined_zero_sd_zero_mean"
+      },
+      "raw_p_montecarlo_signflip": 1.0,
+      "holm_adjusted_p": 1.0,
+      "reject_at_alpha": false,
+      "test": "Monte Carlo sign-flip, M=100000, p=(b+1)/(M+1)"
+    },
+    {
+      "id": "RQ1:moderate:zE",
+      "label": "secondary_prespecified",
+      "primary_pair": "RQ1",
+      "workload": "moderate",
+      "cost": "zE",
+      "mean_difference": 0.0,
+      "ci95_difference": [
+        0.0,
+        0.0
+      ],
+      "effect_size_dz": {
+        "dz": null,
+        "status": "undefined_zero_sd_zero_mean"
+      },
+      "raw_p_montecarlo_signflip": 1.0,
+      "holm_adjusted_p": 1.0,
+      "reject_at_alpha": false,
+      "test": "Monte Carlo sign-flip, M=100000, p=(b+1)/(M+1)"
+    },
+    {
+      "id": "RQ1:moderate:zD",
+      "label": "secondary_prespecified",
+      "primary_pair": "RQ1",
+      "workload": "moderate",
+      "cost": "zD",
+      "mean_difference": 0.0,
+      "ci95_difference": [
+        0.0,
+        0.0
+      ],
+      "effect_size_dz": {
+        "dz": null,
+        "status": "undefined_zero_sd_zero_mean"
+      },
+      "raw_p_montecarlo_signflip": 1.0,
+      "holm_adjusted_p": 1.0,
+      "reject_at_alpha": false,
+      "test": "Monte Carlo sign-flip, M=100000, p=(b+1)/(M+1)"
+    },
+    {
+      "id": "RQ1:moderate:zB",
+      "label": "secondary_prespecified",
+      "primary_pair": "RQ1",
+      "workload": "moderate",
+      "cost": "zB",
+      "mean_difference": 0.0,
+      "ci95_difference": [
+        0.0,
+        0.0
+      ],
+      "effect_size_dz": {
+        "dz": null,
+        "status": "undefined_zero_sd_zero_mean"
+      },
+      "raw_p_montecarlo_signflip": 1.0,
+      "holm_adjusted_p": 1.0,
+      "reject_at_alpha": false,
+      "test": "Monte Carlo sign-flip, M=100000, p=(b+1)/(M+1)"
+    },
+    {
+      "id": "RQ1:moderate:zQ",
+      "label": "secondary_prespecified",
+      "primary_pair": "RQ1",
+      "workload": "moderate",
+      "cost": "zQ",
+      "mean_difference": 0.0,
+      "ci95_difference": [
+        0.0,
+        0.0
+      ],
+      "effect_size_dz": {
+        "dz": null,
+        "status": "undefined_zero_sd_zero_mean"
+      },
+      "raw_p_montecarlo_signflip": 1.0,
+      "holm_adjusted_p": 1.0,
+      "reject_at_alpha": false,
+      "test": "Monte Carlo sign-flip, M=100000, p=(b+1)/(M+1)"
+    },
+    {
+      "id": "RQ1:heavy:zL",
+      "label": "secondary_prespecified",
+      "primary_pair": "RQ1",
+      "workload": "heavy",
+      "cost": "zL",
+      "mean_difference": 0.0,
+      "ci95_difference": [
+        0.0,
+        0.0
+      ],
+      "effect_size_dz": {
+        "dz": null,
+        "status": "undefined_zero_sd_zero_mean"
+      },
+      "raw_p_montecarlo_signflip": 1.0,
+      "holm_adjusted_p": 1.0,
+      "reject_at_alpha": false,
+      "test": "Monte Carlo sign-flip, M=100000, p=(b+1)/(M+1)"
+    },
+    {
+      "id": "RQ1:heavy:zE",
+      "label": "secondary_prespecified",
+      "primary_pair": "RQ1",
+      "workload": "heavy",
+      "cost": "zE",
+      "mean_difference": 0.0,
+      "ci95_difference": [
+        0.0,
+        0.0
+      ],
+      "effect_size_dz": {
+        "dz": null,
+        "status": "undefined_zero_sd_zero_mean"
+      },
+      "raw_p_montecarlo_signflip": 1.0,
+      "holm_adjusted_p": 1.0,
+      "reject_at_alpha": false,
+      "test": "Monte Carlo sign-flip, M=100000, p=(b+1)/(M+1)"
+    },
+    {
+      "id": "RQ1:heavy:zD",
+      "label": "secondary_prespecified",
+      "primary_pair": "RQ1",
+      "workload": "heavy",
+      "cost": "zD",
+      "mean_difference": 0.0,
+      "ci95_difference": [
+        0.0,
+        0.0
+      ],
+      "effect_size_dz": {
+        "dz": null,
+        "status": "undefined_zero_sd_zero_mean"
+      },
+      "raw_p_montecarlo_signflip": 1.0,
+      "holm_adjusted_p": 1.0,
+      "reject_at_alpha": false,
+      "test": "Monte Carlo sign-flip, M=100000, p=(b+1)/(M+1)"
+    },
+    {
+      "id": "RQ1:heavy:zB",
+      "label": "secondary_prespecified",
+      "primary_pair": "RQ1",
+      "workload": "heavy",
+      "cost": "zB",
+      "mean_difference": 0.0,
+      "ci95_difference": [
+        0.0,
+        0.0
+      ],
+      "effect_size_dz": {
+        "dz": null,
+        "status": "undefined_zero_sd_zero_mean"
+      },
+      "raw_p_montecarlo_signflip": 1.0,
+      "holm_adjusted_p": 1.0,
+      "reject_at_alpha": false,
+      "test": "Monte Carlo sign-flip, M=100000, p=(b+1)/(M+1)"
+    },
+    {
+      "id": "RQ1:heavy:zQ",
+      "label": "secondary_prespecified",
+      "primary_pair": "RQ1",
+      "workload": "heavy",
+      "cost": "zQ",
+      "mean_difference": 0.0,
+      "ci95_difference": [
+        0.0,
+        0.0
+      ],
+      "effect_size_dz": {
+        "dz": null,
+        "status": "undefined_zero_sd_zero_mean"
+      },
+      "raw_p_montecarlo_signflip": 1.0,
+      "holm_adjusted_p": 1.0,
+      "reject_at_alpha": false,
+      "test": "Monte Carlo sign-flip, M=100000, p=(b+1)/(M+1)"
+    },
+    {
+      "id": "RQ1:dynamic:zL",
+      "label": "secondary_prespecified",
+      "primary_pair": "RQ1",
+      "workload": "dynamic",
+      "cost": "zL",
+      "mean_difference": 0.0,
+      "ci95_difference": [
+        0.0,
+        0.0
+      ],
+      "effect_size_dz": {
+        "dz": null,
+        "status": "undefined_zero_sd_zero_mean"
+      },
+      "raw_p_montecarlo_signflip": 1.0,
+      "holm_adjusted_p": 1.0,
+      "reject_at_alpha": false,
+      "test": "Monte Carlo sign-flip, M=100000, p=(b+1)/(M+1)"
+    },
+    {
+      "id": "RQ1:dynamic:zE",
+      "label": "secondary_prespecified",
+      "primary_pair": "RQ1",
+      "workload": "dynamic",
+      "cost": "zE",
+      "mean_difference": 0.0,
+      "ci95_difference": [
+        0.0,
+        0.0
+      ],
+      "effect_size_dz": {
+        "dz": null,
+        "status": "undefined_zero_sd_zero_mean"
+      },
+      "raw_p_montecarlo_signflip": 1.0,
+      "holm_adjusted_p": 1.0,
+      "reject_at_alpha": false,
+      "test": "Monte Carlo sign-flip, M=100000, p=(b+1)/(M+1)"
+    },
+    {
+      "id": "RQ1:dynamic:zD",
+      "label": "secondary_prespecified",
+      "primary_pair": "RQ1",
+      "workload": "dynamic",
+      "cost": "zD",
+      "mean_difference": 0.0,
+      "ci95_difference": [
+        0.0,
+        0.0
+      ],
+      "effect_size_dz": {
+        "dz": null,
+        "status": "undefined_zero_sd_zero_mean"
+      },
+      "raw_p_montecarlo_signflip": 1.0,
+      "holm_adjusted_p": 1.0,
+      "reject_at_alpha": false,
+      "test": "Monte Carlo sign-flip, M=100000, p=(b+1)/(M+1)"
+    },
+    {
+      "id": "RQ1:dynamic:zB",
+      "label": "secondary_prespecified",
+      "primary_pair": "RQ1",
+      "workload": "dynamic",
+      "cost": "zB",
+      "mean_difference": 0.0,
+      "ci95_difference": [
+        0.0,
+        0.0
+      ],
+      "effect_size_dz": {
+        "dz": null,
+        "status": "undefined_zero_sd_zero_mean"
+      },
+      "raw_p_montecarlo_signflip": 1.0,
+      "holm_adjusted_p": 1.0,
+      "reject_at_alpha": false,
+      "test": "Monte Carlo sign-flip, M=100000, p=(b+1)/(M+1)"
+    },
+    {
+      "id": "RQ1:dynamic:zQ",
+      "label": "secondary_prespecified",
+      "primary_pair": "RQ1",
+      "workload": "dynamic",
+      "cost": "zQ",
+      "mean_difference": 0.0,
+      "ci95_difference": [
+        0.0,
+        0.0
+      ],
+      "effect_size_dz": {
+        "dz": null,
+        "status": "undefined_zero_sd_zero_mean"
+      },
+      "raw_p_montecarlo_signflip": 1.0,
+      "holm_adjusted_p": 1.0,
+      "reject_at_alpha": false,
+      "test": "Monte Carlo sign-flip, M=100000, p=(b+1)/(M+1)"
+    },
+    {
+      "id": "RQ2:light:zL",
+      "label": "secondary_prespecified",
+      "primary_pair": "RQ2",
+      "workload": "light",
+      "cost": "zL",
+      "mean_difference": -0.03398359255675053,
+      "ci95_difference": [
+        -0.12518781941980556,
+        0.027831553203814544
+      ],
+      "effect_size_dz": {
+        "dz": -0.3727675094835088,
+        "status": "ok"
+      },
+      "raw_p_montecarlo_signflip": 0.6235337646623533,
+      "holm_adjusted_p": 1.0,
+      "reject_at_alpha": false,
+      "test": "Monte Carlo sign-flip, M=100000, p=(b+1)/(M+1)"
+    },
+    {
+      "id": "RQ2:light:zE",
+      "label": "secondary_prespecified",
+      "primary_pair": "RQ2",
+      "workload": "light",
+      "cost": "zE",
+      "mean_difference": 0.00014714792873030298,
+      "ci95_difference": [
+        -0.0036150481222512287,
+        0.003961546358319267
+      ],
+      "effect_size_dz": {
+        "dz": 0.034586280586912196,
+        "status": "ok"
+      },
+      "raw_p_montecarlo_signflip": 0.7487725122748773,
+      "holm_adjusted_p": 1.0,
+      "reject_at_alpha": false,
+      "test": "Monte Carlo sign-flip, M=100000, p=(b+1)/(M+1)"
+    },
+    {
+      "id": "RQ2:light:zD",
+      "label": "secondary_prespecified",
+      "primary_pair": "RQ2",
+      "workload": "light",
+      "cost": "zD",
+      "mean_difference": -0.029956726371088864,
+      "ci95_difference": [
+        -0.12197363455568595,
+        0.040198155008295766
+      ],
+      "effect_size_dz": {
+        "dz": -0.3208877910275828,
+        "status": "ok"
+      },
+      "raw_p_montecarlo_signflip": 0.6235337646623533,
+      "holm_adjusted_p": 1.0,
+      "reject_at_alpha": false,
+      "test": "Monte Carlo sign-flip, M=100000, p=(b+1)/(M+1)"
+    },
+    {
+      "id": "RQ2:light:zB",
+      "label": "secondary_prespecified",
+      "primary_pair": "RQ2",
+      "workload": "light",
+      "cost": "zB",
+      "mean_difference": 0.002083092792442176,
+      "ci95_difference": [
+        -0.0028973300282231626,
+        0.007584879483527684
+      ],
+      "effect_size_dz": {
+        "dz": 0.36413614175357334,
+        "status": "ok"
+      },
+      "raw_p_montecarlo_signflip": 0.7487725122748773,
+      "holm_adjusted_p": 1.0,
+      "reject_at_alpha": false,
+      "test": "Monte Carlo sign-flip, M=100000, p=(b+1)/(M+1)"
+    },
+    {
+      "id": "RQ2:light:zQ",
+      "label": "secondary_prespecified",
+      "primary_pair": "RQ2",
+      "workload": "light",
+      "cost": "zQ",
+      "mean_difference": -0.03549528872828917,
+      "ci95_difference": [
+        -0.12813933937570557,
+        0.026086473930394108
+      ],
+      "effect_size_dz": {
+        "dz": -0.3834152432637082,
+        "status": "ok"
+      },
+      "raw_p_montecarlo_signflip": 0.7487725122748773,
+      "holm_adjusted_p": 1.0,
+      "reject_at_alpha": false,
+      "test": "Monte Carlo sign-flip, M=100000, p=(b+1)/(M+1)"
+    },
+    {
+      "id": "RQ2:moderate:zL",
+      "label": "secondary_prespecified",
+      "primary_pair": "RQ2",
+      "workload": "moderate",
+      "cost": "zL",
+      "mean_difference": 0.07320032778064474,
+      "ci95_difference": [
+        -0.0392704235242433,
+        0.18490903913024243
+      ],
+      "effect_size_dz": {
+        "dz": 0.5268844793631495,
+        "status": "ok"
+      },
+      "raw_p_montecarlo_signflip": 0.37622623773762265,
+      "holm_adjusted_p": 1.0,
+      "reject_at_alpha": false,
+      "test": "Monte Carlo sign-flip, M=100000, p=(b+1)/(M+1)"
+    },
+    {
+      "id": "RQ2:moderate:zE",
+      "label": "secondary_prespecified",
+      "primary_pair": "RQ2",
+      "workload": "moderate",
+      "cost": "zE",
+      "mean_difference": -0.004366712868419319,
+      "ci95_difference": [
+        -0.008895470374795829,
+        0.00041651617990254297
+      ],
+      "effect_size_dz": {
+        "dz": -0.7680011560076031,
+        "status": "ok"
+      },
+      "raw_p_montecarlo_signflip": 0.25155748442515574,
+      "holm_adjusted_p": 1.0,
+      "reject_at_alpha": false,
+      "test": "Monte Carlo sign-flip, M=100000, p=(b+1)/(M+1)"
+    },
+    {
+      "id": "RQ2:moderate:zD",
+      "label": "secondary_prespecified",
+      "primary_pair": "RQ2",
+      "workload": "moderate",
+      "cost": "zD",
+      "mean_difference": 0.03605463951505242,
+      "ci95_difference": [
+        -0.0325973626127567,
+        0.11431025387491903
+      ],
+      "effect_size_dz": {
+        "dz": 0.40498942332636567,
+        "status": "ok"
+      },
+      "raw_p_montecarlo_signflip": 0.7526924730752692,
+      "holm_adjusted_p": 1.0,
+      "reject_at_alpha": false,
+      "test": "Monte Carlo sign-flip, M=100000, p=(b+1)/(M+1)"
+    },
+    {
+      "id": "RQ2:moderate:zB",
+      "label": "secondary_prespecified",
+      "primary_pair": "RQ2",
+      "workload": "moderate",
+      "cost": "zB",
+      "mean_difference": -0.009318767181728638,
+      "ci95_difference": [
+        -0.02401544098940501,
+        0.0019135649390940603
+      ],
+      "effect_size_dz": {
+        "dz": -0.6086945723494894,
+        "status": "ok"
+      },
+      "raw_p_montecarlo_signflip": 0.5015649843501565,
+      "holm_adjusted_p": 1.0,
+      "reject_at_alpha": false,
+      "test": "Monte Carlo sign-flip, M=100000, p=(b+1)/(M+1)"
+    },
+    {
+      "id": "RQ2:moderate:zQ",
+      "label": "secondary_prespecified",
+      "primary_pair": "RQ2",
+      "workload": "moderate",
+      "cost": "zQ",
+      "mean_difference": 0.07770458284526341,
+      "ci95_difference": [
+        -0.03935675401834145,
+        0.19297127139171766
+      ],
+      "effect_size_dz": {
+        "dz": 0.5418612445573903,
+        "status": "ok"
+      },
+      "raw_p_montecarlo_signflip": 0.37622623773762265,
+      "holm_adjusted_p": 1.0,
+      "reject_at_alpha": false,
+      "test": "Monte Carlo sign-flip, M=100000, p=(b+1)/(M+1)"
+    },
+    {
+      "id": "RQ2:heavy:zL",
+      "label": "secondary_prespecified",
+      "primary_pair": "RQ2",
+      "workload": "heavy",
+      "cost": "zL",
+      "mean_difference": 0.0840334974473746,
+      "ci95_difference": [
+        -0.01168009928819927,
+        0.25568494023119936
+      ],
+      "effect_size_dz": {
+        "dz": 0.4908100054211745,
+        "status": "ok"
+      },
+      "raw_p_montecarlo_signflip": 0.6267837321626784,
+      "holm_adjusted_p": 1.0,
+      "reject_at_alpha": false,
+      "test": "Monte Carlo sign-flip, M=100000, p=(b+1)/(M+1)"
+    },
+    {
+      "id": "RQ2:heavy:zE",
+      "label": "secondary_prespecified",
+      "primary_pair": "RQ2",
+      "workload": "heavy",
+      "cost": "zE",
+      "mean_difference": -0.002980452721356372,
+      "ci95_difference": [
+        -0.005380534674667632,
+        -5.448559906403531e-05
+      ],
+      "effect_size_dz": {
+        "dz": -0.9352329268049564,
+        "status": "ok"
+      },
+      "raw_p_montecarlo_signflip": 0.25155748442515574,
+      "holm_adjusted_p": 1.0,
+      "reject_at_alpha": false,
+      "test": "Monte Carlo sign-flip, M=100000, p=(b+1)/(M+1)"
+    },
+    {
+      "id": "RQ2:heavy:zD",
+      "label": "secondary_prespecified",
+      "primary_pair": "RQ2",
+      "workload": "heavy",
+      "cost": "zD",
+      "mean_difference": 0.04386851846251538,
+      "ci95_difference": [
+        -0.0059440920389721525,
+        0.13624240828822817
+      ],
+      "effect_size_dz": {
+        "dz": 0.47402524848122723,
+        "status": "ok"
+      },
+      "raw_p_montecarlo_signflip": 0.7526924730752692,
+      "holm_adjusted_p": 1.0,
+      "reject_at_alpha": false,
+      "test": "Monte Carlo sign-flip, M=100000, p=(b+1)/(M+1)"
+    },
+    {
+      "id": "RQ2:heavy:zB",
+      "label": "secondary_prespecified",
+      "primary_pair": "RQ2",
+      "workload": "heavy",
+      "cost": "zB",
+      "mean_difference": -0.005985656323541116,
+      "ci95_difference": [
+        -0.015233827103963581,
+        0.002258164042663602
+      ],
+      "effect_size_dz": {
+        "dz": -0.616849141913248,
+        "status": "ok"
+      },
+      "raw_p_montecarlo_signflip": 0.5015649843501565,
+      "holm_adjusted_p": 1.0,
+      "reject_at_alpha": false,
+      "test": "Monte Carlo sign-flip, M=100000, p=(b+1)/(M+1)"
+    },
+    {
+      "id": "RQ2:heavy:zQ",
+      "label": "secondary_prespecified",
+      "primary_pair": "RQ2",
+      "workload": "heavy",
+      "cost": "zQ",
+      "mean_difference": 0.09013232502324114,
+      "ci95_difference": [
+        -0.012653847611125417,
+        0.2725604418339444
+      ],
+      "effect_size_dz": {
+        "dz": 0.4964984467374055,
+        "status": "ok"
+      },
+      "raw_p_montecarlo_signflip": 0.6267837321626784,
+      "holm_adjusted_p": 1.0,
+      "reject_at_alpha": false,
+      "test": "Monte Carlo sign-flip, M=100000, p=(b+1)/(M+1)"
+    },
+    {
+      "id": "RQ2:dynamic:zL",
+      "label": "secondary_prespecified",
+      "primary_pair": "RQ2",
+      "workload": "dynamic",
+      "cost": "zL",
+      "mean_difference": 0.06118831078178094,
+      "ci95_difference": [
+        -0.029034543580594763,
+        0.18392405857810973
+      ],
+      "effect_size_dz": {
+        "dz": 0.4756002606731757,
+        "status": "ok"
+      },
+      "raw_p_montecarlo_signflip": 0.6267837321626784,
+      "holm_adjusted_p": 1.0,
+      "reject_at_alpha": false,
+      "test": "Monte Carlo sign-flip, M=100000, p=(b+1)/(M+1)"
+    },
+    {
+      "id": "RQ2:dynamic:zE",
+      "label": "secondary_prespecified",
+      "primary_pair": "RQ2",
+      "workload": "dynamic",
+      "cost": "zE",
+      "mean_difference": -0.0028193242162264003,
+      "ci95_difference": [
+        -0.005027934894888744,
+        0.000598803668139728
+      ],
+      "effect_size_dz": {
+        "dz": -0.8281002259306851,
+        "status": "ok"
+      },
+      "raw_p_montecarlo_signflip": 0.25155748442515574,
+      "holm_adjusted_p": 1.0,
+      "reject_at_alpha": false,
+      "test": "Monte Carlo sign-flip, M=100000, p=(b+1)/(M+1)"
+    },
+    {
+      "id": "RQ2:dynamic:zD",
+      "label": "secondary_prespecified",
+      "primary_pair": "RQ2",
+      "workload": "dynamic",
+      "cost": "zD",
+      "mean_difference": 0.030137579405241033,
+      "ci95_difference": [
+        -0.0270577553782565,
+        0.10630169562653688
+      ],
+      "effect_size_dz": {
+        "dz": 0.3786478368936717,
+        "status": "ok"
+      },
+      "raw_p_montecarlo_signflip": 0.7526924730752692,
+      "holm_adjusted_p": 1.0,
+      "reject_at_alpha": false,
+      "test": "Monte Carlo sign-flip, M=100000, p=(b+1)/(M+1)"
+    },
+    {
+      "id": "RQ2:dynamic:zB",
+      "label": "secondary_prespecified",
+      "primary_pair": "RQ2",
+      "workload": "dynamic",
+      "cost": "zB",
+      "mean_difference": -0.0035337610195011193,
+      "ci95_difference": [
+        -0.009031238527525715,
+        0.00044244825105571595
+      ],
+      "effect_size_dz": {
+        "dz": -0.7045314327872577,
+        "status": "ok"
+      },
+      "raw_p_montecarlo_signflip": 0.2501474985250148,
+      "holm_adjusted_p": 1.0,
+      "reject_at_alpha": false,
+      "test": "Monte Carlo sign-flip, M=100000, p=(b+1)/(M+1)"
+    },
+    {
+      "id": "RQ2:dynamic:zQ",
+      "label": "secondary_prespecified",
+      "primary_pair": "RQ2",
+      "workload": "dynamic",
+      "cost": "zQ",
+      "mean_difference": 0.06568810438108906,
+      "ci95_difference": [
+        -0.02920218812965347,
+        0.1942185592185592
+      ],
+      "effect_size_dz": {
+        "dz": 0.48777047057540507,
+        "status": "ok"
+      },
+      "raw_p_montecarlo_signflip": 0.5015449845501545,
+      "holm_adjusted_p": 1.0,
+      "reject_at_alpha": false,
+      "test": "Monte Carlo sign-flip, M=100000, p=(b+1)/(M+1)"
+    },
+    {
+      "id": "RQ3:light:zL",
+      "label": "secondary_prespecified",
+      "primary_pair": "RQ3",
+      "workload": "light",
+      "cost": "zL",
+      "mean_difference": -0.18079274539974358,
+      "ci95_difference": [
+        -0.4920978858679829,
+        -0.005521385032002053
+      ],
+      "effect_size_dz": {
+        "dz": -0.5792084828433963,
+        "status": "ok"
+      },
+      "raw_p_montecarlo_signflip": 0.12490875091249087,
+      "holm_adjusted_p": 1.0,
+      "reject_at_alpha": false,
+      "test": "Monte Carlo sign-flip, M=100000, p=(b+1)/(M+1)"
+    },
+    {
+      "id": "RQ3:light:zE",
+      "label": "secondary_prespecified",
+      "primary_pair": "RQ3",
+      "workload": "light",
+      "cost": "zE",
+      "mean_difference": -0.03547340067481603,
+      "ci95_difference": [
+        -0.06809366543819398,
+        -0.0031103256726135353
+      ],
+      "effect_size_dz": {
+        "dz": -0.9519954429533946,
+        "status": "ok"
+      },
+      "raw_p_montecarlo_signflip": 0.12490875091249087,
+      "holm_adjusted_p": 1.0,
+      "reject_at_alpha": false,
+      "test": "Monte Carlo sign-flip, M=100000, p=(b+1)/(M+1)"
+    },
+    {
+      "id": "RQ3:light:zD",
+      "label": "secondary_prespecified",
+      "primary_pair": "RQ3",
+      "workload": "light",
+      "cost": "zD",
+      "mean_difference": -0.2124814676027142,
+      "ci95_difference": [
+        -0.44321685827390467,
+        -0.039015235863001346
+      ],
+      "effect_size_dz": {
+        "dz": -0.8796548219556529,
+        "status": "ok"
+      },
+      "raw_p_montecarlo_signflip": 0.12490875091249087,
+      "holm_adjusted_p": 1.0,
+      "reject_at_alpha": false,
+      "test": "Monte Carlo sign-flip, M=100000, p=(b+1)/(M+1)"
+    },
+    {
+      "id": "RQ3:light:zB",
+      "label": "secondary_prespecified",
+      "primary_pair": "RQ3",
+      "workload": "light",
+      "cost": "zB",
+      "mean_difference": -0.33433256943261785,
+      "ci95_difference": [
+        -0.6406533792202898,
+        -0.02626773953733628
+      ],
+      "effect_size_dz": {
+        "dz": -0.9106355186028726,
+        "status": "ok"
+      },
+      "raw_p_montecarlo_signflip": 0.2501474985250148,
+      "holm_adjusted_p": 1.0,
+      "reject_at_alpha": false,
+      "test": "Monte Carlo sign-flip, M=100000, p=(b+1)/(M+1)"
+    },
+    {
+      "id": "RQ3:light:zQ",
+      "label": "secondary_prespecified",
+      "primary_pair": "RQ3",
+      "workload": "light",
+      "cost": "zQ",
+      "mean_difference": -0.18594046510494622,
+      "ci95_difference": [
+        -0.4990325365808255,
+        -0.005972823191087842
+      ],
+      "effect_size_dz": {
+        "dz": -0.5909374465103778,
+        "status": "ok"
+      },
+      "raw_p_montecarlo_signflip": 0.2501474985250148,
+      "holm_adjusted_p": 1.0,
+      "reject_at_alpha": false,
+      "test": "Monte Carlo sign-flip, M=100000, p=(b+1)/(M+1)"
+    },
+    {
+      "id": "RQ3:moderate:zL",
+      "label": "secondary_prespecified",
+      "primary_pair": "RQ3",
+      "workload": "moderate",
+      "cost": "zL",
+      "mean_difference": -0.3614988476209965,
+      "ci95_difference": [
+        -0.7135218650811379,
+        -0.00975564117963626
+      ],
+      "effect_size_dz": {
+        "dz": -0.8313706809092218,
+        "status": "ok"
+      },
+      "raw_p_montecarlo_signflip": 0.2501474985250148,
+      "holm_adjusted_p": 1.0,
+      "reject_at_alpha": false,
+      "test": "Monte Carlo sign-flip, M=100000, p=(b+1)/(M+1)"
+    },
+    {
+      "id": "RQ3:moderate:zE",
+      "label": "secondary_prespecified",
+      "primary_pair": "RQ3",
+      "workload": "moderate",
+      "cost": "zE",
+      "mean_difference": -0.0009344629372736273,
+      "ci95_difference": [
+        -0.011911963691163922,
+        0.00858807447616195
+      ],
+      "effect_size_dz": {
+        "dz": -0.07879535205855111,
+        "status": "ok"
+      },
+      "raw_p_montecarlo_signflip": 0.8747612523874762,
+      "holm_adjusted_p": 1.0,
+      "reject_at_alpha": false,
+      "test": "Monte Carlo sign-flip, M=100000, p=(b+1)/(M+1)"
+    },
+    {
+      "id": "RQ3:moderate:zD",
+      "label": "secondary_prespecified",
+      "primary_pair": "RQ3",
+      "workload": "moderate",
+      "cost": "zD",
+      "mean_difference": -0.2015675832688684,
+      "ci95_difference": [
+        -0.4856857560004259,
+        0.04283188391141668
+      ],
+      "effect_size_dz": {
+        "dz": -0.6204507756488346,
+        "status": "ok"
+      },
+      "raw_p_montecarlo_signflip": 0.37481625183748163,
+      "holm_adjusted_p": 1.0,
+      "reject_at_alpha": false,
+      "test": "Monte Carlo sign-flip, M=100000, p=(b+1)/(M+1)"
+    },
+    {
+      "id": "RQ3:moderate:zB",
+      "label": "secondary_prespecified",
+      "primary_pair": "RQ3",
+      "workload": "moderate",
+      "cost": "zB",
+      "mean_difference": -0.389578180072384,
+      "ci95_difference": [
+        -0.7644868102409713,
+        -0.016321038500807114
+      ],
+      "effect_size_dz": {
+        "dz": -0.9058022102276068,
+        "status": "ok"
+      },
+      "raw_p_montecarlo_signflip": 0.2501474985250148,
+      "holm_adjusted_p": 1.0,
+      "reject_at_alpha": false,
+      "test": "Monte Carlo sign-flip, M=100000, p=(b+1)/(M+1)"
+    },
+    {
+      "id": "RQ3:moderate:zQ",
+      "label": "secondary_prespecified",
+      "primary_pair": "RQ3",
+      "workload": "moderate",
+      "cost": "zQ",
+      "mean_difference": -0.4093253206853196,
+      "ci95_difference": [
+        -0.7843157310784509,
+        -0.031837393076033726
+      ],
+      "effect_size_dz": {
+        "dz": -0.8728792359424585,
+        "status": "ok"
+      },
+      "raw_p_montecarlo_signflip": 0.2501474985250148,
+      "holm_adjusted_p": 1.0,
+      "reject_at_alpha": false,
+      "test": "Monte Carlo sign-flip, M=100000, p=(b+1)/(M+1)"
+    },
+    {
+      "id": "RQ3:heavy:zL",
+      "label": "secondary_prespecified",
+      "primary_pair": "RQ3",
+      "workload": "heavy",
+      "cost": "zL",
+      "mean_difference": -0.3250524923966789,
+      "ci95_difference": [
+        -0.6707145994321873,
+        0.013041442932252179
+      ],
+      "effect_size_dz": {
+        "dz": -0.8140759603070322,
+        "status": "ok"
+      },
+      "raw_p_montecarlo_signflip": 0.2501474985250148,
+      "holm_adjusted_p": 1.0,
+      "reject_at_alpha": false,
+      "test": "Monte Carlo sign-flip, M=100000, p=(b+1)/(M+1)"
+    },
+    {
+      "id": "RQ3:heavy:zE",
+      "label": "secondary_prespecified",
+      "primary_pair": "RQ3",
+      "workload": "heavy",
+      "cost": "zE",
+      "mean_difference": 0.013640777893117198,
+      "ci95_difference": [
+        0.0037815671858917282,
+        0.024551896708111455
+      ],
+      "effect_size_dz": {
+        "dz": 1.1588708115239317,
+        "status": "ok"
+      },
+      "raw_p_montecarlo_signflip": 0.12490875091249087,
+      "holm_adjusted_p": 1.0,
+      "reject_at_alpha": false,
+      "test": "Monte Carlo sign-flip, M=100000, p=(b+1)/(M+1)"
+    },
+    {
+      "id": "RQ3:heavy:zD",
+      "label": "secondary_prespecified",
+      "primary_pair": "RQ3",
+      "workload": "heavy",
+      "cost": "zD",
+      "mean_difference": -0.15153658573004283,
+      "ci95_difference": [
+        -0.411786172773546,
+        0.04303885162543805
+      ],
+      "effect_size_dz": {
+        "dz": -0.5660228223798499,
+        "status": "ok"
+      },
+      "raw_p_montecarlo_signflip": 0.37481625183748163,
+      "holm_adjusted_p": 1.0,
+      "reject_at_alpha": false,
+      "test": "Monte Carlo sign-flip, M=100000, p=(b+1)/(M+1)"
+    },
+    {
+      "id": "RQ3:heavy:zB",
+      "label": "secondary_prespecified",
+      "primary_pair": "RQ3",
+      "workload": "heavy",
+      "cost": "zB",
+      "mean_difference": -0.37972715570220583,
+      "ci95_difference": [
+        -0.7755789847050089,
+        0.015220393327107791
+      ],
+      "effect_size_dz": {
+        "dz": -0.8366814222381779,
+        "status": "ok"
+      },
+      "raw_p_montecarlo_signflip": 0.37481625183748163,
+      "holm_adjusted_p": 1.0,
+      "reject_at_alpha": false,
+      "test": "Monte Carlo sign-flip, M=100000, p=(b+1)/(M+1)"
+    },
+    {
+      "id": "RQ3:heavy:zQ",
+      "label": "secondary_prespecified",
+      "primary_pair": "RQ3",
+      "workload": "heavy",
+      "cost": "zQ",
+      "mean_difference": -0.3880071407990393,
+      "ci95_difference": [
+        -0.7569063208833479,
+        -0.01060234839591574
+      ],
+      "effect_size_dz": {
+        "dz": -0.881452554659628,
+        "status": "ok"
+      },
+      "raw_p_montecarlo_signflip": 0.2501474985250148,
+      "holm_adjusted_p": 1.0,
+      "reject_at_alpha": false,
+      "test": "Monte Carlo sign-flip, M=100000, p=(b+1)/(M+1)"
+    },
+    {
+      "id": "RQ3:dynamic:zL",
+      "label": "secondary_prespecified",
+      "primary_pair": "RQ3",
+      "workload": "dynamic",
+      "cost": "zL",
+      "mean_difference": -0.32616093803644686,
+      "ci95_difference": [
+        -0.6007720981353089,
+        -0.016337260321549668
+      ],
+      "effect_size_dz": {
+        "dz": -0.9086860078229656,
+        "status": "ok"
+      },
+      "raw_p_montecarlo_signflip": 0.2501474985250148,
+      "holm_adjusted_p": 1.0,
+      "reject_at_alpha": false,
+      "test": "Monte Carlo sign-flip, M=100000, p=(b+1)/(M+1)"
+    },
+    {
+      "id": "RQ3:dynamic:zE",
+      "label": "secondary_prespecified",
+      "primary_pair": "RQ3",
+      "workload": "dynamic",
+      "cost": "zE",
+      "mean_difference": 0.002173102989064519,
+      "ci95_difference": [
+        -0.004878444506492929,
+        0.011179842926750986
+      ],
+      "effect_size_dz": {
+        "dz": 0.23294236037472474,
+        "status": "ok"
+      },
+      "raw_p_montecarlo_signflip": 0.7485825141748582,
+      "holm_adjusted_p": 1.0,
+      "reject_at_alpha": false,
+      "test": "Monte Carlo sign-flip, M=100000, p=(b+1)/(M+1)"
+    },
+    {
+      "id": "RQ3:dynamic:zD",
+      "label": "secondary_prespecified",
+      "primary_pair": "RQ3",
+      "workload": "dynamic",
+      "cost": "zD",
+      "mean_difference": -0.18044417503990187,
+      "ci95_difference": [
+        -0.401836995074182,
+        0.012656784208627793
+      ],
+      "effect_size_dz": {
+        "dz": -0.7186637839288043,
+        "status": "ok"
+      },
+      "raw_p_montecarlo_signflip": 0.37481625183748163,
+      "holm_adjusted_p": 1.0,
+      "reject_at_alpha": false,
+      "test": "Monte Carlo sign-flip, M=100000, p=(b+1)/(M+1)"
+    },
+    {
+      "id": "RQ3:dynamic:zB",
+      "label": "secondary_prespecified",
+      "primary_pair": "RQ3",
+      "workload": "dynamic",
+      "cost": "zB",
+      "mean_difference": -0.3569856116065267,
+      "ci95_difference": [
+        -0.7030923641176436,
+        -0.015136908279572628
+      ],
+      "effect_size_dz": {
+        "dz": -0.9009099032007702,
+        "status": "ok"
+      },
+      "raw_p_montecarlo_signflip": 0.2501474985250148,
+      "holm_adjusted_p": 1.0,
+      "reject_at_alpha": false,
+      "test": "Monte Carlo sign-flip, M=100000, p=(b+1)/(M+1)"
+    },
+    {
+      "id": "RQ3:dynamic:zQ",
+      "label": "secondary_prespecified",
+      "primary_pair": "RQ3",
+      "workload": "dynamic",
+      "cost": "zQ",
+      "mean_difference": -0.3782112722449333,
+      "ci95_difference": [
+        -0.6784834495915604,
+        -0.0357137926843169
+      ],
+      "effect_size_dz": {
+        "dz": -0.9564237558755482,
+        "status": "ok"
+      },
+      "raw_p_montecarlo_signflip": 0.2501474985250148,
+      "holm_adjusted_p": 1.0,
+      "reject_at_alpha": false,
+      "test": "Monte Carlo sign-flip, M=100000, p=(b+1)/(M+1)"
+    }
+  ],
+  "methods": {
+    "nsga2": {
+      "Dglobal_mean": 0.6050458858803034,
+      "Dglobal_sd_between_runs": 0.1788836928871093,
+      "Dglobal_se": 0.08944184644355466,
+      "Dw_mean": {
+        "light": 0.3544053609173852,
+        "moderate": 0.6759589602058442,
+        "heavy": 0.7554138878185932,
+        "dynamic": 0.6649594779254794
+      },
+      "cost_means_F": {
+        "zL": 0.6701080461680243,
+        "zE": 0.059431091947817295,
+        "zD": 0.8031278627131687,
+        "zB": 0.5387683220788346,
+        "zQ": 0.6149458547428155
+      },
+      "worst_workload_counts": {
+        "light": 0,
+        "moderate": 0,
+        "heavy": 4,
+        "dynamic": 0
+      }
+    },
+    "random": {
+      "Dglobal_mean": 0.6316560981812813,
+      "Dglobal_sd_between_runs": 0.10391853314320966,
+      "Dglobal_se": 0.05195926657160483,
+      "Dw_mean": {
+        "light": 0.33244793999953337,
+        "moderate": 0.7159381255959071,
+        "heavy": 0.8089129204853316,
+        "dynamic": 0.7024607721376908
+      },
+      "cost_means_F": {
+        "zL": 0.7162176820312868,
+        "zE": 0.05692625647849936,
+        "zD": 0.8231538654660988,
+        "zB": 0.5345795491457525,
+        "zQ": 0.6644532856231415
+      },
+      "worst_workload_counts": {
+        "light": 0,
+        "moderate": 0,
+        "heavy": 4,
+        "dynamic": 0
+      }
+    },
+    "equal_F": {
+      "Dglobal_mean": 0.6050458858803034,
+      "Dglobal_sd_between_runs": 0.1788836928871093,
+      "Dglobal_se": 0.08944184644355466,
+      "Dw_mean": {
+        "light": 0.3544053609173852,
+        "moderate": 0.6759589602058442,
+        "heavy": 0.7554138878185932,
+        "dynamic": 0.6649594779254794
+      },
+      "cost_means_F": {
+        "zL": 0.6701080461680243,
+        "zE": 0.059431091947817295,
+        "zD": 0.8031278627131687,
+        "zB": 0.5387683220788346,
+        "zQ": 0.6149458547428155
+      },
+      "worst_workload_counts": {
+        "light": 0,
+        "moderate": 0,
+        "heavy": 4,
+        "dynamic": 0
+      }
+    },
+    "equal_B": {
+      "Dglobal_mean": 0.3715897869325937,
+      "Dglobal_sd_between_runs": 0.1462676438961784,
+      "Dglobal_se": 0.0731338219480892,
+      "Dw_mean": {
+        "light": 0.15626571147781187,
+        "moderate": 0.4097489407333906,
+        "heavy": 0.5136639570657551,
+        "dynamic": 0.42274717186160315
+      },
+      "cost_means_F": {
+        "zL": 0.37173179030455794,
+        "zE": 0.05428259626534031,
+        "zD": 0.6166204098027869,
+        "zB": 0.173612442875401,
+        "zQ": 0.2745748050342558
+      },
+      "worst_workload_counts": {
+        "light": 0,
+        "moderate": 0,
+        "heavy": 4,
+        "dynamic": 0
+      }
+    },
+    "manual_F": {
+      "Dglobal_mean": 0.6316560981812813,
+      "Dglobal_sd_between_runs": 0.10391853314320966,
+      "Dglobal_se": 0.05195926657160483,
+      "Dw_mean": {
+        "light": 0.33244793999953337,
+        "moderate": 0.7159381255959071,
+        "heavy": 0.8089129204853316,
+        "dynamic": 0.7024607721376908
+      },
+      "cost_means_F": {
+        "zL": 0.7162176820312868,
+        "zE": 0.05692625647849936,
+        "zD": 0.8231538654660988,
+        "zB": 0.5345795491457525,
+        "zQ": 0.6644532856231415
+      },
+      "worst_workload_counts": {
+        "light": 0,
+        "moderate": 0,
+        "heavy": 4,
+        "dynamic": 0
+      }
+    },
+    "manual_B": {
+      "Dglobal_mean": 0.3881026932000087,
+      "Dglobal_sd_between_runs": 0.09098860203518187,
+      "Dglobal_se": 0.04549430101759094,
+      "Dw_mean": {
+        "light": 0.11185635390206428,
+        "moderate": 0.3600460782553926,
+        "heavy": 0.6414378151886967,
+        "dynamic": 0.4729435653634698
+      },
+      "cost_means_F": {
+        "zL": 0.3980165546702852,
+        "zE": 0.05898929881667932,
+        "zD": 0.587521216165423,
+        "zB": 0.3448798677602747,
+        "zQ": 0.3148740442885857
+      },
+      "worst_workload_counts": {
+        "light": 0,
+        "moderate": 0,
+        "heavy": 4,
+        "dynamic": 0
+      }
+    }
+  },
+  "outers": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "exploratory": [
+    {
+      "label": "exploratory_unadjusted",
+      "comparator": "manual_B",
+      "treatment": "equal_B",
+      "mean_difference": 0.016512906267414987,
+      "ci95_difference": [
+        -0.1786486647126812,
+        0.17764412121770204
+      ],
+      "effect_size_dz": {
+        "dz": 0.07583145753461615,
+        "status": "ok"
+      },
+      "raw_p_exact_signflip": 1.0,
+      "note": "No multiplicity control and no confirmatory status; unregistered family."
+    },
+    {
+      "label": "exploratory_unadjusted",
+      "comparator": "manual_F",
+      "treatment": "equal_F",
+      "mean_difference": 0.026610212300977862,
+      "ci95_difference": [
+        -0.032637777244991395,
+        0.09696927127389975
+      ],
+      "effect_size_dz": {
+        "dz": 0.34854654107128274,
+        "status": "ok"
+      },
+      "raw_p_exact_signflip": 0.75,
+      "note": "No multiplicity control and no confirmatory status; unregistered family."
+    }
+  ],
+  "physical": {
+    "equal_F \u2212 nsga2": {
+      "dynamic_energy_j": {
+        "mean_paired_difference_comparator_minus_treatment": 0.0,
+        "by_outer": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "violation_pp": {
+        "mean_paired_difference_comparator_minus_treatment": 0.0,
+        "by_outer": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "reliability_pp": {
+        "mean_paired_difference_comparator_minus_treatment": 0.0,
+        "by_outer": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      }
+    },
+    "random \u2212 nsga2": {
+      "dynamic_energy_j": {
+        "mean_paired_difference_comparator_minus_treatment": -149.61509512709043,
+        "by_outer": [
+          -243.25785014995859,
+          111.83156801365232,
+          -243.8239817933499,
+          -223.21011657870557
+        ]
+      },
+      "violation_pp": {
+        "mean_paired_difference_comparator_minus_treatment": 2.0026002752929997,
+        "by_outer": [
+          -0.6029770370029226,
+          -6.639515009158899,
+          3.373427762224397,
+          11.879465385109423
+        ]
+      },
+      "reliability_pp": {
+        "mean_paired_difference_comparator_minus_treatment": -4.950743088032607,
+        "by_outer": [
+          -0.6170651946304893,
+          8.227430516158975,
+          -5.7494809610435444,
+          -21.66385671261537
+        ]
+      }
+    },
+    "equal_B \u2212 nsga2": {
+      "dynamic_energy_j": {
+        "mean_paired_difference_comparator_minus_treatment": 198.0627992326083,
+        "by_outer": [
+          -270.2518479307241,
+          134.356769946493,
+          945.8081191748586,
+          -17.66184426019413
+        ]
+      },
+      "violation_pp": {
+        "mean_paired_difference_comparator_minus_treatment": -18.650745291038184,
+        "by_outer": [
+          -46.42202910150771,
+          -29.124768988774466,
+          -7.176218507651678,
+          8.12003543378113
+        ]
+      },
+      "reliability_pp": {
+        "mean_paired_difference_comparator_minus_treatment": 34.037104970855964,
+        "by_outer": [
+          63.47870220752243,
+          62.23835763577558,
+          22.938668230374063,
+          -12.50730819024825
+        ]
+      }
+    }
+  },
+  "compute_cost": [
+    {
+      "job": "r00_mini_search",
+      "role": "search",
+      "outer": 0,
+      "training_decisions": 1024,
+      "validation_decisions": 39380,
+      "wall_s": 19.15242260415107,
+      "cpu_s": 27.175327000000003,
+      "max_rss_gib": 0.7679023742675781,
+      "gradient_updates": 20
+    },
+    {
+      "job": "r00_mini_final",
+      "role": "final",
+      "outer": 0,
+      "training_decisions": 1024,
+      "validation_decisions": 0,
+      "wall_s": 10.449947223998606,
+      "cpu_s": 15.221557,
+      "max_rss_gib": 0.7617835998535156,
+      "gradient_updates": 20
+    },
+    {
+      "job": "r00_equal",
+      "role": "baseline",
+      "outer": 0,
+      "training_decisions": 41472,
+      "validation_decisions": 0,
+      "wall_s": 48.299532380886376,
+      "cpu_s": 58.69278,
+      "max_rss_gib": 0.7619209289550781,
+      "gradient_updates": 810
+    },
+    {
+      "job": "r00_manual",
+      "role": "baseline",
+      "outer": 0,
+      "training_decisions": 41472,
+      "validation_decisions": 0,
+      "wall_s": 48.09772653505206,
+      "cpu_s": 57.526553,
+      "max_rss_gib": 0.7459831237792969,
+      "gradient_updates": 810
+    },
+    {
+      "job": "r01_mini_search",
+      "role": "search",
+      "outer": 1,
+      "training_decisions": 1024,
+      "validation_decisions": 39380,
+      "wall_s": 19.251896739006042,
+      "cpu_s": 27.812205,
+      "max_rss_gib": 0.7484970092773438,
+      "gradient_updates": 20
+    },
+    {
+      "job": "r01_mini_final",
+      "role": "final",
+      "outer": 1,
+      "training_decisions": 1024,
+      "validation_decisions": 0,
+      "wall_s": 10.373625199310482,
+      "cpu_s": 15.254414,
+      "max_rss_gib": 0.7430572509765625,
+      "gradient_updates": 20
+    },
+    {
+      "job": "r01_equal",
+      "role": "baseline",
+      "outer": 1,
+      "training_decisions": 41472,
+      "validation_decisions": 0,
+      "wall_s": 48.632809032686055,
+      "cpu_s": 58.098600999999995,
+      "max_rss_gib": 0.7435798645019531,
+      "gradient_updates": 810
+    },
+    {
+      "job": "r01_manual",
+      "role": "baseline",
+      "outer": 1,
+      "training_decisions": 41472,
+      "validation_decisions": 0,
+      "wall_s": 48.12009282037616,
+      "cpu_s": 57.791635,
+      "max_rss_gib": 0.7534904479980469,
+      "gradient_updates": 810
+    },
+    {
+      "job": "r02_mini_search",
+      "role": "search",
+      "outer": 2,
+      "training_decisions": 1024,
+      "validation_decisions": 39380,
+      "wall_s": 19.43147997558117,
+      "cpu_s": 27.735167999999998,
+      "max_rss_gib": 0.7435455322265625,
+      "gradient_updates": 20
+    },
+    {
+      "job": "r02_mini_final",
+      "role": "final",
+      "outer": 2,
+      "training_decisions": 1024,
+      "validation_decisions": 0,
+      "wall_s": 10.252861267887056,
+      "cpu_s": 15.243424999999998,
+      "max_rss_gib": 0.7596664428710938,
+      "gradient_updates": 20
+    },
+    {
+      "job": "r02_equal",
+      "role": "baseline",
+      "outer": 2,
+      "training_decisions": 41472,
+      "validation_decisions": 0,
+      "wall_s": 48.20451357588172,
+      "cpu_s": 57.367056999999996,
+      "max_rss_gib": 0.7573623657226562,
+      "gradient_updates": 810
+    },
+    {
+      "job": "r02_manual",
+      "role": "baseline",
+      "outer": 2,
+      "training_decisions": 41472,
+      "validation_decisions": 0,
+      "wall_s": 48.28354029916227,
+      "cpu_s": 57.408854,
+      "max_rss_gib": 0.7665252685546875,
+      "gradient_updates": 810
+    },
+    {
+      "job": "r03_mini_search",
+      "role": "search",
+      "outer": 3,
+      "training_decisions": 1024,
+      "validation_decisions": 39380,
+      "wall_s": 19.287209935486317,
+      "cpu_s": 27.633153999999998,
+      "max_rss_gib": 0.7596054077148438,
+      "gradient_updates": 20
+    },
+    {
+      "job": "r03_mini_final",
+      "role": "final",
+      "outer": 3,
+      "training_decisions": 1024,
+      "validation_decisions": 0,
+      "wall_s": 10.208190327510238,
+      "cpu_s": 15.009438,
+      "max_rss_gib": 0.7417678833007812,
+      "gradient_updates": 20
+    },
+    {
+      "job": "r03_equal",
+      "role": "baseline",
+      "outer": 3,
+      "training_decisions": 41472,
+      "validation_decisions": 0,
+      "wall_s": 48.16267993114889,
+      "cpu_s": 57.841077,
+      "max_rss_gib": 0.7643814086914062,
+      "gradient_updates": 810
+    },
+    {
+      "job": "r03_manual",
+      "role": "baseline",
+      "outer": 3,
+      "training_decisions": 41472,
+      "validation_decisions": 0,
+      "wall_s": 48.13124169036746,
+      "cpu_s": 57.106654,
+      "max_rss_gib": 0.743560791015625,
+      "gradient_updates": 810
+    }
+  ],
+  "config_sha256": "3e32379ebd2e8770e025ff9cce11be28cbffe7e535b269a070030ce6d9dae025",
+  "fixture_mapping": {
+    "nsga2": [
+      "r{o:02d}_mini_final",
+      "validation_F"
+    ],
+    "random": [
+      "r{o:02d}_manual",
+      "validation_F"
+    ],
+    "equal_F": [
+      "r{o:02d}_equal",
+      "validation_F"
+    ],
+    "equal_B": [
+      "r{o:02d}_equal",
+      "validation_B"
+    ],
+    "manual_F": [
+      "r{o:02d}_manual",
+      "validation_F"
+    ],
+    "manual_B": [
+      "r{o:02d}_manual",
+      "validation_B"
+    ]
+  },
+  "namespace": "validation",
+  "test_accessed": false
+}

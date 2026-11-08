@@ -1,0 +1,20 @@
+[
+  "K (candidate decisions): spec 5,120; the original pilot gate failed at 5,120/10,240/20,480. K=30,720 comes from a separately registered exploratory extension with an independent audit (P08_learning_diagnosis). config.search.candidate_decisions was NOT edited (keeps the config hash stable); the operative K is read from the audited evidence and frozen in this lock.",
+  "Budget B: the spec expected about 4.04 M decisions per total-budget baseline (K=5,120). With K=30,720 and the actual 19,690 validation decisions, S=4,915,200, V=3,150,400, C=8,168,000 and B=8,168,448 (rounding overhead 448).",
+  "Workers/ports: the spec names ports 5555-5558 for four workers. The implementation uses ephemeral loopback ports with one JVM per worker, verified distinct, and parallelises by sharded studies (one runner per shard) rather than in-process workers.",
+  "Storage: per-decision audit logs are stored as deterministic gzip after each job (raw logs would need about 2.5 TiB). No effect on training. model.zip byte hashes are not reproducible across runs (zip timestamps); equality is judged on policy tensors, optimizer state, counters and RNG.",
+  "Learning evidence: the P07 pilots did not demonstrate effective PPO learning and the full 80-slot NSGA-II/random search has not been run on the simulator. P09 validated orchestration with one-slot fixtures only. P11 must report every outcome, including negative ones.",
+  "Definition of PPO-Equal at equal final budget: the checkpoint at F decisions of the equal-weight B run. Prefix equivalence (policy, optimizer, counters, RNG identical to a separate F-only run) was verified in P08 (candidate trainer) and P09 (final trainer).",
+  "Test traces: only input payload hashes of the 400 test traces are prepared and recorded (preparation is allowed by P01); no test outcome has been observed.",
+  "Test access: new trace role test_evaluator, usable only after trace_access.unseal_test() verifies this lock against disk. Files added after the lock (e.g. the P11 test evaluator) are warned about and must be audited in P12.",
+  "Statistics implementation choices not fixed by the spec: one shared +/-1 matrix of 100,000 draws for all 60 secondary tests; percentile bootstrap intervals; paired dz = mean/SD (ddof 1), undefined when SD is zero within 1e-12 relative tolerance; exact-test ties use a 1e-12 relative tolerance.",
+  "Joules: dynamic energy is reported as zE x 50 J x N per trace; idle energy is identical for all methods on a trace, so paired total-Joule differences equal the dynamic differences.",
+  "P09 runner: interrupted attempts do not consume the two technical retries; a previous algorithmic failure blocks automatic resume; zombie owner processes count as dead; leftover worker-group processes (e.g. a JVM) are killed after each attempt.",
+  "v0.3: learner gamma 1.0 -> 0.97 via configs/research_v2/learner_v0.3.json (simulation config, traces and JAR unchanged); chosen by a pilot-namespace diagnosis (results/research_v2/P10_learning_diagnosis/report.md).",
+  "v0.3: the registered fidelity gate (same thresholds as v0.2, reference = F) failed at every K; v0.3 stopped without a lock.",
+  "v0.4: K = F = 102,400 (configs/research_v2/design_v0.4.json); no short-budget proxy and therefore no proxy-fidelity gate.",
+  "v0.4: per-decision audit logs are streamed into gzip during training; P11 runs 10 sharded studies in parallel (container quota 16 CPU / 64 GiB).",
+  "Seeds: confirmatory outer runs 0-19 were used for validation-only exploratory checks in P10 (v0.2 learner); no test trace was touched.",
+  "Known limitation: in the pilot, independent seeds ranked the 8 pilot weights with median Spearman 0.095 at F; power may be limited.",
+  "Archives: v0.2 at tag protocol-v0.2 (its lock verifies there), v0.3 at tag protocol-v0.3."
+]

@@ -1,0 +1,1 @@
+{"superseded_lock_sha256_prefix": "6ca659d323a1da66", "reason": "resource estimate assumed raw decision logs until job end (recommended 2 workers); v0.4 streams gzip logs. Fixed in analysis/verify.py and the lock rebuilt before any P11 training or test access.", "utc": "2026-11-08T02:39:23Z"}

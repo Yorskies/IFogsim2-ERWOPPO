@@ -1,0 +1,63 @@
+{
+  "status": "complete",
+  "episodes": 20,
+  "split": "validation",
+  "cost_order": [
+    "zL",
+    "zE",
+    "zD",
+    "zB",
+    "zQ"
+  ],
+  "costs_by_workload": {
+    "light": [
+      0.16687648894360127,
+      0.051239051996070026,
+      0.5250057969941466,
+      0.0,
+      0.0438139113261775
+    ],
+    "moderate": [
+      0.21355242912184497,
+      0.05082066997900059,
+      0.5706400932354979,
+      0.0,
+      0.09230856130663352
+    ],
+    "heavy": [
+      0.4239342930898988,
+      0.04566035276640198,
+      0.789975642524296,
+      0.0,
+      0.3075699057525755
+    ],
+    "dynamic": [
+      0.358751060744792,
+      0.047646224887987185,
+      0.7125399818076531,
+      0.0,
+      0.23822490796148008
+    ]
+  },
+  "macro_costs": [
+    0.2907785679750342,
+    0.048841574907364946,
+    0.6495403786403984,
+    0.0,
+    0.17047932158671664
+  ],
+  "D_by_workload": {
+    "light": 0.2482031219444095,
+    "moderate": 0.27652788900191366,
+    "heavy": 0.42437387181086134,
+    "dynamic": 0.37294418316399475
+  },
+  "D_macro": 0.3279949931343534,
+  "evaluation_mode": "deterministic",
+  "checkpoint": "/workspace/RISET S3 Rozi/IFogsim2-ERWOPPO/results/research_v2/v0.4/p09_runner_evidence/parallel_outer6/jobs/r06_manual/attempt_000/data/training/checkpoint_00001024",
+  "model_sha256": "5d4af6d2340cd06fe86b3e6f2faa98ed5d853fa5f4df323b063b1a6585e906f7",
+  "evaluation_decisions": 19690,
+  "startup_wall_s": 0.07485828828066587,
+  "rpc_wall_s": 4.54424053709954,
+  "inference_wall_s": 2.1017665853723884
+}

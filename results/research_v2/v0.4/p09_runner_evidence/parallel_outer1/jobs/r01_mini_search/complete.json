@@ -1,0 +1,28 @@
+{
+  "status": "complete",
+  "job_id": "r01_mini_search",
+  "attempt": "jobs/r01_mini_search/attempt_000",
+  "result_sha256": "28d1abbc147eb81f2804cbbc989947bbe9dd12d654ffdd04c8c149781e2a2e85",
+  "artifact_sha256": {
+    "profile.json": "182d00f46ba497dcaadd3e2da90a3c3902bd9aede4754c763ef986eaf9663ff6",
+    "data/result.json": "28d1abbc147eb81f2804cbbc989947bbe9dd12d654ffdd04c8c149781e2a2e85",
+    "data/candidates/slot_000/candidate.json": "a911060b6957cbe5edfa7704b211f4b58c673c58730c0180d21df13773d66c2d",
+    "data/candidates/slot_000/model_0/manifest.json": "faa07cc8a09c5d14553d5cf30b6f01bf726759bff6a555f24bba8f20c08adf96",
+    "data/candidates/slot_000/model_0/outcome.json": "32f5e1c2267ae9c6a3e44de2db2a8cef05549b04f2fd811cd24b734fac5879e0",
+    "data/candidates/slot_000/model_0/decisions.jsonl.gz": "0250c177c20d80ba06d17c02f5fdf18b3aa2f701e59f8c7463f9bcf7ae8f2acf",
+    "data/candidates/slot_000/model_0/checkpoint_00000512/state.json": "e65bed839d548cf79e685cee6bb2a6d3c66994eb8a07a6ddd06b5140f2e4f8e9",
+    "data/candidates/slot_000/model_0/checkpoint_00000512/model.zip": "52a5fc89d09b8ddbed2e8ce0c32cab64d241ed67b6d3516e71b9e855a01fb409",
+    "data/candidates/slot_000/model_0/checkpoint_00000512/rng.pt": "c0ef669e1314b50b17eaa43254afb4182d84881dabe711b31e5b0b3d2b272d6a",
+    "data/candidates/slot_000/validation_0/summary.json": "b2204c665257eafb2848cb88a2707aab9fc4e41bf578c0f843573b888e1405c0",
+    "data/candidates/slot_000/validation_0/episodes.jsonl": "bcfded52d321bfea7362d7592efc36ead5834f44560749775b2aa8c17d10473c",
+    "data/candidates/slot_000/model_1/manifest.json": "54dbf30d96c098be6e1f5d7744b9db3d4ec414f72f09bbabf71f481f3d29a8fd",
+    "data/candidates/slot_000/model_1/outcome.json": "50ff8eafd5c8403c782de13fd6559b0680ec3f0ba760747dd0f11e33ad5eeaa8",
+    "data/candidates/slot_000/model_1/decisions.jsonl.gz": "1fbe32e588797b85a9856af242a96f39cbbbd82d64ba0cf414322fe04e838cf5",
+    "data/candidates/slot_000/model_1/checkpoint_00000512/state.json": "dd174c84c5f3bce0bf30ceb3454f58f4ad0694662230e25ef6cbb54acdeb04f0",
+    "data/candidates/slot_000/model_1/checkpoint_00000512/model.zip": "cca6cdf0d3308f171a5dfbed62ce1dd90cbb26b3a6ee71d9c73eef756d284092",
+    "data/candidates/slot_000/model_1/checkpoint_00000512/rng.pt": "f0179e27e3f5677e26d4ec9a6f3113f865b92f2f70151233ec645cc06bcb222c",
+    "data/candidates/slot_000/validation_1/summary.json": "7a97e0a78be75aff2b3418e403edfe7af7feaa0115e8597c46505b22ba8ebbda",
+    "data/candidates/slot_000/validation_1/episodes.jsonl": "297cd875e94e78c48501872b49af1ac10fc4fdde5f010db15b896d8369c914b4"
+  },
+  "completed_utc": "2026-11-08T02:31:44.031763+00:00"
+}

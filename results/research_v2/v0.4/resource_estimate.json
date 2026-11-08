@@ -1,0 +1,160 @@
+{
+  "basis": "Measured on fixture jobs (P09 reference/parallel/capacity), extrapolated to the frozen K=102,400 budget. Efficiency is measured only at 4 workers; larger counts assume the same efficiency and must be re-measured.",
+  "machine": {
+    "cores_cgroup_quota": 16.0,
+    "memory_gib_cgroup_limit": 64.0,
+    "free_disk_gib": 990.8692817687988,
+    "host_cores_seen_by_nproc": 64,
+    "learner_version": "0.3"
+  },
+  "measured": {
+    "training_decisions_per_s_incl_ppo_updates": 859.6842609678271,
+    "candidate_validation_decisions_per_s": 2177.005875421076,
+    "decision_log_bytes_per_decision_raw": 5199.718936873071,
+    "decision_log_bytes_per_decision_gzip": 429.05493766878857,
+    "search_log_bytes_per_decision_raw": 5161.343505859375,
+    "baseline_peak_rss_gib": 0.7665252685546875,
+    "cores_per_worker_incl_jvm": 1.1966680507212744,
+    "parallel_runners_measured": 10,
+    "parallel_efficiency_measured": 0.788067738933795
+  },
+  "budget_per_outer": {
+    "S": 16384000,
+    "V": 3150400,
+    "F": 102400,
+    "C": 19636800,
+    "B": 19637248
+  },
+  "per_outer_hours": {
+    "search_hours_each_method": 5.69591248452383,
+    "final_hours_each": 0.03308708293952232,
+    "baseline_hours_each": 6.345109895312195,
+    "sequential_hours": 24.148218925551095,
+    "disk_gib_with_gzip_logs": 29.23883198992131,
+    "disk_gib_if_logs_stayed_raw": 348.6947594449085
+  },
+  "all_outers": {
+    "sequential_hours_one_worker": 482.9643785110219,
+    "sequential_days_one_worker": 20.123515771292578,
+    "wall_days_if_4_independent_shards": 5.030878942823144,
+    "disk_gib_with_gzip_logs": 584.7766397984262,
+    "disk_gib_if_logs_stayed_raw": 6973.89518889817,
+    "free_disk_gib_now": 990.8706550598145
+  },
+  "worker_limits": {
+    "by_design_sharding_per_outer_run": 20,
+    "by_cpu_quota_leaving_two_cores": 11,
+    "by_disk_with_raw_logs_until_job_end": 20,
+    "peak_transient_log_gib_per_baseline_job": 0.0,
+    "decision_logs_streamed_gzip": true,
+    "recommended": 10,
+    "note": "Limits: CPU quota of the container (not nproc), disk for raw logs until job end, one shard per outer run."
+  },
+  "p11_training_time": [
+    {
+      "workers": 1,
+      "max_outers_per_worker": 20,
+      "hours": 482.9643785110219,
+      "days": 20.123515771292578,
+      "efficiency_assumed": 1.0,
+      "efficiency_measured": true,
+      "peak_transient_log_gib": 0.0,
+      "fits_disk_budget": true,
+      "fits_cpu_quota": true
+    },
+    {
+      "workers": 2,
+      "max_outers_per_worker": 10,
+      "hours": 306.4231376635476,
+      "days": 12.76763073598115,
+      "efficiency_assumed": 0.788067738933795,
+      "efficiency_measured": false,
+      "peak_transient_log_gib": 0.0,
+      "fits_disk_budget": true,
+      "fits_cpu_quota": true
+    },
+    {
+      "workers": 4,
+      "max_outers_per_worker": 5,
+      "hours": 153.2115688317738,
+      "days": 6.383815367990575,
+      "efficiency_assumed": 0.788067738933795,
+      "efficiency_measured": false,
+      "peak_transient_log_gib": 0.0,
+      "fits_disk_budget": true,
+      "fits_cpu_quota": true
+    },
+    {
+      "workers": 5,
+      "max_outers_per_worker": 4,
+      "hours": 122.56925506541904,
+      "days": 5.10705229439246,
+      "efficiency_assumed": 0.788067738933795,
+      "efficiency_measured": false,
+      "peak_transient_log_gib": 0.0,
+      "fits_disk_budget": true,
+      "fits_cpu_quota": true
+    },
+    {
+      "workers": 7,
+      "max_outers_per_worker": 3,
+      "hours": 91.92694129906428,
+      "days": 3.830289220794345,
+      "efficiency_assumed": 0.788067738933795,
+      "efficiency_measured": false,
+      "peak_transient_log_gib": 0.0,
+      "fits_disk_budget": true,
+      "fits_cpu_quota": true
+    },
+    {
+      "workers": 10,
+      "max_outers_per_worker": 2,
+      "hours": 61.28462753270952,
+      "days": 2.55352614719623,
+      "efficiency_assumed": 0.788067738933795,
+      "efficiency_measured": true,
+      "peak_transient_log_gib": 0.0,
+      "fits_disk_budget": true,
+      "fits_cpu_quota": true
+    },
+    {
+      "workers": 12,
+      "max_outers_per_worker": 2,
+      "hours": 61.28462753270952,
+      "days": 2.55352614719623,
+      "efficiency_assumed": 0.788067738933795,
+      "efficiency_measured": false,
+      "peak_transient_log_gib": 0.0,
+      "fits_disk_budget": true,
+      "fits_cpu_quota": false
+    },
+    {
+      "workers": 20,
+      "max_outers_per_worker": 1,
+      "hours": 30.64231376635476,
+      "days": 1.276763073598115,
+      "efficiency_assumed": 0.788067738933795,
+      "efficiency_measured": false,
+      "peak_transient_log_gib": 0.0,
+      "fits_disk_budget": true,
+      "fits_cpu_quota": false
+    }
+  ],
+  "test_evaluation": {
+    "test_traces": 400,
+    "test_tasks": 390154,
+    "models_evaluated": 124,
+    "decisions": 48379096,
+    "single_worker_hours": 6.172991046787359,
+    "hours_at_measured_workers": 0.7833071628003729
+  },
+  "analysis": {
+    "seconds_full_scale_primary_secondary_bootstrap": 5,
+    "peak_rss_mib": 125
+  },
+  "storage": {
+    "training_outputs_gib_with_gzip": 584.7766397984262,
+    "would_be_gib_if_raw": 6973.89518889817
+  },
+  "test_accessed": false
+}

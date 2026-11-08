@@ -1,0 +1,104 @@
+{
+  "status": "complete",
+  "method": "fixture",
+  "outer": 2,
+  "candidate_slots": 1,
+  "selected": {
+    "status": "complete",
+    "slot": 0,
+    "weights": [
+      0.2,
+      0.2,
+      0.2,
+      0.2,
+      0.2
+    ],
+    "costs": [
+      0.8384549671441021,
+      0.057234717734570006,
+      0.9466764242777576,
+      0.7350286522644789,
+      0.7894699634462836
+    ],
+    "D": 0.7437753343530163,
+    "models": [
+      {
+        "repeat": 0,
+        "model_seed": 200004,
+        "checkpoint_sha256": "9bf91f6b7f56649a135f8209cf27619deff196abc5b7545062fcd6abc2f10e20",
+        "validation_decisions": 19690,
+        "macro_costs": [
+          0.8529477536452873,
+          0.05580631943962121,
+          0.9609233035055373,
+          0.738373416407007,
+          0.8040316400233856
+        ],
+        "validation_payloads": [
+          "1c447c8e49bead4d424bd3eb85a3404d6b23b93e4f7deb80b96124dd2d1da41c",
+          "c214e33318fcf23d9d316ece0525e5720f28ef0921e1cfc443e739fa109fbc53",
+          "3bf6a31da25509555d2c9398da5c0365a8fa1a27a6f66068d7333315baa2651b",
+          "456c3ea4f41334a94cc3734d53d4d553e8da4bd59fff0122039e306c42a66407",
+          "db13f2cd1702694fc33c0352dc59ead85a537e8778baa26987af6e4eba25976d",
+          "50dc99c8ac19013be819ac6dac0cab92d5e695d874ae473c850f7b3b8c112079",
+          "104ac1912ca24fc967ea577c83c124945393cbde4ae114805eb40f67d1a9210f",
+          "6ecc5a74dae86dfd8806066112f57205518f4663f7b867356c4e42a787b65202",
+          "b9fdd69cf9c18844befe0563b84e2052cce2eff3c34e90e9077f5c78732b687f",
+          "5c06037bf8269f67337b19905fc83b3858affbd279b4c4693f0499610963c7f4",
+          "3d8ad09842510cfc44933e45a07a302a4530edc0ea0840649fea251680e2e065",
+          "92cf585178f6d7e4d46725d4e0453877e310180c6a7d7fef98e7b16b6bada592",
+          "25ab5b45fd3427c0aa1fc1dde0cdc461ee26d211f7e69e63c9c647bc22bff827",
+          "f0554f7364cdd1c2964226de904f82c14af823b00e172fac18bd92e884bb82e2",
+          "2b6428175ae35e8997dc3c69670ead6dfa2cede6210f850efd7f8367e3e69e59",
+          "b0a3d3f64e77a8905a62a37a5c6e04734ae4b7eef5fab54519b80bb7a866ca75",
+          "aa762c1365bd092c2a051a4e88376266d88ca598611713b5c717a539e5cca633",
+          "dbf2e37b83a513623543c139d2687642ce2f2c68a9c03fbe5642998879008f74",
+          "88af429df7144f0528dfd21c940d03097e1fbdf6707d0ba21d7ba1ca8a4978c2",
+          "bb9c1f4eaa0a6ddc162699920385541cb23ecd4de2a81e45707711a6134d9981"
+        ]
+      },
+      {
+        "repeat": 1,
+        "model_seed": 200005,
+        "checkpoint_sha256": "12b98fcaad9e0feee211a2427180297dcebd0eb59d14c2f2aed277106cf5f9e2",
+        "validation_decisions": 19690,
+        "macro_costs": [
+          0.8239621806429168,
+          0.058663116029518805,
+          0.9324295450499778,
+          0.7316838881219507,
+          0.7749082868691818
+        ],
+        "validation_payloads": [
+          "1c447c8e49bead4d424bd3eb85a3404d6b23b93e4f7deb80b96124dd2d1da41c",
+          "c214e33318fcf23d9d316ece0525e5720f28ef0921e1cfc443e739fa109fbc53",
+          "3bf6a31da25509555d2c9398da5c0365a8fa1a27a6f66068d7333315baa2651b",
+          "456c3ea4f41334a94cc3734d53d4d553e8da4bd59fff0122039e306c42a66407",
+          "db13f2cd1702694fc33c0352dc59ead85a537e8778baa26987af6e4eba25976d",
+          "50dc99c8ac19013be819ac6dac0cab92d5e695d874ae473c850f7b3b8c112079",
+          "104ac1912ca24fc967ea577c83c124945393cbde4ae114805eb40f67d1a9210f",
+          "6ecc5a74dae86dfd8806066112f57205518f4663f7b867356c4e42a787b65202",
+          "b9fdd69cf9c18844befe0563b84e2052cce2eff3c34e90e9077f5c78732b687f",
+          "5c06037bf8269f67337b19905fc83b3858affbd279b4c4693f0499610963c7f4",
+          "3d8ad09842510cfc44933e45a07a302a4530edc0ea0840649fea251680e2e065",
+          "92cf585178f6d7e4d46725d4e0453877e310180c6a7d7fef98e7b16b6bada592",
+          "25ab5b45fd3427c0aa1fc1dde0cdc461ee26d211f7e69e63c9c647bc22bff827",
+          "f0554f7364cdd1c2964226de904f82c14af823b00e172fac18bd92e884bb82e2",
+          "2b6428175ae35e8997dc3c69670ead6dfa2cede6210f850efd7f8367e3e69e59",
+          "b0a3d3f64e77a8905a62a37a5c6e04734ae4b7eef5fab54519b80bb7a866ca75",
+          "aa762c1365bd092c2a051a4e88376266d88ca598611713b5c717a539e5cca633",
+          "dbf2e37b83a513623543c139d2687642ce2f2c68a9c03fbe5642998879008f74",
+          "88af429df7144f0528dfd21c940d03097e1fbdf6707d0ba21d7ba1ca8a4978c2",
+          "bb9c1f4eaa0a6ddc162699920385541cb23ecd4de2a81e45707711a6134d9981"
+        ]
+      }
+    ],
+    "learner_version": "0.3",
+    "training_decisions": 1024,
+    "validation_decisions": 39380,
+    "wall_s": 24.721331489272416
+  },
+  "training_decisions": 1024,
+  "validation_decisions": 39380,
+  "test_accessed": false
+}

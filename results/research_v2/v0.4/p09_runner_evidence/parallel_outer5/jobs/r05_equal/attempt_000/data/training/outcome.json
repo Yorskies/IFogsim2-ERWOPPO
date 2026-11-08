@@ -1,0 +1,118 @@
+{
+  "status": "complete",
+  "phase": "P09",
+  "outer": 5,
+  "repeat": 0,
+  "model_seed": 100005,
+  "offset": 1,
+  "decisions": 41472,
+  "rollouts": 81,
+  "weights": [
+    0.2,
+    0.2,
+    0.2,
+    0.2,
+    0.2
+  ],
+  "config_sha256": "3e32379ebd2e8770e025ff9cce11be28cbffe7e535b269a070030ce6d9dae025",
+  "split": "train_final",
+  "evaluation_split": "validation",
+  "checkpoint_at": [
+    1024,
+    41472
+  ],
+  "effective_ppo": {
+    "device": "cpu",
+    "environments": 1,
+    "torch_threads": 1,
+    "torch_interop_threads": 1,
+    "actor_layers": [
+      128,
+      128
+    ],
+    "critic_layers": [
+      128,
+      128
+    ],
+    "activation": "Tanh",
+    "learning_rate": 0.0003,
+    "n_steps": 512,
+    "batch_size": 128,
+    "n_epochs": 10,
+    "gamma": 0.97,
+    "gae_lambda": 0.95,
+    "clip_range": 0.2,
+    "ent_coef": 0.01,
+    "vf_coef": 0.5,
+    "max_grad_norm": 0.5,
+    "target_kl": 0.03,
+    "normalize_advantage": true,
+    "deterministic_evaluation": true
+  },
+  "learner_config_sha256": "9e1ea5b0861974e676375d3efaa6c2eeb50eda484a57b0e7cc074d12b6f41c39",
+  "learner_version": "0.3",
+  "learner_protocol": "research-v2-learner-0.3",
+  "partial_episode_resume": false,
+  "rpc_schema_validation": false,
+  "worker_port": null,
+  "policy_changed": true,
+  "wall_s": 34.78931049071252,
+  "audit": {
+    "decisions": 41472,
+    "decisions_by_workload": {
+      "moderate": 9960,
+      "heavy": 19424,
+      "dynamic": 9162,
+      "light": 2926
+    },
+    "action_counts": [
+      7788,
+      3063,
+      1934,
+      5098,
+      4137,
+      2980,
+      16472
+    ],
+    "stream": {
+      "next_episode": 43,
+      "counts": {
+        "moderate": 11,
+        "heavy": 11,
+        "dynamic": 11,
+        "light": 10
+      },
+      "current": {
+        "namespace": {
+          "master": 20261103,
+          "split": "train_final",
+          "outer_run": 5,
+          "model_repeat": 0,
+          "trace_id": 10,
+          "workload": "dynamic"
+        },
+        "payload_sha256": "00513ca0b682b9adbffde261a0703dfb76f0a387eb87edd8374e4308dab26f12",
+        "tasks": 902
+      }
+    },
+    "active_episode": {
+      "decisions": 119,
+      "reward_so_far": -1.7228685196720839,
+      "unarrived_tasks": 783,
+      "pending_decided_outcomes": "unknown; not inferred from arrivals",
+      "pending_outcomes_not_evaluated": true,
+      "cost_cumulative": [
+        0.011421653213574095,
+        0.0069240843428400355,
+        0.03547671840354768,
+        0.03121232257353155,
+        0.0011086474501108647
+      ],
+      "note": "Unresolved includes future arrivals; decided tasks can also await outcomes. No success inferred."
+    }
+  },
+  "startup_wall_s": 0.08011992275714874,
+  "rpc_wall_s": 10.436020228080451,
+  "gradient_updates": 810,
+  "evaluation_complete": false
+}

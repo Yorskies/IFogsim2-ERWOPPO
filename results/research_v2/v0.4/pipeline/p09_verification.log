@@ -1,0 +1,25 @@
+usage: verify.py [-h] [--protocol-version {0.2,0.3,0.4}] {p09,resources,p10} ...
+verify.py: error: unrecognized arguments: --protocol-version 0.4
+{
+ "status": "pass",
+ "criteria": {
+  "mini_multi_seed_study_completes_without_overwrite": true,
+  "complete_results_not_repeated": true,
+  "partial_run_not_complete": true,
+  "crash_resumable_per_contract": true,
+  "interaction_counts_equal_ledger": true,
+  "workers_do_not_share_cloudsim_singleton": true,
+  "parallel_results_identical_to_sequential": true,
+  "no_leftover_servers": true,
+  "drift_refused": true,
+  "prefix_equivalence_F_vs_B_run": true
+ },
+ "parallel": {
+  "runners": 10,
+  "wall_s": 190.9510822640732,
+  "peak_concurrent_jvms": 10,
+  "speedup": 7.88067738933795,
+  "efficiency": 0.788067738933795
+ },
+ "source_files_changed_since_evidence": []
+}

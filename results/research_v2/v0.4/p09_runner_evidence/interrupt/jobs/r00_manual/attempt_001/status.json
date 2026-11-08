@@ -1,0 +1,9 @@
+{
+  "status": "failed",
+  "job_id": "r00_manual",
+  "attempt": 1,
+  "kind": "technical",
+  "error": "Worker exited -9 without a failure record",
+  "wall_s": 6.111062729731202,
+  "ended_utc": "2026-11-08T02:29:38.046370+00:00"
+}

@@ -1,0 +1,107 @@
+{
+ "worker_limits": {
+  "by_design_sharding_per_outer_run": 20,
+  "by_cpu_quota_leaving_two_cores": 11,
+  "by_disk_with_raw_logs_until_job_end": 2,
+  "peak_transient_log_gib_per_baseline_job": 95.0956440471791,
+  "recommended": 2,
+  "note": "Limits: CPU quota of the container (not nproc), disk for raw logs until job end, one shard per outer run."
+ },
+ "table": [
+  [
+   1,
+   483.0,
+   true
+  ],
+  [
+   2,
+   306.4,
+   true
+  ],
+  [
+   4,
+   153.2,
+   false
+  ],
+  [
+   5,
+   122.6,
+   false
+  ],
+  [
+   7,
+   91.9,
+   false
+  ],
+  [
+   10,
+   61.3,
+   false
+  ],
+  [
+   12,
+   61.3,
+   false
+  ],
+  [
+   20,
+   30.6,
+   false
+  ]
+ ],
+ "test_eval_hours": 6.172991046787359
+}
+{
+ "worker_limits": {
+  "by_design_sharding_per_outer_run": 20,
+  "by_cpu_quota_leaving_two_cores": 11,
+  "by_disk_with_raw_logs_until_job_end": 20,
+  "peak_transient_log_gib_per_baseline_job": 0.0,
+  "decision_logs_streamed_gzip": true,
+  "recommended": 10,
+  "note": "Limits: CPU quota of the container (not nproc), disk for raw logs until job end, one shard per outer run."
+ },
+ "table": [
+  [
+   1,
+   483.0,
+   true
+  ],
+  [
+   2,
+   306.4,
+   true
+  ],
+  [
+   4,
+   153.2,
+   true
+  ],
+  [
+   5,
+   122.6,
+   true
+  ],
+  [
+   7,
+   91.9,
+   true
+  ],
+  [
+   10,
+   61.3,
+   true
+  ],
+  [
+   12,
+   61.3,
+   true
+  ],
+  [
+   20,
+   30.6,
+   true
+  ]
+ ],
+ "test_eval_hours": 6.172991046787359
+}

@@ -1,0 +1,62 @@
+{
+ "status": "pass",
+ "tests": [
+  [
+   "test_analysis.py",
+   28,
+   true
+  ],
+  [
+   "test_protocol_lock.py",
+   10,
+   true
+  ],
+  [
+   "test_traces.py",
+   26,
+   true
+  ],
+  [
+   "test_v03_protocol.py",
+   10,
+   true
+  ]
+ ],
+ "lock": {
+  "path": "/workspace/RISET S3 Rozi/IFogsim2-ERWOPPO/results/research_v2/v0.4/protocol_lock/protocol_lock.json",
+  "problems": [],
+  "warnings": [],
+  "lock_file_sha256": "0e3356a927ec7d1958a5cf5c2773fc8db220b9d046ac57611c20b4070cc981bf"
+ }
+}
+{
+ "status": "pass",
+ "tests": [
+  [
+   "test_analysis.py",
+   28,
+   true
+  ],
+  [
+   "test_protocol_lock.py",
+   10,
+   true
+  ],
+  [
+   "test_traces.py",
+   26,
+   true
+  ],
+  [
+   "test_v03_protocol.py",
+   10,
+   true
+  ]
+ ],
+ "lock": {
+  "path": "/workspace/RISET S3 Rozi/IFogsim2-ERWOPPO/results/research_v2/v0.4/protocol_lock/protocol_lock.json",
+  "problems": [],
+  "warnings": [],
+  "lock_file_sha256": "8bc58a31fdf92d788207ae14bf286f34bcd1e3d29ff621529c6e90a80c51ee34"
+ }
+}

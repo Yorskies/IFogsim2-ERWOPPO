@@ -116,10 +116,16 @@ def resources(args):
     per_outer_h = cap['per_outer']['sequential_hours']
     free_gib = shutil.disk_usage(ROOT).free / 2 ** 30
     raw_per_decision = cap['measured']['decision_log_bytes_per_decision_raw']
-    peak_transient_gib = full['B'] * raw_per_decision / 2 ** 30                 # one baseline job, logs still raw
+    # Streamed gzip logs (EpisodeAudit writes decisions.jsonl.gz.meta.json) never exist raw on disk; older code kept raw logs
+    # until the end of each job. Detect which one the measured reference jobs used.
+    streamed = any((EVIDENCE.parent / 'reference').glob('jobs/*/attempt_*/data/**/decisions.jsonl.gz.meta.json'))
+    peak_transient_gib = 0.0 if streamed else full['B'] * raw_per_decision / 2 ** 30   # one baseline job, logs still raw
     outputs_gib = cap['all_20_outers']['disk_gib_with_gzip_logs']
     budget_gib = 0.8 * free_gib
-    by_disk = int((budget_gib - outputs_gib) // peak_transient_gib)
+    if streamed:
+        by_disk = outers if outputs_gib <= budget_gib else 0
+    else:
+        by_disk = int((budget_gib - outputs_gib) // peak_transient_gib)
     cores_total, memory_gib = cgroup_limits()
     manifest = test_trace_manifest(config)
     tasks_test = sum(r['tasks'] for r in manifest)
@@ -152,7 +158,7 @@ def resources(args):
         'worker_limits': {'by_design_sharding_per_outer_run': outers,
                           'by_cpu_quota_leaving_two_cores': by_cores,
                           'by_disk_with_raw_logs_until_job_end': by_disk,
-                          'peak_transient_log_gib_per_baseline_job': peak_transient_gib,
+                          'peak_transient_log_gib_per_baseline_job': peak_transient_gib, 'decision_logs_streamed_gzip': streamed,
                           'recommended': recommended,
                           'note': 'Limits: CPU quota of the container (not nproc), disk for raw logs until job end, one shard per outer run.'},
         'p11_training_time': table,
@@ -199,8 +205,8 @@ def main():
         p.add_argument('--output', type=Path, required=True)
         if name == 'p10':
             p.add_argument('--lock', type=Path)
+        p.add_argument('--protocol-version', choices=('0.2', '0.3', '0.4'), default='0.4')
         p.set_defaults(fn=fn)
-    parser.add_argument('--protocol-version', choices=('0.2', '0.3', '0.4'), default='0.4')
     args = parser.parse_args()
     global EVIDENCE, VERSION
     VERSION = args.protocol_version

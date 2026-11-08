@@ -1,0 +1,2 @@
+{"namespace": {"master": 20261103, "split": "train_candidate", "outer_run": 3, "model_repeat": 1, "trace_id": 0, "workload": "light"}, "payload_sha256": "dbd695352aa1efe80e19ee13410127d6813b0d95994c96a8da83b705023c9980", "tasks": 334}
+{"namespace": {"master": 20261103, "split": "train_candidate", "outer_run": 3, "model_repeat": 1, "trace_id": 0, "workload": "moderate"}, "payload_sha256": "401616c9d73b27edeabdd8063fcf6c4431866fa22d61891ad13459c048771680", "tasks": 842}

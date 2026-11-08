@@ -1,0 +1,33 @@
+{
+  "phase": "P09",
+  "fixture_only": true,
+  "outers": [
+    1
+  ],
+  "learner_version": "0.3",
+  "K": 512,
+  "Ntrace": 19690,
+  "S": 1024,
+  "V": 39380,
+  "F": 1024,
+  "C": 41428,
+  "B": 41472,
+  "rounding_overhead": 44,
+  "physical_total_per_outer": 124372,
+  "physical_total_all_outers": 124372,
+  "jobs_per_outer": 4,
+  "artifacts": [
+    "per-job attempts and logs",
+    "candidate search archive",
+    "final checkpoints",
+    "baseline checkpoints F/B",
+    "validation trace manifest",
+    "checksums and profiles"
+  ],
+  "test_accessed": false,
+  "warning": "Fixture budgets verify orchestration only; they are not study cost."
+}
+COMPLETE r01_mini_search attempt=0
+COMPLETE r01_mini_final attempt=0
+COMPLETE r01_equal attempt=0
+COMPLETE r01_manual attempt=0

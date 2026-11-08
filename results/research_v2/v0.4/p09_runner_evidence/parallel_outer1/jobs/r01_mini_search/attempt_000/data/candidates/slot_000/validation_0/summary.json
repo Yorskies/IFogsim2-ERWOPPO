@@ -1,0 +1,60 @@
+{
+  "status": "complete",
+  "episodes": 20,
+  "split": "validation",
+  "cost_order": [
+    "zL",
+    "zE",
+    "zD",
+    "zB",
+    "zQ"
+  ],
+  "costs_by_workload": {
+    "light": [
+      0.1012113908957345,
+      0.10880334215326108,
+      0.24161866694644668,
+      0.4424230142186758,
+      0.025643937445431985
+    ],
+    "moderate": [
+      0.31787005636200916,
+      0.07255476495834587,
+      0.6778412831192381,
+      0.6297242577832121,
+      0.2108240127913993
+    ],
+    "heavy": [
+      0.9095689813132074,
+      0.041660566905985186,
+      0.9861197957316346,
+      0.5675670351896176,
+      0.8471268953616209
+    ],
+    "dynamic": [
+      0.6432598441600572,
+      0.05812077160779424,
+      0.8008038610553065,
+      0.5103493666380025,
+      0.569215230531992
+    ]
+  },
+  "macro_costs": [
+    0.49297756818275207,
+    0.07028486140634659,
+    0.6765959017131564,
+    0.537515918457377,
+    0.413202519032611
+  ],
+  "D_by_workload": {
+    "light": 0.23531138016075234,
+    "moderate": 0.4487257017289222,
+    "heavy": 0.753822247272502,
+    "dynamic": 0.5732208177970497
+  },
+  "D_macro": 0.48278536494374,
+  "evaluation_mode": "deterministic",
+  "sampling_seed": null,
+  "checkpoint": "/workspace/RISET S3 Rozi/IFogsim2-ERWOPPO/results/research_v2/v0.4/p09_runner_evidence/parallel_outer1/jobs/r01_mini_search/attempt_000/data/candidates/slot_000/model_0/checkpoint_00000512",
+  "model_sha256": "52a5fc89d09b8ddbed2e8ce0c32cab64d241ed67b6d3516e71b9e855a01fb409"
+}
