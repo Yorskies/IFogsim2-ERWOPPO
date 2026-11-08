@@ -1,6 +1,6 @@
 # Implementation plan dan milestone penelitian ERWO-PPO v2
 
-Tanggal: 3 November 2026 (diperbarui 8 November 2026). Status: **P00–P06 selesai dan terverifikasi; P07 selesai secara teknis dengan hasil pilot negatif yang didiagnosis; P08 asli gagal tetapi revisi eksploratori memilih K=30.720 yang diaudit; P09 (runner) dan P10 (analisis + protocol lock) selesai dan terverifikasi pada fixture; keputusan go/no-go M3, pencarian penuh, P11 dan P12 belum dimulai**.
+Tanggal: 3 November 2026 (diperbarui 8 November 2026). Status: **P00–P06 selesai dan terverifikasi; P07 selesai secara teknis dengan hasil pilot negatif yang didiagnosis; P08 asli gagal tetapi revisi eksploratori memilih K=30.720 yang diaudit; P09 (runner) dan P10 (analisis + protocol lock) selesai dan terverifikasi pada fixture; M3 v0.2 no-go (learner gamma 1 tidak belajar konsisten); protokol v0.3 (gamma 0,97) gagal pada gerbang fidelity terdaftar → no-go; pencarian penuh, P11 dan P12 belum dimulai**. Lihat `docs/research_v2/PROTOCOL_v0.3.md`.
 
 Phase pertama yang telah dikerjakan adalah **P00 — Kontrak dan fondasi proyek**. Bukti: [catatan P00](docs/research_v2/milestones/P00_foundation.md) dan [laporan verifikasi](docs/research_v2/milestones/P00_verification.json): 23 tes lulus, tanpa failure/error/skip. Build menargetkan Java 21; lingkungan aktual Windows/Python 3.11/JDK 27. Pengujian langsung Ubuntu/Python 3.12/JDK 21 tetap menjadi preflight server sebelum penguncian protokol P10.
 
@@ -46,7 +46,7 @@ Dokumen ini mengatur urutan kerja, dependensi, deliverable, verifikasi, dan krit
 | P07 | PPO dan pilot learning | Training campuran, checkpoint, bukti belajar | P06 | Selesai teknis; tiga pilot memburuk pada D, diagnosis terdokumentasi |
 | P08 | Pencarian bobot dan fidelity | NSGA-II/random search serta pemilihan K | P07 | Pilot asli gagal; revisi eksploratori memilih K=30.720 dan lulus audit; pencarian penuh belum berjalan; M2 belum ditinjau ulang |
 | P09 | Orkestrasi dan budget | Runner studi v2, accounting biaya, resume | P08 | **Selesai — 12 tes + 6 skenario live lulus (fixture)** |
-| P10 | Analisis dan penguncian protokol | Statistik teruji, konfigurasi terkunci, readiness review | P06–P09 | **Selesai teknis — 35 tes, lock terverifikasi; M3 menunggu keputusan peneliti** |
+| P10 | Analisis dan penguncian protokol | Statistik teruji, konfigurasi terkunci, readiness review | P06–P09 | **Selesai teknis; M3 no-go untuk v0.2 dan v0.3 (lihat PROTOCOL_v0.3.md)** |
 | P11 | Eksperimen konfirmatori | Dua protokol, 20 outer run, hasil lengkap | P10 lulus | Belum dimulai |
 | P12 | Sensitivitas dan paket publikasi | Robustness, audit, reproduksibilitas, batas klaim | P11 | Belum dimulai |
 

@@ -41,17 +41,19 @@ def require_extension_gate(path):
 
 
 def run(method, outer, root, evidence, jdk_home=None):
-    budget = require_extension_gate(evidence)
+    from .fidelity_v03 import require_fidelity_gate
+    budget, learner_version = require_fidelity_gate(evidence)
     root = Path(root)
     root.mkdir(parents=True, exist_ok=False)
     config = load_config()
-    write_json(root / 'protocol.json', {'phase': 'P08', 'method': method, 'outer': outer, 'K': budget,
-        'candidate_slots': 80, 'model_repeats': 2, 'worker_count': 1,
-        'fidelity_evidence': str(Path(evidence).resolve()), 'fidelity_version': 'P08-fidelity-extension-1',
+    write_json(root / 'protocol.json', {'phase': 'P08' if learner_version == '0.2' else 'P11', 'method': method, 'outer': outer,
+        'K': budget, 'candidate_slots': 80, 'model_repeats': 2, 'worker_count': 1,
+        'fidelity_evidence': str(Path(evidence).resolve()),
+        'fidelity_version': read_json(Path(evidence) / 'protocol.json')['version'], 'learner_version': learner_version,
         'provenance': provenance(config), 'test_accessed': False})
-    evaluator = CandidateEvaluator(root / 'candidates', outer, budget, jdk_home)
+    evaluator = CandidateEvaluator(root / 'candidates', outer, budget, jdk_home, learner_version=learner_version)
     outcome = optimize(method, outer, evaluator, config)
-    outcome.update(status='complete', K=budget, training_decisions=evaluator.training_decisions,
+    outcome.update(status='complete', K=budget, learner_version=learner_version, training_decisions=evaluator.training_decisions,
                    validation_decisions=evaluator.validation_decisions, test_accessed=False,
                    final_policy_trained=False,
                    search_cost=evaluator.training_decisions + evaluator.validation_decisions)

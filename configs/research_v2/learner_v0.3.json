@@ -1,0 +1,24 @@
+{
+  "protocol": "research-v2-learner-0.3",
+  "supersedes": "research-v2-learner-0.2 (the ppo section of configs/research_v2/default.json, gamma 1.0)",
+  "simulation_config_sha256": "3e32379ebd2e8770e025ff9cce11be28cbffe7e535b269a070030ce6d9dae025",
+  "ppo_overrides": {
+    "gamma": 0.97
+  },
+  "applies_to": [
+    "candidate search training (train_candidate)",
+    "final training (train_final)",
+    "PPO-Equal/PPO-Manual baselines",
+    "v0.3 fidelity pilot (pilot_train)"
+  ],
+  "evaluation_unchanged": "Dglobal, the five costs and all physical metrics stay undiscounted; gamma only changes the PPO training objective.",
+  "rationale": "Under gamma 1.0 with ~1,000-decision episodes PPO did not learn consistently (pilot ablation: 0/6 seeds better than always-local, collapse to single actions). gamma 0.97 improved all 6 pilot seeds (mean D 0.443 -> 0.250) with no collapse; the bracket 1.0/0.99/0.98/0.97/0.95 gave 0.443/0.376/0.266/0.250/0.293. Entropy, rollout size and learning rate did not help.",
+  "selected_on": "pilot namespace only (pilot_train outer 100-102 x repeat 0/1, 20 pilot_validation traces); no confirmatory seed (outer 0-19), no search validation split, no test trace",
+  "selection_status": "exploratory diagnosis; chosen before any v0.3 gate or confirmatory run",
+  "evidence": {
+    "results/research_v2/P10_learning_diagnosis/report.md": "bfddd81ff51caa82dd74038b0017581cbdde15b36aaaf24f258cc23de7a38938",
+    "results/research_v2/P10_learning_diagnosis/ablation.json": "3b55daeea06c0afcbabee872b2e96e648eaaaa523b1655b83f420163e743a811",
+    "results/research_v2/P10_learning_diagnosis/followup.json": "28f1fba21a0f4d71007cbb4e438f78661859406b955892f7fe9e02bd179fede8"
+  },
+  "schema_note": "The v0.2 config schema fixes ppo.gamma = 1.0; v0.3 keeps the simulation config (and every trace hash) unchanged and applies the learner override only through this file."
+}

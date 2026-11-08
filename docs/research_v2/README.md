@@ -266,3 +266,5 @@ venv/bin/python -m research_v2.verify_study --root results/research_v2/P09_runne
 
 [ANALYSIS.md](ANALYSIS.md): unit inferensi, tiga uji primer (sign-flip exact + Holm), 60 uji sekunder, bootstrap crossed, laporan mini, protocol lock
 dan penyegelan test. Tinjauan kesiapan M3: [P10_readiness_review.md](milestones/P10_readiness_review.md). Test split belum dievaluasi.
+
+**Versi protokol:** v0.2 diarsipkan pada tag `protocol-v0.2`; [v0.3](PROTOCOL_v0.3.md) (learner gamma 0,97, simulasi tidak berubah) gagal pada gerbang fidelity terdaftar → no-go.

@@ -16,7 +16,8 @@ import time
 from .config import ROOT, load_config, read_json, require, sha256
 from .learning import file_hash
 from .search import feasible
-from .search_runner_extension import require_extension_gate
+from .fidelity_v03 import require_fidelity_gate
+from .learner import CURRENT as CURRENT_LEARNER, effective_learner
 from .study_budget import build_plan, validation_trace_manifest
 
 
@@ -93,16 +94,21 @@ class StudyLock:
                 self.path.unlink()
 
 
-def prepare(root, *, outers, mini=False, fidelity=None):
+def prepare(root, *, outers, mini=False, fidelity=None, learner_version=None):
     root = Path(root)
     config = load_config()
     if mini:
         K = 512
         require(fidelity is None, 'Fixture must not be mixed with full fidelity evidence')
+        learner_version = learner_version or CURRENT_LEARNER
     else:
-        require(fidelity is not None, 'Full study needs audited P08 extension evidence')
-        K = require_extension_gate(fidelity)
+        require(fidelity is not None, 'Full study needs audited fidelity evidence')
+        K, gated = require_fidelity_gate(fidelity)
+        require(learner_version in (None, gated), 'Learner version differs from the one the fidelity gate was run with')
+        learner_version = gated
     plan = build_plan(K=K, outers=outers, mini=mini, config=config)
+    plan['learner_version'] = learner_version
+    plan['learner'] = effective_learner(config, learner_version)[1]
     plan['prepared_utc'] = now()
     plan['jar_sha256'] = read_json(ROOT / 'ifogsim/build/research_v2/build_receipt.json')['artifact_sha256']
     plan['source_hashes'] = {p.relative_to(ROOT).as_posix(): file_hash(p)
@@ -118,7 +124,7 @@ def prepare(root, *, outers, mini=False, fidelity=None):
 def budget_report(plan):
     b = plan['budget']
     return {'phase': 'P09', 'fixture_only': plan['fixture_only'], 'outers': plan['outers'],
-        'K': b['K'], 'Ntrace': b['Ntrace'], 'S': b['S'], 'V': b['V'], 'F': b['F'],
+        'learner_version': plan.get('learner_version', '0.2'), 'K': b['K'], 'Ntrace': b['Ntrace'], 'S': b['S'], 'V': b['V'], 'F': b['F'],
         'C': b['C'], 'B': b['B'], 'rounding_overhead': b['rounding_overhead'],
         'physical_total_per_outer': b['physical_total_per_outer'],
         'physical_total_all_outers': len(plan['outers']) * b['physical_total_per_outer'],
@@ -143,9 +149,12 @@ def verify_plan(root):
     traces = validation_trace_manifest(config)
     require(traces == p['validation_traces'] and sha256(traces) == p['validation_manifest_sha256'],
             'Validation trace drift')
+    version = p.get('learner_version', '0.2')
+    if 'learner' in p:
+        require(effective_learner(config, version)[1] == p['learner'], 'Learner protocol drift')
     if not p['fixture_only']:
-        require(require_extension_gate(Path(p['fidelity_evidence'])) == p['budget']['K'],
-                'Fidelity K changed')
+        require(require_fidelity_gate(Path(p['fidelity_evidence'])) == (p['budget']['K'], version),
+                'Fidelity K or learner changed')
         require(file_hash(Path(p['fidelity_evidence']) / 'result.json') == p['fidelity_result_sha256'],
                 'Fidelity evidence changed')
     return p
@@ -399,15 +408,19 @@ def main():
         p.add_argument('--fidelity-evidence', type=Path)
         p.add_argument('--jdk-home', type=Path, default=Path('/usr/lib/jvm/java-21-openjdk-amd64'))
         p.add_argument('--stop-after', type=int)
+        p.add_argument('--learner-version', choices=('0.2', '0.3'))
     args = parser.parse_args()
     if args.command == 'plan':
         require(args.outers, 'Plan needs outer IDs')
-        K = 512 if args.mini else require_extension_gate(args.fidelity_evidence)
-        report = budget_report(build_plan(K=K, outers=args.outers, mini=args.mini))
+        K, version = (512, args.learner_version or CURRENT_LEARNER) if args.mini else require_fidelity_gate(args.fidelity_evidence)
+        plan = build_plan(K=K, outers=args.outers, mini=args.mini)
+        plan['learner_version'] = version
+        report = budget_report(plan)
         print(json.dumps(report, indent=2))
     elif args.command == 'prepare':
         require(args.study_dir is not None and args.outers, 'Prepare needs study-dir and outer IDs')
-        prepare(args.study_dir, outers=args.outers, mini=args.mini, fidelity=args.fidelity_evidence)
+        prepare(args.study_dir, outers=args.outers, mini=args.mini, fidelity=args.fidelity_evidence,
+                learner_version=args.learner_version)
         print(json.dumps(read_json(args.study_dir / 'budget_report.json'), indent=2))
     else:
         require(args.study_dir is not None, 'Run/resume needs study-dir')

@@ -17,11 +17,25 @@ import sys
 from ..config import ContractError, ROOT, load_config, read_json, require, sha256
 from .stats import COSTS, PRIMARY
 
-LOCK_VERSION = 'P10-lock-1'
+LOCK_VERSIONS = {'0.2': 'P10-lock-1', '0.3': 'P10-lock-2'}
+LOCK_VERSION = LOCK_VERSIONS['0.3']
 SOURCE_GLOBS = ('research_v2/**/*.py', 'tests/research_v2/*.py', 'schemas/research_v2/*.json',
                 'configs/research_v2/*.json', 'requirements-v2-*.txt', 'run_research_v2.py')
-EVIDENCE_FILES = ('results/research_v2/P09_runner_evidence/live_evidence.json',
-                  'results/research_v2/P09_dry_run_full/budget_report.json')
+# Per-protocol artifact locations. v0.2 artifacts are never rewritten; v0.3 lives under results/research_v2/v0.3/.
+ARTIFACTS = {
+    '0.2': {'live_evidence': 'results/research_v2/P09_runner_evidence/live_evidence.json',
+            'dry_run': 'results/research_v2/P09_dry_run_full/budget_report.json'},
+    '0.3': {'live_evidence': 'results/research_v2/v0.3/p09_runner_evidence/live_evidence.json',
+            'dry_run': 'results/research_v2/v0.3/dry_run_full/budget_report.json',
+            'predecessor_lock': 'results/research_v2/P10_protocol_lock/protocol_lock.json',
+            'diagnosis': ('results/research_v2/P10_learning_diagnosis/report.md',
+                          'results/research_v2/P10_learning_diagnosis/ablation.json',
+                          'results/research_v2/P10_learning_diagnosis/followup.json',
+                          'results/research_v2/P10_learning_check/sensitivity.json',
+                          'results/research_v2/P10_learning_check/check.json')},
+}
+EVIDENCE_FILES = tuple(ARTIFACTS['0.2'][k] for k in ('live_evidence', 'dry_run'))
+LIVE_SCENARIOS = ('prefix', 'reference', 'interrupt', 'drift', 'parallel', 'capacity')
 
 
 def file_sha256(path):
@@ -110,23 +124,13 @@ def hypothesis_registry(config):
             'practical_screen': f'relative Dglobal improvement >= {stats["practical_relative_improvement"]}: a reporting convention only'}
 
 
-def build_lock(*, fidelity_evidence, resource_estimate=None, deviations=()):
-    from ..search_runner_extension import require_extension_gate
-    config = load_config()
-    K = require_extension_gate(fidelity_evidence)
-    fidelity_evidence = Path(fidelity_evidence).resolve()
-    plan = read_json(ROOT / 'results/research_v2/P09_dry_run_full/budget_report.json')
-    require(plan['K'] == K and not plan['fixture_only'], 'Full dry-run budget differs from the frozen K')
-    live = read_json(ROOT / 'results/research_v2/P09_runner_evidence/live_evidence.json')
-    require(all(live[n]['pass'] for n in ('prefix', 'reference', 'interrupt', 'drift', 'parallel', 'capacity')),
-            'P09 live evidence is not fully passing')
-    validation = []
+def _common(config, K, plan, resource_estimate, deviations, version):
     from .. import study_budget
     validation = study_budget.validation_trace_manifest(config)
     test_manifest = test_trace_manifest(config)
     receipt = read_json(ROOT / 'ifogsim/build/research_v2/build_receipt.json')
-    lock = {
-        'version': LOCK_VERSION, 'created_utc': datetime.now(timezone.utc).isoformat(),
+    return {
+        'version': LOCK_VERSIONS[version], 'protocol_version': version, 'created_utc': datetime.now(timezone.utc).isoformat(),
         'purpose': 'Freeze before the test split is evaluated. Any change afterwards needs a new protocol version.',
         'git': git_state(), 'environment': environment(),
         'config': {'canonical_sha256': sha256(config), 'protocol_version': config['protocol_version'],
@@ -139,14 +143,6 @@ def build_lock(*, fidelity_evidence, resource_estimate=None, deviations=()):
                           'outer_runs': config['seeds']['outer_runs'], 'seeds': config['seeds'],
                           'ppo': config['ppo'], 'evaluation': config['evaluation'], 'search': config['search'],
                           'execution': config['execution']},
-        'fidelity': {'evidence_dir': fidelity_evidence.relative_to(ROOT).as_posix(),
-                     'result_sha256': file_sha256(fidelity_evidence / 'result.json'),
-                     'audit_sha256': file_sha256(fidelity_evidence / 'audit.json'),
-                     'protocol_sha256': file_sha256(fidelity_evidence / 'protocol.json'),
-                     'original_failed_result_sha256': file_sha256(ROOT / 'results/research_v2/P08_fidelity_1/result.json'),
-                     'selected_K': K,
-                     'caveat': 'The original pilot failed at K=5,120/10,240/20,480; K=30,720 was selected by a separately '
-                               'registered exploratory extension that passed an independent audit. It is not a re-run of the original gate.'},
         'traces': {'validation_manifest_sha256': sha256(validation), 'validation_traces': len(validation),
                    'test': {'namespace': {'master': config['seeds']['master'], 'split': 'test',
                                           'trace_ids': config['seeds']['test_trace_ids'],
@@ -160,14 +156,78 @@ def build_lock(*, fidelity_evidence, resource_estimate=None, deviations=()):
                                   'homogeneous fog is a validation control; heterogeneous is the main result',
                                   'normalization/penalty sensitivity is recomputed on validation data only; main definition is always reported',
                                   'z > 1 under sensitivity is flagged out-of-reference, never clipped, and never adjusts the main normalization']},
-        'evidence': {name: file_sha256(ROOT / name) for name in EVIDENCE_FILES},
         'resources': resource_estimate,
         'deviations_from_v02': list(deviations),
         'test_opened': False,
     }
+
+
+def _seal(lock):
     lock['lock_sha256'] = hashlib.sha256(json.dumps({k: v for k, v in lock.items() if k != 'lock_sha256'},
                                                     sort_keys=True, allow_nan=False).encode()).hexdigest()
     return lock
+
+
+def _live_passing(path):
+    live = read_json(ROOT / path)
+    require(all(live[n]['pass'] for n in LIVE_SCENARIOS), 'P09 live evidence is not fully passing')
+
+
+def build_lock(*, fidelity_evidence, resource_estimate=None, deviations=(), version='0.3'):
+    require(version in LOCK_VERSIONS, f'Unknown protocol version {version}')
+    config = load_config()
+    fidelity_evidence = Path(fidelity_evidence).resolve()
+    paths = ARTIFACTS[version]
+    if version == '0.2':
+        from ..search_runner_extension import require_extension_gate
+        K = require_extension_gate(fidelity_evidence)
+        learner_version = '0.2'
+    else:
+        from ..fidelity_v03 import require_fidelity_gate
+        K, learner_version = require_fidelity_gate(fidelity_evidence)
+        require(learner_version == '0.3', 'v0.3 lock needs v0.3 fidelity evidence')
+    plan = read_json(ROOT / paths['dry_run'])
+    require(plan['K'] == K and not plan['fixture_only'], 'Full dry-run budget differs from the frozen K')
+    require(plan.get('learner_version', '0.2') == learner_version, 'Dry-run budget was made for another learner')
+    _live_passing(paths['live_evidence'])
+    lock = _common(config, K, plan, resource_estimate, deviations, version)
+    lock['evidence'] = {paths[k]: file_sha256(ROOT / paths[k]) for k in ('live_evidence', 'dry_run')}
+    if version == '0.2':
+        lock['fidelity'] = {'evidence_dir': fidelity_evidence.relative_to(ROOT).as_posix(),
+                            'result_sha256': file_sha256(fidelity_evidence / 'result.json'),
+                            'audit_sha256': file_sha256(fidelity_evidence / 'audit.json'),
+                            'protocol_sha256': file_sha256(fidelity_evidence / 'protocol.json'),
+                            'original_failed_result_sha256': file_sha256(ROOT / 'results/research_v2/P08_fidelity_1/result.json'),
+                            'selected_K': K}
+        return _seal(lock)
+    from ..learner import effective_learner
+    _, learner_meta = effective_learner(config, '0.3')
+    predecessor = read_json(ROOT / paths['predecessor_lock'])
+    lock['learner'] = learner_meta
+    lock['frozen_design']['ppo_effective'] = effective_learner(config, '0.3')[0]['ppo']
+    lock['fidelity'] = {'evidence_dir': fidelity_evidence.relative_to(ROOT).as_posix(), 'selected_K': K,
+                        'files': {n: file_sha256(fidelity_evidence / n) for n in ('protocol.json', 'result.json', 'audit.json')},
+                        'caveat': 'Re-run of the registered Spearman gate with the v0.3 learner on the pilot namespace; reference = final '
+                                  'budget F; the same pilot seeds were used in the P10 diagnosis that motivated v0.3.'}
+    lock['predecessor'] = {'protocol_version': '0.2', 'lock_path': paths['predecessor_lock'],
+                           'lock_file_sha256': file_sha256(ROOT / paths['predecessor_lock']),
+                           'lock_sha256': predecessor['lock_sha256'], 'git_tag': 'protocol-v0.2',
+                           'status': 'superseded; M3 no-go because the gamma 1.0 learner did not learn consistently',
+                           'note': 'The v0.2 lock verifies at the protocol-v0.2 tag, not on later trees (locked files changed by design).'}
+    lock['diagnosis_evidence'] = {name: file_sha256(ROOT / name) for name in paths['diagnosis']}
+    return _seal(lock)
+
+
+def _check_packages(lock, problems):
+    from importlib import metadata
+    for name in ('numpy', 'torch', 'stable_baselines3', 'gymnasium', 'scipy', 'jsonschema'):
+        recorded = lock['environment']['packages'].get(name.replace('_', '-'))
+        try:
+            installed = metadata.version(name.replace('_', '-'))
+        except metadata.PackageNotFoundError:
+            installed = None
+        if recorded != installed:
+            problems.append(f'package {name}: lock {recorded}, installed {installed}')
 
 
 def verify_lock(path, *, deep=False):
@@ -175,7 +235,7 @@ def verify_lock(path, *, deep=False):
     lock = read_json(path)
     problems, warnings = [], []
     body = {k: v for k, v in lock.items() if k != 'lock_sha256'}
-    if lock.get('version') != LOCK_VERSION:
+    if lock.get('version') not in LOCK_VERSIONS.values():
         problems.append('unknown lock version')
     if hashlib.sha256(json.dumps(body, sort_keys=True, allow_nan=False).encode()).hexdigest() != lock.get('lock_sha256'):
         problems.append('lock file content does not match its own hash')
@@ -200,11 +260,28 @@ def verify_lock(path, *, deep=False):
         if file_sha256(ROOT / name) != digest:
             problems.append(f'evidence changed: {name}')
     fidelity = lock['fidelity']
-    for name, key in (('result.json', 'result_sha256'), ('audit.json', 'audit_sha256'), ('protocol.json', 'protocol_sha256')):
-        if file_sha256(ROOT / fidelity['evidence_dir'] / name) != fidelity[key]:
-            problems.append(f'fidelity evidence changed: {name}')
-    if file_sha256(ROOT / 'results/research_v2/P08_fidelity_1/result.json') != fidelity['original_failed_result_sha256']:
-        problems.append('original failed pilot result changed')
+    if lock.get('version') == LOCK_VERSIONS['0.2']:
+        for name, key in (('result.json', 'result_sha256'), ('audit.json', 'audit_sha256'), ('protocol.json', 'protocol_sha256')):
+            if file_sha256(ROOT / fidelity['evidence_dir'] / name) != fidelity[key]:
+                problems.append(f'fidelity evidence changed: {name}')
+        if file_sha256(ROOT / 'results/research_v2/P08_fidelity_1/result.json') != fidelity['original_failed_result_sha256']:
+            problems.append('original failed pilot result changed')
+    else:
+        for name, digest in fidelity['files'].items():
+            if file_sha256(ROOT / fidelity['evidence_dir'] / name) != digest:
+                problems.append(f'fidelity evidence changed: {name}')
+        from ..learner import effective_learner
+        try:
+            if effective_learner(config, '0.3')[1] != lock['learner']:
+                problems.append('learner protocol differs from lock')
+        except ContractError as error:
+            problems.append(f'learner protocol invalid for the current config: {error}')
+        pred = lock['predecessor']
+        if file_sha256(ROOT / pred['lock_path']) != pred['lock_file_sha256']:
+            problems.append('predecessor (v0.2) lock file changed')
+        for name, digest in lock['diagnosis_evidence'].items():
+            if file_sha256(ROOT / name) != digest:
+                problems.append(f'diagnosis evidence changed: {name}')
     from .. import study_budget
     if sha256(study_budget.validation_trace_manifest(config)) != lock['traces']['validation_manifest_sha256']:
         problems.append('validation trace manifest differs from lock')
@@ -212,15 +289,7 @@ def verify_lock(path, *, deep=False):
         problems.append('test trace input manifest differs from lock')
     if config['seeds'] != lock['frozen_design']['seeds']:
         problems.append('seeds differ from lock')
-    from importlib import metadata
-    for name in ('numpy', 'torch', 'stable_baselines3', 'gymnasium', 'scipy', 'jsonschema'):
-        recorded = lock['environment']['packages'].get(name.replace('_', '-'))
-        try:
-            installed = metadata.version(name.replace('_', '-'))
-        except metadata.PackageNotFoundError:
-            installed = None
-        if recorded != installed:
-            problems.append(f'package {name}: lock {recorded}, installed {installed}')
+    _check_packages(lock, problems)
     opened = ROOT / 'results/research_v2/TEST_OPENED.json'
     if opened.exists():
         warnings.append('TEST_OPENED.json exists: the test split has been evaluated under this or an earlier lock')
@@ -241,6 +310,7 @@ def main():
     c.add_argument('--fidelity-evidence', type=Path, required=True)
     c.add_argument('--resource-estimate', type=Path)
     c.add_argument('--deviations', type=Path, help='JSON list of recorded changes from v0.2')
+    c.add_argument('--protocol-version', choices=('0.2', '0.3'), default='0.3')
     v = sub.add_parser('verify')
     v.add_argument('--lock', type=Path, required=True)
     v.add_argument('--deep', action='store_true')
@@ -249,7 +319,7 @@ def main():
         require(not args.output.exists(), 'Refusing to overwrite an existing lock')
         lock = build_lock(fidelity_evidence=args.fidelity_evidence,
                           resource_estimate=read_json(args.resource_estimate) if args.resource_estimate else None,
-                          deviations=read_json(args.deviations) if args.deviations else ())
+                          deviations=read_json(args.deviations) if args.deviations else (), version=args.protocol_version)
         args.output.parent.mkdir(parents=True, exist_ok=True)
         args.output.write_text(json.dumps(lock, indent=2, sort_keys=True, allow_nan=False) + '\n')
         print(json.dumps({'lock': str(args.output), 'lock_sha256': lock['lock_sha256'], 'files': len(lock['sources'])}))

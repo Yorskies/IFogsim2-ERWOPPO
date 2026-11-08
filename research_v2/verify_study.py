@@ -150,10 +150,11 @@ def scenario_prefix(root, jdk):
     for path in (short, long):
         shutil.rmtree(path, ignore_errors=True)
     weights = [0.2] * 5
-    run_final_training(short / 'training', 0, 1024, weights, [1024], jdk)
-    run_final_training(long / 'training', 0, 2048, weights, [1024, 2048], jdk)
+    from .learner import CURRENT
+    run_final_training(short / 'training', 0, 1024, weights, [1024], jdk, learner_version=CURRENT)
+    run_final_training(long / 'training', 0, 2048, weights, [1024, 2048], jdk, learner_version=CURRENT)
     result = compare_checkpoints(short / 'training/checkpoint_00001024', long / 'training/checkpoint_00001024')
-    return {'weights': weights, 'F': 1024, 'B': 2048, 'comparison': result, 'pass': result['pass']}
+    return {'weights': weights, 'F': 1024, 'B': 2048, 'learner_version': CURRENT, 'comparison': result, 'pass': result['pass']}
 
 
 def scenario_reference(root, jdk):
@@ -300,11 +301,21 @@ def scenario_drift(root):
     return {'cases': results, 'pass': all(r['exit'] != 0 and r['refused'] and r['nothing_started'] for r in results)}
 
 
-def scenario_parallel(root, jdk):
+def job_walls(study):
+    out = {}
+    for job in read_json(study / 'protocol.json')['jobs']:
+        pointer = read_json(study / 'jobs' / job['id'] / 'complete.json')
+        out[job['id']] = (job['role'], job['method'], read_json(study / pointer['attempt'] / 'profile.json')['wall_s'])
+    return out
+
+
+def scenario_parallel(root, jdk, runners=12):
+    """`runners` independent single-outer studies at once. Content is compared with the sequential reference for the outer
+    runs it contains; efficiency compares each job's wall time with the uncontended reference job of the same role/method."""
     reference = root / 'reference'
     studies = {}
     logs = {}
-    for outer in range(4):
+    for outer in range(runners):
         study = root / f'parallel_outer{outer}'
         shutil.rmtree(study, ignore_errors=True)
         log = root / f'parallel_outer{outer}.log'
@@ -327,24 +338,40 @@ def scenario_parallel(root, jdk):
                 pass
         time.sleep(1)
     wall = time.monotonic() - started
+    ids_ok = all(p.returncode == 0 and read_json(s / 'summary.json')['status'] == 'complete' for s, p in
+                 ((studies[o], processes[o]) for o in studies))
+    reference_outers = read_json(reference / 'protocol.json')['outers']
     comparisons = []
     for outer, study in studies.items():
-        for job in read_json(study / 'protocol.json')['jobs']:
-            comparisons.append({'outer': outer, **compare_jobs(study, reference, job['id'])})
-    ids_ok = all(read_json(s / 'summary.json')['status'] == 'complete' for s in studies.values())
-    out = {'concurrent_runners': 4, 'peak_concurrent_v2_jvm_servers': peak, 'distinct_jvm_pids_seen': len(seen_pids),
+        if outer in reference_outers:
+            for job in read_json(study / 'protocol.json')['jobs']:
+                comparisons.append({'outer': outer, **compare_jobs(study, reference, job['id'])})
+    ref_walls = job_walls(reference)
+    by_kind = {}
+    for role, method, w in ref_walls.values():
+        by_kind.setdefault((role, method), []).append(w)
+    uncontended = {k: sum(v) / len(v) for k, v in by_kind.items()}
+    jobs = [w for s in studies.values() if (s / 'summary.json').exists() for w in job_walls(s).values()]
+    per_job = [uncontended[(role, method)] / w for role, method, w in jobs]
+    equivalent = sum(uncontended[(role, method)] for role, method, _ in jobs)
+    out = {'concurrent_runners': runners, 'peak_concurrent_v2_jvm_servers': peak, 'distinct_jvm_pids_seen': len(seen_pids),
            'distinct_listening_ports_seen': sorted(seen_ports), 'wall_s': wall,
            'exit_codes': {o: p.returncode for o, p in processes.items()}, 'comparisons': comparisons,
+           'content_compared_outers': sorted(o for o in studies if o in reference_outers),
+           'job_efficiency_median': sorted(per_job)[len(per_job) // 2] if per_job else None,
+           'job_efficiency_min': min(per_job) if per_job else None,
+           'throughput_efficiency': equivalent / (runners * wall) if jobs else None,
+           'speedup_vs_one_worker': equivalent / wall if jobs else None,
            'leftover_v2_servers': sorted(set(v2_servers()) - baseline)}
-    out['pass'] = (ids_ok and all(p.returncode == 0 for p in processes.values()) and peak >= 2 and
-                   all(not c['mismatches'] for c in comparisons) and not out['leftover_v2_servers'])
+    out['pass'] = (ids_ok and peak >= 2 and bool(comparisons) and all(not c['mismatches'] for c in comparisons)
+                   and not out['leftover_v2_servers'])
     return out
 
 
-def scenario_capacity(root):
+def scenario_capacity(root, dry_run):
     """Extrapolate full-study time and disk from measured fixture jobs. An estimate, not a measurement."""
     reference = root / 'reference'
-    full = read_json(ROOT / 'results/research_v2/P09_dry_run_full/budget_report.json')
+    full = read_json(ROOT / dry_run)
     summary = read_json(reference / 'summary.json')
     rows = {x['job']['id']: x for x in summary['jobs']}
     base = [x for x in summary['jobs'] if x['job']['role'] == 'baseline']
@@ -406,6 +433,9 @@ def main():
     parser.add_argument('--root', type=Path, required=True)
     parser.add_argument('--jdk-home', type=Path, default=Path('/usr/lib/jvm/java-21-openjdk-amd64'))
     parser.add_argument('--only', nargs='+', choices=['prefix', 'reference', 'interrupt', 'drift', 'parallel', 'capacity'])
+    parser.add_argument('--parallel-runners', type=int, default=12)
+    parser.add_argument('--dry-run', default='results/research_v2/v0.3/dry_run_full/budget_report.json',
+                        help='full-study budget report used by the capacity scenario (v0.2: results/research_v2/P09_dry_run_full/...)')
     args = parser.parse_args()
     root = args.root.resolve()
     root.mkdir(parents=True, exist_ok=True)
@@ -416,8 +446,8 @@ def main():
                  'reference': lambda: scenario_reference(root, args.jdk_home),
                  'interrupt': lambda: scenario_interrupt(root, args.jdk_home),
                  'drift': lambda: scenario_drift(root),
-                 'parallel': lambda: scenario_parallel(root, args.jdk_home),
-                 'capacity': lambda: scenario_capacity(root)}
+                 'parallel': lambda: scenario_parallel(root, args.jdk_home, args.parallel_runners),
+                 'capacity': lambda: scenario_capacity(root, args.dry_run)}
     for name in names:
         print('SCENARIO', name, flush=True)
         started = time.monotonic()

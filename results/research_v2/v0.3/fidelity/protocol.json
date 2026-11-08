@@ -1,0 +1,114 @@
+{
+  "version": "P10-fidelity-v0.3",
+  "learner": {
+    "version": "0.3",
+    "protocol": "research-v2-learner-0.3",
+    "ppo_overrides": {
+      "gamma": 0.97
+    },
+    "learner_config_sha256": "9e1ea5b0861974e676375d3efaa6c2eeb50eda484a57b0e7cc074d12b6f41c39",
+    "file_sha256": "d3aff3a93c6d928d417d4bd069fc5ce7f914e14788840d721f9555e3c7086403"
+  },
+  "outers": [
+    100,
+    101,
+    102
+  ],
+  "repeats": [
+    0,
+    1
+  ],
+  "weights": {
+    "equal": [
+      0.2,
+      0.2,
+      0.2,
+      0.2,
+      0.2
+    ],
+    "manual": [
+      0.3,
+      0.15,
+      0.25,
+      0.1,
+      0.2
+    ],
+    "vertex0": [
+      0.92,
+      0.02,
+      0.02,
+      0.02,
+      0.02
+    ],
+    "vertex1": [
+      0.02,
+      0.92,
+      0.02,
+      0.02,
+      0.02
+    ],
+    "vertex2": [
+      0.02,
+      0.02,
+      0.92,
+      0.02,
+      0.02
+    ],
+    "vertex3": [
+      0.02,
+      0.02,
+      0.02,
+      0.92,
+      0.02
+    ],
+    "vertex4": [
+      0.02,
+      0.02,
+      0.02,
+      0.02,
+      0.92
+    ],
+    "simplex": [
+      0.31342012630644706,
+      0.09236111609019916,
+      0.039582770504973275,
+      0.4655158892823413,
+      0.08912009781603909
+    ]
+  },
+  "ladder": [
+    10240,
+    20480,
+    30720,
+    51200
+  ],
+  "reference_decisions": 102400,
+  "prefix_check_K": 10240,
+  "gate": {
+    "minimum_median_spearman": 0.6,
+    "minimum_spearman": 0.0,
+    "select": "smallest passing K",
+    "ties": "average ranks",
+    "aggregation": "mean of the two repeats cost vectors per weight, then RMS"
+  },
+  "config_sha256": "3e32379ebd2e8770e025ff9cce11be28cbffe7e535b269a070030ce6d9dae025",
+  "jar_sha256": "ba5a7ca8a8f0cdd64839ccc7848d20009a5872b994aa1c529baf894eeff19e73",
+  "source_hashes": {
+    "research_v2/learning.py": "815db2e35ad71279d83285918c1c9ff0e2aee58c0846c90c5ac9529399062fed",
+    "research_v2/learner.py": "a356914298dada1e39c018e73305768fc97254778a9f6908751538ba6fff6c0d",
+    "research_v2/search.py": "e5bc595efe58c373fc9c7597cc9bc0fbd2a435f9a17c96619707f5736dac7bf6",
+    "research_v2/search_runner.py": "2918294484be9a8dfe3d252356a84e980937e4c8eb4545d8b1fdda4663df5509",
+    "research_v2/gym_env.py": "629aeebd8ec2a5ed2bd11b7e7b991feadc9e024c31c253d5621a156a867a192f",
+    "research_v2/rpc_client.py": "163c00ad1fa75de1e5d79b90a00cb042e4c8297bc82ccde79d5d6538fee7ba29",
+    "research_v2/traces.py": "6f22e5850f47551a4a3850716399ffee2af14631c91d2ce4c96da403f6d89bf9",
+    "research_v2/fidelity_v03.py": "7ca81ef38b75d6475cae46ac1dd33b529cd41e005feb9e7c82b195d1bb36a70a",
+    "configs/research_v2/learner_v0.3.json": "d3aff3a93c6d928d417d4bd069fc5ce7f914e14788840d721f9555e3c7086403"
+  },
+  "predecessor": {
+    "version": "P08-fidelity-extension-1",
+    "selected_K": 30720,
+    "learner": "0.2",
+    "status": "superseded: selected with the gamma 1.0 learner"
+  },
+  "test_accessed": false
+}

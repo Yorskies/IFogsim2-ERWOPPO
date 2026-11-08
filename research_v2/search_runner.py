@@ -26,9 +26,10 @@ def require_gate(path):
 
 class CandidateEvaluator:
     """Two fresh models per charged slot. Names/weights never enter RNG seed namespaces."""
-    def __init__(self,directory,outer,budget,jdk_home=None):
+    def __init__(self,directory,outer,budget,jdk_home=None,learner_version='0.2'):
         require(type(outer) is int and 0<=outer<20,'Main search outer must be 0..19')
         self.directory=Path(directory);self.outer=outer;self.budget=budget;self.jdk_home=jdk_home
+        self.learner_version=learner_version
         self.training_decisions=0;self.validation_decisions=0;self.slots=[]
 
     def __call__(self,weights,slot):
@@ -37,7 +38,8 @@ class CandidateEvaluator:
         for repeat in (0,1):
             path=base/f'model_{repeat}'
             run_training(path,self.outer,repeat,self.budget,weights,self.jdk_home,
-                         training_split='train_candidate',phase='P08',checkpoint_at=[self.budget],fast_rpc=True)
+                         training_split='train_candidate',phase='P08' if self.learner_version=='0.2' else 'P11',
+                         checkpoint_at=[self.budget],fast_rpc=True,learner_version=self.learner_version)
             checkpoint=path/f'checkpoint_{self.budget:08d}'
             validation=base/f'validation_{repeat}'
             run_evaluation(checkpoint,validation,self.jdk_home,split='validation',fast_rpc=True)
@@ -50,7 +52,7 @@ class CandidateEvaluator:
                            'macro_costs':summary['macro_costs'],
                            'validation_payloads':[r['trace_sha256'] for r in episodes]})
         result=repeated_objectives(vectors)
-        record={'status':'complete','slot':slot,'weights':weights,**result,'models':models,
+        record={'status':'complete','slot':slot,'weights':weights,**result,'models':models,'learner_version':self.learner_version,
                 'training_decisions':2*self.budget,'validation_decisions':sum(m['validation_decisions'] for m in models),
                 'wall_s':time.monotonic()-started}
         write_json(base/'candidate.json',record);self.slots.append(record)

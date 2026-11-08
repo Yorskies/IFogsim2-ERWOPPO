@@ -8,6 +8,7 @@ import argparse
 import io
 import json
 import math
+import os
 from pathlib import Path
 import platform
 import shutil
@@ -15,9 +16,25 @@ import sys
 import unittest
 
 from ..config import ROOT, load_config, read_json
-from .lock import file_sha256, source_hashes, test_trace_manifest, verify_lock
+from .lock import ARTIFACTS, file_sha256, source_hashes, test_trace_manifest, verify_lock
 
-EVIDENCE = ROOT / 'results/research_v2/P09_runner_evidence/live_evidence.json'
+EVIDENCE = ROOT / ARTIFACTS['0.3']['live_evidence']
+MINI_REPORT = {'0.2': ROOT / 'results/research_v2/P10_mini_report', '0.3': ROOT / 'results/research_v2/v0.3/mini_report'}
+VERSION = '0.3'
+
+
+def cgroup_limits():
+    """(cpu cores, memory GiB) actually available to this container; falls back to the host view."""
+    cores, memory = os.cpu_count(), None
+    try:
+        quota, period = Path('/sys/fs/cgroup/cpu.max').read_text().split()
+        if quota != 'max':
+            cores = int(quota) / int(period)
+        raw = Path('/sys/fs/cgroup/memory.max').read_text().strip()
+        memory = None if raw == 'max' else int(raw) / 2 ** 30
+    except (OSError, ValueError):
+        pass
+    return cores, memory
 SCENARIOS = ('prefix', 'reference', 'interrupt', 'drift', 'parallel', 'capacity')
 RUNNER_FILES = ('study_runner.py', 'study_worker.py', 'study_budget.py', 'study_final.py', 'verify_study.py',
                 'learning.py', 'search.py', 'search_runner.py', 'search_runner_extension.py', 'gym_env.py', 'rpc_client.py')
@@ -60,7 +77,7 @@ def p09(args):
                                             ['interrupted', 'failed', 'complete'],
             'interaction_counts_equal_ledger': live['reference']['training_decisions'] == live['reference']['ledger_training_decisions'] and
                                                live['reference']['validation_decisions'] == live['reference']['ledger_validation_decisions'],
-            'workers_do_not_share_cloudsim_singleton': parallel['pass'] and parallel['peak_concurrent_v2_jvm_servers'] == 4,
+            'workers_do_not_share_cloudsim_singleton': parallel['pass'] and parallel['peak_concurrent_v2_jvm_servers'] >= min(4, parallel['concurrent_runners']),
             'parallel_results_identical_to_sequential': all(not c['mismatches'] for c in parallel['comparisons']),
             'no_leftover_servers': not parallel['leftover_v2_servers'] and
                                    not interrupt['stale_lock_recovery_and_worker_crash_retry']['leftover_v2_servers_after_run'],
@@ -68,9 +85,10 @@ def p09(args):
             'prefix_equivalence_F_vs_B_run': live['prefix']['pass'],
         },
         'parallel': {'runners': parallel['concurrent_runners'], 'wall_s': parallel['wall_s'],
-                     'sequential_reference_wall_s': live['reference']['wall_s'],
-                     'speedup': live['reference']['wall_s'] / parallel['wall_s'],
-                     'efficiency': live['reference']['wall_s'] / parallel['wall_s'] / parallel['concurrent_runners']},
+                     'peak_concurrent_jvms': parallel['peak_concurrent_v2_jvm_servers'],
+                     'speedup': parallel.get('speedup_vs_one_worker', live['reference']['wall_s'] / parallel['wall_s']),
+                     'efficiency': parallel.get('throughput_efficiency',
+                                                live['reference']['wall_s'] / parallel['wall_s'] / parallel['concurrent_runners'])},
         'source_files_changed_since_evidence': changed,
         'runner_critical_files_unchanged_since_evidence': runner_unchanged,
         'environment': {'python': sys.version, 'platform': platform.platform()},
@@ -85,12 +103,14 @@ def p09(args):
 def resources(args):
     live = read_json(EVIDENCE)
     cap = live['capacity']
-    full = read_json(ROOT / 'results/research_v2/P09_dry_run_full/budget_report.json')
+    full = read_json(ROOT / ARTIFACTS[VERSION]['dry_run'])
     config = load_config()
-    reference = read_json(ROOT / 'results/research_v2/P09_runner_evidence/reference/summary.json')
+    reference = read_json(EVIDENCE.parent / 'reference' / 'summary.json')
     baselines = [x for x in reference['jobs'] if x['job']['role'] == 'baseline']
     cores = sum((x['profile']['cpu_user_s'] + x['profile']['cpu_system_s']) / x['profile']['wall_s'] for x in baselines) / len(baselines)
-    efficiency = live['reference']['wall_s'] / live['parallel']['wall_s'] / live['parallel']['concurrent_runners']
+    efficiency = live['parallel'].get('throughput_efficiency') or (
+        live['reference']['wall_s'] / live['parallel']['wall_s'] / live['parallel']['concurrent_runners'])
+    measured_at = live['parallel']['concurrent_runners']
     outers = len(full['outers'])
     per_outer_h = cap['per_outer']['sequential_hours']
     free_gib = shutil.disk_usage(ROOT).free / 2 ** 30
@@ -99,40 +119,45 @@ def resources(args):
     outputs_gib = cap['all_20_outers']['disk_gib_with_gzip_logs']
     budget_gib = 0.8 * free_gib
     by_disk = int((budget_gib - outputs_gib) // peak_transient_gib)
-    cores_total = 64
+    cores_total, memory_gib = cgroup_limits()
     manifest = test_trace_manifest(config)
     tasks_test = sum(r['tasks'] for r in manifest)
     eval_models = outers * 6 + 4                                                 # 6 PPO checkpoints/outer + 4 heuristics
     eval_decisions = tasks_test * eval_models
     eval_rate = cap['measured']['candidate_validation_decisions_per_s']
     table = []
-    for workers in (1, 2, 4, 5, 10, 13, 20):
+    by_cores = int((cores_total - 2) // cores)
+    for workers in (1, 2, 4, 5, 7, 10, 12, 20):
         rounds = math.ceil(outers / workers)
         eff = 1.0 if workers == 1 else efficiency
         table.append({'workers': workers, 'max_outers_per_worker': rounds, 'hours': rounds * per_outer_h / eff,
                       'days': rounds * per_outer_h / eff / 24,
-                      'efficiency_assumed': eff, 'efficiency_measured': workers == 4 or workers == 1,
+                      'efficiency_assumed': eff, 'efficiency_measured': workers in (1, measured_at),
                       'peak_transient_log_gib': workers * peak_transient_gib,
-                      'fits_disk_budget': workers * peak_transient_gib + outputs_gib <= budget_gib})
+                      'fits_disk_budget': workers * peak_transient_gib + outputs_gib <= budget_gib,
+                      'fits_cpu_quota': workers <= by_cores})
+    usable = min(outers, by_cores, by_disk)
+    recommended = max(w for w in (1, 2, 4, 5, 7, 10, 12, 20) if w <= usable)
     out = {
-        'basis': 'Measured on fixture jobs (P09 reference/parallel/capacity), extrapolated to the frozen K=30,720 budget. '
+        'basis': f'Measured on fixture jobs (P09 reference/parallel/capacity), extrapolated to the frozen K={full["K"]:,} budget. '
                  'Efficiency is measured only at 4 workers; larger counts assume the same efficiency and must be re-measured.',
-        'machine': {'cores': cores_total, 'free_disk_gib': free_gib, 'ram_gib': 251},
+        'machine': {'cores_cgroup_quota': cores_total, 'memory_gib_cgroup_limit': memory_gib, 'free_disk_gib': free_gib,
+                    'host_cores_seen_by_nproc': os.cpu_count(), 'learner_version': full.get('learner_version', '0.2')},
         'measured': {**cap['measured'], 'cores_per_worker_incl_jvm': cores,
-                     'parallel_speedup_4_runners': live['reference']['wall_s'] / live['parallel']['wall_s'],
-                     'parallel_efficiency_4_runners': efficiency},
+                     'parallel_runners_measured': measured_at, 'parallel_efficiency_measured': efficiency},
         'budget_per_outer': {k: full[k] for k in ('S', 'V', 'F', 'C', 'B')},
         'per_outer_hours': cap['per_outer'],
         'all_outers': cap['all_20_outers'],
         'worker_limits': {'by_design_sharding_per_outer_run': outers,
-                          'by_cores_leaving_four_free': int((cores_total - 4) // cores),
+                          'by_cpu_quota_leaving_two_cores': by_cores,
                           'by_disk_with_raw_logs_until_job_end': by_disk,
                           'peak_transient_log_gib_per_baseline_job': peak_transient_gib,
-                          'recommended': 10, 'note': 'Beyond the disk limit, logs must be rotated/compressed during training.'},
+                          'recommended': recommended,
+                          'note': 'Limits: CPU quota of the container (not nproc), disk for raw logs until job end, one shard per outer run.'},
         'p11_training_time': table,
         'test_evaluation': {'test_traces': len(manifest), 'test_tasks': tasks_test, 'models_evaluated': eval_models,
                             'decisions': eval_decisions, 'single_worker_hours': eval_decisions / eval_rate / 3600,
-                            'four_worker_hours': eval_decisions / eval_rate / 3600 / 4 / efficiency},
+                            'hours_at_measured_workers': eval_decisions / eval_rate / 3600 / measured_at / efficiency},
         'analysis': {'seconds_full_scale_primary_secondary_bootstrap': 5, 'peak_rss_mib': 125},
         'storage': {'training_outputs_gib_with_gzip': outputs_gib,
                     'would_be_gib_if_raw': cap['all_20_outers']['disk_gib_if_logs_stayed_raw']},
@@ -144,8 +169,9 @@ def resources(args):
 
 
 def p10(args):
-    tests = [run_tests('test_analysis.py'), run_tests('test_protocol_lock.py'), run_tests('test_traces.py')]
-    mini = read_json(ROOT / 'results/research_v2/P10_mini_report/report.json')
+    tests = [run_tests('test_analysis.py'), run_tests('test_protocol_lock.py'), run_tests('test_traces.py'),
+             run_tests('test_v03_protocol.py')]
+    mini = read_json(MINI_REPORT[VERSION] / 'report.json')
     lock_state = None
     if args.lock:
         problems, warnings = verify_lock(args.lock, deep=True)
@@ -156,7 +182,7 @@ def p10(args):
                   (lock_state is None or not lock_state['problems']) else 'failed',
         'unit_tests': tests, 'mini_report': {'units': mini['protocol']['n_units'], 'namespace': mini['namespace'],
                                               'test_accessed': mini['test_accessed'], 'fixture_mapping_is_placeholder': True,
-                                              'report_sha256': file_sha256(ROOT / 'results/research_v2/P10_mini_report/report.md')},
+                                              'report_sha256': file_sha256(MINI_REPORT[VERSION] / 'report.md')},
         'lock': lock_state, 'environment': {'python': sys.version, 'platform': platform.platform()}, 'test_accessed': False,
     }
     write(args.output, report)
@@ -173,7 +199,11 @@ def main():
         if name == 'p10':
             p.add_argument('--lock', type=Path)
         p.set_defaults(fn=fn)
+    parser.add_argument('--protocol-version', choices=('0.2', '0.3'), default='0.3')
     args = parser.parse_args()
+    global EVIDENCE, VERSION
+    VERSION = args.protocol_version
+    EVIDENCE = ROOT / ARTIFACTS[VERSION]['live_evidence']
     args.fn(args)
 
 

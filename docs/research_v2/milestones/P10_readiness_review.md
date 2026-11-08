@@ -144,3 +144,10 @@ Kesimpulan "PPO belajar pada F" dari satu seed di atas **tidak berlaku umum**: o
 gamma 0,97 memperbaiki keenam seed (D 0,443 → 0,250), tanpa policy runtuh, seluruhnya mengalahkan always-local dan rata-rata setara/lebih baik dari Greedy-EFT; entropi, ukuran
 rollout, dan learning rate tidak memperbaiki. Gamma terkunci = 1,0 pada schema v0.2, sehingga perbaikan ini berarti **revisi protokol (v0.3)**: lock P10 tidak berlaku untuk P11,
 gerbang fidelity/K dan budget harus diulang dengan learner baru. M3: **no-go untuk v0.2**.
+
+## Protokol v0.3 (8 November 2026)
+
+Lihat [PROTOCOL_v0.3.md](../PROTOCOL_v0.3.md). v0.2 diarsipkan pada tag `protocol-v0.2` (lock v0.2 terverifikasi di sana). v0.3 mempertahankan simulasi v0.2
+dan mengganti learner (gamma 0,97). Gerbang fidelity v0.3 (aturan terdaftar sebelum dijalankan, ambang sama dengan v0.2, referensi F) **gagal pada semua K**
+(median Spearman tertinggi 0,476 pada 30.720); audit lulus. **M3 v0.3: no-go.** Tidak ada lock v0.3; P11 tidak dijalankan. Keputusan berikutnya (desain v0.4
+atau penghentian dengan laporan hasil) ada pada peneliti.

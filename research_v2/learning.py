@@ -247,19 +247,27 @@ def effective_learner(config, spec_path=None):
 
 
 def run_training(directory, outer, repeat, decisions, weights, jdk_home=None, *, learner_spec=None, instrument=False,
-                 training_split='pilot_train', phase='P07', checkpoint_at=None, fast_rpc=False, worker_port=None):
+                 training_split='pilot_train', phase='P07', checkpoint_at=None, fast_rpc=False, worker_port=None,
+                 learner_version='0.2'):
     config = load_config()
     require(training_split in ('pilot_train','train_candidate'),'Unsupported training split')
-    require(phase in ('P07','P08'),'Unsupported phase')
+    require(phase in ('P07','P08','P10','P11'),'Unsupported phase')
     planner=pilot_plan if training_split=='pilot_train' else candidate_plan
     plan = planner(config, outer, repeat, decisions, weights)
     plan['phase']=phase
     if checkpoint_at is not None:
         require(decisions in checkpoint_at and all(type(n) is int and 0<n<=decisions and n%512==0 for n in checkpoint_at), 'Invalid checkpoint schedule')
     plan.update(checkpoint_at=checkpoint_at, rpc_schema_validation=not fast_rpc, worker_port=worker_port)
-    learner, spec = effective_learner(config, learner_spec)
+    if learner_version == '0.2':
+        learner, spec = effective_learner(config, learner_spec)
+        protocol = spec['protocol'] if spec else '0.2'
+    else:
+        from .learner import effective_learner as protocol_learner
+        require(learner_spec is None, 'Diagnostic learner specs are v0.2 ablations; use learner_version=0.2')
+        learner, meta = protocol_learner(config, learner_version)
+        spec, protocol = None, meta['protocol']
     plan.update(effective_ppo=learner['ppo'], learner_config_sha256=sha256(learner),
-                learner_protocol=spec['protocol'] if spec else '0.2', instrumentation=instrument)
+                learner_protocol=protocol, learner_version=learner_version, instrumentation=instrument)
     directory = Path(directory)
     directory.mkdir(parents=True, exist_ok=False)
     write_json(directory / 'manifest.json', {**plan, 'status': 'running', 'provenance': provenance(config)})

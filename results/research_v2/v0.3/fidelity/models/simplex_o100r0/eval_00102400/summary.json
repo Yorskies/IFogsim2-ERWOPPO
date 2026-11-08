@@ -1,0 +1,60 @@
+{
+  "status": "complete",
+  "episodes": 20,
+  "split": "pilot_validation",
+  "cost_order": [
+    "zL",
+    "zE",
+    "zD",
+    "zB",
+    "zQ"
+  ],
+  "costs_by_workload": {
+    "light": [
+      0.07798270646638109,
+      0.04469939172240915,
+      0.18102354225430062,
+      0.0,
+      0.012252525792280065
+    ],
+    "moderate": [
+      0.4776437815042397,
+      0.040327327892114115,
+      0.8542079068345977,
+      0.0,
+      0.3626479598712747
+    ],
+    "heavy": [
+      0.7980853420535169,
+      0.026922827360283404,
+      0.9054461689153671,
+      0.0,
+      0.7374619489114043
+    ],
+    "dynamic": [
+      0.6345348307168013,
+      0.03197337750879324,
+      0.7990295481854153,
+      0.0,
+      0.5641384638090157
+    ]
+  },
+  "macro_costs": [
+    0.4970616651852347,
+    0.03598073112089997,
+    0.6849267915474202,
+    0.0,
+    0.41912522459599366
+  ],
+  "D_by_workload": {
+    "light": 0.09055273089947115,
+    "moderate": 0.46710910209117745,
+    "heavy": 0.6326686245941825,
+    "dynamic": 0.5216046728096488
+  },
+  "D_macro": 0.42264774355976353,
+  "evaluation_mode": "deterministic",
+  "sampling_seed": null,
+  "checkpoint": "/workspace/RISET S3 Rozi/IFogsim2-ERWOPPO/results/research_v2/v0.3/fidelity/models/simplex_o100r0/train/checkpoint_00102400",
+  "model_sha256": "adeb0c94d359deb98aff0e367cd301f92e47f040f53c2dcaf5d8a0a0e6dc342d"
+}

@@ -63,9 +63,12 @@ class TimedOffloadingEnv(OffloadingEnv):
             self.rpc_wall_s += time.monotonic() - started
 
 
-def run_final_training(directory, outer, decisions, weights, checkpoints, jdk_home=None, *, fast_rpc=True, worker_port=None):
+def run_final_training(directory, outer, decisions, weights, checkpoints, jdk_home=None, *, fast_rpc=True, worker_port=None,
+                       learner_version='0.2'):
+    from .learner import effective_learner
     config = load_config()
-    rollout = config['ppo']['n_steps']
+    learner, learner_meta = effective_learner(config, learner_version)
+    rollout = learner['ppo']['n_steps']
     require(type(decisions) is int and decisions > 0 and decisions % rollout == 0, 'Invalid final budget')
     require(checkpoints and decisions in checkpoints and all(type(x) is int and 0 < x <= decisions and x % rollout == 0
         for x in checkpoints), 'Invalid final checkpoint schedule')
@@ -78,20 +81,21 @@ def run_final_training(directory, outer, decisions, weights, checkpoints, jdk_ho
             'offset': outer % 4, 'decisions': decisions, 'rollouts': decisions // rollout,
             'weights': weights, 'config_sha256': sha256(config), 'split': 'train_final',
             'evaluation_split': 'validation', 'checkpoint_at': sorted(set(checkpoints)),
-            'effective_ppo': config['ppo'], 'learner_config_sha256': sha256(config),
+            'effective_ppo': learner['ppo'], 'learner_config_sha256': sha256(learner),
+            'learner_version': learner_version, 'learner_protocol': learner_meta['protocol'],
             'partial_episode_resume': False, 'rpc_schema_validation': not fast_rpc,
             'worker_port': worker_port}
     write_json(directory / 'manifest.json', {**plan, 'status': 'running', 'provenance': provenance(config)})
     (directory / 'environment-freeze.txt').write_text(subprocess.check_output(
         [sys.executable, '-m', 'pip', 'freeze'], text=True))
-    write_json(directory / 'effective_learner_config.json', config)
+    write_json(directory / 'effective_learner_config.json', learner)
     env = None
     started = time.monotonic()
     try:
         setup_torch(config)
         env = EpisodeAudit(TimedOffloadingEnv(stream, weights, config=config, jdk_home=jdk_home,
                             any_port=worker_port is None, port=worker_port, validate=not fast_rpc), stream, directory)
-        model = AuditedPPO('MlpPolicy', env, seed=plan['model_seed'], **ppo_kwargs(config))
+        model = AuditedPPO('MlpPolicy', env, seed=plan['model_seed'], **ppo_kwargs(learner))
         model.audit_directory, model.audit_env = directory, env
         model.audit_checkpoint_at = plan['checkpoint_at']
         model.set_logger(configure(str(directory / 'sb3'), ['json']))

@@ -1,0 +1,119 @@
+{
+  "status": "complete",
+  "phase": "P10",
+  "outer": 100,
+  "repeat": 0,
+  "model_seed": 200200,
+  "offset": 0,
+  "decisions": 102400,
+  "rollouts": 200,
+  "weights": [
+    0.31342012630644706,
+    0.09236111609019916,
+    0.039582770504973275,
+    0.4655158892823413,
+    0.08912009781603909
+  ],
+  "config_sha256": "3e32379ebd2e8770e025ff9cce11be28cbffe7e535b269a070030ce6d9dae025",
+  "split": "pilot_train",
+  "evaluation_split": "pilot_validation",
+  "partial_episode_resume": false,
+  "checkpoint_at": [
+    10240,
+    20480,
+    30720,
+    51200,
+    102400
+  ],
+  "rpc_schema_validation": false,
+  "worker_port": null,
+  "effective_ppo": {
+    "device": "cpu",
+    "environments": 1,
+    "torch_threads": 1,
+    "torch_interop_threads": 1,
+    "actor_layers": [
+      128,
+      128
+    ],
+    "critic_layers": [
+      128,
+      128
+    ],
+    "activation": "Tanh",
+    "learning_rate": 0.0003,
+    "n_steps": 512,
+    "batch_size": 128,
+    "n_epochs": 10,
+    "gamma": 0.97,
+    "gae_lambda": 0.95,
+    "clip_range": 0.2,
+    "ent_coef": 0.01,
+    "vf_coef": 0.5,
+    "max_grad_norm": 0.5,
+    "target_kl": 0.03,
+    "normalize_advantage": true,
+    "deterministic_evaluation": true
+  },
+  "learner_config_sha256": "9e1ea5b0861974e676375d3efaa6c2eeb50eda484a57b0e7cc074d12b6f41c39",
+  "learner_protocol": "research-v2-learner-0.3",
+  "learner_version": "0.3",
+  "instrumentation": false,
+  "policy_changed": true,
+  "wall_s": 87.07974437437952,
+  "audit": {
+    "decisions": 102400,
+    "decisions_by_workload": {
+      "light": 8122,
+      "moderate": 23849,
+      "heavy": 47072,
+      "dynamic": 23357
+    },
+    "action_counts": [
+      31608,
+      2325,
+      3043,
+      3306,
+      2668,
+      3501,
+      55949
+    ],
+    "stream": {
+      "next_episode": 106,
+      "counts": {
+        "light": 27,
+        "moderate": 27,
+        "heavy": 26,
+        "dynamic": 26
+      },
+      "current": {
+        "namespace": {
+          "master": 20261103,
+          "split": "pilot_train",
+          "outer_run": 100,
+          "model_repeat": 0,
+          "trace_id": 26,
+          "workload": "moderate"
+        },
+        "payload_sha256": "ba6e5d3ede407a808200c7a7d92e7a4bfe7f37cce72c13f6ad327100ba7a4aeb",
+        "tasks": 911
+      }
+    },
+    "active_episode": {
+      "decisions": 454,
+      "reward_so_far": -11.39941397537945,
+      "unarrived_tasks": 457,
+      "pending_decided_outcomes": "unknown; not inferred from arrivals",
+      "pending_outcomes_not_evaluated": true,
+      "cost_cumulative": [
+        0.23729523665523597,
+        0.021403860630838233,
+        0.41602634467618343,
+        0.010606403686170746,
+        0.18221734357848487
+      ],
+      "note": "Unresolved includes future arrivals; decided tasks can also await outcomes. No success inferred."
+    }
+  },
+  "evaluation_complete": false
+}

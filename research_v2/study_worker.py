@@ -85,12 +85,13 @@ def execute(study, job, attempt, jdk_home):
     outer = job['outer']
     mini = plan['fixture_only']
     role = job['role']
+    learner_version = plan.get('learner_version', '0.2')
     started = time.monotonic()
     if role == 'search':
         if mini:
             # One charged fixture slot. This tests orchestration, not NSGA-II quality.
             data.mkdir()
-            evaluator = CandidateEvaluator(data / 'candidates', outer, budget['K'], jdk_home)
+            evaluator = CandidateEvaluator(data / 'candidates', outer, budget['K'], jdk_home, learner_version=learner_version)
             weights = config['search']['equal_weights']
             evaluator(weights, 0)
             selected = evaluator.slots[0]
@@ -109,7 +110,8 @@ def execute(study, job, attempt, jdk_home):
         selected = dependency_result(study, job)['selected']
         weights = selected['weights']
         data.mkdir()
-        run_final_training(data / 'training', outer, budget['F'], weights, [budget['F']], jdk_home)
+        run_final_training(data / 'training', outer, budget['F'], weights, [budget['F']], jdk_home,
+                           learner_version=learner_version)
         if mini:
             run_final_validation(data / 'training' / f'checkpoint_{budget["F"]:08d}',
                                  data / 'validation_F', jdk_home)
@@ -122,7 +124,8 @@ def execute(study, job, attempt, jdk_home):
         weights = config['search']['equal_weights' if job['method'] == 'equal' else 'manual_weights']
         data.mkdir()
         checkpoints = sorted({budget['F'], budget['B'], *([51200] if budget['B'] >= 51200 else [])})
-        run_final_training(data / 'training', outer, budget['B'], weights, checkpoints, jdk_home)
+        run_final_training(data / 'training', outer, budget['B'], weights, checkpoints, jdk_home,
+                           learner_version=learner_version)
         if mini:
             run_final_validation(data / 'training' / f'checkpoint_{budget["F"]:08d}',
                                  data / 'validation_F', jdk_home)

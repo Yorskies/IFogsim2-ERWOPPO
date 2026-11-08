@@ -1,0 +1,14 @@
+{
+  "version": "P10-fidelity-v0.3",
+  "status": "pass",
+  "recomputed_from_episode_rows": true,
+  "all_48_models_complete": true,
+  "independent_prefix_checks": 3,
+  "prefix_checks_pass": [
+    true,
+    true,
+    true
+  ],
+  "selected_K": null,
+  "result_sha256": "c46b32dda45b7836dec51a73fe82cd6d71cf2546c039fe28ee8d26966e6ee6a8"
+}
