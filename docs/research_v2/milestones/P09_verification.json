@@ -1,0 +1,68 @@
+{
+  "phase": "P09",
+  "scope": "runner, accounting, resume; fixture-sized studies only; test split never opened",
+  "status": "pass",
+  "unit_tests": {
+    "pattern": "test_study_runner.py",
+    "tests_run": 12,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "passed": true,
+    "log_tail": "errupted_attempts_do_not_consume_technical_retries) ... ok\ntest_A_B_reuse_search_and_final_jobs (test_study_runner.BudgetTests.test_A_B_reuse_search_and_final_jobs) ... ok\ntest_B01_rounds_only_baseline_and_charges_validation (test_study_runner.BudgetTests.test_B01_rounds_only_baseline_and_charges_validation) ... ok\ntest_actual_validation_trace_count_and_revised_K (test_study_runner.BudgetTests.test_actual_validation_trace_count_and_revised_K) ... ok\ntest_final_stream_uses_fixed_method_independent_namespace (test_study_runner.BudgetTests.test_final_stream_uses_fixed_method_independent_namespace) ... ok\ntest_untouched_plan_verifies_and_each_drift_is_refused (test_study_runner.DriftTests.test_untouched_plan_verifies_and_each_drift_is_refused) ... ok\ntest_zombie_is_not_a_live_owner (test_study_runner.LivenessTests.test_zombie_is_not_a_live_owner) ... ok\ntest_gzip_is_lossless_deterministic_and_removes_raw (test_study_runner.LogCompressionTests.test_gzip_is_lossless_deterministic_and_removes_raw) ... ok\ntest_active_owner_refuses_second_writer (test_study_runner.OwnershipTests.test_active_owner_refuses_second_writer) ... ok\ntest_completed_pointer_rejects_tampered_result (test_study_runner.OwnershipTests.test_completed_pointer_rejects_tampered_result) ... ok\ntest_dead_owner_is_archived_before_recovery (test_study_runner.OwnershipTests.test_dead_owner_is_archived_before_recovery) ... ok\n\n----------------------------------------------------------------------\nRan 12 tests in 5.618s\n\nOK\n"
+  },
+  "live_scenarios": {
+    "prefix": {
+      "pass": true,
+      "wall_s": 5.247223032638431
+    },
+    "reference": {
+      "pass": true,
+      "wall_s": 568.5384573973715
+    },
+    "interrupt": {
+      "pass": true,
+      "wall_s": 178.0773139121011
+    },
+    "drift": {
+      "pass": true,
+      "wall_s": 11.267404660582542
+    },
+    "parallel": {
+      "pass": true,
+      "wall_s": 159.96680280845612
+    },
+    "capacity": {
+      "pass": true,
+      "wall_s": 0.0013283612206578255
+    }
+  },
+  "criteria": {
+    "mini_multi_seed_study_completes_without_overwrite": true,
+    "complete_results_not_repeated": true,
+    "partial_run_not_complete": true,
+    "crash_resumable_per_contract": true,
+    "interaction_counts_equal_ledger": true,
+    "workers_do_not_share_cloudsim_singleton": true,
+    "parallel_results_identical_to_sequential": true,
+    "no_leftover_servers": true,
+    "drift_refused": true,
+    "prefix_equivalence_F_vs_B_run": true
+  },
+  "parallel": {
+    "runners": 4,
+    "wall_s": 159.96680280845612,
+    "sequential_reference_wall_s": 568.5384573973715,
+    "speedup": 3.554102772674266,
+    "efficiency": 0.8885256931685666
+  },
+  "source_files_changed_since_evidence": [
+    "research_v2/trace_access.py"
+  ],
+  "runner_critical_files_unchanged_since_evidence": true,
+  "environment": {
+    "python": "3.12.3 (main, Jul 15 2026, 23:46:41) [GCC 13.3.0]",
+    "platform": "Linux-6.8.0-139-generic-x86_64-with-glibc2.39"
+  },
+  "test_accessed": false
+}
