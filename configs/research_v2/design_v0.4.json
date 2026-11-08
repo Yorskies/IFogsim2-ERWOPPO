@@ -1,0 +1,37 @@
+{
+  "version": "P10-design-v0.4",
+  "protocol": "research-v2-protocol-0.4",
+  "registered_utc": "2026-11-08",
+  "simulation_config_sha256": "3e32379ebd2e8770e025ff9cce11be28cbffe7e535b269a070030ce6d9dae025",
+  "learner_version": "0.3",
+  "candidate_decisions_K": 102400,
+  "K_rule": "K = F: every search candidate is trained for the full final budget, so no short-budget proxy (and no proxy-fidelity gate) is involved.",
+  "unchanged_from_v0_3": [
+    "simulation config, traces, JAR and P01-P06 evidence",
+    "learner v0.3 (gamma 0.97)",
+    "80 candidate slots x 2 model repeats, NSGA-II and random search",
+    "F = 102,400; protocol A/B reuse; B = ceil(C/512)*512",
+    "hypothesis registry: 3 primary (Holm) + 60 secondary (Holm), crossed bootstrap, exploratory rules",
+    "test split sealed until the v0.4 lock verifies"
+  ],
+  "rationale": "The registered v0.3 fidelity gate failed at every K (best median Spearman 0.476 at 30,720), i.e. short-budget rankings do not predict final-budget rankings. Searching at K = F removes that proxy. It does not remove seed noise: in the pilot, two independent seeds ranked the 8 weights with median Spearman 0.095 at F, while the best weight (vertex2) was consistent across all 3 pilot outers. Power for RQ1-RQ3 may therefore be limited; null results are reported in full.",
+  "predecessors": {
+    "v0.3": {
+      "git_tag": "protocol-v0.3",
+      "fidelity_result": "results/research_v2/v0.3/fidelity/result.json",
+      "fidelity_result_sha256": "c46b32dda45b7836dec51a73fe82cd6d71cf2546c039fe28ee8d26966e6ee6a8",
+      "status": "gate failed at all K; M3 no-go"
+    },
+    "v0.2": {
+      "git_tag": "protocol-v0.2",
+      "lock": "results/research_v2/P10_protocol_lock/protocol_lock.json",
+      "lock_file_sha256": "e99254d006eedf1e4a8cc587978f134d99ecbbaad3a582497a61d09e20fc8066",
+      "status": "M3 no-go (gamma 1.0)"
+    }
+  },
+  "operational_changes": [
+    "per-decision audit logs are streamed into gzip during training (no raw log on disk)",
+    "P11 runs 10 sharded studies (2 outer runs each) in parallel within the 16-core container quota"
+  ],
+  "seed_note": "Confirmatory seeds (outer 0-19) were used for validation-only exploratory checks in P10 (equal/8-weight F runs, v0.2 learner); no test trace was touched."
+}

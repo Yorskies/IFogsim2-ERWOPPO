@@ -17,8 +17,8 @@ import sys
 from ..config import ContractError, ROOT, load_config, read_json, require, sha256
 from .stats import COSTS, PRIMARY
 
-LOCK_VERSIONS = {'0.2': 'P10-lock-1', '0.3': 'P10-lock-2'}
-LOCK_VERSION = LOCK_VERSIONS['0.3']
+LOCK_VERSIONS = {'0.2': 'P10-lock-1', '0.3': 'P10-lock-2', '0.4': 'P10-lock-3'}
+LOCK_VERSION = LOCK_VERSIONS['0.4']
 SOURCE_GLOBS = ('research_v2/**/*.py', 'tests/research_v2/*.py', 'schemas/research_v2/*.json',
                 'configs/research_v2/*.json', 'requirements-v2-*.txt', 'run_research_v2.py')
 # Per-protocol artifact locations. v0.2 artifacts are never rewritten; v0.3 lives under results/research_v2/v0.3/.
@@ -34,6 +34,12 @@ ARTIFACTS = {
                           'results/research_v2/P10_learning_check/sensitivity.json',
                           'results/research_v2/P10_learning_check/check.json')},
 }
+ARTIFACTS['0.4'] = {'live_evidence': 'results/research_v2/v0.4/p09_runner_evidence/live_evidence.json',
+                    'dry_run': 'results/research_v2/v0.4/dry_run_full/budget_report.json',
+                    'design': 'configs/research_v2/design_v0.4.json',
+                    'predecessor_lock': ARTIFACTS['0.3']['predecessor_lock'],
+                    'failed_gate': 'results/research_v2/v0.3/fidelity',
+                    'diagnosis': ARTIFACTS['0.3']['diagnosis']}
 EVIDENCE_FILES = tuple(ARTIFACTS['0.2'][k] for k in ('live_evidence', 'dry_run'))
 LIVE_SCENARIOS = ('prefix', 'reference', 'interrupt', 'drift', 'parallel', 'capacity')
 
@@ -185,7 +191,7 @@ def build_lock(*, fidelity_evidence, resource_estimate=None, deviations=(), vers
     else:
         from ..fidelity_v03 import require_fidelity_gate
         K, learner_version = require_fidelity_gate(fidelity_evidence)
-        require(learner_version == '0.3', 'v0.3 lock needs v0.3 fidelity evidence')
+        require(learner_version == '0.3', f'v{version} lock needs the v0.3 learner')
     plan = read_json(ROOT / paths['dry_run'])
     require(plan['K'] == K and not plan['fixture_only'], 'Full dry-run budget differs from the frozen K')
     require(plan.get('learner_version', '0.2') == learner_version, 'Dry-run budget was made for another learner')
@@ -205,15 +211,26 @@ def build_lock(*, fidelity_evidence, resource_estimate=None, deviations=(), vers
     predecessor = read_json(ROOT / paths['predecessor_lock'])
     lock['learner'] = learner_meta
     lock['frozen_design']['ppo_effective'] = effective_learner(config, '0.3')[0]['ppo']
-    lock['fidelity'] = {'evidence_dir': fidelity_evidence.relative_to(ROOT).as_posix(), 'selected_K': K,
-                        'files': {n: file_sha256(fidelity_evidence / n) for n in ('protocol.json', 'result.json', 'audit.json')},
-                        'caveat': 'Re-run of the registered Spearman gate with the v0.3 learner on the pilot namespace; reference = final '
-                                  'budget F; the same pilot seeds were used in the P10 diagnosis that motivated v0.3.'}
+    if version == '0.4':
+        require(fidelity_evidence == (ROOT / paths['design']).resolve(), 'v0.4 lock must be built from the registered design file')
+        gate = ROOT / paths['failed_gate']
+        lock['design'] = {'path': paths['design'], 'sha256': file_sha256(fidelity_evidence), 'K': K,
+                          'rule': 'K = F; no proxy-fidelity gate'}
+        lock['fidelity'] = {'evidence_dir': paths['failed_gate'], 'selected_K': None,
+                            'files': {n: file_sha256(gate / n) for n in ('protocol.json', 'result.json', 'audit.json')},
+                            'role': 'the failed v0.3 gate (predecessor) that motivated K = F; kept for audit'}
+    else:
+        lock['fidelity'] = {'evidence_dir': fidelity_evidence.relative_to(ROOT).as_posix(), 'selected_K': K,
+                            'files': {n: file_sha256(fidelity_evidence / n) for n in ('protocol.json', 'result.json', 'audit.json')},
+                            'caveat': 'Re-run of the registered Spearman gate with the v0.3 learner on the pilot namespace; reference = final '
+                                      'budget F; the same pilot seeds were used in the P10 diagnosis that motivated v0.3.'}
     lock['predecessor'] = {'protocol_version': '0.2', 'lock_path': paths['predecessor_lock'],
                            'lock_file_sha256': file_sha256(ROOT / paths['predecessor_lock']),
                            'lock_sha256': predecessor['lock_sha256'], 'git_tag': 'protocol-v0.2',
                            'status': 'superseded; M3 no-go because the gamma 1.0 learner did not learn consistently',
-                           'note': 'The v0.2 lock verifies at the protocol-v0.2 tag, not on later trees (locked files changed by design).'}
+                           'note': 'The v0.2 lock verifies at the protocol-v0.2 tag, not on later trees (locked files changed by design).',
+                           **({'v0.3': {'git_tag': 'protocol-v0.3', 'status': 'fidelity gate failed at all K; no lock'}}
+                              if version == '0.4' else {})}
     lock['diagnosis_evidence'] = {name: file_sha256(ROOT / name) for name in paths['diagnosis']}
     return _seal(lock)
 
@@ -276,6 +293,8 @@ def verify_lock(path, *, deep=False):
                 problems.append('learner protocol differs from lock')
         except ContractError as error:
             problems.append(f'learner protocol invalid for the current config: {error}')
+        if 'design' in lock and file_sha256(ROOT / lock['design']['path']) != lock['design']['sha256']:
+            problems.append('v0.4 design file changed')
         pred = lock['predecessor']
         if file_sha256(ROOT / pred['lock_path']) != pred['lock_file_sha256']:
             problems.append('predecessor (v0.2) lock file changed')
@@ -310,7 +329,7 @@ def main():
     c.add_argument('--fidelity-evidence', type=Path, required=True)
     c.add_argument('--resource-estimate', type=Path)
     c.add_argument('--deviations', type=Path, help='JSON list of recorded changes from v0.2')
-    c.add_argument('--protocol-version', choices=('0.2', '0.3'), default='0.3')
+    c.add_argument('--protocol-version', choices=('0.2', '0.3', '0.4'), default='0.4')
     v = sub.add_parser('verify')
     v.add_argument('--lock', type=Path, required=True)
     v.add_argument('--deep', action='store_true')

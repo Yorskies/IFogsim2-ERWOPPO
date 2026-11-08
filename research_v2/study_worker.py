@@ -49,6 +49,10 @@ def compress_decision_logs(data):
     """Raw per-decision audit rows are ~5 KB each (~2.6 TB for the full study). Store deterministic gzip
     (mtime 0) and drop the raw copy. Runs after training/validation; it cannot affect any computation."""
     raw = packed = 0
+    for meta in sorted(Path(data).glob('**/decisions.jsonl.gz.meta.json')):   # streamed by EpisodeAudit
+        info = read_json(meta)
+        raw += info['raw_bytes']
+        packed += info['gzip_bytes']
     for source in sorted(Path(data).glob('**/decisions.jsonl')):
         target = source.with_name('decisions.jsonl.gz')
         temporary = source.with_name('.decisions.jsonl.gz.tmp')

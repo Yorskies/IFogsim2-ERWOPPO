@@ -5,6 +5,7 @@ Checkpoints are post-update audit/evaluation artifacts, NOT resumable simulator 
 import argparse
 import copy
 from collections import Counter
+import gzip
 import hashlib
 import importlib.metadata
 import json
@@ -115,6 +116,8 @@ class EpisodeAudit(gym.Wrapper):
     def __init__(self, env, stream, directory):
         super().__init__(env)
         self.stream, self.directory = stream, Path(directory)
+        self._decision_file = self._decision_sink = None
+        self._decision_raw_bytes = 0
         self.decisions = 0
         self.by_workload = Counter()
         self.actions = np.zeros(7, dtype=np.int64)
@@ -136,7 +139,7 @@ class EpisodeAudit(gym.Wrapper):
         obs, reward, terminated, truncated, info = self.env.step(action)
         require(not truncated, 'Physical engine unexpectedly truncated an episode')
         require(np.isfinite(reward) and np.isfinite(obs).all(), 'Nonfinite environment output')
-        append_json(self.directory / 'decisions.jsonl', {
+        self._write_decision({
             'episode': self.stream.state(), 'task_id': self.decision_info.get('task_id'),
             'sim_time_s': self.decision_info.get('sim_time_s'),
             'raw_snapshot': self.decision_info.get('raw_snapshot'), 'action': int(action),
@@ -160,6 +163,26 @@ class EpisodeAudit(gym.Wrapper):
                         'reward': self.total_reward, 'expected_reward': expected,
                         'action_counts': self.episode_actions.tolist(), 'metrics': metrics})
         return obs, reward, terminated, truncated, info
+
+    def _write_decision(self, row):
+        """Per-decision audit rows (~5 KB each) streamed into one deterministic gzip file (mtime 0), so no raw log ever
+        accumulates on disk. An interrupted attempt leaves a truncated file, but interrupted attempts are discarded anyway."""
+        if self._decision_sink is None:
+            self._decision_file = (self.directory / 'decisions.jsonl.gz').open('wb')
+            self._decision_sink = gzip.GzipFile(filename='', mode='wb', fileobj=self._decision_file, compresslevel=6, mtime=0)
+        data = (json.dumps(row, allow_nan=False) + '\n').encode()
+        self._decision_raw_bytes += len(data)
+        self._decision_sink.write(data)
+
+    def close(self):
+        if self._decision_sink is not None:
+            self._decision_sink.close()
+            self._decision_file.close()
+            write_json(self.directory / 'decisions.jsonl.gz.meta.json',
+                       {'rows': self.decisions, 'raw_bytes': self._decision_raw_bytes,
+                        'gzip_bytes': (self.directory / 'decisions.jsonl.gz').stat().st_size})
+            self._decision_sink = self._decision_file = None
+        super().close()
 
     def state(self):
         return {'decisions': self.decisions, 'decisions_by_workload': dict(self.by_workload),

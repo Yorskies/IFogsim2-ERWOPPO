@@ -41,7 +41,7 @@ def require_extension_gate(path):
 
 
 def run(method, outer, root, evidence, jdk_home=None):
-    from .fidelity_v03 import require_fidelity_gate
+    from .fidelity_v03 import evidence_version, require_fidelity_gate
     budget, learner_version = require_fidelity_gate(evidence)
     root = Path(root)
     root.mkdir(parents=True, exist_ok=False)
@@ -49,7 +49,7 @@ def run(method, outer, root, evidence, jdk_home=None):
     write_json(root / 'protocol.json', {'phase': 'P08' if learner_version == '0.2' else 'P11', 'method': method, 'outer': outer,
         'K': budget, 'candidate_slots': 80, 'model_repeats': 2, 'worker_count': 1,
         'fidelity_evidence': str(Path(evidence).resolve()),
-        'fidelity_version': read_json(Path(evidence) / 'protocol.json')['version'], 'learner_version': learner_version,
+        'fidelity_version': evidence_version(evidence), 'learner_version': learner_version,
         'provenance': provenance(config), 'test_accessed': False})
     evaluator = CandidateEvaluator(root / 'candidates', outer, budget, jdk_home, learner_version=learner_version)
     outcome = optimize(method, outer, evaluator, config)

@@ -130,6 +130,21 @@ class FidelityGateTests(unittest.TestCase):
             (Path(tmp) / 'result.json').write_text(json.dumps(tampered))
             self.assertEqual(F.audit(tmp)['status'], 'fail')
 
+    def test_v04_design_gives_K_equal_F_with_learner_v03(self):
+        design = ROOT / 'configs/research_v2/design_v0.4.json'
+        self.assertEqual(F.require_fidelity_gate(design), (CONFIG['training']['final_decisions'], '0.3'))
+        data = json.loads(design.read_text())
+        for mutate, needle in ((lambda d: d.update(candidate_decisions_K=30720), 'K = F'),
+                               (lambda d: d.update(simulation_config_sha256='0' * 64), 'Config changed'),
+                               (lambda d: d['predecessors']['v0.3'].update(fidelity_result_sha256='0' * 64), 'Predecessor v0.3')):
+            with tempfile.TemporaryDirectory() as tmp:
+                copy = json.loads(json.dumps(data))
+                mutate(copy)
+                path = Path(tmp) / 'design.json'
+                path.write_text(json.dumps(copy))
+                with self.assertRaisesRegex(ContractError, needle):
+                    F.require_fidelity_gate(path)
+
     def test_superseded_v02_evidence_is_refused_on_v03_code(self):
         evidence = ROOT / 'results/research_v2/P08_fidelity_extension_1'
         with self.assertRaisesRegex(ContractError, 'Source changed after fidelity'):

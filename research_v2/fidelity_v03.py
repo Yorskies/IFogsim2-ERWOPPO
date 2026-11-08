@@ -183,9 +183,39 @@ def require_v03_gate(path):
     return result['selected_K']
 
 
+DESIGN_V04 = 'P10-design-v0.4'
+
+
+def evidence_version(path):
+    path = Path(path)
+    return read_json(path)['version'] if path.is_file() else read_json(path / 'protocol.json')['version']
+
+
+def evidence_sha256(path):
+    path = Path(path)
+    return file_hash(path) if path.is_file() else file_hash(path / 'result.json')
+
+
+def require_design_v04(path):
+    """v0.4 has no proxy gate: K = F by registration. Verify the design file against the current tree."""
+    design = read_json(path)
+    config = load_config()
+    require(design['version'] == DESIGN_V04, 'Not a v0.4 design file')
+    require(design['simulation_config_sha256'] == sha256(config), 'Config changed after the v0.4 design was registered')
+    require(design['candidate_decisions_K'] == config['training']['final_decisions'], 'v0.4 requires K = F')
+    effective_learner(config, design['learner_version'])
+    for name, entry in design['predecessors'].items():
+        target = entry.get('fidelity_result') or entry.get('lock')
+        digest = entry.get('fidelity_result_sha256') or entry.get('lock_file_sha256')
+        require(file_hash(ROOT / target) == digest, f'Predecessor {name} evidence changed')
+    return design['candidate_decisions_K'], design['learner_version']
+
+
 def require_fidelity_gate(path):
-    """(K, learner_version) for any registered fidelity evidence."""
-    version = read_json(Path(path) / 'protocol.json')['version']
+    """(K, learner_version) for any registered fidelity evidence or design."""
+    version = evidence_version(path)
+    if version == DESIGN_V04:
+        return require_design_v04(path)
     if version == PROTOCOL:
         return require_v03_gate(path), LEARNER
     from .search_runner_extension import require_extension_gate

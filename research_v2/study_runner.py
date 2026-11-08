@@ -16,7 +16,7 @@ import time
 from .config import ROOT, load_config, read_json, require, sha256
 from .learning import file_hash
 from .search import feasible
-from .fidelity_v03 import require_fidelity_gate
+from .fidelity_v03 import evidence_sha256, require_fidelity_gate
 from .learner import CURRENT as CURRENT_LEARNER, effective_learner
 from .study_budget import build_plan, validation_trace_manifest
 
@@ -114,7 +114,7 @@ def prepare(root, *, outers, mini=False, fidelity=None, learner_version=None):
     plan['source_hashes'] = {p.relative_to(ROOT).as_posix(): file_hash(p)
                              for p in sorted((ROOT / 'research_v2').glob('*.py'))}
     plan['fidelity_evidence'] = None if mini else str(Path(fidelity).resolve())
-    plan['fidelity_result_sha256'] = None if mini else file_hash(Path(fidelity) / 'result.json')
+    plan['fidelity_result_sha256'] = None if mini else evidence_sha256(fidelity)
     root.mkdir(parents=True, exist_ok=False)
     atomic_json(root / 'protocol.json', plan)
     atomic_json(root / 'budget_report.json', budget_report(plan))
@@ -155,8 +155,7 @@ def verify_plan(root):
     if not p['fixture_only']:
         require(require_fidelity_gate(Path(p['fidelity_evidence'])) == (p['budget']['K'], version),
                 'Fidelity K or learner changed')
-        require(file_hash(Path(p['fidelity_evidence']) / 'result.json') == p['fidelity_result_sha256'],
-                'Fidelity evidence changed')
+        require(evidence_sha256(p['fidelity_evidence']) == p['fidelity_result_sha256'], 'Fidelity evidence changed')
     return p
 
 

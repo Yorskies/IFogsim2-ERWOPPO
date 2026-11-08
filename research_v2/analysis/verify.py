@@ -18,9 +18,10 @@ import unittest
 from ..config import ROOT, load_config, read_json
 from .lock import ARTIFACTS, file_sha256, source_hashes, test_trace_manifest, verify_lock
 
-EVIDENCE = ROOT / ARTIFACTS['0.3']['live_evidence']
-MINI_REPORT = {'0.2': ROOT / 'results/research_v2/P10_mini_report', '0.3': ROOT / 'results/research_v2/v0.3/mini_report'}
-VERSION = '0.3'
+EVIDENCE = ROOT / ARTIFACTS['0.4']['live_evidence']
+MINI_REPORT = {'0.2': ROOT / 'results/research_v2/P10_mini_report', '0.3': ROOT / 'results/research_v2/v0.3/mini_report',
+               '0.4': ROOT / 'results/research_v2/v0.4/mini_report'}
+VERSION = '0.4'
 
 
 def cgroup_limits():
@@ -199,7 +200,7 @@ def main():
         if name == 'p10':
             p.add_argument('--lock', type=Path)
         p.set_defaults(fn=fn)
-    parser.add_argument('--protocol-version', choices=('0.2', '0.3'), default='0.3')
+    parser.add_argument('--protocol-version', choices=('0.2', '0.3', '0.4'), default='0.4')
     args = parser.parse_args()
     global EVIDENCE, VERSION
     VERSION = args.protocol_version
