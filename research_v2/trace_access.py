@@ -15,7 +15,10 @@ ROLES = {
     "search_validator": {"validation"},
     "final_trainer": {"train_final"},
     "holdout_preparer": {"test"},
+    "test_evaluator": {"test"},
 }
+# Set only by unseal_test() after the P10 protocol lock verifies; never by import or configuration.
+_TEST_UNSEALED = None
 
 
 def authorize(role, split, operation):
@@ -23,7 +26,18 @@ def authorize(role, split, operation):
     require(split in ROLES[role], f"Role {role} cannot access split {split}")
     require(operation in {"generate", "read", "describe"}, f"Unknown trace operation: {operation}")
     if split == "test":
-        require(operation == "generate", "Test is sealed: P01 allows preparation only; evaluation requires P10 protocol freeze")
+        if role == "test_evaluator":
+            require(_TEST_UNSEALED is not None,
+                    "Test is sealed: call unseal_test() with a valid P10 protocol lock before evaluating")
+        else:
+            require(operation == "generate", "Test is sealed: P01 allows preparation only; evaluation requires P10 protocol freeze")
+
+
+def unseal_test(lock_path):
+    """Allow role test_evaluator on the test split, only if the P10 protocol lock verifies against disk."""
+    global _TEST_UNSEALED
+    from .analysis.lock import require_valid_lock
+    _TEST_UNSEALED = require_valid_lock(lock_path)["lock_sha256"]
 
 
 def _integer(value, name):

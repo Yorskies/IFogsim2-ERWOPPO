@@ -1,0 +1,52 @@
+{
+  "phase": "P10",
+  "scope": "analysis module, mini report, resource estimate, protocol lock; test split not evaluated",
+  "status": "pass",
+  "unit_tests": [
+    {
+      "pattern": "test_analysis.py",
+      "tests_run": 28,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "passed": true,
+      "log_tail": "_analysis.MissingDataTests.test_all_twenty_outer_runs_are_required) ... ok\ntest_loader_rejects_missing_cell_and_unpaired_traces (test_analysis.MissingDataTests.test_loader_rejects_missing_cell_and_unpaired_traces) ... ok\ntest_missing_method_and_shape_mismatch (test_analysis.MissingDataTests.test_missing_method_and_shape_mismatch) ... ok\ntest_missing_or_nonfinite_data_is_an_error (test_analysis.MissingDataTests.test_missing_or_nonfinite_data_is_an_error) ... ok\ntest_all_differences_zero (test_analysis.SignFlipTests.test_all_differences_zero) ... ok\ntest_all_same_sign_gives_two_over_two_to_the_n (test_analysis.SignFlipTests.test_all_same_sign_gives_two_over_two_to_the_n) ... ok\ntest_exact_enumeration_limits (test_analysis.SignFlipTests.test_exact_enumeration_limits) ... ok\ntest_matches_brute_force_including_ties (test_analysis.SignFlipTests.test_matches_brute_force_including_ties) ... ok\ntest_matches_scipy_permutation_test (test_analysis.SignFlipTests.test_matches_scipy_permutation_test) ... ok\ntest_montecarlo_close_to_exact_and_never_zero (test_analysis.SignFlipTests.test_montecarlo_close_to_exact_and_never_zero) ... ok\ntest_sd_zero_with_nonzero_mean_is_undefined_not_zero (test_analysis.SignFlipTests.test_sd_zero_with_nonzero_mean_is_undefined_not_zero) ... ok\ntest_swapping_the_pair_mirrors_everything (test_analysis.SignFlipTests.test_swapping_the_pair_mirrors_everything) ... ok\n\n----------------------------------------------------------------------\nRan 28 tests in 0.385s\n\nOK\n"
+    },
+    {
+      "pattern": "test_protocol_lock.py",
+      "tests_run": 7,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "passed": true,
+      "log_tail": "test_config_jar_seed_and_evidence_drift (test_protocol_lock.ProtocolLockTests.test_config_jar_seed_and_evidence_drift) ... ok\ntest_contents_freeze_the_registered_design (test_protocol_lock.ProtocolLockTests.test_contents_freeze_the_registered_design) ... ok\ntest_dependency_drift_is_a_violation (test_protocol_lock.ProtocolLockTests.test_dependency_drift_is_a_violation) ... ok\ntest_modified_missing_added_files (test_protocol_lock.ProtocolLockTests.test_modified_missing_added_files) ... ok\ntest_tampered_lock_file_is_rejected (test_protocol_lock.ProtocolLockTests.test_tampered_lock_file_is_rejected) ... ok\ntest_test_split_is_sealed_until_a_valid_lock_is_verified (test_protocol_lock.ProtocolLockTests.test_test_split_is_sealed_until_a_valid_lock_is_verified) ... ok\ntest_untouched_lock_verifies (test_protocol_lock.ProtocolLockTests.test_untouched_lock_verifies) ... ok\n\n----------------------------------------------------------------------\nRan 7 tests in 45.188s\n\nOK\n"
+    },
+    {
+      "pattern": "test_traces.py",
+      "tests_run": 26,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "passed": true,
+      "log_tail": "p (test_traces.PersistenceTests.test_atomic_idempotent_write_and_canonical_roundtrip) ... ok\ntest_cli_generates_all_workloads_and_checks_access (test_traces.PersistenceTests.test_cli_generates_all_workloads_and_checks_access) ... ok\ntest_concurrent_identical_writers_publish_one_complete_bundle (test_traces.PersistenceTests.test_concurrent_identical_writers_publish_one_complete_bundle) ... ok\ntest_fixture_ties_and_timestamp_boundaries (test_traces.PersistenceTests.test_fixture_ties_and_timestamp_boundaries) ... ok\ntest_tampered_bundle_is_never_overwritten_or_returned (test_traces.PersistenceTests.test_tampered_bundle_is_never_overwritten_or_returned) ... ok\ntest_test_bundle_is_sealed_and_read_and_characterization_are_blocked (test_traces.PersistenceTests.test_test_bundle_is_sealed_and_read_and_characterization_are_blocked) ... ok\ntest_distinct_pilot_validation_candidate_and_final_streams (test_traces.SeedAndAccessTests.test_distinct_pilot_validation_candidate_and_final_streams) ... ok\ntest_invalid_ids_and_namespace_fields (test_traces.SeedAndAccessTests.test_invalid_ids_and_namespace_fields) ... ok\ntest_role_cannot_cross_split_and_holdout_has_no_reader (test_traces.SeedAndAccessTests.test_role_cannot_cross_split_and_holdout_has_no_reader) ... ok\ntest_seed_known_vector_and_component_namespaces (test_traces.SeedAndAccessTests.test_seed_known_vector_and_component_namespaces) ... ok\n\n----------------------------------------------------------------------\nRan 26 tests in 2.632s\n\nOK\n"
+    }
+  ],
+  "mini_report": {
+    "units": 4,
+    "namespace": "validation",
+    "test_accessed": false,
+    "fixture_mapping_is_placeholder": true,
+    "report_sha256": "a906cfce9f47e047dbc201f4b8e0cdefcc28dc882869b8aeb455ca67d003bfef"
+  },
+  "lock": {
+    "path": "results/research_v2/P10_protocol_lock/protocol_lock.json",
+    "problems": [],
+    "warnings": [],
+    "lock_file_sha256": "e99254d006eedf1e4a8cc587978f134d99ecbbaad3a582497a61d09e20fc8066"
+  },
+  "environment": {
+    "python": "3.12.3 (main, Jul 15 2026, 23:46:41) [GCC 13.3.0]",
+    "platform": "Linux-6.8.0-139-generic-x86_64-with-glibc2.39"
+  },
+  "test_accessed": false
+}

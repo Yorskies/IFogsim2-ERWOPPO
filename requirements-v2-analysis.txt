@@ -1,0 +1,3 @@
+# P10 analysis (pure NumPy; SciPy only cross-checks the exact test in the unit tests). Versions validated on 2026-11-08.
+numpy==2.4.6
+scipy==1.18.1
