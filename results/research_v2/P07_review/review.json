@@ -1,0 +1,530 @@
+{
+  "scope": "read-only audit and fixed-action replay; no training",
+  "pilots": {
+    "100": {
+      "workload_decision_share": {
+        "light": 0.0896484375,
+        "moderate": 0.26240234375,
+        "heavy": 0.46953125,
+        "dynamic": 0.17841796875
+      },
+      "episodes_completed": {
+        "light": 3,
+        "moderate": 3,
+        "heavy": 2,
+        "dynamic": 2
+      },
+      "critic_explained_variance": {
+        "count": 20,
+        "mean": -0.17672304511070253,
+        "median": -0.011234194040298462,
+        "p90": 0.28794045448303235,
+        "p95": 0.3628248572349549,
+        "max": 0.4292532205581665
+      },
+      "critic_negative_explained_variance_updates": 10,
+      "epochs_executed": 200,
+      "rollout_updates": 20,
+      "credit_lags": {
+        "light": {
+          "count": 918,
+          "mean": 4.662309368191721,
+          "median": 3.0,
+          "p90": 12.0,
+          "p95": 17.0,
+          "max": 36.0,
+          "fraction_lag_gt20": 0.02832244008714597,
+          "fraction_lag_gt50": 0.0,
+          "lambda_weight_mean": 0.8149289108660863,
+          "effective_latency_weighted_lambda_weight": 0.6412171467737363
+        },
+        "moderate": {
+          "count": 2687,
+          "mean": 17.221064384071454,
+          "median": 12.0,
+          "p90": 39.0,
+          "p95": 52.0,
+          "max": 111.0,
+          "fraction_lag_gt20": 0.3029400818756978,
+          "fraction_lag_gt50": 0.05582433941198362,
+          "lambda_weight_mean": 0.5273077003379867,
+          "effective_latency_weighted_lambda_weight": 0.3292488251870763
+        },
+        "heavy": {
+          "count": 3740,
+          "mean": 62.473262032085564,
+          "median": 49.0,
+          "p90": 128.0999999999999,
+          "p95": 165.04999999999973,
+          "max": 308.0,
+          "fraction_lag_gt20": 0.8700534759358288,
+          "fraction_lag_gt50": 0.4834224598930481,
+          "lambda_weight_mean": 0.15045734924895626,
+          "effective_latency_weighted_lambda_weight": 0.10092899191235634
+        },
+        "dynamic": {
+          "count": 1827,
+          "mean": 44.848932676518885,
+          "median": 31.0,
+          "p90": 105.0,
+          "p95": 151.0,
+          "max": 309.0,
+          "fraction_lag_gt20": 0.5993431855500821,
+          "fraction_lag_gt50": 0.3196496989600438,
+          "lambda_weight_mean": 0.3351385828365568,
+          "effective_latency_weighted_lambda_weight": 0.1443211579307539
+        }
+      },
+      "replayed_episodes": 10,
+      "snapshot_transform_checks": 11,
+      "terminal_transition_fraction_of_episode_cost": {
+        "count": 10,
+        "mean": 0.020663014052587015,
+        "median": 0.016542869836926072,
+        "p90": 0.040101137809403206,
+        "p95": 0.041570906317859195,
+        "max": 0.04304067482631519
+      },
+      "terminal_reward_over_median_step_reward": {
+        "count": 10,
+        "mean": 38.71706714599425,
+        "median": 24.15681445439673,
+        "p90": 103.99231251293534,
+        "p95": 111.97984969527148,
+        "max": 119.96738687760765
+      },
+      "equal_reward_cost_shares_completed_episodes": {
+        "zL": 0.18283542998896363,
+        "zE": 0.05808886477880033,
+        "zD": 0.335867761147885,
+        "zB": 0.2944232880842053,
+        "zQ": 0.12878465600014583
+      },
+      "policy_on_same_training_observations": {
+        "512": {
+          "argmax_counts_on_same_training_snapshots": [
+            2934,
+            0,
+            0,
+            3948,
+            0,
+            2292,
+            1066
+          ],
+          "mean_action_probabilities": [
+            0.16206678748130798,
+            0.11919055879116058,
+            0.1141870990395546,
+            0.16466885805130005,
+            0.12153922021389008,
+            0.15927553176879883,
+            0.1590728461742401
+          ],
+          "modal_probability": {
+            "count": 10240,
+            "mean": 0.16806331276893616,
+            "median": 0.16798532009124756,
+            "p90": 0.1726440191268921,
+            "p95": 0.17429298162460327,
+            "max": 0.1815863847732544
+          },
+          "top_two_probability_margin": {
+            "count": 10240,
+            "mean": 0.004410813096910715,
+            "median": 0.0036801546812057495,
+            "p90": 0.009201409295201302,
+            "p95": 0.010969052091240883,
+            "max": 0.021203726530075073
+          }
+        },
+        "10240": {
+          "argmax_counts_on_same_training_snapshots": [
+            7584,
+            0,
+            0,
+            2647,
+            0,
+            9,
+            0
+          ],
+          "mean_action_probabilities": [
+            0.28507837653160095,
+            0.0463680699467659,
+            0.1303894966840744,
+            0.21372976899147034,
+            0.11608227342367172,
+            0.1145496740937233,
+            0.09380216896533966
+          ],
+          "modal_probability": {
+            "count": 10240,
+            "mean": 0.2943974435329437,
+            "median": 0.27756816148757935,
+            "p90": 0.3994308114051819,
+            "p95": 0.44050806760787964,
+            "max": 0.5289150476455688
+          },
+          "top_two_probability_margin": {
+            "count": 10240,
+            "mean": 0.08972296118736267,
+            "median": 0.06335443258285522,
+            "p90": 0.2277124971151352,
+            "p95": 0.2897924482822418,
+            "max": 0.4108303189277649
+          }
+        }
+      }
+    },
+    "101": {
+      "workload_decision_share": {
+        "moderate": 0.2701171875,
+        "heavy": 0.50341796875,
+        "dynamic": 0.17158203125,
+        "light": 0.0548828125
+      },
+      "episodes_completed": {
+        "moderate": 3,
+        "heavy": 2,
+        "dynamic": 2,
+        "light": 2
+      },
+      "critic_explained_variance": {
+        "count": 20,
+        "mean": -0.0513414204120636,
+        "median": 0.0019542276859283447,
+        "p90": 0.32100157737731955,
+        "p95": 0.4443779319524765,
+        "max": 0.4642775058746338
+      },
+      "critic_negative_explained_variance_updates": 10,
+      "epochs_executed": 200,
+      "rollout_updates": 20,
+      "credit_lags": {
+        "moderate": {
+          "count": 2766,
+          "mean": 19.863702096890815,
+          "median": 15.0,
+          "p90": 43.0,
+          "p95": 57.0,
+          "max": 113.0,
+          "fraction_lag_gt20": 0.3618944323933478,
+          "fraction_lag_gt50": 0.07049891540130152,
+          "lambda_weight_mean": 0.47597607043322115,
+          "effective_latency_weighted_lambda_weight": 0.3176080362003529
+        },
+        "heavy": {
+          "count": 3647,
+          "mean": 57.97477378667398,
+          "median": 45.0,
+          "p90": 118.0,
+          "p95": 157.0,
+          "max": 299.0,
+          "fraction_lag_gt20": 0.8486427200438716,
+          "fraction_lag_gt50": 0.43899095146695916,
+          "lambda_weight_mean": 0.16973739053076925,
+          "effective_latency_weighted_lambda_weight": 0.10978390353971725
+        },
+        "dynamic": {
+          "count": 1757,
+          "mean": 43.658508821855435,
+          "median": 30.0,
+          "p90": 104.0,
+          "p95": 136.39999999999964,
+          "max": 284.0,
+          "fraction_lag_gt20": 0.603870233352305,
+          "fraction_lag_gt50": 0.3192942515651679,
+          "lambda_weight_mean": 0.34068757168229014,
+          "effective_latency_weighted_lambda_weight": 0.15390208158389598
+        },
+        "light": {
+          "count": 562,
+          "mean": 4.1637010676156585,
+          "median": 2.0,
+          "p90": 10.0,
+          "p95": 13.949999999999932,
+          "max": 27.0,
+          "fraction_lag_gt20": 0.017793594306049824,
+          "fraction_lag_gt50": 0.0,
+          "lambda_weight_mean": 0.8294598947372805,
+          "effective_latency_weighted_lambda_weight": 0.6707232016088015
+        }
+      },
+      "replayed_episodes": 9,
+      "snapshot_transform_checks": 10,
+      "terminal_transition_fraction_of_episode_cost": {
+        "count": 9,
+        "mean": 0.02349121220158142,
+        "median": 0.027155166852299073,
+        "p90": 0.041585670470248956,
+        "p95": 0.042657418292448616,
+        "max": 0.04372916611464828
+      },
+      "terminal_reward_over_median_step_reward": {
+        "count": 9,
+        "mean": 52.17513653158263,
+        "median": 42.78293711758036,
+        "p90": 138.6063870081834,
+        "p95": 145.19855781449178,
+        "max": 151.7907286208002
+      },
+      "equal_reward_cost_shares_completed_episodes": {
+        "zL": 0.18673856922146873,
+        "zE": 0.05492492401065098,
+        "zD": 0.3394952316093927,
+        "zB": 0.28684229740954387,
+        "zQ": 0.13199897774894379
+      },
+      "policy_on_same_training_observations": {
+        "512": {
+          "argmax_counts_on_same_training_snapshots": [
+            389,
+            5690,
+            0,
+            0,
+            683,
+            3478,
+            0
+          ],
+          "mean_action_probabilities": [
+            0.15333472192287445,
+            0.16894599795341492,
+            0.1162407398223877,
+            0.12185357511043549,
+            0.15381576120853424,
+            0.1666029393672943,
+            0.11920622736215591
+          ],
+          "modal_probability": {
+            "count": 10240,
+            "mean": 0.1713121235370636,
+            "median": 0.170587956905365,
+            "p90": 0.1780654639005661,
+            "p95": 0.18039561808109283,
+            "max": 0.19163332879543304
+          },
+          "top_two_probability_margin": {
+            "count": 10240,
+            "mean": 0.005220217164605856,
+            "median": 0.004374735057353973,
+            "p90": 0.011122996918857098,
+            "p95": 0.013127240352332592,
+            "max": 0.020897313952445984
+          }
+        },
+        "10240": {
+          "argmax_counts_on_same_training_snapshots": [
+            1616,
+            0,
+            0,
+            1,
+            512,
+            8103,
+            8
+          ],
+          "mean_action_probabilities": [
+            0.20944495499134064,
+            0.055276136845350266,
+            0.04066622257232666,
+            0.08453674614429474,
+            0.14225812256336212,
+            0.3459513485431671,
+            0.12186620384454727
+          ],
+          "modal_probability": {
+            "count": 10240,
+            "mean": 0.35446637868881226,
+            "median": 0.3447927236557007,
+            "p90": 0.5100716948509216,
+            "p95": 0.5357179641723633,
+            "max": 0.5987241268157959
+          },
+          "top_two_probability_margin": {
+            "count": 10240,
+            "mean": 0.14886781573295593,
+            "median": 0.126418799161911,
+            "p90": 0.321545273065567,
+            "p95": 0.3602970540523529,
+            "max": 0.4401141405105591
+          }
+        }
+      }
+    },
+    "102": {
+      "workload_decision_share": {
+        "heavy": 0.516796875,
+        "dynamic": 0.24560546875,
+        "light": 0.0623046875,
+        "moderate": 0.17529296875
+      },
+      "episodes_completed": {
+        "heavy": 3,
+        "dynamic": 2,
+        "light": 2,
+        "moderate": 2
+      },
+      "critic_explained_variance": {
+        "count": 20,
+        "mean": 0.04547431170940399,
+        "median": 0.06356945633888245,
+        "p90": 0.42268016934394836,
+        "p95": 0.4330062836408615,
+        "max": 0.45392894744873047
+      },
+      "critic_negative_explained_variance_updates": 8,
+      "epochs_executed": 200,
+      "rollout_updates": 20,
+      "credit_lags": {
+        "heavy": {
+          "count": 5292,
+          "mean": 55.192743764172334,
+          "median": 43.0,
+          "p90": 111.0,
+          "p95": 149.0,
+          "max": 274.0,
+          "fraction_lag_gt20": 0.8323885109599395,
+          "fraction_lag_gt50": 0.4041950113378685,
+          "lambda_weight_mean": 0.18023823546395087,
+          "effective_latency_weighted_lambda_weight": 0.11775806018406561
+        },
+        "dynamic": {
+          "count": 1851,
+          "mean": 52.151269584008645,
+          "median": 38.0,
+          "p90": 119.0,
+          "p95": 176.0,
+          "max": 324.0,
+          "fraction_lag_gt20": 0.6574824419232848,
+          "fraction_lag_gt50": 0.38519719070772557,
+          "lambda_weight_mean": 0.30215097747479597,
+          "effective_latency_weighted_lambda_weight": 0.12657775796375198
+        },
+        "light": {
+          "count": 638,
+          "mean": 4.7272727272727275,
+          "median": 3.0,
+          "p90": 11.0,
+          "p95": 17.0,
+          "max": 37.0,
+          "fraction_lag_gt20": 0.018808777429467086,
+          "fraction_lag_gt50": 0.0,
+          "lambda_weight_mean": 0.8102770137427636,
+          "effective_latency_weighted_lambda_weight": 0.6576080531649405
+        },
+        "moderate": {
+          "count": 1795,
+          "mean": 17.762116991643452,
+          "median": 14.0,
+          "p90": 39.0,
+          "p95": 49.0,
+          "max": 102.0,
+          "fraction_lag_gt20": 0.32646239554317547,
+          "fraction_lag_gt50": 0.0467966573816156,
+          "lambda_weight_mean": 0.5052374493758347,
+          "effective_latency_weighted_lambda_weight": 0.34400464534266967
+        }
+      },
+      "replayed_episodes": 9,
+      "snapshot_transform_checks": 10,
+      "terminal_transition_fraction_of_episode_cost": {
+        "count": 9,
+        "mean": 0.024458654901726506,
+        "median": 0.027094077197805974,
+        "p90": 0.04026115362174332,
+        "p95": 0.04431613965017636,
+        "max": 0.048371125678609406
+      },
+      "terminal_reward_over_median_step_reward": {
+        "count": 9,
+        "mean": 54.72396149355024,
+        "median": 42.269873203977774,
+        "p90": 131.70584884006325,
+        "p95": 148.26019433507952,
+        "max": 164.81453983009584
+      },
+      "equal_reward_cost_shares_completed_episodes": {
+        "zL": 0.19589117108736048,
+        "zE": 0.04855093994660386,
+        "zD": 0.3305353000734516,
+        "zB": 0.2769515279391024,
+        "zQ": 0.14807106095348163
+      },
+      "policy_on_same_training_observations": {
+        "512": {
+          "argmax_counts_on_same_training_snapshots": [
+            7366,
+            0,
+            2,
+            0,
+            1801,
+            0,
+            1071
+          ],
+          "mean_action_probabilities": [
+            0.16946759819984436,
+            0.12174061685800552,
+            0.13058724999427795,
+            0.12136653810739517,
+            0.16138944029808044,
+            0.13345365226268768,
+            0.16199496388435364
+          ],
+          "modal_probability": {
+            "count": 10240,
+            "mean": 0.17099300026893616,
+            "median": 0.1711389422416687,
+            "p90": 0.1768959015607834,
+            "p95": 0.17820459604263306,
+            "max": 0.18296952545642853
+          },
+          "top_two_probability_margin": {
+            "count": 10240,
+            "mean": 0.007722375448793173,
+            "median": 0.006162114441394806,
+            "p90": 0.016909034922719002,
+            "p95": 0.020496029406785965,
+            "max": 0.031266406178474426
+          }
+        },
+        "10240": {
+          "argmax_counts_on_same_training_snapshots": [
+            287,
+            0,
+            0,
+            3783,
+            0,
+            0,
+            6170
+          ],
+          "mean_action_probabilities": [
+            0.17824718356132507,
+            0.12476518005132675,
+            0.060496531426906586,
+            0.1829521507024765,
+            0.0837557464838028,
+            0.13557052612304688,
+            0.23421254754066467
+          ],
+          "modal_probability": {
+            "count": 10240,
+            "mean": 0.2634508013725281,
+            "median": 0.2600249946117401,
+            "p90": 0.3139992952346802,
+            "p95": 0.3267398178577423,
+            "max": 0.3977958858013153
+          },
+          "top_two_probability_margin": {
+            "count": 10240,
+            "mean": 0.0754503458738327,
+            "median": 0.07073928415775299,
+            "p90": 0.1441923975944519,
+            "p95": 0.1651437133550644,
+            "max": 0.27014827728271484
+          }
+        }
+      }
+    }
+  },
+  "gae_lambda": 0.95,
+  "gamma": 1.0,
+  "gae_note": "lambda^lag describes direct TD-residual propagation, not exact causal policy-gradient attenuation; value bootstrapping can carry additional information"
+}

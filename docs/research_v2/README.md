@@ -5,7 +5,7 @@ build terpisah, probe native, generator/penyimpanan trace deterministik, engine
 task headless (CPU FCFS bounded, admission, deadline/timeout, horizon) di atas CloudSim,
 dan transport store-and-forward (kanal akses half-duplex, link LAN/WAN, antrean transfer,
 pembatalan parsial), serta ledger energi dan lima metrik per trace dengan evaluator independen.
-Server socket v2 dan environment Gymnasium (108 fitur, reward tertunda) tersedia; baseline deterministik dan gerbang kalibrasi yang lulus tersedia; PPO dan pencarian bobot belum. Mode fixture
+Server socket v2 dan environment Gymnasium (108 fitur, reward tertunda) tersedia; baseline deterministik dan gerbang kalibrasi yang lulus tersedia. PPO/pilot P07 telah diverifikasi secara teknis di Linux; tiga pilot belum memperbaiki D dan diagnosis tersimpan. Pilot fidelity P08 asli gagal; revisi eksploratori yang diaudit memilih K=30.720. Pencarian penuh belum dijalankan. Runner studi P09 dan analisis/protocol lock P10 tersedia dan diverifikasi pada fixture; eksperimen konfirmatori belum dijalankan. Mode fixture
 nol-jaringan P02 tetap ada dan berlabel. Panduan trace dan guard split: [TRACES.md](TRACES.md);
 bukti [P01](milestones/P01_trace_validation.md), [P02](milestones/P02_engine_validation.md),
 [P03](milestones/P03_network_validation.md), [P04](milestones/P04_accounting_validation.md), [P05](milestones/P05_gym_integration.md), dan [P06](milestones/P06_calibration_gate.md).
@@ -233,3 +233,36 @@ perubahan. Verification biasa tidak memerlukan file hasil lama.
 
 Lihat [arsitektur](ARCHITECTURE.md), [audit API](API_AUDIT.md),
 [acceptance catalog](ACCEPTANCE_TESTS.md), dan [catatan P00](milestones/P00_foundation.md).
+
+## Persiapan PPO P07
+
+Trainer, checkpoint post-update, evaluasi pilot terpisah, dan prefix check tersedia.
+Smoke, tiga pilot dan uji prefix F telah dijalankan; hasil pembelajaran negatif didokumentasikan. Bukti dan perintah reproduksi: [P07_learning_pilot.md](milestones/P07_learning_pilot.md).
+`python -m research_v2.learning plan` hanya menampilkan rencana; `train` dan `prefix-check` menjalankan training.
+
+Review ulang P07: [ablation lambda 0,95/1,0](../../results/research_v2/P07_lambda_ablation_1/review.md) selesai dengan instrumentasi rollout/gradient. Hasil lambda=1 lebih buruk pada tiga pasangan seed; default 0,95 dipertahankan.
+
+Eksperimen lanjutan [skala critic 0,5/0,05](../../results/research_v2/P07_critic_scale_ablation_1/review.md) selesai dengan hasil campuran (satu seed membaik, satu memburuk, satu tetap); default dan status P08 tidak berubah.
+
+## P08 — search dan fidelity
+
+[Implementasi dan penggunaan](SEARCH.md) tersedia. [Pilot P08 asli](milestones/P08_search_gate.md) gagal pada K=5.120/10.240/20.480. [Diagnosis dan revisi eksploratori](milestones/P08_learning_diagnosis.md) memilih **K=30.720** melalui gate Spearman yang sama, dengan 48 konfirmasi prefix independen dan audit episode lengkap. Gate runner asli tetap menolak bukti lama; runner ekstensi menerima bukti revisi yang diaudit. Pencarian penuh dan studi konfirmatori belum dijalankan. Hasil revisi ini belum membuktikan konvergensi PPO atau stabilitas antarrepeat.
+
+## P09 — runner studi
+
+Runner `research_v2/study_runner.py` (plan / prepare / run / resume): akuntansi S/V/F/B sebelum eksekusi, attempt terisolasi, pointer completion
+ber-checksum, resume yang menolak drift, retry teknis terbatas, lock kepemilikan, dan satu worker per studi. Paralelisme dilakukan dengan beberapa
+studi (shard) yang masing-masing memiliki runner dan JVM sendiri. Laporan: [P09_runner_validation.md](milestones/P09_runner_validation.md).
+
+```bash
+venv/bin/python -m research_v2.study_runner plan --outers $(seq 0 19) --fidelity-evidence results/research_v2/P08_fidelity_extension_1   # dry-run
+venv/bin/python -m research_v2.study_runner prepare --mini --outers 0 1 --study-dir results/research_v2/<baru>
+venv/bin/python -m research_v2.study_runner run    --study-dir results/research_v2/<baru>      # SIGTERM aman; exit 75 = terputus
+venv/bin/python -m research_v2.study_runner resume --study-dir results/research_v2/<baru>
+venv/bin/python -m research_v2.verify_study --root results/research_v2/P09_runner_evidence          # bukti live ~25 menit
+```
+
+## P10 — analisis dan protocol lock
+
+[ANALYSIS.md](ANALYSIS.md): unit inferensi, tiga uji primer (sign-flip exact + Holm), 60 uji sekunder, bootstrap crossed, laporan mini, protocol lock
+dan penyegelan test. Tinjauan kesiapan M3: [P10_readiness_review.md](milestones/P10_readiness_review.md). Test split belum dievaluasi.

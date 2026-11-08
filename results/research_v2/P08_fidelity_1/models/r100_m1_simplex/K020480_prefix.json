@@ -1,0 +1,7 @@
+{
+  "pass": true,
+  "policy_equal": true,
+  "optimizer_equal": true,
+  "counters_and_stream_equal": true,
+  "rng_equal": true
+}

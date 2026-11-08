@@ -1,0 +1,628 @@
+{
+  "scope": "Actual saved parameter displacement between adjacent post-update checkpoints, excluding first update (512 to 10,240). Not a gradient norm or causal attribution.",
+  "new_training_decisions": 0,
+  "conditions": {
+    "vf050": {
+      "100": {
+        "median_actor_delta_per_rollout": 0.5221939086914062,
+        "median_critic_delta_per_rollout": 0.4392984211444855,
+        "net_actor_delta_from_512": 2.7447187900543213,
+        "net_critic_delta_from_512": 4.913581371307373,
+        "updates": [
+          {
+            "decisions": 1024,
+            "actor_delta_l2": 0.5408472418785095,
+            "critic_delta_l2": 0.43285930156707764
+          },
+          {
+            "decisions": 1536,
+            "actor_delta_l2": 0.688913106918335,
+            "critic_delta_l2": 0.33710187673568726
+          },
+          {
+            "decisions": 2048,
+            "actor_delta_l2": 0.5588724613189697,
+            "critic_delta_l2": 0.3094910979270935
+          },
+          {
+            "decisions": 2560,
+            "actor_delta_l2": 0.6048722267150879,
+            "critic_delta_l2": 0.30297037959098816
+          },
+          {
+            "decisions": 3072,
+            "actor_delta_l2": 0.516469419002533,
+            "critic_delta_l2": 0.32916444540023804
+          },
+          {
+            "decisions": 3584,
+            "actor_delta_l2": 0.5392354726791382,
+            "critic_delta_l2": 0.5545672178268433
+          },
+          {
+            "decisions": 4096,
+            "actor_delta_l2": 0.4997299909591675,
+            "critic_delta_l2": 0.8007828593254089
+          },
+          {
+            "decisions": 4608,
+            "actor_delta_l2": 0.45250460505485535,
+            "critic_delta_l2": 0.614172101020813
+          },
+          {
+            "decisions": 5120,
+            "actor_delta_l2": 0.5221939086914062,
+            "critic_delta_l2": 0.39361903071403503
+          },
+          {
+            "decisions": 5632,
+            "actor_delta_l2": 0.5289000868797302,
+            "critic_delta_l2": 0.8751869797706604
+          },
+          {
+            "decisions": 6144,
+            "actor_delta_l2": 0.626892626285553,
+            "critic_delta_l2": 0.4844864010810852
+          },
+          {
+            "decisions": 6656,
+            "actor_delta_l2": 0.5594170689582825,
+            "critic_delta_l2": 0.3703455924987793
+          },
+          {
+            "decisions": 7168,
+            "actor_delta_l2": 0.4981113076210022,
+            "critic_delta_l2": 0.6276266574859619
+          },
+          {
+            "decisions": 7680,
+            "actor_delta_l2": 0.4255232810974121,
+            "critic_delta_l2": 0.3515385687351227
+          },
+          {
+            "decisions": 8192,
+            "actor_delta_l2": 0.33877724409103394,
+            "critic_delta_l2": 0.8619897961616516
+          },
+          {
+            "decisions": 8704,
+            "actor_delta_l2": 0.3544639050960541,
+            "critic_delta_l2": 0.983214259147644
+          },
+          {
+            "decisions": 9216,
+            "actor_delta_l2": 0.39144930243492126,
+            "critic_delta_l2": 1.000486135482788
+          },
+          {
+            "decisions": 9728,
+            "actor_delta_l2": 0.5727614760398865,
+            "critic_delta_l2": 0.4392984211444855
+          },
+          {
+            "decisions": 10240,
+            "actor_delta_l2": 0.5191807746887207,
+            "critic_delta_l2": 0.3066106140613556
+          }
+        ]
+      },
+      "101": {
+        "median_actor_delta_per_rollout": 0.4457821846008301,
+        "median_critic_delta_per_rollout": 0.42362818121910095,
+        "net_actor_delta_from_512": 2.408806562423706,
+        "net_critic_delta_from_512": 4.45292329788208,
+        "updates": [
+          {
+            "decisions": 1024,
+            "actor_delta_l2": 0.44761714339256287,
+            "critic_delta_l2": 0.39586251974105835
+          },
+          {
+            "decisions": 1536,
+            "actor_delta_l2": 0.5408552289009094,
+            "critic_delta_l2": 0.29616817831993103
+          },
+          {
+            "decisions": 2048,
+            "actor_delta_l2": 0.4457821846008301,
+            "critic_delta_l2": 0.30235037207603455
+          },
+          {
+            "decisions": 2560,
+            "actor_delta_l2": 0.506247341632843,
+            "critic_delta_l2": 0.34643617272377014
+          },
+          {
+            "decisions": 3072,
+            "actor_delta_l2": 0.4374749958515167,
+            "critic_delta_l2": 0.3736167252063751
+          },
+          {
+            "decisions": 3584,
+            "actor_delta_l2": 0.4289681911468506,
+            "critic_delta_l2": 0.6041966080665588
+          },
+          {
+            "decisions": 4096,
+            "actor_delta_l2": 0.3908461928367615,
+            "critic_delta_l2": 0.6458277702331543
+          },
+          {
+            "decisions": 4608,
+            "actor_delta_l2": 0.4023171663284302,
+            "critic_delta_l2": 0.36075058579444885
+          },
+          {
+            "decisions": 5120,
+            "actor_delta_l2": 0.5853375792503357,
+            "critic_delta_l2": 0.5651236772537231
+          },
+          {
+            "decisions": 5632,
+            "actor_delta_l2": 0.6333059072494507,
+            "critic_delta_l2": 0.42362818121910095
+          },
+          {
+            "decisions": 6144,
+            "actor_delta_l2": 0.5212596654891968,
+            "critic_delta_l2": 0.31314122676849365
+          },
+          {
+            "decisions": 6656,
+            "actor_delta_l2": 0.44892528653144836,
+            "critic_delta_l2": 0.2690366506576538
+          },
+          {
+            "decisions": 7168,
+            "actor_delta_l2": 0.42325353622436523,
+            "critic_delta_l2": 0.3657890260219574
+          },
+          {
+            "decisions": 7680,
+            "actor_delta_l2": 0.33458322286605835,
+            "critic_delta_l2": 1.0343236923217773
+          },
+          {
+            "decisions": 8192,
+            "actor_delta_l2": 0.33104872703552246,
+            "critic_delta_l2": 0.9429766535758972
+          },
+          {
+            "decisions": 8704,
+            "actor_delta_l2": 0.4308481812477112,
+            "critic_delta_l2": 0.5623756051063538
+          },
+          {
+            "decisions": 9216,
+            "actor_delta_l2": 0.36247387528419495,
+            "critic_delta_l2": 1.1322269439697266
+          },
+          {
+            "decisions": 9728,
+            "actor_delta_l2": 0.5141497850418091,
+            "critic_delta_l2": 0.5869638323783875
+          },
+          {
+            "decisions": 10240,
+            "actor_delta_l2": 0.6551662087440491,
+            "critic_delta_l2": 0.48936957120895386
+          }
+        ]
+      },
+      "102": {
+        "median_actor_delta_per_rollout": 0.48047420382499695,
+        "median_critic_delta_per_rollout": 0.4685123860836029,
+        "net_actor_delta_from_512": 2.3539538383483887,
+        "net_critic_delta_from_512": 4.662527561187744,
+        "updates": [
+          {
+            "decisions": 1024,
+            "actor_delta_l2": 0.5506901144981384,
+            "critic_delta_l2": 0.2819121479988098
+          },
+          {
+            "decisions": 1536,
+            "actor_delta_l2": 0.48047420382499695,
+            "critic_delta_l2": 0.3346866965293884
+          },
+          {
+            "decisions": 2048,
+            "actor_delta_l2": 0.4891778826713562,
+            "critic_delta_l2": 0.4654529094696045
+          },
+          {
+            "decisions": 2560,
+            "actor_delta_l2": 0.48717015981674194,
+            "critic_delta_l2": 0.481732040643692
+          },
+          {
+            "decisions": 3072,
+            "actor_delta_l2": 0.5001941323280334,
+            "critic_delta_l2": 0.929023027420044
+          },
+          {
+            "decisions": 3584,
+            "actor_delta_l2": 0.4776206314563751,
+            "critic_delta_l2": 0.5407006144523621
+          },
+          {
+            "decisions": 4096,
+            "actor_delta_l2": 0.5790985226631165,
+            "critic_delta_l2": 0.6520023941993713
+          },
+          {
+            "decisions": 4608,
+            "actor_delta_l2": 0.5617395639419556,
+            "critic_delta_l2": 0.3143448531627655
+          },
+          {
+            "decisions": 5120,
+            "actor_delta_l2": 0.5451983213424683,
+            "critic_delta_l2": 0.28516674041748047
+          },
+          {
+            "decisions": 5632,
+            "actor_delta_l2": 0.5254797339439392,
+            "critic_delta_l2": 0.262267142534256
+          },
+          {
+            "decisions": 6144,
+            "actor_delta_l2": 0.4930897057056427,
+            "critic_delta_l2": 0.8109471201896667
+          },
+          {
+            "decisions": 6656,
+            "actor_delta_l2": 0.4039781391620636,
+            "critic_delta_l2": 1.0700477361679077
+          },
+          {
+            "decisions": 7168,
+            "actor_delta_l2": 0.3843274414539337,
+            "critic_delta_l2": 0.7239508032798767
+          },
+          {
+            "decisions": 7680,
+            "actor_delta_l2": 0.38589906692504883,
+            "critic_delta_l2": 0.4337902367115021
+          },
+          {
+            "decisions": 8192,
+            "actor_delta_l2": 0.43333810567855835,
+            "critic_delta_l2": 1.151360034942627
+          },
+          {
+            "decisions": 8704,
+            "actor_delta_l2": 0.43908265233039856,
+            "critic_delta_l2": 0.4685123860836029
+          },
+          {
+            "decisions": 9216,
+            "actor_delta_l2": 0.45429423451423645,
+            "critic_delta_l2": 0.4449442923069
+          },
+          {
+            "decisions": 9728,
+            "actor_delta_l2": 0.420499712228775,
+            "critic_delta_l2": 1.1807609796524048
+          },
+          {
+            "decisions": 10240,
+            "actor_delta_l2": 0.38054123520851135,
+            "critic_delta_l2": 0.4561234414577484
+          }
+        ]
+      }
+    },
+    "vf005": {
+      "100": {
+        "median_actor_delta_per_rollout": 0.584618866443634,
+        "median_critic_delta_per_rollout": 0.3239021301269531,
+        "net_actor_delta_from_512": 3.428513288497925,
+        "net_critic_delta_from_512": 4.110518932342529,
+        "updates": [
+          {
+            "decisions": 1024,
+            "actor_delta_l2": 0.6952502727508545,
+            "critic_delta_l2": 0.3492389917373657
+          },
+          {
+            "decisions": 1536,
+            "actor_delta_l2": 0.729927122592926,
+            "critic_delta_l2": 0.2786389887332916
+          },
+          {
+            "decisions": 2048,
+            "actor_delta_l2": 0.6181471943855286,
+            "critic_delta_l2": 0.27944448590278625
+          },
+          {
+            "decisions": 2560,
+            "actor_delta_l2": 0.6675631999969482,
+            "critic_delta_l2": 0.2903425991535187
+          },
+          {
+            "decisions": 3072,
+            "actor_delta_l2": 0.5829346179962158,
+            "critic_delta_l2": 0.2856268286705017
+          },
+          {
+            "decisions": 3584,
+            "actor_delta_l2": 0.6418949365615845,
+            "critic_delta_l2": 0.5229940414428711
+          },
+          {
+            "decisions": 4096,
+            "actor_delta_l2": 0.6760459542274475,
+            "critic_delta_l2": 0.7958215475082397
+          },
+          {
+            "decisions": 4608,
+            "actor_delta_l2": 0.4817411005496979,
+            "critic_delta_l2": 0.4793996214866638
+          },
+          {
+            "decisions": 5120,
+            "actor_delta_l2": 0.5652897953987122,
+            "critic_delta_l2": 0.3233921229839325
+          },
+          {
+            "decisions": 5632,
+            "actor_delta_l2": 0.6194572448730469,
+            "critic_delta_l2": 0.6400054097175598
+          },
+          {
+            "decisions": 6144,
+            "actor_delta_l2": 0.6004297733306885,
+            "critic_delta_l2": 0.2924579977989197
+          },
+          {
+            "decisions": 6656,
+            "actor_delta_l2": 0.5761129260063171,
+            "critic_delta_l2": 0.3239021301269531
+          },
+          {
+            "decisions": 7168,
+            "actor_delta_l2": 0.5304794311523438,
+            "critic_delta_l2": 0.6151196360588074
+          },
+          {
+            "decisions": 7680,
+            "actor_delta_l2": 0.584618866443634,
+            "critic_delta_l2": 0.2988721430301666
+          },
+          {
+            "decisions": 8192,
+            "actor_delta_l2": 0.5313567519187927,
+            "critic_delta_l2": 0.5998719334602356
+          },
+          {
+            "decisions": 8704,
+            "actor_delta_l2": 0.5256461501121521,
+            "critic_delta_l2": 0.7591078281402588
+          },
+          {
+            "decisions": 9216,
+            "actor_delta_l2": 0.47385674715042114,
+            "critic_delta_l2": 0.560654878616333
+          },
+          {
+            "decisions": 9728,
+            "actor_delta_l2": 0.6493803858757019,
+            "critic_delta_l2": 0.29232704639434814
+          },
+          {
+            "decisions": 10240,
+            "actor_delta_l2": 0.5417468547821045,
+            "critic_delta_l2": 0.21680089831352234
+          }
+        ]
+      },
+      "101": {
+        "median_actor_delta_per_rollout": 0.5680695176124573,
+        "median_critic_delta_per_rollout": 0.34140080213546753,
+        "net_actor_delta_from_512": 2.924471855163574,
+        "net_critic_delta_from_512": 4.102159023284912,
+        "updates": [
+          {
+            "decisions": 1024,
+            "actor_delta_l2": 0.569869875907898,
+            "critic_delta_l2": 0.3669712543487549
+          },
+          {
+            "decisions": 1536,
+            "actor_delta_l2": 0.6188904643058777,
+            "critic_delta_l2": 0.24684205651283264
+          },
+          {
+            "decisions": 2048,
+            "actor_delta_l2": 0.5383956432342529,
+            "critic_delta_l2": 0.21851694583892822
+          },
+          {
+            "decisions": 2560,
+            "actor_delta_l2": 0.5680695176124573,
+            "critic_delta_l2": 0.2306121438741684
+          },
+          {
+            "decisions": 3072,
+            "actor_delta_l2": 0.5372639894485474,
+            "critic_delta_l2": 0.3566869795322418
+          },
+          {
+            "decisions": 3584,
+            "actor_delta_l2": 0.5800641775131226,
+            "critic_delta_l2": 0.5633553862571716
+          },
+          {
+            "decisions": 4096,
+            "actor_delta_l2": 0.4780770540237427,
+            "critic_delta_l2": 0.500141978263855
+          },
+          {
+            "decisions": 4608,
+            "actor_delta_l2": 0.5562411546707153,
+            "critic_delta_l2": 0.2949610948562622
+          },
+          {
+            "decisions": 5120,
+            "actor_delta_l2": 0.5665869116783142,
+            "critic_delta_l2": 0.38265261054039
+          },
+          {
+            "decisions": 5632,
+            "actor_delta_l2": 0.6474778652191162,
+            "critic_delta_l2": 0.29934677481651306
+          },
+          {
+            "decisions": 6144,
+            "actor_delta_l2": 0.5455010533332825,
+            "critic_delta_l2": 0.2648000717163086
+          },
+          {
+            "decisions": 6656,
+            "actor_delta_l2": 0.5963567495346069,
+            "critic_delta_l2": 0.24258390069007874
+          },
+          {
+            "decisions": 7168,
+            "actor_delta_l2": 0.5820761919021606,
+            "critic_delta_l2": 0.34140080213546753
+          },
+          {
+            "decisions": 7680,
+            "actor_delta_l2": 0.492614209651947,
+            "critic_delta_l2": 0.9015950560569763
+          },
+          {
+            "decisions": 8192,
+            "actor_delta_l2": 0.38329002261161804,
+            "critic_delta_l2": 0.6154435276985168
+          },
+          {
+            "decisions": 8704,
+            "actor_delta_l2": 0.5735918879508972,
+            "critic_delta_l2": 0.4694001078605652
+          },
+          {
+            "decisions": 9216,
+            "actor_delta_l2": 0.4832855463027954,
+            "critic_delta_l2": 0.8677638173103333
+          },
+          {
+            "decisions": 9728,
+            "actor_delta_l2": 0.846299946308136,
+            "critic_delta_l2": 0.31863412261009216
+          },
+          {
+            "decisions": 10240,
+            "actor_delta_l2": 0.7777532935142517,
+            "critic_delta_l2": 0.2941965162754059
+          }
+        ]
+      },
+      "102": {
+        "median_actor_delta_per_rollout": 0.6078023314476013,
+        "median_critic_delta_per_rollout": 0.41028860211372375,
+        "net_actor_delta_from_512": 3.0088045597076416,
+        "net_critic_delta_from_512": 4.528656005859375,
+        "updates": [
+          {
+            "decisions": 1024,
+            "actor_delta_l2": 0.595837414264679,
+            "critic_delta_l2": 0.22800101339817047
+          },
+          {
+            "decisions": 1536,
+            "actor_delta_l2": 0.5675789713859558,
+            "critic_delta_l2": 0.27646952867507935
+          },
+          {
+            "decisions": 2048,
+            "actor_delta_l2": 0.6136526465415955,
+            "critic_delta_l2": 0.36008140444755554
+          },
+          {
+            "decisions": 2560,
+            "actor_delta_l2": 0.6147363185882568,
+            "critic_delta_l2": 0.46389269828796387
+          },
+          {
+            "decisions": 3072,
+            "actor_delta_l2": 0.5946293473243713,
+            "critic_delta_l2": 0.7242090702056885
+          },
+          {
+            "decisions": 3584,
+            "actor_delta_l2": 0.561383068561554,
+            "critic_delta_l2": 0.41627323627471924
+          },
+          {
+            "decisions": 4096,
+            "actor_delta_l2": 0.6320119500160217,
+            "critic_delta_l2": 0.41028860211372375
+          },
+          {
+            "decisions": 4608,
+            "actor_delta_l2": 0.6271677017211914,
+            "critic_delta_l2": 0.2686261236667633
+          },
+          {
+            "decisions": 5120,
+            "actor_delta_l2": 0.6081032156944275,
+            "critic_delta_l2": 0.27727845311164856
+          },
+          {
+            "decisions": 5632,
+            "actor_delta_l2": 0.643330454826355,
+            "critic_delta_l2": 0.2548939883708954
+          },
+          {
+            "decisions": 6144,
+            "actor_delta_l2": 0.5690199136734009,
+            "critic_delta_l2": 0.5943732857704163
+          },
+          {
+            "decisions": 6656,
+            "actor_delta_l2": 0.5232900381088257,
+            "critic_delta_l2": 1.0576281547546387
+          },
+          {
+            "decisions": 7168,
+            "actor_delta_l2": 0.5739733576774597,
+            "critic_delta_l2": 0.6503701210021973
+          },
+          {
+            "decisions": 7680,
+            "actor_delta_l2": 0.5344924926757812,
+            "critic_delta_l2": 0.3980051577091217
+          },
+          {
+            "decisions": 8192,
+            "actor_delta_l2": 0.6548962593078613,
+            "critic_delta_l2": 1.0801843404769897
+          },
+          {
+            "decisions": 8704,
+            "actor_delta_l2": 0.6741642951965332,
+            "critic_delta_l2": 0.3795318901538849
+          },
+          {
+            "decisions": 9216,
+            "actor_delta_l2": 0.6078023314476013,
+            "critic_delta_l2": 0.31495654582977295
+          },
+          {
+            "decisions": 9728,
+            "actor_delta_l2": 0.594349205493927,
+            "critic_delta_l2": 0.8105602264404297
+          },
+          {
+            "decisions": 10240,
+            "actor_delta_l2": 0.6263864636421204,
+            "critic_delta_l2": 0.42083048820495605
+          }
+        ]
+      }
+    }
+  }
+}

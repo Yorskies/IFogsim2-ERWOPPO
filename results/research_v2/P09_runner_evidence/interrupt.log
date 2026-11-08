@@ -1,0 +1,45 @@
+{
+  "phase": "P09",
+  "fixture_only": true,
+  "outers": [
+    0
+  ],
+  "K": 512,
+  "Ntrace": 19690,
+  "S": 1024,
+  "V": 39380,
+  "F": 1024,
+  "C": 41428,
+  "B": 41472,
+  "rounding_overhead": 44,
+  "physical_total_per_outer": 124372,
+  "physical_total_all_outers": 124372,
+  "jobs_per_outer": 4,
+  "artifacts": [
+    "per-job attempts and logs",
+    "candidate search archive",
+    "final checkpoints",
+    "baseline checkpoints F/B",
+    "validation trace manifest",
+    "checksums and profiles"
+  ],
+  "test_accessed": false,
+  "warning": "Fixture budgets verify orchestration only; they are not study cost."
+}
+COMPLETE r00_mini_search attempt=0
+COMPLETE r00_mini_final attempt=0
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/workspace/RISET S3 Rozi/IFogsim2-ERWOPPO/research_v2/study_runner.py", line 422, in <module>
+    main()
+  File "/workspace/RISET S3 Rozi/IFogsim2-ERWOPPO/research_v2/study_runner.py", line 415, in main
+    execute(args.study_dir, args.jdk_home, stop_after=args.stop_after)
+  File "/workspace/RISET S3 Rozi/IFogsim2-ERWOPPO/research_v2/study_runner.py", line 387, in execute
+    with StudyLock(root) as lock:
+  File "/workspace/RISET S3 Rozi/IFogsim2-ERWOPPO/research_v2/study_runner.py", line 70, in __enter__
+    require(not owner_live and not child_live, 'Another study owner or child is still active')
+  File "/workspace/RISET S3 Rozi/IFogsim2-ERWOPPO/research_v2/config.py", line 66, in require
+    raise ContractError(message)
+research_v2.config.ContractError: Another study owner or child is still active
+Interrupted during r00_equal

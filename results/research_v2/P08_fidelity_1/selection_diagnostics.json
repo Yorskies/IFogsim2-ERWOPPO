@@ -1,0 +1,876 @@
+{
+  "scope": "Post-hoc diagnostic of the fixed eight-weight pilot, not a new gate or a selected final model. Action shares averaged per trace, workload and model.",
+  "K": 20480,
+  "outer_runs": [
+    {
+      "outer": 100,
+      "short_selected_weight": "vertex4",
+      "reference_selected_weight": "vertex3",
+      "reference_D_at_short_selection": 0.4131914964992363,
+      "best_reference_D": 0.3834866201088816,
+      "reference_regret_of_short_selection": 0.029704876390354684,
+      "weights": [
+        {
+          "weight_id": "equal",
+          "short_D": 0.4122212609673898,
+          "reference_D": 0.46412890666991663,
+          "short": {
+            "macro_action_share": [
+              0.5,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.5
+            ],
+            "dominant_action": 0,
+            "dominant_share": 0.5,
+            "macro_reliability": 0.6773673232188566,
+            "macro_violation": 0.7482960842323878
+          },
+          "reference": {
+            "macro_action_share": [
+              0.07085106105261237,
+              0.0,
+              0.16133640344854056,
+              0.0,
+              0.18821776185830516,
+              0.01541976644273273,
+              0.5641750071978092
+            ],
+            "dominant_action": 6,
+            "dominant_share": 0.5641750071978092,
+            "macro_reliability": 0.5647515278594505,
+            "macro_violation": 0.7178365585444973
+          }
+        },
+        {
+          "weight_id": "manual",
+          "short_D": 0.36469335885315013,
+          "reference_D": 0.38889191516096766,
+          "short": {
+            "macro_action_share": [
+              0.990480002871926,
+              0.00011005024939772356,
+              0.0010185565116796504,
+              0.0002899345722636701,
+              0.0002791888660306405,
+              0.0,
+              0.0078222669287024
+            ],
+            "dominant_action": 0,
+            "dominant_share": 0.990480002871926,
+            "macro_reliability": 0.866685743629743,
+            "macro_violation": 0.7557576645792927
+          },
+          "reference": {
+            "macro_action_share": [
+              0.4456583476548047,
+              0.0,
+              8.591065292096219e-05,
+              0.0,
+              0.0024471225183718423,
+              0.0,
+              0.5518086191739024
+            ],
+            "dominant_action": 6,
+            "dominant_share": 0.5518086191739024,
+            "macro_reliability": 0.7019300046402074,
+            "macro_violation": 0.7089028657331279
+          }
+        },
+        {
+          "weight_id": "vertex0",
+          "short_D": 0.44939100397313336,
+          "reference_D": 0.4614814691761373,
+          "short": {
+            "macro_action_share": [
+              0.3541855912836154,
+              0.0,
+              0.39402759812706006,
+              0.0,
+              0.0,
+              0.007823943832850642,
+              0.24396286675647386
+            ],
+            "dominant_action": 2,
+            "dominant_share": 0.39402759812706006,
+            "macro_reliability": 0.6398886444406612,
+            "macro_violation": 0.7280915737388263
+          },
+          "reference": {
+            "macro_action_share": [
+              0.024100458665201767,
+              0.0,
+              0.08874425062544979,
+              0.13371697137727798,
+              0.0,
+              0.21741150368654819,
+              0.5360268156455225
+            ],
+            "dominant_action": 6,
+            "dominant_share": 0.5360268156455225,
+            "macro_reliability": 0.5921059058200543,
+            "macro_violation": 0.6993494237654816
+          }
+        },
+        {
+          "weight_id": "vertex1",
+          "short_D": 0.5653356479323477,
+          "reference_D": 0.4641209911627516,
+          "short": {
+            "macro_action_share": [
+              0.011228914983251518,
+              0.0,
+              0.43419425080585095,
+              0.04797397386476673,
+              0.0,
+              0.0,
+              0.506602860346131
+            ],
+            "dominant_action": 6,
+            "dominant_share": 0.506602860346131,
+            "macro_reliability": 0.41877699099742377,
+            "macro_violation": 0.814637518668411
+          },
+          "reference": {
+            "macro_action_share": [
+              0.01629482752128982,
+              0.018371833888198384,
+              0.0031221096496891055,
+              0.00808708447761638,
+              0.0,
+              0.03368800880062758,
+              0.9204361356625788
+            ],
+            "dominant_action": 6,
+            "dominant_share": 0.9204361356625788,
+            "macro_reliability": 0.5154820233776922,
+            "macro_violation": 0.7248370708084568
+          }
+        },
+        {
+          "weight_id": "vertex2",
+          "short_D": 0.4086503123267763,
+          "reference_D": 0.43541025021250196,
+          "short": {
+            "macro_action_share": [
+              0.33839191217018083,
+              0.004675770874393813,
+              0.06813218881373227,
+              0.07485370263470834,
+              0.0,
+              0.3114550032816058,
+              0.20249142222537878
+            ],
+            "dominant_action": 0,
+            "dominant_share": 0.33839191217018083,
+            "macro_reliability": 0.7016528155092162,
+            "macro_violation": 0.6431149932213818
+          },
+          "reference": {
+            "macro_action_share": [
+              0.10723934583343626,
+              0.0,
+              0.07138446080884245,
+              0.024649619874319805,
+              0.04098451153260465,
+              0.274073981343146,
+              0.48166808060765093
+            ],
+            "dominant_action": 6,
+            "dominant_share": 0.48166808060765093,
+            "macro_reliability": 0.689642790873022,
+            "macro_violation": 0.6259875768523979
+          }
+        },
+        {
+          "weight_id": "vertex3",
+          "short_D": 0.5793596619522143,
+          "reference_D": 0.3834866201088816,
+          "short": {
+            "macro_action_share": [
+              0.16823066292997757,
+              0.0,
+              0.033153660319664845,
+              0.04189475794366924,
+              0.003181311175499814,
+              0.7519932920592262,
+              0.001546315571962506
+            ],
+            "dominant_action": 5,
+            "dominant_share": 0.7519932920592262,
+            "macro_reliability": 0.48694710361642457,
+            "macro_violation": 0.7743495797393093
+          },
+          "reference": {
+            "macro_action_share": [
+              0.4220507783068874,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0019487452589191632,
+              0.5760004764341937
+            ],
+            "dominant_action": 6,
+            "dominant_share": 0.5760004764341937,
+            "macro_reliability": 0.7056718271891,
+            "macro_violation": 0.698376143049173
+          }
+        },
+        {
+          "weight_id": "vertex4",
+          "short_D": 0.3140456107952522,
+          "reference_D": 0.4131914964992363,
+          "short": {
+            "macro_action_share": [
+              0.49861024301631174,
+              0.0,
+              0.00023468736798097091,
+              0.010169159739595807,
+              0.0007185268244256636,
+              0.0,
+              0.4902673830516858
+            ],
+            "dominant_action": 0,
+            "dominant_share": 0.49861024301631174,
+            "macro_reliability": 0.823276405973763,
+            "macro_violation": 0.6170365357110434
+          },
+          "reference": {
+            "macro_action_share": [
+              0.07033064816338125,
+              0.029151353725305567,
+              0.0913078107945679,
+              0.09002239419439176,
+              0.03592785287163265,
+              0.00039393809182897935,
+              0.682866002158892
+            ],
+            "dominant_action": 6,
+            "dominant_share": 0.682866002158892,
+            "macro_reliability": 0.676282647633322,
+            "macro_violation": 0.6356953693848167
+          }
+        },
+        {
+          "weight_id": "simplex",
+          "short_D": 0.4183364437574856,
+          "reference_D": 0.4090219247704782,
+          "short": {
+            "macro_action_share": [
+              0.4648521019769684,
+              0.011696222006048824,
+              0.0,
+              0.08947326298379477,
+              0.0,
+              0.01529966215870518,
+              0.41867875087448275
+            ],
+            "dominant_action": 0,
+            "dominant_share": 0.4648521019769684,
+            "macro_reliability": 0.7372765201743523,
+            "macro_violation": 0.7113203384602673
+          },
+          "reference": {
+            "macro_action_share": [
+              0.49531093477117905,
+              0.0,
+              9.708962057108121e-05,
+              0.0004830580126936146,
+              0.0017379922822886537,
+              0.0,
+              0.5023709253132675
+            ],
+            "dominant_action": 6,
+            "dominant_share": 0.5023709253132675,
+            "macro_reliability": 0.6816480074047591,
+            "macro_violation": 0.7439104439013228
+          }
+        }
+      ]
+    },
+    {
+      "outer": 101,
+      "short_selected_weight": "simplex",
+      "reference_selected_weight": "vertex1",
+      "reference_D_at_short_selection": 0.47224254170777064,
+      "best_reference_D": 0.40670795945236154,
+      "reference_regret_of_short_selection": 0.06553458225540909,
+      "weights": [
+        {
+          "weight_id": "equal",
+          "short_D": 0.42437059957548956,
+          "reference_D": 0.4232870561141985,
+          "short": {
+            "macro_action_share": [
+              0.2106294430262849,
+              0.0,
+              0.0,
+              0.0005611258125490212,
+              0.07260748481770225,
+              0.2888094311611661,
+              0.42739251518229765
+            ],
+            "dominant_action": 6,
+            "dominant_share": 0.42739251518229765,
+            "macro_reliability": 0.6357401987276661,
+            "macro_violation": 0.7013942845109005
+          },
+          "reference": {
+            "macro_action_share": [
+              0.3113759157384155,
+              0.0,
+              0.017708455625111773,
+              0.001311915941300771,
+              0.09998938895384676,
+              0.19620005942105048,
+              0.37341426432027475
+            ],
+            "dominant_action": 6,
+            "dominant_share": 0.37341426432027475,
+            "macro_reliability": 0.6543687268868712,
+            "macro_violation": 0.7260018640567503
+          }
+        },
+        {
+          "weight_id": "manual",
+          "short_D": 0.4748968020110022,
+          "reference_D": 0.4350303899212752,
+          "short": {
+            "macro_action_share": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ],
+            "dominant_action": 6,
+            "dominant_share": 1.0,
+            "macro_reliability": 0.4949962185117941,
+            "macro_violation": 0.7318460807595641
+          },
+          "reference": {
+            "macro_action_share": [
+              0.0003487579716686223,
+              0.0,
+              0.0,
+              0.0,
+              0.005515797357870661,
+              0.24405478761890215,
+              0.7500806570515586
+            ],
+            "dominant_action": 6,
+            "dominant_share": 0.7500806570515586,
+            "macro_reliability": 0.5553878744727667,
+            "macro_violation": 0.6775206031008405
+          }
+        },
+        {
+          "weight_id": "vertex0",
+          "short_D": 0.39569389756460605,
+          "reference_D": 0.5973964470524343,
+          "short": {
+            "macro_action_share": [
+              0.4054346905418564,
+              0.0,
+              0.0,
+              0.04258965888181864,
+              0.0,
+              0.004055299561009808,
+              0.5479203510153152
+            ],
+            "dominant_action": 6,
+            "dominant_share": 0.5479203510153152,
+            "macro_reliability": 0.6999723188582033,
+            "macro_violation": 0.7064454356244163
+          },
+          "reference": {
+            "macro_action_share": [
+              0.00040565574824211133,
+              0.0014457077262456227,
+              0.0,
+              0.0,
+              0.2611919613905957,
+              0.6291013103638119,
+              0.1078553647711044
+            ],
+            "dominant_action": 5,
+            "dominant_share": 0.6291013103638119,
+            "macro_reliability": 0.42423624857996034,
+            "macro_violation": 0.7697624529947813
+          }
+        },
+        {
+          "weight_id": "vertex1",
+          "short_D": 0.3413213130875744,
+          "reference_D": 0.40670795945236154,
+          "short": {
+            "macro_action_share": [
+              0.24242767980747398,
+              0.0,
+              0.07293581232863662,
+              0.0,
+              0.0,
+              0.0,
+              0.6846365078638896
+            ],
+            "dominant_action": 6,
+            "dominant_share": 0.6846365078638896,
+            "macro_reliability": 0.7304386699863045,
+            "macro_violation": 0.607447416895444
+          },
+          "reference": {
+            "macro_action_share": [
+              0.07237683695611838,
+              0.0,
+              0.036088784018546496,
+              0.043459607118202584,
+              0.0,
+              0.0,
+              0.8480747719071327
+            ],
+            "dominant_action": 6,
+            "dominant_share": 0.8480747719071327,
+            "macro_reliability": 0.6220206608429133,
+            "macro_violation": 0.6738512607721407
+          }
+        },
+        {
+          "weight_id": "vertex2",
+          "short_D": 0.4122212609673898,
+          "reference_D": 0.5358514747104143,
+          "short": {
+            "macro_action_share": [
+              0.5,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.5
+            ],
+            "dominant_action": 0,
+            "dominant_share": 0.5,
+            "macro_reliability": 0.6773673232188566,
+            "macro_violation": 0.7482960842323878
+          },
+          "reference": {
+            "macro_action_share": [
+              0.06524824049865623,
+              0.0,
+              0.3298211154639191,
+              0.09659255569092584,
+              0.0,
+              0.15428748464286937,
+              0.3540506037036296
+            ],
+            "dominant_action": 6,
+            "dominant_share": 0.3540506037036296,
+            "macro_reliability": 0.49490529733770605,
+            "macro_violation": 0.7045472190161451
+          }
+        },
+        {
+          "weight_id": "vertex3",
+          "short_D": 0.44331751271121006,
+          "reference_D": 0.41145762851539336,
+          "short": {
+            "macro_action_share": [
+              0.46765720552158785,
+              0.030236235887695678,
+              0.07208733911461708,
+              0.008388802849523118,
+              0.3224491367209822,
+              0.09344255584937491,
+              0.005738724056219393
+            ],
+            "dominant_action": 0,
+            "dominant_share": 0.46765720552158785,
+            "macro_reliability": 0.6835835767012889,
+            "macro_violation": 0.7421708297044856
+          },
+          "reference": {
+            "macro_action_share": [
+              0.49902298651630284,
+              0.0,
+              0.0,
+              0.0,
+              0.00029382501875341446,
+              0.0,
+              0.5006831884649436
+            ],
+            "dominant_action": 6,
+            "dominant_share": 0.5006831884649436,
+            "macro_reliability": 0.6782782665107213,
+            "macro_violation": 0.7471637192762479
+          }
+        },
+        {
+          "weight_id": "vertex4",
+          "short_D": 0.425159904252197,
+          "reference_D": 0.44365627770241794,
+          "short": {
+            "macro_action_share": [
+              0.122818641038506,
+              0.0,
+              0.0,
+              0.0004310028316985472,
+              0.08150144053836716,
+              0.08045495259618438,
+              0.7147939629952438
+            ],
+            "dominant_action": 6,
+            "dominant_share": 0.7147939629952438,
+            "macro_reliability": 0.586914667087639,
+            "macro_violation": 0.6865873210883369
+          },
+          "reference": {
+            "macro_action_share": [
+              0.0,
+              0.0,
+              0.04151057194504957,
+              0.0,
+              0.2835878618858874,
+              0.0,
+              0.674901566169063
+            ],
+            "dominant_action": 6,
+            "dominant_share": 0.674901566169063,
+            "macro_reliability": 0.612720845446859,
+            "macro_violation": 0.6436376002902083
+          }
+        },
+        {
+          "weight_id": "simplex",
+          "short_D": 0.2914029702695376,
+          "reference_D": 0.47224254170777064,
+          "short": {
+            "macro_action_share": [
+              0.5766417734495473,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.4233582265504528
+            ],
+            "dominant_action": 0,
+            "dominant_share": 0.5766417734495473,
+            "macro_reliability": 0.8635932307183986,
+            "macro_violation": 0.5851540375360511
+          },
+          "reference": {
+            "macro_action_share": [
+              0.0,
+              0.0,
+              0.026858373648364124,
+              0.005231170286957446,
+              0.0,
+              0.028446535392962824,
+              0.9394639206717154
+            ],
+            "dominant_action": 6,
+            "dominant_share": 0.9394639206717154,
+            "macro_reliability": 0.5011474098916529,
+            "macro_violation": 0.7308079084096689
+          }
+        }
+      ]
+    },
+    {
+      "outer": 102,
+      "short_selected_weight": "equal",
+      "reference_selected_weight": "vertex1",
+      "reference_D_at_short_selection": 0.4647404989164439,
+      "best_reference_D": 0.42799827187768474,
+      "reference_regret_of_short_selection": 0.03674222703875918,
+      "weights": [
+        {
+          "weight_id": "equal",
+          "short_D": 0.3155307171890182,
+          "reference_D": 0.4647404989164439,
+          "short": {
+            "macro_action_share": [
+              0.09543406265004782,
+              0.0,
+              0.0038784363772364195,
+              0.00040559010298268515,
+              0.053999306800848926,
+              0.15261088077675924,
+              0.6936717232921248
+            ],
+            "dominant_action": 6,
+            "dominant_share": 0.6936717232921248,
+            "macro_reliability": 0.7619395878621023,
+            "macro_violation": 0.5410662564094307
+          },
+          "reference": {
+            "macro_action_share": [
+              0.0,
+              0.0,
+              0.018094376165533034,
+              0.0976903126557473,
+              0.0,
+              0.30441360418812685,
+              0.5798017069905927
+            ],
+            "dominant_action": 6,
+            "dominant_share": 0.5798017069905927,
+            "macro_reliability": 0.6064034850797384,
+            "macro_violation": 0.6557038986485383
+          }
+        },
+        {
+          "weight_id": "manual",
+          "short_D": 0.4292749433236758,
+          "reference_D": 0.4397162602330993,
+          "short": {
+            "macro_action_share": [
+              0.010122753048645053,
+              0.0,
+              0.0,
+              0.0,
+              0.057384992069481666,
+              0.0,
+              0.9324922548818734
+            ],
+            "dominant_action": 6,
+            "dominant_share": 0.9324922548818734,
+            "macro_reliability": 0.5893818541335396,
+            "macro_violation": 0.6602489998342957
+          },
+          "reference": {
+            "macro_action_share": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.06554888221775075,
+              0.9344511177822493
+            ],
+            "dominant_action": 6,
+            "dominant_share": 0.9344511177822493,
+            "macro_reliability": 0.5667884405568634,
+            "macro_violation": 0.6692900851032145
+          }
+        },
+        {
+          "weight_id": "vertex0",
+          "short_D": 0.5044435770625513,
+          "reference_D": 0.5309082258415142,
+          "short": {
+            "macro_action_share": [
+              0.00971310066421602,
+              0.0034798529139465676,
+              0.0,
+              4.250973686710363e-05,
+              0.24307170898149058,
+              0.018016083432300878,
+              0.7256767442711788
+            ],
+            "dominant_action": 6,
+            "dominant_share": 0.7256767442711788,
+            "macro_reliability": 0.5233597321985327,
+            "macro_violation": 0.720470238908009
+          },
+          "reference": {
+            "macro_action_share": [
+              0.0,
+              0.0,
+              0.011528919101344329,
+              0.30222643020558654,
+              0.10387866653185593,
+              0.04029360461986231,
+              0.5420723795413511
+            ],
+            "dominant_action": 6,
+            "dominant_share": 0.5420723795413511,
+            "macro_reliability": 0.528061831612485,
+            "macro_violation": 0.7116540492822091
+          }
+        },
+        {
+          "weight_id": "vertex1",
+          "short_D": 0.36104464668097574,
+          "reference_D": 0.42799827187768474,
+          "short": {
+            "macro_action_share": [
+              0.2055243535670343,
+              0.10673317659388248,
+              0.013860036574922735,
+              0.09897217246256858,
+              0.007910592291826272,
+              0.06909849828691247,
+              0.497901170222853
+            ],
+            "dominant_action": 6,
+            "dominant_share": 0.497901170222853,
+            "macro_reliability": 0.7559757708607444,
+            "macro_violation": 0.6174231278974723
+          },
+          "reference": {
+            "macro_action_share": [
+              0.04594783018419574,
+              0.02314159727098401,
+              0.02403536188844764,
+              0.15199917422160775,
+              0.03550550303270095,
+              0.0679515313652764,
+              0.6514190020367876
+            ],
+            "dominant_action": 6,
+            "dominant_share": 0.6514190020367876,
+            "macro_reliability": 0.6148401273749411,
+            "macro_violation": 0.6616336654200324
+          }
+        },
+        {
+          "weight_id": "vertex2",
+          "short_D": 0.7066350587092888,
+          "reference_D": 0.560741878526662,
+          "short": {
+            "macro_action_share": [
+              0.006672425677713398,
+              0.3905227900403208,
+              0.0,
+              0.0005617545993768171,
+              0.465776412407464,
+              0.0,
+              0.13646661727512513
+            ],
+            "dominant_action": 4,
+            "dominant_share": 0.465776412407464,
+            "macro_reliability": 0.24130882596652667,
+            "macro_violation": 0.8768494153133254
+          },
+          "reference": {
+            "macro_action_share": [
+              0.0024843141974438014,
+              0.0,
+              0.11276148715375822,
+              0.1698897739075385,
+              0.28209442151968744,
+              0.2144584185389268,
+              0.21831158468264525
+            ],
+            "dominant_action": 4,
+            "dominant_share": 0.28209442151968744,
+            "macro_reliability": 0.5607701919362684,
+            "macro_violation": 0.7268267013671068
+          }
+        },
+        {
+          "weight_id": "vertex3",
+          "short_D": 0.40400087295532,
+          "reference_D": 0.55434686456229,
+          "short": {
+            "macro_action_share": [
+              0.4336110298252092,
+              0.09161868485858912,
+              0.1374939887052225,
+              0.060342906565314505,
+              0.015744886460005943,
+              0.0634241763228783,
+              0.19776432726278023
+            ],
+            "dominant_action": 0,
+            "dominant_share": 0.4336110298252092,
+            "macro_reliability": 0.8438952093868917,
+            "macro_violation": 0.6387151245241871
+          },
+          "reference": {
+            "macro_action_share": [
+              0.0,
+              0.07272437935256738,
+              0.07950196230707732,
+              0.018080228525368024,
+              0.015341200182193074,
+              0.6504857542293048,
+              0.16386647540348948
+            ],
+            "dominant_action": 5,
+            "dominant_share": 0.6504857542293048,
+            "macro_reliability": 0.5021409172711367,
+            "macro_violation": 0.7319978355475316
+          }
+        },
+        {
+          "weight_id": "vertex4",
+          "short_D": 0.6283398341566827,
+          "reference_D": 0.4447528861016686,
+          "short": {
+            "macro_action_share": [
+              0.0,
+              0.0,
+              0.5,
+              0.0,
+              0.005689416985604335,
+              0.0,
+              0.4943105830143958
+            ],
+            "dominant_action": 2,
+            "dominant_share": 0.5,
+            "macro_reliability": 0.3079734081005145,
+            "macro_violation": 0.8604252152057346
+          },
+          "reference": {
+            "macro_action_share": [
+              0.0,
+              0.0,
+              0.003797568705513643,
+              0.09687224944177189,
+              0.002798129634834274,
+              0.0520735114085091,
+              0.844458540809371
+            ],
+            "dominant_action": 6,
+            "dominant_share": 0.844458540809371,
+            "macro_reliability": 0.6067449106188294,
+            "macro_violation": 0.6562553111777115
+          }
+        },
+        {
+          "weight_id": "simplex",
+          "short_D": 0.39228702031127005,
+          "reference_D": 0.4748968020110022,
+          "short": {
+            "macro_action_share": [
+              0.058405716258707,
+              0.0010374265627724059,
+              0.00010980766056445067,
+              0.00488978869844355,
+              0.04652008622021396,
+              0.0,
+              0.8890371745992987
+            ],
+            "dominant_action": 6,
+            "dominant_share": 0.8890371745992987,
+            "macro_reliability": 0.6555761093596859,
+            "macro_violation": 0.6280416523526465
+          },
+          "reference": {
+            "macro_action_share": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ],
+            "dominant_action": 6,
+            "dominant_share": 1.0,
+            "macro_reliability": 0.4949962185117941,
+            "macro_violation": 0.7318460807595641
+          }
+        }
+      ]
+    }
+  ]
+}

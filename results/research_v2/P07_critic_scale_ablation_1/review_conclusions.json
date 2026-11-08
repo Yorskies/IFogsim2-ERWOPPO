@@ -1,0 +1,29 @@
+{
+  "status": "completed_mixed_result",
+  "protocol": "P07-critic-scale-ablation-1",
+  "technical_audit": "pass",
+  "tests_passed": 26,
+  "training_decisions": 83968,
+  "evaluation_episodes": 360,
+  "evaluation_decisions": 349146,
+  "primary_D_improved_seeds": 1,
+  "primary_D_worsened_seeds": 1,
+  "primary_D_tied_seeds": 1,
+  "mean_D_control": 0.5027049596592269,
+  "mean_D_treatment": 0.4693033685005321,
+  "mean_relative_D_change": -0.06644372711448288,
+  "median_paired_D_change": 0.0,
+  "first_common_batch_actor_gradient_identical": true,
+  "first_common_batch_critic_gradient_scaled_by": 0.1,
+  "conclusion": "Lower critic weight reduces global clipping and changes behavior, but deterministic D improves in only one of three paired seeds.",
+  "causal_limit": "Changing vf_coef affects critic optimization and coupling through global clipping together. This is not a clipping-only ablation; Adam makes raw gradient ratios different from actual parameter displacement.",
+  "default_changed": false,
+  "test_accessed": false,
+  "P08_started": false,
+  "next_review": "No automatic adoption of .05. Review sampling/argmax concentration and reward-D alignment; avoid unbounded coefficient tuning from three pilot seeds.",
+  "source_hashes": {
+    "research_v2/critic_ablation.py": "fbf2fdaad7d14950c5c732b583c05a9febfc81bf972520502f9fcba76546940e",
+    "research_v2/critic_ablation_report.py": "c5d585093e0418c3ddda7b4246c3e53df729bb48fc012ee2e046729cf74524b8",
+    "research_v2/critic_update_diagnostic.py": "7762d8bf1d5ccd967194c7ba69ee79eaf69a7bf6dab1cb9869de4ceb34dfd90f"
+  }
+}

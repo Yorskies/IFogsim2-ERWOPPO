@@ -1,8 +1,8 @@
 # Kontrak arsitektur P00
 
 Status implementasi: fondasi P00, trace P01, engine headless P02, transport jaringan P03, ledger energi/metrik P04, socket dan
-environment Gymnasium P05, serta baseline dan gerbang kalibrasi P06. Arsitektur ini memetakan fase lanjutan; PPO, pencarian bobot,
-dan runner studi belum tersedia.
+environment Gymnasium P05, serta baseline dan gerbang kalibrasi P06. Arsitektur ini memetakan fase lanjutan. Implementasi PPO/pilot P07 tersedia di `research_v2/learning.py`,
+dan sudah diverifikasi lewat smoke/pilot/prefix di Linux; hasil pembelajaran negatif dicatat. Implementasi pencarian P08 tersedia; pilot fidelity asli gagal, lalu revisi eksploratori yang diaudit memilih K=30.720. Runner studi P09 dan analisis/protocol lock P10 tersedia (fixture); eksperimen konfirmatori belum dijalankan.
 
 Pembaruan P02 (8 November 2026): `BoundedFcfsScheduler` (adapter CloudSim space-shared), `ComputeNode`
 (Host/Vm/Pe nyata), `EngineCoordinator` (antrean berurutan dengan prioritas domain, generasi event,
@@ -23,7 +23,7 @@ sudah tersedia. Detail: [TRACES.md](TRACES.md). Task engine tetap pekerjaan P02.
 | Build | `ifogsim/build_v2.py` | Full compile ke direktori baru, `--release 21`, main berbeda, JAR foundation terpisah; receipt menyimpan SHA input dan dependency |
 | Future engine P02–P04 | `org.fog.erwo.v2` | Host/VM/PE/Cloudlet, bounded FCFS, lifecycle/transport, satu ledger energi/metrik |
 | Future adapter P05 | `research_v2` dan `V2SocketServer` | Snapshot publik, step arrival, delayed reward; kegagalan Java tidak diganti engine Python |
-| Future study P07–P12 | `research_v2`, `run_research_v2.py` | Training/search/runner/statistik; CLI sekarang hanya validate/export/snapshot |
+| Pilot P07, search P08 dan future study P09–P12 | `research_v2/learning.py`, `research_v2`, `run_research_v2.py` | CLI P07 terpisah: plan/train/evaluate/prefix-check; validasi teknis selesai, pilot belum menunjukkan perbaikan; search tersedia dengan K=30.720 dari revisi fidelity eksploratori yang diaudit; runner studi P09 (`study_*.py`) dan analisis/lock P10 (`research_v2/analysis/`) tersedia dan diverifikasi pada fixture |
 
 ## Unit dan representasi
 
@@ -80,8 +80,8 @@ meskipun task akhirnya gagal. `fileTransferTime=0` pada scheduler native.
 - Satu episode aktif per JVM. Paralelisme hanya antar-JVM; satu worker default.
 - Resume mula-mula hanya batas completed run. Tidak ada klaim partial-state
   simulator dapat direstore.
-- Nilai training/search di config adalah persiapan kontrak, belum fitur CLI.
+- Nilai training/search di config adalah kontrak awal. CLI P07/P08 tersedia; budget kandidat awal 5.120 gagal pada pilot asli. Ekstensi eksploratori memilih 30.720 keputusan/model dengan gate dan audit terpisah; CLI `search_runner_extension` memerlukan bukti tersebut.
 - `system.yaml`/`training.yaml` pada spesifikasi dipetakan pada section JSON
   `topology/timing/tasks/network` dan `ppo/training/search`; JSON menjadi sumber
-  tunggal P00 agar tidak ada dua konfigurasi yang drift. Runner P09 akan mengarsip
-  effective config per run dan mencatat pemetaan ini.
+  tunggal P00 agar tidak ada dua konfigurasi yang drift. Runner P09 mengarsip
+  effective config per run (`effective_learner_config.json`) dan mencatat pemetaan ini.

@@ -1,0 +1,21 @@
+{
+  "phase": "P07",
+  "scope": "preparation only; no training, rollout or JVM startup",
+  "status": "pass",
+  "learning_gate": "not_run",
+  "tests_run": 14,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "test_log": "test_budget_rollout_alignment (test_learning.LearningPreparationTests.test_budget_rollout_alignment) ... ok\ntest_comparison_detects_optimizer_or_rng_difference (test_learning.LearningPreparationTests.test_comparison_detects_optimizer_or_rng_difference) ... ok\ntest_config_policy_parameters (test_learning.LearningPreparationTests.test_config_policy_parameters) ... ok\ntest_delayed_reward_audit_and_budget_partial (test_learning.LearningPreparationTests.test_delayed_reward_audit_and_budget_partial) ... ok\ntest_evidence_audit_accepts_complete_physical_validation (test_learning.LearningPreparationTests.test_evidence_audit_accepts_complete_physical_validation) ... ok\ntest_evidence_audit_rejects_missing_or_duplicate_validation (test_learning.LearningPreparationTests.test_evidence_audit_rejects_missing_or_duplicate_validation) ... ok\ntest_evidence_audit_rejects_reward_corruption (test_learning.LearningPreparationTests.test_evidence_audit_rejects_reward_corruption) ... ok\ntest_macro_score_is_rms_after_equal_workload_aggregation (test_learning.LearningPreparationTests.test_macro_score_is_rms_after_equal_workload_aggregation) ... ok\ntest_namespace_and_weights_guards (test_learning.LearningPreparationTests.test_namespace_and_weights_guards) ... ok\ntest_policy_creation_and_save_without_training (test_learning.LearningPreparationTests.test_policy_creation_and_save_without_training) ... ok\ntest_reward_mismatch_rejected (test_learning.LearningPreparationTests.test_reward_mismatch_rejected) ... ok\ntest_round_robin_trace_counters (test_learning.LearningPreparationTests.test_round_robin_trace_counters) ... ok\ntest_seed_and_offset (test_learning.LearningPreparationTests.test_seed_and_offset) ... ok\ntest_stream_does_not_touch_policy_rng (test_learning.LearningPreparationTests.test_stream_does_not_touch_policy_rng) ... ok\n\n----------------------------------------------------------------------\nRan 14 tests in 1.417s\n\nOK\n",
+  "environment": {
+    "python": "3.12.3 (main, Jul 15 2026, 23:46:41) [GCC 13.3.0]",
+    "platform": "Linux-6.8.0-139-generic-x86_64-with-glibc2.39"
+  },
+  "source_hashes": {
+    "research_v2/learning.py": "7c6eb89f28a62994d86fcfd6c37ca89dcae6870a467fcc04a9bdc4cb6f33017a",
+    "research_v2/verify_learning.py": "80fabd9cccb70840d20ad86f6dd00dace1adfc064070d698136b10c17c5a8e3f",
+    "tests/research_v2/test_learning.py": "4bdc71166ff3dc9e8aac47720d198c858071f91a760bd2b9d6ddbd900b8fff82",
+    "requirements-v2-learning.txt": "4d5b84b05ed4ac1c06eccf7cd771e0b850b08b2a22780c6da022a5c90a532639"
+  }
+}

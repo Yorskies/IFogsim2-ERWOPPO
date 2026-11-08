@@ -1,0 +1,87 @@
+{
+  "status": "pass",
+  "tests_run": 173,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "phases": [
+    {
+      "phase": "P00",
+      "status": "pass",
+      "tests_run": 23,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "phase": "P01",
+      "status": "pass",
+      "tests_run": 49,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "phase": "P02",
+      "status": "pass",
+      "tests_run": 21,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "phase": "P03",
+      "status": "pass",
+      "tests_run": 17,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "phase": "P04",
+      "status": "pass",
+      "tests_run": 16,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "phase": "P05",
+      "status": "pass",
+      "tests_run": 28,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "phase": "P06",
+      "status": "pass",
+      "tests_run": 19,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  ],
+  "replication": {
+    "rows_compared": 640,
+    "identical_apart_from_wall_clock": true
+  },
+  "calibration_gates": {
+    "complete": true,
+    "distribution": true,
+    "solo_feasibility": true,
+    "heavy_pressure": true,
+    "all_pass": true
+  },
+  "evidence_problems": [],
+  "environment": {
+    "python": "3.12.3 (main, Jul 15 2026, 23:46:41) [GCC 13.3.0]",
+    "platform": "Linux-6.8.0-139-generic-x86_64-with-glibc2.39"
+  },
+  "limitations": [
+    "Optional legacy baseline byte/inventory audit not requested: original archive is incomplete in repository.",
+    "Counts include overlapping foundation and legacy tests in P00/P01.",
+    "PPO training has not been tested.",
+    "Some historical limitation strings in verifier reports are static Windows-only descriptions; verification_environment/environment and build receipt describe this Linux execution."
+  ]
+}

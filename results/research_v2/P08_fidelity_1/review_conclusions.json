@@ -1,0 +1,23 @@
+{
+  "phase": "P08",
+  "implementation_status": "implemented",
+  "technical_audit": "pass",
+  "milestone_gate": "failed",
+  "selected_K": null,
+  "tests_passed": 41,
+  "reference_models": 48,
+  "independent_short_models": 144,
+  "training_decisions": 4177920,
+  "development_preflight_training_decisions": 512,
+  "evaluation_episodes": 3840,
+  "evaluation_decisions": 3724224,
+  "prefix_checks": 144,
+  "full_search_launched": false,
+  "test_accessed": false,
+  "P09_ready": false,
+  "decision": "Stop for diagnosis per fixed protocol. Do not run 80-slot full search or lower the gate threshold.",
+  "causal_limit": "Fidelity failure shows the short ranking is an unreliable proxy for 51,200 decisions; it does not identify one underlying PPO cause or prove all weight search ineffective.",
+  "next_review": "Revisit learning stability across weights, reward-versus-D alignment and sampling/argmax deployment. No additional tuning or confirmatory experiments launched.",
+  "result_sha256": "f6f3385e28dbdde8173691697f21e60f12d17a246a7b91ee0f1c7ab04adf7141",
+  "verification_sha256": "dad4ad5448e9b9543af054c286e3f76015ba208ff8ee9df2cd9de009c7996c81"
+}

@@ -1,0 +1,65 @@
+{
+  "scope": "Initial policy, full 512-sample first rollout; diagnostic batch, not the recorded minibatch sequence.",
+  "optimizer_steps": 0,
+  "new_rollouts": 0,
+  "results": {
+    "vf050": {
+      "100": {
+        "actor_with_entropy_gradient_norm": 0.22091829776763916,
+        "weighted_critic_gradient_norm": 6.198241233825684,
+        "critic_over_actor_norm": 28.05671280495274,
+        "combined_gradient_norm": 6.202177047729492,
+        "global_clip_coefficient_diagnostic": 0.08061684075371572,
+        "value_loss_MSE": 1.1452935934066772,
+        "policy_unchanged": true
+      },
+      "101": {
+        "actor_with_entropy_gradient_norm": 0.21748143434524536,
+        "weighted_critic_gradient_norm": 4.921469688415527,
+        "critic_over_actor_norm": 22.629378471924365,
+        "combined_gradient_norm": 4.926272869110107,
+        "global_clip_coefficient_diagnostic": 0.1014965901784752,
+        "value_loss_MSE": 0.6841406226158142,
+        "policy_unchanged": true
+      },
+      "102": {
+        "actor_with_entropy_gradient_norm": 0.18394233286380768,
+        "weighted_critic_gradient_norm": 3.3207743167877197,
+        "critic_over_actor_norm": 18.053344573195375,
+        "combined_gradient_norm": 3.3258650302886963,
+        "global_clip_coefficient_diagnostic": 0.15033678309543885,
+        "value_loss_MSE": 0.33400893211364746,
+        "policy_unchanged": true
+      }
+    },
+    "vf005": {
+      "100": {
+        "actor_with_entropy_gradient_norm": 0.22091829776763916,
+        "weighted_critic_gradient_norm": 0.6198241710662842,
+        "critic_over_actor_norm": 2.8056714963384897,
+        "combined_gradient_norm": 0.6580173969268799,
+        "global_clip_coefficient_diagnostic": 0.7598571747159841,
+        "value_loss_MSE": 1.1452935934066772,
+        "policy_unchanged": true
+      },
+      "101": {
+        "actor_with_entropy_gradient_norm": 0.21748143434524536,
+        "weighted_critic_gradient_norm": 0.49214696884155273,
+        "critic_over_actor_norm": 2.262937847192436,
+        "combined_gradient_norm": 0.5380584001541138,
+        "global_clip_coefficient_diagnostic": 0.9292654302792357,
+        "value_loss_MSE": 0.6841406226158142,
+        "policy_unchanged": true
+      },
+      "102": {
+        "actor_with_entropy_gradient_norm": 0.18394233286380768,
+        "weighted_critic_gradient_norm": 0.3320774435997009,
+        "critic_over_actor_norm": 1.8053345221275063,
+        "combined_gradient_norm": 0.37961849570274353,
+        "global_clip_coefficient_diagnostic": 1.0,
+        "value_loss_MSE": 0.33400893211364746,
+        "policy_unchanged": true
+      }
+    }
+  }
+}

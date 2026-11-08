@@ -1,0 +1,43 @@
+{
+  "protocol": "P07-critic-scale-ablation-1",
+  "prepared_utc": "2026-11-07T21:35:32.164699+00:00",
+  "status": "prepared",
+  "factor": "vf_coef",
+  "conditions": {
+    "vf050": 0.5,
+    "vf005": 0.05
+  },
+  "seeds": [
+    100,
+    101,
+    102
+  ],
+  "repeat": 0,
+  "weights": [
+    0.2,
+    0.2,
+    0.2,
+    0.2,
+    0.2
+  ],
+  "pilot_decisions": 10240,
+  "smoke_decisions": 512,
+  "long_prefix_decisions": 10752,
+  "spec_file_hashes": {
+    "vf050": "2a3f50465f4e459f61e74bffdd13884fc6c1301c5498b69e525c3b3dd305ceef",
+    "vf005": "7b7b036da66b16db5c474ed10c4d3b8b1a56faa152b865a9f70c23c8d51d2ead"
+  },
+  "simulation_config_sha256": "3e32379ebd2e8770e025ff9cce11be28cbffe7e535b269a070030ce6d9dae025",
+  "jar_sha256": "ba5a7ca8a8f0cdd64839ccc7848d20009a5872b994aa1c529baf894eeff19e73",
+  "rationale": "Prior initial-rollout critic/actor gradient ratio was 18-28 at lambda=.95; multiplying vf_coef by .1 tests reducing this imbalance without changing target rewards, GAE, or clipping rule.",
+  "primary": "Paired deterministic D at 10,240: all seeds, mean/median differences; descriptive only.",
+  "secondary": "Linear equal cost, five costs, reliability, violation, action share; sampling diagnostic only.",
+  "mechanism": "Critic-weighted gradient, global clipping frequency, actor/critic parameter deltas, GAE/value/return statistics.",
+  "fixed": "lambda=.95, gamma=1, global clip max=.5, all PPO settings except vf_coef; same initial policy, JAR, physics, trace payloads and budget.",
+  "namespace": "pilot_train and pilot_validation only; no confirmatory/test access.",
+  "decision_rule": "No automatic adoption or seed selection; report all results. No significance/superiority claim. Do not proceed to P08 in this batch.",
+  "training_decisions_planned": 83968,
+  "evaluation_episodes_planned": 360,
+  "prefix_scope": "10,240 vs 10,752 pilot only; no F checkpoint reuse claim for vf_coef=.05.",
+  "config_separation": "Immutable simulator config/JAR and separately hashed full effective learner config."
+}

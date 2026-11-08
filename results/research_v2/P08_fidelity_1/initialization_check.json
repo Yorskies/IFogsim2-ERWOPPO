@@ -1,0 +1,13 @@
+{
+  "status": "pass",
+  "distinct_outer_repeat_initializations": 6,
+  "same_initialization_across_eight_weights": true,
+  "hashes": {
+    "r100_m0": "59cc0e539a1d8725bafa29233e53314034d2fc834a5dce74af456514a24ec5ee",
+    "r100_m1": "fa70fcff975cd840b29a0c12aea256e9c7fead810950647c83b253a914ab32e6",
+    "r101_m0": "95c4d105ae882dfe12630f13ca58635677d16afd4d0ab3373ea8c1a42fb47883",
+    "r101_m1": "e3787e1f463809b58a2ab21ccd2a0454e75f5c9cf44d7f8a78e80481312fdd99",
+    "r102_m0": "04c582b1cc9b9431cb2b8851eef794aae296a6b8ff1550f5a63f5f44130a4ca5",
+    "r102_m1": "7659b7618950322b7e4e12b8302724c07f657d6e22ebc2807ec32d42b47e341b"
+  }
+}

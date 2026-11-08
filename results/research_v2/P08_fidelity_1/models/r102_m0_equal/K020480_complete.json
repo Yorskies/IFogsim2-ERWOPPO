@@ -1,0 +1,18 @@
+{
+  "status": "complete",
+  "job": {
+    "id": "r102_m0_equal",
+    "outer": 102,
+    "repeat": 0,
+    "weight_id": "equal",
+    "weights": [
+      0.2,
+      0.2,
+      0.2,
+      0.2,
+      0.2
+    ]
+  },
+  "budget": 20480,
+  "prefix_pass": true
+}

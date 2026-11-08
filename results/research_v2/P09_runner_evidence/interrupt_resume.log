@@ -1,0 +1,26 @@
+REUSED r00_mini_search
+REUSED r00_mini_final
+COMPLETE r00_equal attempt=1
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/workspace/RISET S3 Rozi/IFogsim2-ERWOPPO/research_v2/study_runner.py", line 422, in <module>
+    main()
+  File "/workspace/RISET S3 Rozi/IFogsim2-ERWOPPO/research_v2/study_runner.py", line 415, in main
+    execute(args.study_dir, args.jdk_home, stop_after=args.stop_after)
+  File "/workspace/RISET S3 Rozi/IFogsim2-ERWOPPO/research_v2/study_runner.py", line 387, in execute
+    with StudyLock(root) as lock:
+  File "/workspace/RISET S3 Rozi/IFogsim2-ERWOPPO/research_v2/study_runner.py", line 70, in __enter__
+    require(not owner_live and not child_live, 'Another study owner or child is still active')
+  File "/workspace/RISET S3 Rozi/IFogsim2-ERWOPPO/research_v2/config.py", line 66, in require
+    raise ContractError(message)
+research_v2.config.ContractError: Another study owner or child is still active
+REUSED r00_mini_search
+REUSED r00_mini_final
+REUSED r00_equal
+FAILED r00_manual attempt=1 technical Worker exited -9 without a failure record
+COMPLETE r00_manual attempt=2
+REUSED r00_mini_search
+REUSED r00_mini_final
+REUSED r00_equal
+REUSED r00_manual

@@ -1,0 +1,44 @@
+{
+  "training_decisions_added": 0,
+  "fixed_action_episodes_replayed": 28,
+  "initial_snapshots_verified_against_java": 31,
+  "new_baseline_episodes": 20,
+  "new_baseline_decisions": 19397,
+  "critic_negative_explained_variance_updates": 28,
+  "critic_updates_examined": 60,
+  "objective_alignment": {
+    "100": {
+      "linear_equal_cost_512": 0.2116533138882028,
+      "linear_equal_cost_10240": 0.2689680681872201,
+      "D_512": 0.31945968695438043,
+      "D_10240": 0.36263387886651727
+    },
+    "101": {
+      "linear_equal_cost_512": 0.5980456784637603,
+      "linear_equal_cost_10240": 0.6098800933968761,
+      "D_512": 0.6559559359365496,
+      "D_10240": 0.670584198100161
+    },
+    "102": {
+      "linear_equal_cost_512": 0.3903193499346414,
+      "linear_equal_cost_10240": 0.37020545380713044,
+      "D_512": 0.4430735981964149,
+      "D_10240": 0.4748968020110022
+    }
+  },
+  "no_protocol_changes": true,
+  "confirmed": [
+    "Recorded actions reproduce final costs in 28 complete episodes.",
+    "Sampling and argmax have materially different closed-loop behaviors.",
+    "Linear equal-weight reward differs from RMS D."
+  ],
+  "hypotheses": [
+    "Long outcome lag, lambda=.95 and weak critic impair temporal credit assignment.",
+    "Closed-loop state shift under argmax exacerbates repeated destination selection."
+  ],
+  "recommended_next": "Pilot ablation lambda=.95 vs 1.0; fixed seeds, trace attributes, gamma, weights, and budget; full effective-config provenance.",
+  "source_hashes": {
+    "research_v2/learning_review.py": "c49d96ded0bbf4bc1862bbd9cb9b1576a5c8e90dcf8310d98ad6d36e155c991d",
+    "tests/research_v2/test_learning_review.py": "7a6240b66dbb15636eb0111077bd59bdf96dae806b8e2ab7eee925aab2d47e31"
+  }
+}

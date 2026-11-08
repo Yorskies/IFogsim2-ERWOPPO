@@ -1,0 +1,812 @@
+{
+  "phase": "P08",
+  "version": "P08-fidelity-1",
+  "prepared_utc": "2026-11-07T21:57:40.167532+00:00",
+  "config_sha256": "3e32379ebd2e8770e025ff9cce11be28cbffe7e535b269a070030ce6d9dae025",
+  "jar_sha256": "ba5a7ca8a8f0cdd64839ccc7848d20009a5872b994aa1c529baf894eeff19e73",
+  "weights": [
+    {
+      "id": "equal",
+      "weights": [
+        0.2,
+        0.2,
+        0.2,
+        0.2,
+        0.2
+      ]
+    },
+    {
+      "id": "manual",
+      "weights": [
+        0.3,
+        0.15,
+        0.25,
+        0.1,
+        0.2
+      ]
+    },
+    {
+      "id": "vertex0",
+      "weights": [
+        0.92,
+        0.02,
+        0.02,
+        0.02,
+        0.02
+      ]
+    },
+    {
+      "id": "vertex1",
+      "weights": [
+        0.02,
+        0.92,
+        0.02,
+        0.02,
+        0.02
+      ]
+    },
+    {
+      "id": "vertex2",
+      "weights": [
+        0.02,
+        0.02,
+        0.92,
+        0.02,
+        0.02
+      ]
+    },
+    {
+      "id": "vertex3",
+      "weights": [
+        0.02,
+        0.02,
+        0.02,
+        0.92,
+        0.02
+      ]
+    },
+    {
+      "id": "vertex4",
+      "weights": [
+        0.02,
+        0.02,
+        0.02,
+        0.02,
+        0.92
+      ]
+    },
+    {
+      "id": "simplex",
+      "weights": [
+        0.31342012630644706,
+        0.09236111609019916,
+        0.039582770504973275,
+        0.4655158892823413,
+        0.08912009781603909
+      ]
+    }
+  ],
+  "jobs": [
+    {
+      "id": "r100_m0_equal",
+      "outer": 100,
+      "repeat": 0,
+      "weight_id": "equal",
+      "weights": [
+        0.2,
+        0.2,
+        0.2,
+        0.2,
+        0.2
+      ]
+    },
+    {
+      "id": "r100_m1_equal",
+      "outer": 100,
+      "repeat": 1,
+      "weight_id": "equal",
+      "weights": [
+        0.2,
+        0.2,
+        0.2,
+        0.2,
+        0.2
+      ]
+    },
+    {
+      "id": "r100_m0_manual",
+      "outer": 100,
+      "repeat": 0,
+      "weight_id": "manual",
+      "weights": [
+        0.3,
+        0.15,
+        0.25,
+        0.1,
+        0.2
+      ]
+    },
+    {
+      "id": "r100_m1_manual",
+      "outer": 100,
+      "repeat": 1,
+      "weight_id": "manual",
+      "weights": [
+        0.3,
+        0.15,
+        0.25,
+        0.1,
+        0.2
+      ]
+    },
+    {
+      "id": "r100_m0_vertex0",
+      "outer": 100,
+      "repeat": 0,
+      "weight_id": "vertex0",
+      "weights": [
+        0.92,
+        0.02,
+        0.02,
+        0.02,
+        0.02
+      ]
+    },
+    {
+      "id": "r100_m1_vertex0",
+      "outer": 100,
+      "repeat": 1,
+      "weight_id": "vertex0",
+      "weights": [
+        0.92,
+        0.02,
+        0.02,
+        0.02,
+        0.02
+      ]
+    },
+    {
+      "id": "r100_m0_vertex1",
+      "outer": 100,
+      "repeat": 0,
+      "weight_id": "vertex1",
+      "weights": [
+        0.02,
+        0.92,
+        0.02,
+        0.02,
+        0.02
+      ]
+    },
+    {
+      "id": "r100_m1_vertex1",
+      "outer": 100,
+      "repeat": 1,
+      "weight_id": "vertex1",
+      "weights": [
+        0.02,
+        0.92,
+        0.02,
+        0.02,
+        0.02
+      ]
+    },
+    {
+      "id": "r100_m0_vertex2",
+      "outer": 100,
+      "repeat": 0,
+      "weight_id": "vertex2",
+      "weights": [
+        0.02,
+        0.02,
+        0.92,
+        0.02,
+        0.02
+      ]
+    },
+    {
+      "id": "r100_m1_vertex2",
+      "outer": 100,
+      "repeat": 1,
+      "weight_id": "vertex2",
+      "weights": [
+        0.02,
+        0.02,
+        0.92,
+        0.02,
+        0.02
+      ]
+    },
+    {
+      "id": "r100_m0_vertex3",
+      "outer": 100,
+      "repeat": 0,
+      "weight_id": "vertex3",
+      "weights": [
+        0.02,
+        0.02,
+        0.02,
+        0.92,
+        0.02
+      ]
+    },
+    {
+      "id": "r100_m1_vertex3",
+      "outer": 100,
+      "repeat": 1,
+      "weight_id": "vertex3",
+      "weights": [
+        0.02,
+        0.02,
+        0.02,
+        0.92,
+        0.02
+      ]
+    },
+    {
+      "id": "r100_m0_vertex4",
+      "outer": 100,
+      "repeat": 0,
+      "weight_id": "vertex4",
+      "weights": [
+        0.02,
+        0.02,
+        0.02,
+        0.02,
+        0.92
+      ]
+    },
+    {
+      "id": "r100_m1_vertex4",
+      "outer": 100,
+      "repeat": 1,
+      "weight_id": "vertex4",
+      "weights": [
+        0.02,
+        0.02,
+        0.02,
+        0.02,
+        0.92
+      ]
+    },
+    {
+      "id": "r100_m0_simplex",
+      "outer": 100,
+      "repeat": 0,
+      "weight_id": "simplex",
+      "weights": [
+        0.31342012630644706,
+        0.09236111609019916,
+        0.039582770504973275,
+        0.4655158892823413,
+        0.08912009781603909
+      ]
+    },
+    {
+      "id": "r100_m1_simplex",
+      "outer": 100,
+      "repeat": 1,
+      "weight_id": "simplex",
+      "weights": [
+        0.31342012630644706,
+        0.09236111609019916,
+        0.039582770504973275,
+        0.4655158892823413,
+        0.08912009781603909
+      ]
+    },
+    {
+      "id": "r101_m0_equal",
+      "outer": 101,
+      "repeat": 0,
+      "weight_id": "equal",
+      "weights": [
+        0.2,
+        0.2,
+        0.2,
+        0.2,
+        0.2
+      ]
+    },
+    {
+      "id": "r101_m1_equal",
+      "outer": 101,
+      "repeat": 1,
+      "weight_id": "equal",
+      "weights": [
+        0.2,
+        0.2,
+        0.2,
+        0.2,
+        0.2
+      ]
+    },
+    {
+      "id": "r101_m0_manual",
+      "outer": 101,
+      "repeat": 0,
+      "weight_id": "manual",
+      "weights": [
+        0.3,
+        0.15,
+        0.25,
+        0.1,
+        0.2
+      ]
+    },
+    {
+      "id": "r101_m1_manual",
+      "outer": 101,
+      "repeat": 1,
+      "weight_id": "manual",
+      "weights": [
+        0.3,
+        0.15,
+        0.25,
+        0.1,
+        0.2
+      ]
+    },
+    {
+      "id": "r101_m0_vertex0",
+      "outer": 101,
+      "repeat": 0,
+      "weight_id": "vertex0",
+      "weights": [
+        0.92,
+        0.02,
+        0.02,
+        0.02,
+        0.02
+      ]
+    },
+    {
+      "id": "r101_m1_vertex0",
+      "outer": 101,
+      "repeat": 1,
+      "weight_id": "vertex0",
+      "weights": [
+        0.92,
+        0.02,
+        0.02,
+        0.02,
+        0.02
+      ]
+    },
+    {
+      "id": "r101_m0_vertex1",
+      "outer": 101,
+      "repeat": 0,
+      "weight_id": "vertex1",
+      "weights": [
+        0.02,
+        0.92,
+        0.02,
+        0.02,
+        0.02
+      ]
+    },
+    {
+      "id": "r101_m1_vertex1",
+      "outer": 101,
+      "repeat": 1,
+      "weight_id": "vertex1",
+      "weights": [
+        0.02,
+        0.92,
+        0.02,
+        0.02,
+        0.02
+      ]
+    },
+    {
+      "id": "r101_m0_vertex2",
+      "outer": 101,
+      "repeat": 0,
+      "weight_id": "vertex2",
+      "weights": [
+        0.02,
+        0.02,
+        0.92,
+        0.02,
+        0.02
+      ]
+    },
+    {
+      "id": "r101_m1_vertex2",
+      "outer": 101,
+      "repeat": 1,
+      "weight_id": "vertex2",
+      "weights": [
+        0.02,
+        0.02,
+        0.92,
+        0.02,
+        0.02
+      ]
+    },
+    {
+      "id": "r101_m0_vertex3",
+      "outer": 101,
+      "repeat": 0,
+      "weight_id": "vertex3",
+      "weights": [
+        0.02,
+        0.02,
+        0.02,
+        0.92,
+        0.02
+      ]
+    },
+    {
+      "id": "r101_m1_vertex3",
+      "outer": 101,
+      "repeat": 1,
+      "weight_id": "vertex3",
+      "weights": [
+        0.02,
+        0.02,
+        0.02,
+        0.92,
+        0.02
+      ]
+    },
+    {
+      "id": "r101_m0_vertex4",
+      "outer": 101,
+      "repeat": 0,
+      "weight_id": "vertex4",
+      "weights": [
+        0.02,
+        0.02,
+        0.02,
+        0.02,
+        0.92
+      ]
+    },
+    {
+      "id": "r101_m1_vertex4",
+      "outer": 101,
+      "repeat": 1,
+      "weight_id": "vertex4",
+      "weights": [
+        0.02,
+        0.02,
+        0.02,
+        0.02,
+        0.92
+      ]
+    },
+    {
+      "id": "r101_m0_simplex",
+      "outer": 101,
+      "repeat": 0,
+      "weight_id": "simplex",
+      "weights": [
+        0.31342012630644706,
+        0.09236111609019916,
+        0.039582770504973275,
+        0.4655158892823413,
+        0.08912009781603909
+      ]
+    },
+    {
+      "id": "r101_m1_simplex",
+      "outer": 101,
+      "repeat": 1,
+      "weight_id": "simplex",
+      "weights": [
+        0.31342012630644706,
+        0.09236111609019916,
+        0.039582770504973275,
+        0.4655158892823413,
+        0.08912009781603909
+      ]
+    },
+    {
+      "id": "r102_m0_equal",
+      "outer": 102,
+      "repeat": 0,
+      "weight_id": "equal",
+      "weights": [
+        0.2,
+        0.2,
+        0.2,
+        0.2,
+        0.2
+      ]
+    },
+    {
+      "id": "r102_m1_equal",
+      "outer": 102,
+      "repeat": 1,
+      "weight_id": "equal",
+      "weights": [
+        0.2,
+        0.2,
+        0.2,
+        0.2,
+        0.2
+      ]
+    },
+    {
+      "id": "r102_m0_manual",
+      "outer": 102,
+      "repeat": 0,
+      "weight_id": "manual",
+      "weights": [
+        0.3,
+        0.15,
+        0.25,
+        0.1,
+        0.2
+      ]
+    },
+    {
+      "id": "r102_m1_manual",
+      "outer": 102,
+      "repeat": 1,
+      "weight_id": "manual",
+      "weights": [
+        0.3,
+        0.15,
+        0.25,
+        0.1,
+        0.2
+      ]
+    },
+    {
+      "id": "r102_m0_vertex0",
+      "outer": 102,
+      "repeat": 0,
+      "weight_id": "vertex0",
+      "weights": [
+        0.92,
+        0.02,
+        0.02,
+        0.02,
+        0.02
+      ]
+    },
+    {
+      "id": "r102_m1_vertex0",
+      "outer": 102,
+      "repeat": 1,
+      "weight_id": "vertex0",
+      "weights": [
+        0.92,
+        0.02,
+        0.02,
+        0.02,
+        0.02
+      ]
+    },
+    {
+      "id": "r102_m0_vertex1",
+      "outer": 102,
+      "repeat": 0,
+      "weight_id": "vertex1",
+      "weights": [
+        0.02,
+        0.92,
+        0.02,
+        0.02,
+        0.02
+      ]
+    },
+    {
+      "id": "r102_m1_vertex1",
+      "outer": 102,
+      "repeat": 1,
+      "weight_id": "vertex1",
+      "weights": [
+        0.02,
+        0.92,
+        0.02,
+        0.02,
+        0.02
+      ]
+    },
+    {
+      "id": "r102_m0_vertex2",
+      "outer": 102,
+      "repeat": 0,
+      "weight_id": "vertex2",
+      "weights": [
+        0.02,
+        0.02,
+        0.92,
+        0.02,
+        0.02
+      ]
+    },
+    {
+      "id": "r102_m1_vertex2",
+      "outer": 102,
+      "repeat": 1,
+      "weight_id": "vertex2",
+      "weights": [
+        0.02,
+        0.02,
+        0.92,
+        0.02,
+        0.02
+      ]
+    },
+    {
+      "id": "r102_m0_vertex3",
+      "outer": 102,
+      "repeat": 0,
+      "weight_id": "vertex3",
+      "weights": [
+        0.02,
+        0.02,
+        0.02,
+        0.92,
+        0.02
+      ]
+    },
+    {
+      "id": "r102_m1_vertex3",
+      "outer": 102,
+      "repeat": 1,
+      "weight_id": "vertex3",
+      "weights": [
+        0.02,
+        0.02,
+        0.02,
+        0.92,
+        0.02
+      ]
+    },
+    {
+      "id": "r102_m0_vertex4",
+      "outer": 102,
+      "repeat": 0,
+      "weight_id": "vertex4",
+      "weights": [
+        0.02,
+        0.02,
+        0.02,
+        0.02,
+        0.92
+      ]
+    },
+    {
+      "id": "r102_m1_vertex4",
+      "outer": 102,
+      "repeat": 1,
+      "weight_id": "vertex4",
+      "weights": [
+        0.02,
+        0.02,
+        0.02,
+        0.02,
+        0.92
+      ]
+    },
+    {
+      "id": "r102_m0_simplex",
+      "outer": 102,
+      "repeat": 0,
+      "weight_id": "simplex",
+      "weights": [
+        0.31342012630644706,
+        0.09236111609019916,
+        0.039582770504973275,
+        0.4655158892823413,
+        0.08912009781603909
+      ]
+    },
+    {
+      "id": "r102_m1_simplex",
+      "outer": 102,
+      "repeat": 1,
+      "weight_id": "simplex",
+      "weights": [
+        0.31342012630644706,
+        0.09236111609019916,
+        0.039582770504973275,
+        0.4655158892823413,
+        0.08912009781603909
+      ]
+    }
+  ],
+  "reference_decisions": 51200,
+  "ladder": [
+    5120,
+    10240,
+    20480
+  ],
+  "workers": 3,
+  "ports": [
+    5556,
+    5557,
+    5558
+  ],
+  "torch_threads_per_worker": 1,
+  "fast_rpc": true,
+  "primary": "Spearman D ranking across eight weights, mean objective vector over two models before RMS; three outer pilots.",
+  "gate": "Smallest K with median rho>=.60 and all rho>=0; average ranks for ties.",
+  "undefined": "Undefined short ranking fails that K; any constant reference ranking stops for diagnosis.",
+  "training": "Reference and each tested K trained independently from scratch; compare full policy/optimizer/RNG/counters at matching prefix.",
+  "budget_reference": 2457600,
+  "budget_train_minimum": 2703360,
+  "budget_train_maximum": 4177920,
+  "evaluation_episodes_minimum": 1920,
+  "evaluation_episodes_maximum": 3840,
+  "execution": "Up to three independent processes/JVMs, reserved free configured ports; parallel wall-clock labelled, not compared with prior serial time.",
+  "splits": [
+    "pilot_train",
+    "pilot_validation"
+  ],
+  "test_accessed": false,
+  "ppo": {
+    "device": "cpu",
+    "environments": 1,
+    "torch_threads": 1,
+    "torch_interop_threads": 1,
+    "actor_layers": [
+      128,
+      128
+    ],
+    "critic_layers": [
+      128,
+      128
+    ],
+    "activation": "Tanh",
+    "learning_rate": 0.0003,
+    "n_steps": 512,
+    "batch_size": 128,
+    "n_epochs": 10,
+    "gamma": 1.0,
+    "gae_lambda": 0.95,
+    "clip_range": 0.2,
+    "ent_coef": 0.01,
+    "vf_coef": 0.5,
+    "max_grad_norm": 0.5,
+    "target_kl": 0.03,
+    "normalize_advantage": true,
+    "deterministic_evaluation": true
+  },
+  "full_search_launched": false,
+  "source_hashes": {
+    "research_v2/__init__.py": "253601bd0258003cb0b85c5324d62b390fb5521da9f955766bfec006d51bbc7b",
+    "research_v2/__main__.py": "49fffa04d43a5f4838c02865070bb4d968688fc697ff0150b19f0248a9d99b35",
+    "research_v2/baselines.py": "62f49e4d1aae5c890b1ef9ad1d431bc879cccc8fbad22708d1989f2906b85f2e",
+    "research_v2/calibration.py": "7f0b0fc9d69c1ac8ee60c35ea5382bb6a34809ef43bb78db1bdcdf78a1c3e0a2",
+    "research_v2/calibration_report.py": "d42514121d7246d73940731f6c1ddabf29512d9d204777a442c0b7d4335b7be8",
+    "research_v2/config.py": "ec5da2d05729e2056bd5827a85a806a250f875bbf5d1a5393807021d501999f3",
+    "research_v2/contracts.py": "f02ce133bbd14cc8a8ac30835b8617966c07ed02c24f0bddcf634110cb51bb72",
+    "research_v2/critic_ablation.py": "fbf2fdaad7d14950c5c732b583c05a9febfc81bf972520502f9fcba76546940e",
+    "research_v2/critic_ablation_report.py": "c5d585093e0418c3ddda7b4246c3e53df729bb48fc012ee2e046729cf74524b8",
+    "research_v2/critic_update_diagnostic.py": "7762d8bf1d5ccd967194c7ba69ee79eaf69a7bf6dab1cb9869de4ceb34dfd90f",
+    "research_v2/engine_runner.py": "c7fc66fd222b53936db9b165246aef8b91fcd764eba0a32cc5e09725c5425647",
+    "research_v2/evaluator.py": "d4ac6ea8b80057bcbb9accd2271fecd99027157548b0d5012094737b0270367a",
+    "research_v2/fidelity.py": "0f24a17eaec15634cd090ace7a9b59dc12aa31b472ac5e7795f64265d89a883c",
+    "research_v2/gym_env.py": "629aeebd8ec2a5ed2bd11b7e7b991feadc9e024c31c253d5621a156a867a192f",
+    "research_v2/lambda_ablation.py": "357ea35605d794f82f0baa1ca62140c5cf14d10f6038e469055d18e2fbfb2e02",
+    "research_v2/lambda_ablation_report.py": "4f168592ae9d02f21e9ad46cf9adf98972a415eb07f0b1dd3e110bc11663cac2",
+    "research_v2/lambda_loss_diagnostic.py": "c52ebc891a05c35efac56fd6eadfc3b24de15601f1f07d8578a5c092a6fe2569",
+    "research_v2/learning.py": "16cf7321981870925e5d9bcf1cc519e2b5753e0ab6a906fe15caa7c831679ed1",
+    "research_v2/learning_instrumentation.py": "e8379050c72b05e8d01cdaec05a971f63cd452dd15e922ff00fd609490d1cfc6",
+    "research_v2/learning_report.py": "1794a789dd93f3c6e1f9aa5daa3e092a72755f0f00208b176d187a0e13300955",
+    "research_v2/learning_review.py": "c49d96ded0bbf4bc1862bbd9cb9b1576a5c8e90dcf8310d98ad6d36e155c991d",
+    "research_v2/rpc_client.py": "163c00ad1fa75de1e5d79b90a00cb042e4c8297bc82ccde79d5d6538fee7ba29",
+    "research_v2/schema_definitions.py": "34a6fa1e25823d6277115ac75862c56016ce0c1bbe437fb7070f0df03b5f5caa",
+    "research_v2/search.py": "e5bc595efe58c373fc9c7597cc9bc0fbd2a435f9a17c96619707f5736dac7bf6",
+    "research_v2/trace_access.py": "6cd2c8b001aae3a9eaf812614c992bd359610f8d4a6b29f7bf2d6d994302e48b",
+    "research_v2/trace_fixtures.py": "b1cab3be5dc837b98787c98d10992faeeea820297bc913fdd77975461c71618e",
+    "research_v2/trace_report.py": "b961d19921ec76a5b1b793bc1c56be4ddf5a1e562eb66b861a28e55f33d31388",
+    "research_v2/trace_store.py": "4513ab42daf1856ae2603684ee98b1991ed071b4d311b5a544dddcbcfe265548",
+    "research_v2/traces.py": "6f22e5850f47551a4a3850716399ffee2af14631c91d2ce4c96da403f6d89bf9",
+    "research_v2/verify_accounting.py": "0f2becdc3fdecc515d415d2cc548041bbeacf5f2025a80856dbcdea0f6c36006",
+    "research_v2/verify_calibration.py": "48dd3f32464fce9592d49027c4fa119d4a33638b992bb3b87fde9ade6e131746",
+    "research_v2/verify_engine.py": "f98bc27fba94dc60f6f8f8902b54d5ee69a7bb814c2afabe14eadd49b7563e29",
+    "research_v2/verify_foundation.py": "71278fc592138d4736523acbcc3586eaee63ba4a3555e4ee84419a5f74330bce",
+    "research_v2/verify_gym.py": "5cc86ff1b7d19744c7c91eec7c665a6765fb55522b0dea7b3d59a922fc1eb4a7",
+    "research_v2/verify_learning.py": "80fabd9cccb70840d20ad86f6dd00dace1adfc064070d698136b10c17c5a8e3f",
+    "research_v2/verify_network.py": "e9aa247469695eac2e1609385ba19c20e0b8559a82b48e7fda6bba2bf015be21",
+    "research_v2/verify_traces.py": "9cd358a3dd975941ed58e8b09cddd070b17206ead151f6768f5c62959dc73c1c"
+  }
+}

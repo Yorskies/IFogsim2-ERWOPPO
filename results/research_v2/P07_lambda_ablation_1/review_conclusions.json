@@ -1,0 +1,27 @@
+{
+  "status": "completed_negative_result",
+  "protocol": "P07-lambda-ablation-1",
+  "technical_audit": "pass",
+  "tests": 22,
+  "training_decisions": 83968,
+  "evaluation_episodes": 360,
+  "evaluation_decisions": 349146,
+  "baseline_instrumentation_changed_trajectory": false,
+  "same_initial_policy_and_external_traces": true,
+  "primary_D_improved_seeds": 0,
+  "paired_seeds": 3,
+  "mean_delta_D_100_minus_095": 0.13463488990840608,
+  "default_lambda_changed": false,
+  "test_accessed": false,
+  "conclusion": "lambda=1 alone worsened final deterministic D in all three paired pilots; do not adopt it as the fix.",
+  "mechanism_observed": "Larger raw return/advantage spread and critic gradient norm, all minibatches clipped at lambda=1; argmax concentration remains.",
+  "causal_limit": "Clip dominance does not prove actor starvation; Adam rescales individual parameter updates. GAE horizon and target variance change together.",
+  "recommended_next": "Separate pilot diagnosis of actor-critic target/loss scale and clipping; retain deterministic evaluation and no test access.",
+  "prefix_scope": "Pilot budget only; no lambda=1 production F checkpoint reuse certification.",
+  "source_hashes": {
+    "research_v2/learning_instrumentation.py": "e8379050c72b05e8d01cdaec05a971f63cd452dd15e922ff00fd609490d1cfc6",
+    "research_v2/lambda_ablation.py": "67cede3f846ee7b91eb36d0f8796128c1bd65d8ba398f9e64cde67bcc19a0649",
+    "research_v2/lambda_ablation_report.py": "4f168592ae9d02f21e9ad46cf9adf98972a415eb07f0b1dd3e110bc11663cac2",
+    "research_v2/lambda_loss_diagnostic.py": "e0408a8537ad1669d0ee26b6a0fca2529068fe8f28a41b28d3b74289a9778a99"
+  }
+}

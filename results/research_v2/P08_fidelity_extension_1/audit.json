@@ -1,0 +1,48 @@
+{
+  "status": "pass",
+  "scope": "exploratory extension; original pilot remains failed",
+  "selected_K": 30720,
+  "stages": [
+    {
+      "K": 30720,
+      "correlations": [
+        0.7142857142857144,
+        0.790433332862751,
+        0.6190476190476191
+      ],
+      "median_spearman": 0.7142857142857144,
+      "pass": true,
+      "undefined": false
+    },
+    {
+      "K": 40960,
+      "correlations": [
+        0.3571428571428572,
+        0.9523809523809524,
+        0.7619047619047621
+      ],
+      "median_spearman": 0.7619047619047621,
+      "pass": true,
+      "undefined": false
+    },
+    {
+      "K": 46080,
+      "correlations": [
+        0.0,
+        0.9047619047619048,
+        0.9523809523809524
+      ],
+      "median_spearman": 0.9047619047619048,
+      "pass": true,
+      "undefined": false
+    }
+  ],
+  "reference_final_matches": 48,
+  "complete_validations": 144,
+  "independent_prefix_checks": 48,
+  "validation_episodes": 2880,
+  "evaluation_decisions": 2793168,
+  "training_decisions": 3932160,
+  "result_sha256": "c9354a7c924d304d669f8084e420033c88f4353c2cb707be36522344bf4567b9",
+  "test_accessed": false
+}

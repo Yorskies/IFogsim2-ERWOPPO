@@ -1,0 +1,5 @@
+Calibration: light 20 traces
+Calibration: moderate 20 traces
+Calibration: heavy 20 traces
+Calibration: dynamic 20 traces
+{"phase": "P01", "status": "pass", "tests_run": 49, "failures": 0, "errors": 0, "skipped": 0}

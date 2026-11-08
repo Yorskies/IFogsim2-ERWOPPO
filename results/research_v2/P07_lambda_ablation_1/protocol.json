@@ -1,0 +1,41 @@
+{
+  "protocol": "P07-lambda-ablation-1",
+  "prepared_utc": "2026-11-07T21:20:57.078939+00:00",
+  "status": "prepared",
+  "seeds": [
+    100,
+    101,
+    102
+  ],
+  "repeat": 0,
+  "weights": [
+    0.2,
+    0.2,
+    0.2,
+    0.2,
+    0.2
+  ],
+  "pilot_decisions": 10240,
+  "smoke_decisions": 512,
+  "long_prefix_decisions": 10752,
+  "conditions": {
+    "lambda095": 0.95,
+    "lambda100": 1.0
+  },
+  "spec_file_hashes": {
+    "lambda095": "5777637357273c89981b6a7d3bd7bb423ad904baadea3d5abf4e69301a3affeb",
+    "lambda100": "33de1818eba3b0f0502b2a4d481f5822eeb56acb2cf92ce8aa4a91f580a08912"
+  },
+  "simulation_config_sha256": "3e32379ebd2e8770e025ff9cce11be28cbffe7e535b269a070030ce6d9dae025",
+  "jar_sha256": "ba5a7ca8a8f0cdd64839ccc7848d20009a5872b994aa1c529baf894eeff19e73",
+  "primary": "Paired deterministic D at 10,240 decisions, report each seed and mean/median differences; descriptive only.",
+  "secondary": "linear equal cost, five costs, reliability, violation, action shares, sampled evaluation diagnostic only.",
+  "mechanism": "GAE/value/return, gradient clipping and parameter deltas; matched first rollout, unchanged .95 baseline.",
+  "fixed": "Same physical config/JAR, model initialization, trace IDs/payloads, gamma=1 and all PPO settings except lambda.",
+  "namespace": "pilot_train and pilot_validation only; no confirmatory/test access.",
+  "training_decisions_planned": 83968,
+  "evaluation_episodes_planned": 360,
+  "decision_rule": "No automatic protocol adoption or selection of best seed. Review all pairs; no superiority/significance claim.",
+  "prefix_scope": "Pilot 10,240 vs 10,752 only. Prior .95 F proof retained. New lambda=1 F reuse not certified.",
+  "config_separation": "JAR/trace config stays immutable v0.2; separate versioned learner specs contain full effective PPO and effective-config hash."
+}

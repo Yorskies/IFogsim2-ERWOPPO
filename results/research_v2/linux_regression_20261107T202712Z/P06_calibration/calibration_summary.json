@@ -1,0 +1,1867 @@
+{
+  "config_sha256": "3e32379ebd2e8770e025ff9cce11be28cbffe7e535b269a070030ce6d9dae025",
+  "gates": {
+    "complete": {
+      "pass": true,
+      "episodes": 640,
+      "expected": 640
+    },
+    "distribution": {
+      "pass": true,
+      "status": "pass",
+      "traces": 80
+    },
+    "solo_feasibility": {
+      "threshold": 0.95,
+      "by_mode": {
+        "heterogeneous": {
+          "fraction": 0.9883750769862452,
+          "tasks": 77936,
+          "pass": true
+        },
+        "homogeneous": {
+          "fraction": 0.988310921781975,
+          "tasks": 77936,
+          "pass": true
+        }
+      },
+      "pass": true
+    },
+    "heavy_pressure": {
+      "failure_fraction_gt": 0.01,
+      "reliability_gt": 0.5,
+      "conditions": {
+        "heterogeneous/always_local": {
+          "failure_fraction": 0.21942250066257896,
+          "reliability": 0.780577499337421,
+          "pass": true
+        },
+        "heterogeneous/greedy_eft": {
+          "failure_fraction": 0.0456490964466224,
+          "reliability": 0.9543509035533775,
+          "pass": true
+        },
+        "heterogeneous/least_fog": {
+          "failure_fraction": 0.8169833945313517,
+          "reliability": 0.18301660546864834,
+          "pass": false
+        },
+        "heterogeneous/nearest_fog": {
+          "failure_fraction": 0.8395307233763626,
+          "reliability": 0.16046927662363736,
+          "pass": false
+        },
+        "homogeneous/always_local": {
+          "failure_fraction": 0.21942250066257896,
+          "reliability": 0.780577499337421,
+          "pass": true
+        },
+        "homogeneous/greedy_eft": {
+          "failure_fraction": 0.034340295036038,
+          "reliability": 0.965659704963962,
+          "pass": true
+        },
+        "homogeneous/least_fog": {
+          "failure_fraction": 0.8173961167233499,
+          "reliability": 0.18260388327665006,
+          "pass": false
+        },
+        "homogeneous/nearest_fog": {
+          "failure_fraction": 0.8246994312525532,
+          "reliability": 0.17530056874744687,
+          "pass": false
+        }
+      },
+      "passing_conditions": [
+        "heterogeneous/always_local",
+        "heterogeneous/greedy_eft",
+        "homogeneous/always_local",
+        "homogeneous/greedy_eft"
+      ],
+      "pass": true
+    },
+    "all_pass": true,
+    "diagnostics": {
+      "reliability_min": 0.16046927662363736,
+      "reliability_max": 0.9975386369886982,
+      "every_cell_reliability_above_0_99": false,
+      "every_cell_reliability_below_0_01": false,
+      "D_spread_across_policies": {
+        "heterogeneous/light": {
+          "D_min": 0.0779753814964272,
+          "D_max": 0.3382690807157587,
+          "range": 0.2602936992193315
+        },
+        "heterogeneous/moderate": {
+          "D_min": 0.2516140838381612,
+          "D_max": 0.5099480697425707,
+          "range": 0.2583339859044095
+        },
+        "heterogeneous/heavy": {
+          "D_min": 0.4048592360109195,
+          "D_max": 0.7270552393370424,
+          "range": 0.3221960033261229
+        },
+        "heterogeneous/dynamic": {
+          "D_min": 0.28450385476599005,
+          "D_max": 0.5957524807941977,
+          "range": 0.3112486260282077
+        },
+        "homogeneous/light": {
+          "D_min": 0.07222583978237654,
+          "D_max": 0.3382690807157587,
+          "range": 0.26604324093338216
+        },
+        "homogeneous/moderate": {
+          "D_min": 0.21305372376243978,
+          "D_max": 0.47475387126405033,
+          "range": 0.2617001475016105
+        },
+        "homogeneous/heavy": {
+          "D_min": 0.3846166344614187,
+          "D_max": 0.7257401546616304,
+          "range": 0.34112352020021175
+        },
+        "homogeneous/dynamic": {
+          "D_min": 0.2601977558516411,
+          "D_max": 0.5696900558592173,
+          "range": 0.30949230000757616
+        }
+      }
+    }
+  },
+  "solo_feasibility": {
+    "heterogeneous": {
+      "tasks": 77936,
+      "feasible": 77030,
+      "fraction": 0.9883750769862452,
+      "by_class": {
+        "heavy": {
+          "tasks": 11759,
+          "fraction": 0.9579896249681096
+        },
+        "light": {
+          "tasks": 39128,
+          "fraction": 1.0
+        },
+        "medium": {
+          "tasks": 27049,
+          "fraction": 0.9847683833043736
+        }
+      },
+      "by_workload": {
+        "dynamic": {
+          "tasks": 17686,
+          "fraction": 0.9886350785932376
+        },
+        "heavy": {
+          "tasks": 35950,
+          "fraction": 0.9879833101529902
+        },
+        "light": {
+          "tasks": 6152,
+          "fraction": 0.9905721716514955
+        },
+        "moderate": {
+          "tasks": 18148,
+          "fraction": 0.988152964513996
+        }
+      }
+    },
+    "homogeneous": {
+      "tasks": 77936,
+      "feasible": 77025,
+      "fraction": 0.988310921781975,
+      "by_class": {
+        "heavy": {
+          "tasks": 11759,
+          "fraction": 0.9579896249681096
+        },
+        "light": {
+          "tasks": 39128,
+          "fraction": 1.0
+        },
+        "medium": {
+          "tasks": 27049,
+          "fraction": 0.9845835335871936
+        }
+      },
+      "by_workload": {
+        "dynamic": {
+          "tasks": 17686,
+          "fraction": 0.9885785366956915
+        },
+        "heavy": {
+          "tasks": 35950,
+          "fraction": 0.9878720445062587
+        },
+        "light": {
+          "tasks": 6152,
+          "fraction": 0.9905721716514955
+        },
+        "moderate": {
+          "tasks": 18148,
+          "fraction": 0.988152964513996
+        }
+      }
+    }
+  },
+  "cells": {
+    "heterogeneous/always_local/dynamic": {
+      "traces": 20,
+      "tasks_mean": 884.3,
+      "failure_fraction": 0.16947153219850744,
+      "reliability": 0.8305284678014926,
+      "violation": 0.784311732936314,
+      "D": 0.384748751273873,
+      "energy_total_j": 45258.10556323792,
+      "energy_dynamic_j": 2241.2078632379194,
+      "costs": {
+        "zL": 0.3055310983451355,
+        "zE": 0.05069430003004126,
+        "zD": 0.784311732936314,
+        "zB": 0.0,
+        "zQ": 0.16947153219850744
+      },
+      "on_time": 0.215688267063686,
+      "late_success": 0.6148402007378065,
+      "failed": 0.16947153219850744,
+      "failure_reasons": {
+        "CPU_QUEUE_FULL": 0.012704711993620698,
+        "RAM_EXHAUSTED": 0.0,
+        "NETWORK_QUEUE_FULL": 0.0,
+        "SERVICE_TIMEOUT": 0.15676682020488675
+      },
+      "pressure": {
+        "fog_cpu_utilization_max": 0.0,
+        "fog_cpu_utilization_mean": 0.0,
+        "iot_cpu_utilization_max": 0.36320537627131755,
+        "cloud_cpu_utilization": 0.0,
+        "fog_queue_max": 0.0,
+        "iot_queue_max": 2.0,
+        "cpu_queue_rejections": 11.25,
+        "ram_rejections": 0.0,
+        "access_utilization_max": 0.0,
+        "access_utilization_mean": 0.0,
+        "access_queue_max": 0.0,
+        "wan_utilization_max": 0.0,
+        "network_queue_rejections": 0.0
+      },
+      "action_share": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    "heterogeneous/always_local/heavy": {
+      "traces": 20,
+      "tasks_mean": 1797.5,
+      "failure_fraction": 0.21942250066257896,
+      "reliability": 0.780577499337421,
+      "violation": 0.8034525462626465,
+      "D": 0.4048592360109195,
+      "energy_total_j": 47455.35798806844,
+      "energy_dynamic_j": 4438.4602880684415,
+      "costs": {
+        "zL": 0.3509523703037727,
+        "zE": 0.04938450738079178,
+        "zD": 0.8034525462626465,
+        "zB": 0.0,
+        "zQ": 0.21942250066257896
+      },
+      "on_time": 0.19654745373735344,
+      "late_success": 0.5840300456000677,
+      "failed": 0.21942250066257896,
+      "failure_reasons": {
+        "CPU_QUEUE_FULL": 0.02037989348541943,
+        "RAM_EXHAUSTED": 0.0,
+        "NETWORK_QUEUE_FULL": 0.0,
+        "SERVICE_TIMEOUT": 0.19904260717715955
+      },
+      "pressure": {
+        "fog_cpu_utilization_max": 0.0,
+        "fog_cpu_utilization_mean": 0.0,
+        "iot_cpu_utilization_max": 0.5802009361391404,
+        "cloud_cpu_utilization": 0.0,
+        "fog_queue_max": 0.0,
+        "iot_queue_max": 2.0,
+        "cpu_queue_rejections": 36.65,
+        "ram_rejections": 0.0,
+        "access_utilization_max": 0.0,
+        "access_utilization_mean": 0.0,
+        "access_queue_max": 0.0,
+        "wan_utilization_max": 0.0,
+        "network_queue_rejections": 0.0
+      },
+      "action_share": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    "heterogeneous/always_local/light": {
+      "traces": 20,
+      "tasks_mean": 307.6,
+      "failure_fraction": 0.050753372778065874,
+      "reliability": 0.9492466272219341,
+      "violation": 0.7254384340946435,
+      "D": 0.3382690807157587,
+      "energy_total_j": 43885.23614235836,
+      "energy_dynamic_j": 868.3384423583568,
+      "costs": {
+        "zL": 0.19967568558529478,
+        "zE": 0.05647184233302403,
+        "zD": 0.7254384340946435,
+        "zB": 0.0,
+        "zQ": 0.050753372778065874
+      },
+      "on_time": 0.2745615659053565,
+      "late_success": 0.6746850613165776,
+      "failed": 0.050753372778065874,
+      "failure_reasons": {
+        "CPU_QUEUE_FULL": 0.00016129032258064516,
+        "RAM_EXHAUSTED": 0.0,
+        "NETWORK_QUEUE_FULL": 0.0,
+        "SERVICE_TIMEOUT": 0.05059208245548523
+      },
+      "pressure": {
+        "fog_cpu_utilization_max": 0.0,
+        "fog_cpu_utilization_mean": 0.0,
+        "iot_cpu_utilization_max": 0.24524584204659403,
+        "cloud_cpu_utilization": 0.0,
+        "fog_queue_max": 0.0,
+        "iot_queue_max": 1.65,
+        "cpu_queue_rejections": 0.05,
+        "ram_rejections": 0.0,
+        "access_utilization_max": 0.0,
+        "access_utilization_mean": 0.0,
+        "access_queue_max": 0.0,
+        "wan_utilization_max": 0.0,
+        "network_queue_rejections": 0.0
+      },
+      "action_share": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    "heterogeneous/always_local/moderate": {
+      "traces": 20,
+      "tasks_mean": 907.4,
+      "failure_fraction": 0.11912755545452865,
+      "reliability": 0.8808724445454713,
+      "violation": 0.7539494977016021,
+      "D": 0.36097258684360756,
+      "energy_total_j": 45368.2757901345,
+      "energy_dynamic_j": 2351.378090134501,
+      "costs": {
+        "zL": 0.2567998707393049,
+        "zE": 0.05182557773835812,
+        "zD": 0.7539494977016021,
+        "zB": 0.0,
+        "zQ": 0.11912755545452865
+      },
+      "on_time": 0.24605050229839792,
+      "late_success": 0.6348219422470734,
+      "failed": 0.11912755545452865,
+      "failure_reasons": {
+        "CPU_QUEUE_FULL": 0.003676454627033464,
+        "RAM_EXHAUSTED": 0.0,
+        "NETWORK_QUEUE_FULL": 0.0,
+        "SERVICE_TIMEOUT": 0.11545110082749517
+      },
+      "pressure": {
+        "fog_cpu_utilization_max": 0.0,
+        "fog_cpu_utilization_mean": 0.0,
+        "iot_cpu_utilization_max": 0.39080441050449066,
+        "cloud_cpu_utilization": 0.0,
+        "fog_queue_max": 0.0,
+        "iot_queue_max": 2.0,
+        "cpu_queue_rejections": 3.35,
+        "ram_rejections": 0.0,
+        "access_utilization_max": 0.0,
+        "access_utilization_mean": 0.0,
+        "access_queue_max": 0.0,
+        "wan_utilization_max": 0.0,
+        "network_queue_rejections": 0.0
+      },
+      "action_share": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    "heterogeneous/greedy_eft/dynamic": {
+      "traces": 20,
+      "tasks_mean": 884.3,
+      "failure_fraction": 0.037258740729739205,
+      "reliability": 0.9627412592702609,
+      "violation": 0.5026742266282488,
+      "D": 0.28450385476599005,
+      "energy_total_j": 46092.52602248872,
+      "energy_dynamic_j": 3075.628322488713,
+      "costs": {
+        "zL": 0.14236053865972226,
+        "zE": 0.06956674103447653,
+        "zD": 0.5026742266282488,
+        "zB": 0.3538030418067492,
+        "zQ": 0.037258740729739205
+      },
+      "on_time": 0.4973257733717512,
+      "late_success": 0.46541548589850956,
+      "failed": 0.037258740729739205,
+      "failure_reasons": {
+        "CPU_QUEUE_FULL": 0.0003336485085474198,
+        "RAM_EXHAUSTED": 0.0,
+        "NETWORK_QUEUE_FULL": 0.0,
+        "SERVICE_TIMEOUT": 0.03692509222119178
+      },
+      "pressure": {
+        "fog_cpu_utilization_max": 0.40783434364280213,
+        "fog_cpu_utilization_mean": 0.11779259889146579,
+        "iot_cpu_utilization_max": 0.1194501414997254,
+        "cloud_cpu_utilization": 0.10294878515784227,
+        "fog_queue_max": 7.9,
+        "iot_queue_max": 1.9,
+        "cpu_queue_rejections": 0.3,
+        "ram_rejections": 0.0,
+        "access_utilization_max": 0.45190329552887754,
+        "access_utilization_mean": 0.40255792382869277,
+        "access_queue_max": 7.7,
+        "wan_utilization_max": 0.48331525298550726,
+        "network_queue_rejections": 0.0
+      },
+      "action_share": [
+        0.39720683026122355,
+        0.0,
+        0.001922424516566776,
+        0.01888499378039127,
+        0.08447359493384599,
+        0.2085265181499491,
+        0.2889856383580233
+      ],
+      "eft_estimator": {
+        "mean_error_s": 0.11581757578198297,
+        "mean_abs_error_s": 0.16775049691709112,
+        "median_abs_error_s": 4.548394216676022e-06,
+        "p95_abs_error_s": 0.8861737738047987,
+        "share_realized_not_below_estimate": 0.8682004091244753
+      }
+    },
+    "heterogeneous/greedy_eft/heavy": {
+      "traces": 20,
+      "tasks_mean": 1797.5,
+      "failure_fraction": 0.0456490964466224,
+      "reliability": 0.9543509035533775,
+      "violation": 0.6288637360785939,
+      "D": 0.44980179537301046,
+      "energy_total_j": 49782.54274523206,
+      "energy_dynamic_j": 6765.645045232057,
+      "costs": {
+        "zL": 0.16681558772705352,
+        "zE": 0.07526972700177662,
+        "zD": 0.6288637360785939,
+        "zB": 0.7617000802416357,
+        "zQ": 0.0456490964466224
+      },
+      "on_time": 0.3711362639214061,
+      "late_success": 0.5832146396319715,
+      "failed": 0.0456490964466224,
+      "failure_reasons": {
+        "CPU_QUEUE_FULL": 8.412935750075111e-05,
+        "RAM_EXHAUSTED": 0.0,
+        "NETWORK_QUEUE_FULL": 0.0,
+        "SERVICE_TIMEOUT": 0.04556496708912165
+      },
+      "pressure": {
+        "fog_cpu_utilization_max": 0.848733300171355,
+        "fog_cpu_utilization_mean": 0.28854084795881557,
+        "iot_cpu_utilization_max": 0.23055899380498737,
+        "cloud_cpu_utilization": 0.16833431226406276,
+        "fog_queue_max": 8.85,
+        "iot_queue_max": 2.0,
+        "cpu_queue_rejections": 0.15,
+        "ram_rejections": 0.0,
+        "access_utilization_max": 0.7871001713206934,
+        "access_utilization_mean": 0.7492591399084745,
+        "access_queue_max": 7.9,
+        "wan_utilization_max": 0.7664812263028089,
+        "network_queue_rejections": 0.0
+      },
+      "action_share": [
+        0.5125173852573018,
+        2.7816411682892907e-05,
+        0.0025312934631432546,
+        0.03474269819193324,
+        0.1270653685674548,
+        0.12876216968011125,
+        0.19435326842837275
+      ],
+      "eft_estimator": {
+        "mean_error_s": 0.15076804419915885,
+        "mean_abs_error_s": 0.20322911224130755,
+        "median_abs_error_s": 3.4399566528620085e-15,
+        "p95_abs_error_s": 1.0255724931633423,
+        "share_realized_not_below_estimate": 0.8891257562226038
+      }
+    },
+    "heterogeneous/greedy_eft/light": {
+      "traces": 20,
+      "tasks_mean": 307.6,
+      "failure_fraction": 0.002461363011301883,
+      "reliability": 0.9975386369886982,
+      "violation": 0.11874837849367088,
+      "D": 0.0779753814964272,
+      "energy_total_j": 43923.37586769801,
+      "energy_dynamic_j": 906.4781676980083,
+      "costs": {
+        "zL": 0.06605841189958661,
+        "zE": 0.05893504692854421,
+        "zD": 0.11874837849367088,
+        "zB": 0.09036171502567876,
+        "zQ": 0.002461363011301883
+      },
+      "on_time": 0.8812516215063292,
+      "late_success": 0.116287015482369,
+      "failed": 0.002461363011301883,
+      "failure_reasons": {
+        "CPU_QUEUE_FULL": 0.0,
+        "RAM_EXHAUSTED": 0.0,
+        "NETWORK_QUEUE_FULL": 0.0,
+        "SERVICE_TIMEOUT": 0.002461363011301883
+      },
+      "pressure": {
+        "fog_cpu_utilization_max": 0.1105220841959973,
+        "fog_cpu_utilization_mean": 0.02226391994478952,
+        "iot_cpu_utilization_max": 0.02727391304347826,
+        "cloud_cpu_utilization": 0.059139104554865415,
+        "fog_queue_max": 1.1,
+        "iot_queue_max": 0.25,
+        "cpu_queue_rejections": 0.0,
+        "ram_rejections": 0.0,
+        "access_utilization_max": 0.21248573188405798,
+        "access_utilization_mean": 0.1803732343188406,
+        "access_queue_max": 3.15,
+        "wan_utilization_max": 0.2829945826086956,
+        "network_queue_rejections": 0.0
+      },
+      "action_share": [
+        0.07753576072821847,
+        0.0,
+        0.0,
+        0.0,
+        0.002600780234070221,
+        0.34834200260078024,
+        0.5715214564369311
+      ],
+      "eft_estimator": {
+        "mean_error_s": 0.023901411288566328,
+        "mean_abs_error_s": 0.06323111189336697,
+        "median_abs_error_s": 1.5596551827812276e-14,
+        "p95_abs_error_s": 0.3509781409793415,
+        "share_realized_not_below_estimate": 0.8337745413767849
+      }
+    },
+    "heterogeneous/greedy_eft/moderate": {
+      "traces": 20,
+      "tasks_mean": 907.4,
+      "failure_fraction": 0.009083704874416999,
+      "reliability": 0.990916295125583,
+      "violation": 0.3472609528870232,
+      "D": 0.2516140838381612,
+      "energy_total_j": 46091.71307724032,
+      "energy_dynamic_j": 3074.8153772403134,
+      "costs": {
+        "zL": 0.09443311031906536,
+        "zE": 0.06774764590114431,
+        "zD": 0.3472609528870232,
+        "zB": 0.42681024693442415,
+        "zQ": 0.009083704874416999
+      },
+      "on_time": 0.6527390471129768,
+      "late_success": 0.3381772480126062,
+      "failed": 0.009083704874416999,
+      "failure_reasons": {
+        "CPU_QUEUE_FULL": 0.0,
+        "RAM_EXHAUSTED": 0.0,
+        "NETWORK_QUEUE_FULL": 0.0,
+        "SERVICE_TIMEOUT": 0.009083704874416999
+      },
+      "pressure": {
+        "fog_cpu_utilization_max": 0.5131112986468194,
+        "fog_cpu_utilization_mean": 0.11731537567139287,
+        "iot_cpu_utilization_max": 0.08170272149594651,
+        "cloud_cpu_utilization": 0.12653246987237718,
+        "fog_queue_max": 4.2,
+        "iot_queue_max": 1.2,
+        "cpu_queue_rejections": 0.0,
+        "ram_rejections": 0.0,
+        "access_utilization_max": 0.5253148088472859,
+        "access_utilization_mean": 0.4677953280513557,
+        "access_queue_max": 6.05,
+        "wan_utilization_max": 0.5966959247536232,
+        "network_queue_rejections": 0.0
+      },
+      "action_share": [
+        0.2384284769671589,
+        0.0,
+        0.0,
+        0.002148997134670487,
+        0.07306590257879657,
+        0.3267577694511792,
+        0.35959885386819485
+      ],
+      "eft_estimator": {
+        "mean_error_s": 0.07929489438358886,
+        "mean_abs_error_s": 0.14254520179805358,
+        "median_abs_error_s": 0.02363642198656478,
+        "p95_abs_error_s": 0.6641874993863147,
+        "share_realized_not_below_estimate": 0.8106171476228633
+      }
+    },
+    "heterogeneous/least_fog/dynamic": {
+      "traces": 20,
+      "tasks_mean": 884.3,
+      "failure_fraction": 0.5422371830763064,
+      "reliability": 0.45776281692369364,
+      "violation": 0.8020051855722061,
+      "D": 0.5616109856111928,
+      "energy_total_j": 47899.716018622195,
+      "energy_dynamic_j": 4882.818318622195,
+      "costs": {
+        "zL": 0.6193941112752601,
+        "zE": 0.11050392565521552,
+        "zD": 0.8020051855722061,
+        "zB": 0.49229231308484006,
+        "zQ": 0.5422371830763064
+      },
+      "on_time": 0.19799481442779387,
+      "late_success": 0.2597680024958998,
+      "failed": 0.5422371830763064,
+      "failure_reasons": {
+        "CPU_QUEUE_FULL": 0.0,
+        "RAM_EXHAUSTED": 0.0,
+        "NETWORK_QUEUE_FULL": 0.0,
+        "SERVICE_TIMEOUT": 0.5422371830763064
+      },
+      "pressure": {
+        "fog_cpu_utilization_max": 0.5405583772042821,
+        "fog_cpu_utilization_mean": 0.4758973686049142,
+        "iot_cpu_utilization_max": 0.0,
+        "cloud_cpu_utilization": 0.0,
+        "fog_queue_max": 13.05,
+        "iot_queue_max": 0.0,
+        "cpu_queue_rejections": 0.0,
+        "ram_rejections": 0.0,
+        "access_utilization_max": 0.5106218593397387,
+        "access_utilization_mean": 0.457287602796481,
+        "access_queue_max": 24.2,
+        "wan_utilization_max": 0.0,
+        "network_queue_rejections": 0.0
+      },
+      "action_share": [
+        0.0,
+        0.13869727468053827,
+        0.17081307248671265,
+        0.2069998869162049,
+        0.23159561234875042,
+        0.2518941535677937,
+        0.0
+      ]
+    },
+    "heterogeneous/least_fog/heavy": {
+      "traces": 20,
+      "tasks_mean": 1797.5,
+      "failure_fraction": 0.8169833945313517,
+      "reliability": 0.18301660546864834,
+      "violation": 0.9775704853126159,
+      "D": 0.7270552393370424,
+      "energy_total_j": 51082.88491697351,
+      "energy_dynamic_j": 8065.987216973505,
+      "costs": {
+        "zL": 0.8769084236816133,
+        "zE": 0.08982202776198542,
+        "zD": 0.9775704853126159,
+        "zB": 0.4909016440539425,
+        "zQ": 0.8169833945313517
+      },
+      "on_time": 0.02242951468738404,
+      "late_success": 0.1605870907812643,
+      "failed": 0.8169833945313517,
+      "failure_reasons": {
+        "CPU_QUEUE_FULL": 0.0002564996801057219,
+        "RAM_EXHAUSTED": 0.0,
+        "NETWORK_QUEUE_FULL": 0.0,
+        "SERVICE_TIMEOUT": 0.8167268948512459
+      },
+      "pressure": {
+        "fog_cpu_utilization_max": 0.807694201184607,
+        "fog_cpu_utilization_mean": 0.7616330107544695,
+        "iot_cpu_utilization_max": 0.0,
+        "cloud_cpu_utilization": 0.0,
+        "fog_queue_max": 15.0,
+        "iot_queue_max": 0.0,
+        "cpu_queue_rejections": 0.45,
+        "ram_rejections": 0.0,
+        "access_utilization_max": 0.8983419923035771,
+        "access_utilization_mean": 0.8670369180784698,
+        "access_queue_max": 24.15,
+        "wan_utilization_max": 0.0,
+        "network_queue_rejections": 0.0
+      },
+      "action_share": [
+        0.0,
+        0.1364116828929068,
+        0.16648122392211404,
+        0.1952990264255911,
+        0.23207232267037553,
+        0.2697357440890125,
+        0.0
+      ]
+    },
+    "heterogeneous/least_fog/light": {
+      "traces": 20,
+      "tasks_mean": 307.6,
+      "failure_fraction": 0.021509060465171932,
+      "reliability": 0.9784909395348281,
+      "violation": 0.37186086093672216,
+      "D": 0.28390326341798705,
+      "energy_total_j": 45456.91064542602,
+      "energy_dynamic_j": 2440.012945426014,
+      "costs": {
+        "zL": 0.11940975098022226,
+        "zE": 0.1586943998890853,
+        "zD": 0.37186086093672216,
+        "zB": 0.47327073213244386,
+        "zQ": 0.021509060465171932
+      },
+      "on_time": 0.6281391390632779,
+      "late_success": 0.35035180047155023,
+      "failed": 0.021509060465171932,
+      "failure_reasons": {
+        "CPU_QUEUE_FULL": 0.0,
+        "RAM_EXHAUSTED": 0.0,
+        "NETWORK_QUEUE_FULL": 0.0,
+        "SERVICE_TIMEOUT": 0.021509060465171932
+      },
+      "pressure": {
+        "fog_cpu_utilization_max": 0.3629133065531307,
+        "fog_cpu_utilization_mean": 0.25435203874194307,
+        "iot_cpu_utilization_max": 0.0,
+        "cloud_cpu_utilization": 0.0,
+        "fog_queue_max": 2.4,
+        "iot_queue_max": 0.0,
+        "cpu_queue_rejections": 0.0,
+        "ram_rejections": 0.0,
+        "access_utilization_max": 0.22019392988407677,
+        "access_utilization_mean": 0.1866279814344661,
+        "access_queue_max": 4.45,
+        "wan_utilization_max": 0.0,
+        "network_queue_rejections": 0.0
+      },
+      "action_share": [
+        0.0,
+        0.16466189856957086,
+        0.19895968790637192,
+        0.2166775032509753,
+        0.21537711313394017,
+        0.20432379713914176,
+        0.0
+      ]
+    },
+    "heterogeneous/least_fog/moderate": {
+      "traces": 20,
+      "tasks_mean": 907.4,
+      "failure_fraction": 0.18295876203798225,
+      "reliability": 0.8170412379620178,
+      "violation": 0.6611012109660057,
+      "D": 0.4108898590347637,
+      "energy_total_j": 49361.531312582665,
+      "energy_dynamic_j": 6344.6336125826665,
+      "costs": {
+        "zL": 0.2937250725690355,
+        "zE": 0.1398552546756393,
+        "zD": 0.6611012109660057,
+        "zB": 0.5158785012900459,
+        "zQ": 0.18295876203798225
+      },
+      "on_time": 0.33889878903399434,
+      "late_success": 0.47814244892802343,
+      "failed": 0.18295876203798225,
+      "failure_reasons": {
+        "CPU_QUEUE_FULL": 0.0,
+        "RAM_EXHAUSTED": 0.0,
+        "NETWORK_QUEUE_FULL": 0.0,
+        "SERVICE_TIMEOUT": 0.18295876203798225
+      },
+      "pressure": {
+        "fog_cpu_utilization_max": 0.6640651278674913,
+        "fog_cpu_utilization_mean": 0.6198878404947263,
+        "iot_cpu_utilization_max": 0.0,
+        "cloud_cpu_utilization": 0.0,
+        "fog_queue_max": 8.8,
+        "iot_queue_max": 0.0,
+        "cpu_queue_rejections": 0.0,
+        "ram_rejections": 0.0,
+        "access_utilization_max": 0.5925066279537952,
+        "access_utilization_mean": 0.521361326979365,
+        "access_queue_max": 12.4,
+        "wan_utilization_max": 0.0,
+        "network_queue_rejections": 0.0
+      },
+      "action_share": [
+        0.0,
+        0.11318051575931232,
+        0.15318492395856292,
+        0.20090368084637425,
+        0.25077143486885606,
+        0.2819594445668944,
+        0.0
+      ]
+    },
+    "heterogeneous/nearest_fog/dynamic": {
+      "traces": 20,
+      "tasks_mean": 884.3,
+      "failure_fraction": 0.5913331691392866,
+      "reliability": 0.4086668308607134,
+      "violation": 0.8383434211111439,
+      "D": 0.5957524807941977,
+      "energy_total_j": 47981.80422159459,
+      "energy_dynamic_j": 4964.906521594584,
+      "costs": {
+        "zL": 0.6678025070274919,
+        "zE": 0.11234511394715725,
+        "zD": 0.8383434211111439,
+        "zB": 0.5113525194100894,
+        "zQ": 0.5913331691392866
+      },
+      "on_time": 0.16165657888885615,
+      "late_success": 0.24701025197185728,
+      "failed": 0.5913331691392866,
+      "failure_reasons": {
+        "CPU_QUEUE_FULL": 0.0,
+        "RAM_EXHAUSTED": 0.0,
+        "NETWORK_QUEUE_FULL": 0.0,
+        "SERVICE_TIMEOUT": 0.5913331691392866
+      },
+      "pressure": {
+        "fog_cpu_utilization_max": 0.6746217688529186,
+        "fog_cpu_utilization_mean": 0.5043485200285944,
+        "iot_cpu_utilization_max": 0.0,
+        "cloud_cpu_utilization": 0.0,
+        "fog_queue_max": 11.35,
+        "iot_queue_max": 0.0,
+        "cpu_queue_rejections": 0.0,
+        "ram_rejections": 0.0,
+        "access_utilization_max": 0.5094979049369227,
+        "access_utilization_mean": 0.45665174651275925,
+        "access_queue_max": 24.95,
+        "wan_utilization_max": 0.0,
+        "network_queue_rejections": 0.0
+      },
+      "action_share": [
+        0.0,
+        0.19829243469410834,
+        0.20292887029288703,
+        0.20654755173583625,
+        0.1941083342756983,
+        0.19812280900147008,
+        0.0
+      ]
+    },
+    "heterogeneous/nearest_fog/heavy": {
+      "traces": 20,
+      "tasks_mean": 1797.5,
+      "failure_fraction": 0.8395307233763626,
+      "reliability": 0.16046927662363736,
+      "violation": 0.9869383449832709,
+      "D": 0.7228296451840684,
+      "energy_total_j": 51477.37956928949,
+      "energy_dynamic_j": 8460.481869289493,
+      "costs": {
+        "zL": 0.9005338485948012,
+        "zE": 0.09418016107709781,
+        "zD": 0.9869383449832709,
+        "zB": 0.33583894311541884,
+        "zQ": 0.8395307233763626
+      },
+      "on_time": 0.013061655016729118,
+      "late_success": 0.14740762160690826,
+      "failed": 0.8395307233763626,
+      "failure_reasons": {
+        "CPU_QUEUE_FULL": 0.0,
+        "RAM_EXHAUSTED": 0.0,
+        "NETWORK_QUEUE_FULL": 0.0,
+        "SERVICE_TIMEOUT": 0.8395307233763626
+      },
+      "pressure": {
+        "fog_cpu_utilization_max": 0.9386873501272595,
+        "fog_cpu_utilization_mean": 0.8285273925202856,
+        "iot_cpu_utilization_max": 0.0,
+        "cloud_cpu_utilization": 0.0,
+        "fog_queue_max": 12.3,
+        "iot_queue_max": 0.0,
+        "cpu_queue_rejections": 0.0,
+        "ram_rejections": 0.0,
+        "access_utilization_max": 0.8976600101035344,
+        "access_utilization_mean": 0.8668190336698045,
+        "access_queue_max": 25.05,
+        "wan_utilization_max": 0.0,
+        "network_queue_rejections": 0.0
+      },
+      "action_share": [
+        0.0,
+        0.20383866481223922,
+        0.19738525730180806,
+        0.1995549374130737,
+        0.19591098748261473,
+        0.20331015299026425,
+        0.0
+      ]
+    },
+    "heterogeneous/nearest_fog/light": {
+      "traces": 20,
+      "tasks_mean": 307.6,
+      "failure_fraction": 0.05304207084465904,
+      "reliability": 0.946957929155341,
+      "violation": 0.41624799581180466,
+      "D": 0.32926766835538834,
+      "energy_total_j": 45467.893691865895,
+      "energy_dynamic_j": 2450.995991865893,
+      "costs": {
+        "zL": 0.15373308750395367,
+        "zE": 0.1593929128756255,
+        "zD": 0.41624799581180466,
+        "zB": 0.5618115864490258,
+        "zQ": 0.05304207084465904
+      },
+      "on_time": 0.5837520041881954,
+      "late_success": 0.3632059249671456,
+      "failed": 0.05304207084465904,
+      "failure_reasons": {
+        "CPU_QUEUE_FULL": 0.0,
+        "RAM_EXHAUSTED": 0.0,
+        "NETWORK_QUEUE_FULL": 0.0,
+        "SERVICE_TIMEOUT": 0.05304207084465904
+      },
+      "pressure": {
+        "fog_cpu_utilization_max": 0.4342197194188152,
+        "fog_cpu_utilization_mean": 0.26105359490913155,
+        "iot_cpu_utilization_max": 0.0,
+        "cloud_cpu_utilization": 0.0,
+        "fog_queue_max": 3.7,
+        "iot_queue_max": 0.0,
+        "cpu_queue_rejections": 0.0,
+        "ram_rejections": 0.0,
+        "access_utilization_max": 0.220069538869584,
+        "access_utilization_mean": 0.18650942182927016,
+        "access_queue_max": 4.45,
+        "wan_utilization_max": 0.0,
+        "network_queue_rejections": 0.0
+      },
+      "action_share": [
+        0.0,
+        0.19993498049414823,
+        0.19652145643693109,
+        0.20464889466840053,
+        0.1992847854356307,
+        0.19960988296488946,
+        0.0
+      ]
+    },
+    "heterogeneous/nearest_fog/moderate": {
+      "traces": 20,
+      "tasks_mean": 907.4,
+      "failure_fraction": 0.33087875318258675,
+      "reliability": 0.6691212468174133,
+      "violation": 0.7603059652176702,
+      "D": 0.5099480697425707,
+      "energy_total_j": 49105.66451235675,
+      "energy_dynamic_j": 6088.766812356747,
+      "costs": {
+        "zL": 0.43614882736953514,
+        "zE": 0.13422158040274232,
+        "zD": 0.7603059652176702,
+        "zB": 0.6340941173651269,
+        "zQ": 0.33087875318258675
+      },
+      "on_time": 0.2396940347823298,
+      "late_success": 0.42942721203508344,
+      "failed": 0.33087875318258675,
+      "failure_reasons": {
+        "CPU_QUEUE_FULL": 0.0,
+        "RAM_EXHAUSTED": 0.0,
+        "NETWORK_QUEUE_FULL": 0.0,
+        "SERVICE_TIMEOUT": 0.33087875318258675
+      },
+      "pressure": {
+        "fog_cpu_utilization_max": 0.8538720000571329,
+        "fog_cpu_utilization_mean": 0.6255835570317302,
+        "iot_cpu_utilization_max": 0.0,
+        "cloud_cpu_utilization": 0.0,
+        "fog_queue_max": 9.95,
+        "iot_queue_max": 0.0,
+        "cpu_queue_rejections": 0.0,
+        "ram_rejections": 0.0,
+        "access_utilization_max": 0.5903846673070915,
+        "access_utilization_mean": 0.5192209984374216,
+        "access_queue_max": 12.15,
+        "wan_utilization_max": 0.0,
+        "network_queue_rejections": 0.0
+      },
+      "action_share": [
+        0.0,
+        0.1941811769891999,
+        0.20520167511571524,
+        0.19991183601498788,
+        0.20128939828080228,
+        0.1994159135992947,
+        0.0
+      ]
+    },
+    "homogeneous/always_local/dynamic": {
+      "traces": 20,
+      "tasks_mean": 884.3,
+      "failure_fraction": 0.16947153219850744,
+      "reliability": 0.8305284678014926,
+      "violation": 0.784311732936314,
+      "D": 0.384748751273873,
+      "energy_total_j": 45170.69636323793,
+      "energy_dynamic_j": 2241.2078632379194,
+      "costs": {
+        "zL": 0.3055310983451355,
+        "zE": 0.05069430003004126,
+        "zD": 0.784311732936314,
+        "zB": 0.0,
+        "zQ": 0.16947153219850744
+      },
+      "on_time": 0.215688267063686,
+      "late_success": 0.6148402007378065,
+      "failed": 0.16947153219850744,
+      "failure_reasons": {
+        "CPU_QUEUE_FULL": 0.012704711993620698,
+        "RAM_EXHAUSTED": 0.0,
+        "NETWORK_QUEUE_FULL": 0.0,
+        "SERVICE_TIMEOUT": 0.15676682020488675
+      },
+      "pressure": {
+        "fog_cpu_utilization_max": 0.0,
+        "fog_cpu_utilization_mean": 0.0,
+        "iot_cpu_utilization_max": 0.36320537627131755,
+        "cloud_cpu_utilization": 0.0,
+        "fog_queue_max": 0.0,
+        "iot_queue_max": 2.0,
+        "cpu_queue_rejections": 11.25,
+        "ram_rejections": 0.0,
+        "access_utilization_max": 0.0,
+        "access_utilization_mean": 0.0,
+        "access_queue_max": 0.0,
+        "wan_utilization_max": 0.0,
+        "network_queue_rejections": 0.0
+      },
+      "action_share": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    "homogeneous/always_local/heavy": {
+      "traces": 20,
+      "tasks_mean": 1797.5,
+      "failure_fraction": 0.21942250066257896,
+      "reliability": 0.780577499337421,
+      "violation": 0.8034525462626465,
+      "D": 0.4048592360109195,
+      "energy_total_j": 47367.94878806845,
+      "energy_dynamic_j": 4438.4602880684415,
+      "costs": {
+        "zL": 0.3509523703037727,
+        "zE": 0.04938450738079178,
+        "zD": 0.8034525462626465,
+        "zB": 0.0,
+        "zQ": 0.21942250066257896
+      },
+      "on_time": 0.19654745373735344,
+      "late_success": 0.5840300456000677,
+      "failed": 0.21942250066257896,
+      "failure_reasons": {
+        "CPU_QUEUE_FULL": 0.02037989348541943,
+        "RAM_EXHAUSTED": 0.0,
+        "NETWORK_QUEUE_FULL": 0.0,
+        "SERVICE_TIMEOUT": 0.19904260717715955
+      },
+      "pressure": {
+        "fog_cpu_utilization_max": 0.0,
+        "fog_cpu_utilization_mean": 0.0,
+        "iot_cpu_utilization_max": 0.5802009361391404,
+        "cloud_cpu_utilization": 0.0,
+        "fog_queue_max": 0.0,
+        "iot_queue_max": 2.0,
+        "cpu_queue_rejections": 36.65,
+        "ram_rejections": 0.0,
+        "access_utilization_max": 0.0,
+        "access_utilization_mean": 0.0,
+        "access_queue_max": 0.0,
+        "wan_utilization_max": 0.0,
+        "network_queue_rejections": 0.0
+      },
+      "action_share": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    "homogeneous/always_local/light": {
+      "traces": 20,
+      "tasks_mean": 307.6,
+      "failure_fraction": 0.050753372778065874,
+      "reliability": 0.9492466272219341,
+      "violation": 0.7254384340946435,
+      "D": 0.3382690807157587,
+      "energy_total_j": 43797.82694235836,
+      "energy_dynamic_j": 868.3384423583568,
+      "costs": {
+        "zL": 0.19967568558529478,
+        "zE": 0.05647184233302403,
+        "zD": 0.7254384340946435,
+        "zB": 0.0,
+        "zQ": 0.050753372778065874
+      },
+      "on_time": 0.2745615659053565,
+      "late_success": 0.6746850613165776,
+      "failed": 0.050753372778065874,
+      "failure_reasons": {
+        "CPU_QUEUE_FULL": 0.00016129032258064516,
+        "RAM_EXHAUSTED": 0.0,
+        "NETWORK_QUEUE_FULL": 0.0,
+        "SERVICE_TIMEOUT": 0.05059208245548523
+      },
+      "pressure": {
+        "fog_cpu_utilization_max": 0.0,
+        "fog_cpu_utilization_mean": 0.0,
+        "iot_cpu_utilization_max": 0.24524584204659403,
+        "cloud_cpu_utilization": 0.0,
+        "fog_queue_max": 0.0,
+        "iot_queue_max": 1.65,
+        "cpu_queue_rejections": 0.05,
+        "ram_rejections": 0.0,
+        "access_utilization_max": 0.0,
+        "access_utilization_mean": 0.0,
+        "access_queue_max": 0.0,
+        "wan_utilization_max": 0.0,
+        "network_queue_rejections": 0.0
+      },
+      "action_share": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    "homogeneous/always_local/moderate": {
+      "traces": 20,
+      "tasks_mean": 907.4,
+      "failure_fraction": 0.11912755545452865,
+      "reliability": 0.8808724445454713,
+      "violation": 0.7539494977016021,
+      "D": 0.36097258684360756,
+      "energy_total_j": 45280.86659013451,
+      "energy_dynamic_j": 2351.378090134501,
+      "costs": {
+        "zL": 0.2567998707393049,
+        "zE": 0.05182557773835812,
+        "zD": 0.7539494977016021,
+        "zB": 0.0,
+        "zQ": 0.11912755545452865
+      },
+      "on_time": 0.24605050229839792,
+      "late_success": 0.6348219422470734,
+      "failed": 0.11912755545452865,
+      "failure_reasons": {
+        "CPU_QUEUE_FULL": 0.003676454627033464,
+        "RAM_EXHAUSTED": 0.0,
+        "NETWORK_QUEUE_FULL": 0.0,
+        "SERVICE_TIMEOUT": 0.11545110082749517
+      },
+      "pressure": {
+        "fog_cpu_utilization_max": 0.0,
+        "fog_cpu_utilization_mean": 0.0,
+        "iot_cpu_utilization_max": 0.39080441050449066,
+        "cloud_cpu_utilization": 0.0,
+        "fog_queue_max": 0.0,
+        "iot_queue_max": 2.0,
+        "cpu_queue_rejections": 3.35,
+        "ram_rejections": 0.0,
+        "access_utilization_max": 0.0,
+        "access_utilization_mean": 0.0,
+        "access_queue_max": 0.0,
+        "wan_utilization_max": 0.0,
+        "network_queue_rejections": 0.0
+      },
+      "action_share": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    "homogeneous/greedy_eft/dynamic": {
+      "traces": 20,
+      "tasks_mean": 884.3,
+      "failure_fraction": 0.02893424690238857,
+      "reliability": 0.9710657530976115,
+      "violation": 0.5080038071583666,
+      "D": 0.2601977558516411,
+      "energy_total_j": 45745.893018224364,
+      "energy_dynamic_j": 2816.404518224358,
+      "costs": {
+        "zL": 0.1346778691926923,
+        "zE": 0.06369491634088155,
+        "zD": 0.5080038071583666,
+        "zB": 0.23904611590656483,
+        "zQ": 0.02893424690238857
+      },
+      "on_time": 0.4919961928416335,
+      "late_success": 0.4790695602559779,
+      "failed": 0.02893424690238857,
+      "failure_reasons": {
+        "CPU_QUEUE_FULL": 0.0001654719568783893,
+        "RAM_EXHAUSTED": 0.0,
+        "NETWORK_QUEUE_FULL": 0.0,
+        "SERVICE_TIMEOUT": 0.028768774945510184
+      },
+      "pressure": {
+        "fog_cpu_utilization_max": 0.15349779172547198,
+        "fog_cpu_utilization_mean": 0.1266276533348049,
+        "iot_cpu_utilization_max": 0.12845098221800239,
+        "cloud_cpu_utilization": 0.11483125302550072,
+        "fog_queue_max": 2.8,
+        "iot_queue_max": 1.85,
+        "cpu_queue_rejections": 0.15,
+        "ram_rejections": 0.0,
+        "access_utilization_max": 0.4472914011500514,
+        "access_utilization_mean": 0.3983349752940884,
+        "access_queue_max": 7.85,
+        "wan_utilization_max": 0.5502567477101449,
+        "network_queue_rejections": 0.0
+      },
+      "action_share": [
+        0.3994119642655207,
+        0.06180029401786724,
+        0.05671152323871989,
+        0.051453126766934296,
+        0.05264050661540201,
+        0.0493045346601832,
+        0.3286780504353726
+      ],
+      "eft_estimator": {
+        "mean_error_s": 0.0712120186108644,
+        "mean_abs_error_s": 0.14444396168081358,
+        "median_abs_error_s": 7.809563964719519e-05,
+        "p95_abs_error_s": 0.7445498213060755,
+        "share_realized_not_below_estimate": 0.8293189610946078
+      }
+    },
+    "homogeneous/greedy_eft/heavy": {
+      "traces": 20,
+      "tasks_mean": 1797.5,
+      "failure_fraction": 0.034340295036038,
+      "reliability": 0.965659704963962,
+      "violation": 0.6345759052196934,
+      "D": 0.3846166344614187,
+      "energy_total_j": 49234.64188188409,
+      "energy_dynamic_j": 6305.153381884088,
+      "costs": {
+        "zL": 0.15549411170807667,
+        "zE": 0.07014000992257458,
+        "zD": 0.6345759052196934,
+        "zB": 0.5533759429126703,
+        "zQ": 0.034340295036038
+      },
+      "on_time": 0.3654240947803066,
+      "late_success": 0.6002356101836555,
+      "failed": 0.034340295036038,
+      "failure_reasons": {
+        "CPU_QUEUE_FULL": 0.00016694989308346057,
+        "RAM_EXHAUSTED": 0.0,
+        "NETWORK_QUEUE_FULL": 0.0,
+        "SERVICE_TIMEOUT": 0.03417334514295454
+      },
+      "pressure": {
+        "fog_cpu_utilization_max": 0.3823546979356077,
+        "fog_cpu_utilization_mean": 0.3396109373152982,
+        "iot_cpu_utilization_max": 0.2365291723100896,
+        "cloud_cpu_utilization": 0.18449674670965202,
+        "fog_queue_max": 3.25,
+        "iot_queue_max": 1.95,
+        "cpu_queue_rejections": 0.3,
+        "ram_rejections": 0.0,
+        "access_utilization_max": 0.775317400530718,
+        "access_utilization_mean": 0.7372991729680802,
+        "access_queue_max": 8.2,
+        "wan_utilization_max": 0.8547965843478259,
+        "network_queue_rejections": 0.0
+      },
+      "action_share": [
+        0.5115438108484005,
+        0.0745201668984701,
+        0.06450625869262865,
+        0.05705146036161335,
+        0.05593880389429764,
+        0.054993045897079276,
+        0.18144645340751042
+      ],
+      "eft_estimator": {
+        "mean_error_s": 0.08538232734788556,
+        "mean_abs_error_s": 0.16429466735872938,
+        "median_abs_error_s": 2.9969082770975318e-15,
+        "p95_abs_error_s": 0.8316887856327861,
+        "share_realized_not_below_estimate": 0.8577073317102828
+      }
+    },
+    "homogeneous/greedy_eft/light": {
+      "traces": 20,
+      "tasks_mean": 307.6,
+      "failure_fraction": 0.002805023623315493,
+      "reliability": 0.9971949763766845,
+      "violation": 0.12949325005120862,
+      "D": 0.07222583978237654,
+      "energy_total_j": 43714.34233082904,
+      "energy_dynamic_j": 784.853830829032,
+      "costs": {
+        "zL": 0.06774761257591043,
+        "zE": 0.05103460388180309,
+        "zD": 0.12949325005120862,
+        "zB": 0.04458795906285183,
+        "zQ": 0.002805023623315493
+      },
+      "on_time": 0.8705067499487914,
+      "late_success": 0.12668822642789312,
+      "failed": 0.002805023623315493,
+      "failure_reasons": {
+        "CPU_QUEUE_FULL": 0.0,
+        "RAM_EXHAUSTED": 0.0,
+        "NETWORK_QUEUE_FULL": 0.0,
+        "SERVICE_TIMEOUT": 0.002805023623315493
+      },
+      "pressure": {
+        "fog_cpu_utilization_max": 0.017857142857142853,
+        "fog_cpu_utilization_mean": 0.012033178053830225,
+        "iot_cpu_utilization_max": 0.027515942028985503,
+        "cloud_cpu_utilization": 0.06570611736542444,
+        "fog_queue_max": 0.0,
+        "iot_queue_max": 0.25,
+        "cpu_queue_rejections": 0.0,
+        "ram_rejections": 0.0,
+        "access_utilization_max": 0.2121449475362319,
+        "access_utilization_mean": 0.18009332747826087,
+        "access_queue_max": 3.15,
+        "wan_utilization_max": 0.3211372841739131,
+        "network_queue_rejections": 0.0
+      },
+      "action_share": [
+        0.08062418725617686,
+        0.03267230169050715,
+        0.030884265279583874,
+        0.035435630689206764,
+        0.032022106631989594,
+        0.02877113133940182,
+        0.7595903771131339
+      ],
+      "eft_estimator": {
+        "mean_error_s": 0.019558111484883723,
+        "mean_abs_error_s": 0.07179677990031844,
+        "median_abs_error_s": 0.0009184533036485087,
+        "p95_abs_error_s": 0.36204875247439927,
+        "share_realized_not_below_estimate": 0.770355400648338
+      }
+    },
+    "homogeneous/greedy_eft/moderate": {
+      "traces": 20,
+      "tasks_mean": 907.4,
+      "failure_fraction": 0.00837019621785164,
+      "reliability": 0.9916298037821484,
+      "violation": 0.3665671109586516,
+      "D": 0.21305372376243978,
+      "energy_total_j": 45615.22410526223,
+      "energy_dynamic_j": 2685.7356052622226,
+      "costs": {
+        "zL": 0.09610815597670266,
+        "zE": 0.059175545465153315,
+        "zD": 0.3665671109586516,
+        "zB": 0.28213268027923666,
+        "zQ": 0.00837019621785164
+      },
+      "on_time": 0.6334328890413484,
+      "late_success": 0.35819691474079995,
+      "failed": 0.00837019621785164,
+      "failure_reasons": {
+        "CPU_QUEUE_FULL": 0.0,
+        "RAM_EXHAUSTED": 0.0,
+        "NETWORK_QUEUE_FULL": 0.0,
+        "SERVICE_TIMEOUT": 0.00837019621785164
+      },
+      "pressure": {
+        "fog_cpu_utilization_max": 0.12677315404533804,
+        "fog_cpu_utilization_mean": 0.10650197302296645,
+        "iot_cpu_utilization_max": 0.08340477690058361,
+        "cloud_cpu_utilization": 0.14545436347124407,
+        "fog_queue_max": 1.3,
+        "iot_queue_max": 1.3,
+        "cpu_queue_rejections": 0.0,
+        "ram_rejections": 0.0,
+        "access_utilization_max": 0.5192745317458366,
+        "access_utilization_mean": 0.46281423146759143,
+        "access_queue_max": 5.9,
+        "wan_utilization_max": 0.7054571177971016,
+        "network_queue_rejections": 0.0
+      },
+      "action_share": [
+        0.24933877011240907,
+        0.06606788626845933,
+        0.06485563147454265,
+        0.06507604143707296,
+        0.06259642935860701,
+        0.06138417456469032,
+        0.43068106678421864
+      ],
+      "eft_estimator": {
+        "mean_error_s": 0.0580923821212061,
+        "mean_abs_error_s": 0.13797106392542552,
+        "median_abs_error_s": 0.02370525446012587,
+        "p95_abs_error_s": 0.637648711387485,
+        "share_realized_not_below_estimate": 0.7700566763993577
+      }
+    },
+    "homogeneous/least_fog/dynamic": {
+      "traces": 20,
+      "tasks_mean": 884.3,
+      "failure_fraction": 0.5404039762001318,
+      "reliability": 0.4595960237998682,
+      "violation": 0.7976528170624991,
+      "D": 0.5581411577205303,
+      "energy_total_j": 47236.50850393715,
+      "energy_dynamic_j": 4307.020003937146,
+      "costs": {
+        "zL": 0.6191955778805729,
+        "zE": 0.09747604406916419,
+        "zD": 0.7976528170624991,
+        "zB": 0.4843885936836723,
+        "zQ": 0.5404039762001318
+      },
+      "on_time": 0.20234718293750084,
+      "late_success": 0.2572488408623673,
+      "failed": 0.5404039762001318,
+      "failure_reasons": {
+        "CPU_QUEUE_FULL": 0.00011507479861910241,
+        "RAM_EXHAUSTED": 0.0,
+        "NETWORK_QUEUE_FULL": 0.0,
+        "SERVICE_TIMEOUT": 0.5402889014015126
+      },
+      "pressure": {
+        "fog_cpu_utilization_max": 0.5045841115385923,
+        "fog_cpu_utilization_mean": 0.4658600180028717,
+        "iot_cpu_utilization_max": 0.0,
+        "cloud_cpu_utilization": 0.0,
+        "fog_queue_max": 13.25,
+        "iot_queue_max": 0.0,
+        "cpu_queue_rejections": 0.1,
+        "ram_rejections": 0.0,
+        "access_utilization_max": 0.5108048323712338,
+        "access_utilization_mean": 0.4574560225192297,
+        "access_queue_max": 23.8,
+        "wan_utilization_max": 0.0,
+        "network_queue_rejections": 0.0
+      },
+      "action_share": [
+        0.0,
+        0.21423724980210335,
+        0.20225036752233405,
+        0.19863168607938483,
+        0.19676580346036412,
+        0.18811489313581364,
+        0.0
+      ]
+    },
+    "homogeneous/least_fog/heavy": {
+      "traces": 20,
+      "tasks_mean": 1797.5,
+      "failure_fraction": 0.8173961167233499,
+      "reliability": 0.18260388327665006,
+      "violation": 0.978362306234464,
+      "D": 0.7257401546616304,
+      "energy_total_j": 50130.594876897354,
+      "energy_dynamic_j": 7201.106376897345,
+      "costs": {
+        "zL": 0.878823595668608,
+        "zE": 0.08019225801149707,
+        "zD": 0.978362306234464,
+        "zB": 0.47600051197494286,
+        "zQ": 0.8173961167233499
+      },
+      "on_time": 0.021637693765536058,
+      "late_success": 0.16096618951111402,
+      "failed": 0.8173961167233499,
+      "failure_reasons": {
+        "CPU_QUEUE_FULL": 0.00013873933642645449,
+        "RAM_EXHAUSTED": 0.0,
+        "NETWORK_QUEUE_FULL": 0.0,
+        "SERVICE_TIMEOUT": 0.8172573773869235
+      },
+      "pressure": {
+        "fog_cpu_utilization_max": 0.8002565323525804,
+        "fog_cpu_utilization_mean": 0.7658683694145461,
+        "iot_cpu_utilization_max": 0.0,
+        "cloud_cpu_utilization": 0.0,
+        "fog_queue_max": 15.2,
+        "iot_queue_max": 0.0,
+        "cpu_queue_rejections": 0.25,
+        "ram_rejections": 0.0,
+        "access_utilization_max": 0.8987258131724218,
+        "access_utilization_mean": 0.867325200717365,
+        "access_queue_max": 23.95,
+        "wan_utilization_max": 0.0,
+        "network_queue_rejections": 0.0
+      },
+      "action_share": [
+        0.0,
+        0.20253129346314325,
+        0.19699582753824757,
+        0.20222531293463145,
+        0.20219749652294855,
+        0.19605006954102921,
+        0.0
+      ]
+    },
+    "homogeneous/least_fog/light": {
+      "traces": 20,
+      "tasks_mean": 307.6,
+      "failure_fraction": 0.016842725858935762,
+      "reliability": 0.9831572741410642,
+      "violation": 0.3319506389527752,
+      "D": 0.26333608947263576,
+      "energy_total_j": 45006.347169863395,
+      "energy_dynamic_j": 2076.8586698633926,
+      "costs": {
+        "zL": 0.10936060309956874,
+        "zE": 0.13505802606471634,
+        "zD": 0.3319506389527752,
+        "zB": 0.45310104827647163,
+        "zQ": 0.016842725858935762
+      },
+      "on_time": 0.6680493610472247,
+      "late_success": 0.3151079130938395,
+      "failed": 0.016842725858935762,
+      "failure_reasons": {
+        "CPU_QUEUE_FULL": 0.0,
+        "RAM_EXHAUSTED": 0.0,
+        "NETWORK_QUEUE_FULL": 0.0,
+        "SERVICE_TIMEOUT": 0.016842725858935762
+      },
+      "pressure": {
+        "fog_cpu_utilization_max": 0.2851582033131499,
+        "fog_cpu_utilization_mean": 0.22922963557576348,
+        "iot_cpu_utilization_max": 0.0,
+        "cloud_cpu_utilization": 0.0,
+        "fog_queue_max": 2.45,
+        "iot_queue_max": 0.0,
+        "cpu_queue_rejections": 0.0,
+        "ram_rejections": 0.0,
+        "access_utilization_max": 0.22019976814494635,
+        "access_utilization_mean": 0.18668604617709622,
+        "access_queue_max": 4.4,
+        "wan_utilization_max": 0.0,
+        "network_queue_rejections": 0.0
+      },
+      "action_share": [
+        0.0,
+        0.24918725617685306,
+        0.21716514954486346,
+        0.19164499349804942,
+        0.17490247074122237,
+        0.1671001300390117,
+        0.0
+      ]
+    },
+    "homogeneous/least_fog/moderate": {
+      "traces": 20,
+      "tasks_mean": 907.4,
+      "failure_fraction": 0.18247521987223492,
+      "reliability": 0.8175247801277651,
+      "violation": 0.6700576883335657,
+      "D": 0.41243728833731064,
+      "energy_total_j": 48537.46883426329,
+      "energy_dynamic_j": 5607.980334263277,
+      "costs": {
+        "zL": 0.2947515119373821,
+        "zE": 0.12361072784663751,
+        "zD": 0.6700576883335657,
+        "zB": 0.5138501706623294,
+        "zQ": 0.18247521987223492
+      },
+      "on_time": 0.32994231166643434,
+      "late_success": 0.4875824684613307,
+      "failed": 0.18247521987223492,
+      "failure_reasons": {
+        "CPU_QUEUE_FULL": 0.0,
+        "RAM_EXHAUSTED": 0.0,
+        "NETWORK_QUEUE_FULL": 0.0,
+        "SERVICE_TIMEOUT": 0.18247521987223492
+      },
+      "pressure": {
+        "fog_cpu_utilization_max": 0.6482472523813338,
+        "fog_cpu_utilization_mean": 0.6154810942575083,
+        "iot_cpu_utilization_max": 0.0,
+        "cloud_cpu_utilization": 0.0,
+        "fog_queue_max": 8.65,
+        "iot_queue_max": 0.0,
+        "cpu_queue_rejections": 0.0,
+        "ram_rejections": 0.0,
+        "access_utilization_max": 0.5927299553452678,
+        "access_utilization_mean": 0.5216052039776622,
+        "access_queue_max": 12.15,
+        "wan_utilization_max": 0.0,
+        "network_queue_rejections": 0.0
+      },
+      "action_share": [
+        0.0,
+        0.2067445448534274,
+        0.2000771434868856,
+        0.19952611858055985,
+        0.1927485122327529,
+        0.20090368084637425,
+        0.0
+      ]
+    },
+    "homogeneous/nearest_fog/dynamic": {
+      "traces": 20,
+      "tasks_mean": 884.3,
+      "failure_fraction": 0.5593548144662291,
+      "reliability": 0.44064518553377086,
+      "violation": 0.8309115970918874,
+      "D": 0.5696900558592173,
+      "energy_total_j": 47446.23159508333,
+      "energy_dynamic_j": 4516.743095083322,
+      "costs": {
+        "zL": 0.6431941666151781,
+        "zE": 0.10220322533088574,
+        "zD": 0.8309115970918874,
+        "zB": 0.4395322458775661,
+        "zQ": 0.5593548144662291
+      },
+      "on_time": 0.16908840290811256,
+      "late_success": 0.2715567826256583,
+      "failed": 0.5593548144662291,
+      "failure_reasons": {
+        "CPU_QUEUE_FULL": 0.0,
+        "RAM_EXHAUSTED": 0.0,
+        "NETWORK_QUEUE_FULL": 0.0,
+        "SERVICE_TIMEOUT": 0.5593548144662291
+      },
+      "pressure": {
+        "fog_cpu_utilization_max": 0.5436508320390718,
+        "fog_cpu_utilization_mean": 0.4939831514535111,
+        "iot_cpu_utilization_max": 0.0,
+        "cloud_cpu_utilization": 0.0,
+        "fog_queue_max": 9.25,
+        "iot_queue_max": 0.0,
+        "cpu_queue_rejections": 0.0,
+        "ram_rejections": 0.0,
+        "access_utilization_max": 0.511014221166797,
+        "access_utilization_mean": 0.4576881272803145,
+        "access_queue_max": 24.75,
+        "wan_utilization_max": 0.0,
+        "network_queue_rejections": 0.0
+      },
+      "action_share": [
+        0.0,
+        0.19829243469410834,
+        0.20292887029288703,
+        0.20654755173583625,
+        0.1941083342756983,
+        0.19812280900147008,
+        0.0
+      ]
+    },
+    "homogeneous/nearest_fog/heavy": {
+      "traces": 20,
+      "tasks_mean": 1797.5,
+      "failure_fraction": 0.8246994312525532,
+      "reliability": 0.17530056874744687,
+      "violation": 0.9895123941558444,
+      "D": 0.708103391750474,
+      "energy_total_j": 50870.936699533246,
+      "energy_dynamic_j": 7941.448199533242,
+      "costs": {
+        "zL": 0.8954646504032231,
+        "zE": 0.08840819512858647,
+        "zD": 0.9895123941558444,
+        "zB": 0.1921383884913162,
+        "zQ": 0.8246994312525532
+      },
+      "on_time": 0.010487605844155697,
+      "late_success": 0.16481296290329117,
+      "failed": 0.8246994312525532,
+      "failure_reasons": {
+        "CPU_QUEUE_FULL": 0.0,
+        "RAM_EXHAUSTED": 0.0,
+        "NETWORK_QUEUE_FULL": 0.0,
+        "SERVICE_TIMEOUT": 0.8246994312525532
+      },
+      "pressure": {
+        "fog_cpu_utilization_max": 0.8916064057040216,
+        "fog_cpu_utilization_mean": 0.8611616869472547,
+        "iot_cpu_utilization_max": 0.0,
+        "cloud_cpu_utilization": 0.0,
+        "fog_queue_max": 10.25,
+        "iot_queue_max": 0.0,
+        "cpu_queue_rejections": 0.0,
+        "ram_rejections": 0.0,
+        "access_utilization_max": 0.8992685413858383,
+        "access_utilization_mean": 0.8679025499449061,
+        "access_queue_max": 24.8,
+        "wan_utilization_max": 0.0,
+        "network_queue_rejections": 0.0
+      },
+      "action_share": [
+        0.0,
+        0.20383866481223922,
+        0.19738525730180806,
+        0.1995549374130737,
+        0.19591098748261473,
+        0.20331015299026425,
+        0.0
+      ]
+    },
+    "homogeneous/nearest_fog/light": {
+      "traces": 20,
+      "tasks_mean": 307.6,
+      "failure_fraction": 0.025428010435870056,
+      "reliability": 0.9745719895641299,
+      "violation": 0.3608930618760996,
+      "D": 0.29135745993357176,
+      "energy_total_j": 44997.30952676862,
+      "energy_dynamic_j": 2067.8210267686186,
+      "costs": {
+        "zL": 0.1194387683285627,
+        "zE": 0.13447166379987752,
+        "zD": 0.3608930618760996,
+        "zB": 0.5100503205853923,
+        "zQ": 0.025428010435870056
+      },
+      "on_time": 0.6391069381239005,
+      "late_success": 0.3354650514402295,
+      "failed": 0.025428010435870056,
+      "failure_reasons": {
+        "CPU_QUEUE_FULL": 0.0,
+        "RAM_EXHAUSTED": 0.0,
+        "NETWORK_QUEUE_FULL": 0.0,
+        "SERVICE_TIMEOUT": 0.025428010435870056
+      },
+      "pressure": {
+        "fog_cpu_utilization_max": 0.26776798688937553,
+        "fog_cpu_utilization_mean": 0.22882133314703906,
+        "iot_cpu_utilization_max": 0.0,
+        "cloud_cpu_utilization": 0.0,
+        "fog_queue_max": 3.15,
+        "iot_queue_max": 0.0,
+        "cpu_queue_rejections": 0.0,
+        "ram_rejections": 0.0,
+        "access_utilization_max": 0.22016453568117825,
+        "access_utilization_mean": 0.1866671593365165,
+        "access_queue_max": 4.4,
+        "wan_utilization_max": 0.0,
+        "network_queue_rejections": 0.0
+      },
+      "action_share": [
+        0.0,
+        0.19993498049414823,
+        0.19652145643693109,
+        0.20464889466840053,
+        0.1992847854356307,
+        0.19960988296488946,
+        0.0
+      ]
+    },
+    "homogeneous/nearest_fog/moderate": {
+      "traces": 20,
+      "tasks_mean": 907.4,
+      "failure_fraction": 0.23891331429443446,
+      "reliability": 0.7610866857055656,
+      "violation": 0.7524802213915887,
+      "D": 0.47475387126405033,
+      "energy_total_j": 48455.35807702823,
+      "energy_dynamic_j": 5525.869577028223,
+      "costs": {
+        "zL": 0.35246547224532393,
+        "zE": 0.1217993137553726,
+        "zD": 0.7524802213915887,
+        "zB": 0.6020464410233674,
+        "zQ": 0.23891331429443446
+      },
+      "on_time": 0.24751977860841126,
+      "late_success": 0.5135669070971544,
+      "failed": 0.23891331429443446,
+      "failure_reasons": {
+        "CPU_QUEUE_FULL": 0.0,
+        "RAM_EXHAUSTED": 0.0,
+        "NETWORK_QUEUE_FULL": 0.0,
+        "SERVICE_TIMEOUT": 0.23891331429443446
+      },
+      "pressure": {
+        "fog_cpu_utilization_max": 0.6843356668837887,
+        "fog_cpu_utilization_mean": 0.6088494607773867,
+        "iot_cpu_utilization_max": 0.0,
+        "cloud_cpu_utilization": 0.0,
+        "fog_queue_max": 7.95,
+        "iot_queue_max": 0.0,
+        "cpu_queue_rejections": 0.0,
+        "ram_rejections": 0.0,
+        "access_utilization_max": 0.5923064501912082,
+        "access_utilization_mean": 0.5213602808137567,
+        "access_queue_max": 12.05,
+        "wan_utilization_max": 0.0,
+        "network_queue_rejections": 0.0
+      },
+      "action_share": [
+        0.0,
+        0.1941811769891999,
+        0.20520167511571524,
+        0.19991183601498788,
+        0.20128939828080228,
+        0.1994159135992947,
+        0.0
+      ]
+    }
+  }
+}

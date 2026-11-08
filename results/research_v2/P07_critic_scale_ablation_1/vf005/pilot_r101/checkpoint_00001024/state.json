@@ -1,0 +1,58 @@
+{
+  "decisions": 1024,
+  "gradient_epochs": 20,
+  "audit": {
+    "decisions": 1024,
+    "decisions_by_workload": {
+      "moderate": 960,
+      "heavy": 64
+    },
+    "action_counts": [
+      157,
+      170,
+      143,
+      131,
+      147,
+      144,
+      132
+    ],
+    "stream": {
+      "next_episode": 2,
+      "counts": {
+        "moderate": 1,
+        "heavy": 1
+      },
+      "current": {
+        "namespace": {
+          "master": 20261103,
+          "split": "pilot_train",
+          "outer_run": 101,
+          "model_repeat": 0,
+          "trace_id": 0,
+          "workload": "heavy"
+        },
+        "payload_sha256": "220f2948f8d078bb5aa7624af248ce4f54d03d8deff5b3148317e4bd6985e4bd",
+        "tasks": 1780
+      }
+    },
+    "active_episode": {
+      "decisions": 64,
+      "reward_so_far": -0.7778710780830675,
+      "unarrived_tasks": 1716,
+      "pending_decided_outcomes": "unknown; not inferred from arrivals",
+      "pending_outcomes_not_evaluated": true,
+      "cost_cumulative": [
+        0.002201026190759387,
+        0.001893375577064184,
+        0.015730337078651676,
+        0.017383421799251165,
+        0.0016853932584269663
+      ],
+      "note": "Unresolved includes future arrivals; decided tasks can also await outcomes. No success inferred."
+    }
+  },
+  "model_sha256": "c5c1e5816ff786e21a0016cab027c3faee20cf4577abed819a752d8b1c064e12",
+  "rng_sha256": "7a74efa3c87936aa86e6a9fe036248baba3126a8274dd1eef9c2a5a64ef14add",
+  "resume_supported": false,
+  "boundary": "after PPO update; simulator state is not restorable"
+}

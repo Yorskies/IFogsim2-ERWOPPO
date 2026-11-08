@@ -1,6 +1,6 @@
 # Implementation plan dan milestone penelitian ERWO-PPO v2
 
-Tanggal: 3 November 2026 (diperbarui 8 November 2026). Status: **P00–P06 selesai dan terverifikasi lokal; P07–P12 belum dimulai**.
+Tanggal: 3 November 2026 (diperbarui 8 November 2026). Status: **P00–P06 selesai dan terverifikasi; P07 selesai secara teknis dengan hasil pilot negatif yang didiagnosis; P08 asli gagal tetapi revisi eksploratori memilih K=30.720 yang diaudit; P09 (runner) dan P10 (analisis + protocol lock) selesai dan terverifikasi pada fixture; keputusan go/no-go M3, pencarian penuh, P11 dan P12 belum dimulai**.
 
 Phase pertama yang telah dikerjakan adalah **P00 — Kontrak dan fondasi proyek**. Bukti: [catatan P00](docs/research_v2/milestones/P00_foundation.md) dan [laporan verifikasi](docs/research_v2/milestones/P00_verification.json): 23 tes lulus, tanpa failure/error/skip. Build menargetkan Java 21; lingkungan aktual Windows/Python 3.11/JDK 27. Pengujian langsung Ubuntu/Python 3.12/JDK 21 tetap menjadi preflight server sebelum penguncian protokol P10.
 
@@ -43,10 +43,10 @@ Dokumen ini mengatur urutan kerja, dependensi, deliverable, verifikasi, dan krit
 | P04 | Energi dan metrik | Ledger energi serta lima biaya tervalidasi | P02–P03 | **Selesai — verifikasi lokal 16/16** |
 | P05 | Socket dan Gymnasium | Protokol v2, observasi 108, reward tertunda | P01–P04 | **Selesai — verifikasi lokal 28/28** |
 | P06 | Baseline dan kalibrasi | Heuristik kuat dan kelulusan model fisik | P04–P05 | **Selesai — semua gerbang lulus, 19/19** |
-| P07 | PPO dan pilot learning | Training campuran, checkpoint, bukti belajar | P06 | Belum dimulai |
-| P08 | Pencarian bobot dan fidelity | NSGA-II/random search serta pemilihan K | P07 | Belum dimulai |
-| P09 | Orkestrasi dan budget | Runner studi v2, accounting biaya, resume | P08 | Belum dimulai |
-| P10 | Analisis dan penguncian protokol | Statistik teruji, konfigurasi terkunci, readiness review | P06–P09 | Belum dimulai |
+| P07 | PPO dan pilot learning | Training campuran, checkpoint, bukti belajar | P06 | Selesai teknis; tiga pilot memburuk pada D, diagnosis terdokumentasi |
+| P08 | Pencarian bobot dan fidelity | NSGA-II/random search serta pemilihan K | P07 | Pilot asli gagal; revisi eksploratori memilih K=30.720 dan lulus audit; pencarian penuh belum berjalan; M2 belum ditinjau ulang |
+| P09 | Orkestrasi dan budget | Runner studi v2, accounting biaya, resume | P08 | **Selesai — 12 tes + 6 skenario live lulus (fixture)** |
+| P10 | Analisis dan penguncian protokol | Statistik teruji, konfigurasi terkunci, readiness review | P06–P09 | **Selesai teknis — 35 tes, lock terverifikasi; M3 menunggu keputusan peneliti** |
 | P11 | Eksperimen konfirmatori | Dua protokol, 20 outer run, hasil lengkap | P10 lulus | Belum dimulai |
 | P12 | Sensitivitas dan paket publikasi | Robustness, audit, reproduksibilitas, batas klaim | P11 | Belum dimulai |
 
@@ -54,7 +54,7 @@ Dependensi utama bersifat berurutan. Perancangan schema dan pembacaan source bol
 
 ## 3. Arsitektur implementasi yang dituju
 
-Struktur berikut adalah target. Fondasi config/schema/package/build, generator dan penyimpanan trace, engine CPU/lifecycle headless (P02), transport jaringan (P03), ledger energi dan metrik (P04), socket dan environment Gymnasium (P05), baseline dan gerbang kalibrasi (P06), serta catatan P00–P06 sudah dibuat; training, search, runner studi, dan analisis merupakan pekerjaan phase selanjutnya. Pemetaan aktual dijelaskan pada [arsitektur](docs/research_v2/ARCHITECTURE.md) dan [kontrak trace](docs/research_v2/TRACES.md).
+Struktur berikut adalah target. Fondasi config/schema/package/build, generator dan penyimpanan trace, engine CPU/lifecycle headless (P02), transport jaringan (P03), ledger energi dan metrik (P04), socket dan environment Gymnasium (P05), baseline dan gerbang kalibrasi (P06), serta catatan P00–P06 sudah dibuat; PPO dan search kini tersedia dengan hasil pilot terdokumentasi; runner studi dan analisis tetap phase selanjutnya. Pemetaan aktual dijelaskan pada [arsitektur](docs/research_v2/ARCHITECTURE.md) dan [kontrak trace](docs/research_v2/TRACES.md).
 
 | Area | Lokasi yang direncanakan | Tanggung jawab |
 |---|---|---|
@@ -239,19 +239,22 @@ Deliverable: `calibration_report.md`, trace/resource plots, parameter snapshot, 
 
 ## 11. P07 — PPO dan pilot pembelajaran
 
+Implementasi dan validasi teknis selesai di Linux. Smoke/replay, tiga pilot 10.240, 220 episode evaluasi/diagnosis, serta uji prefix F=102.400 lulus audit mekanik. Hasil D pilot negatif; diagnosis dan batas kesimpulan didokumentasikan. P07 ulang dengan instrumentasi dan ablation lambda 0,95/1,0 selesai: 22 tes dan 360 episode evaluasi lulus audit teknis, lambda=1 memperburuk D di tiga seed sehingga default tetap 0,95. Eksperimen satu faktor vf_coef 0,5/0,05 juga selesai (26 tes, 360 episode): D membaik satu seed, memburuk satu, sama satu; default vf_coef tetap 0,5 dan P08 belum dimulai. Tidak ada klaim konvergensi atau superioritas.
+Panduan: [P07_learning_pilot.md](docs/research_v2/milestones/P07_learning_pilot.md).
+
 **Tujuan:** memastikan model dapat belajar menggunakan lingkungan v2 dan reward lima objektif.
 
 Pekerjaan:
 
-- [ ] Implementasikan policy 108 fitur, Discrete(7), MLP 128–128, serta hyperparameter v0.2.
-- [ ] Implementasikan training campuran workload round-robin dengan offset dan RNG yang ditetapkan.
-- [ ] Pisahkan training stream dari validation/test serta dari RNG policy.
-- [ ] Jalankan smoke 512 keputusan lalu pilot 10.240 pada tiga outer pilot run.
-- [ ] Catat loss, entropy, KL, action distribution, cost vector, serta identitas reward.
-- [ ] Pastikan gamma=1, delayed outcome, dan terminal drain tidak hilang dari return.
-- [ ] Simpan model/optimizer/RNG dan checkpoint pada batas rollout.
-- [ ] Pisahkan penghentian karena kuota training dari keberhasilan episode fisik. Task pending pada akhir kuota training tidak dihitung sebagai keberhasilan evaluasi.
-- [ ] Validasi bahwa checkpoint F dari training lebih panjang konsisten dengan training berhenti di F pada konfigurasi konstan; evaluasi checkpoint memakai episode/server terpisah agar training stream tidak berubah.
+- [x] Implementasikan policy 108 fitur, Discrete(7), MLP 128–128, serta hyperparameter v0.2.
+- [x] Implementasikan training campuran workload round-robin dengan offset dan RNG yang ditetapkan.
+- [x] Pisahkan training stream dari validation/test serta dari RNG policy.
+- [x] Jalankan smoke 512 keputusan lalu pilot 10.240 pada tiga outer pilot run.
+- [x] Catat loss, entropy, KL, action distribution, cost vector, serta identitas reward.
+- [x] Pastikan gamma=1, delayed outcome, dan terminal drain tidak hilang dari return.
+- [x] Simpan model/optimizer/RNG dan checkpoint pada batas rollout.
+- [x] Pisahkan penghentian karena kuota training dari keberhasilan episode fisik. Task pending pada akhir kuota training tidak dihitung sebagai keberhasilan evaluasi.
+- [x] Validasi bahwa checkpoint F dari training lebih panjang konsisten dengan training berhenti di F pada konfigurasi konstan; evaluasi checkpoint memakai episode/server terpisah agar training stream tidak berubah.
 
 Deliverable: smoke/pilot models, learning curves, prefix/checkpoint comparison, dan `P07_learning_pilot.md`.
 
@@ -259,19 +262,22 @@ Deliverable: smoke/pilot models, learning curves, prefix/checkpoint comparison, 
 
 ## 12. P08 — NSGA-II, random search, dan fidelity kandidat
 
+**Hasil aktual:** [Pilot asli](docs/research_v2/milestones/P08_search_gate.md) gagal pada seluruh ladder awal. [Revisi diagnosis](docs/research_v2/milestones/P08_learning_diagnosis.md) memilih K=30.720 melalui gate yang sama, 48 prefix independen dan audit lengkap; statusnya eksploratori. Pencarian penuh belum dijalankan, M2 belum ditinjau ulang.
+
 **Tujuan:** mengisolasi manfaat pencarian bobot dan menguji apakah kandidat singkat cukup informatif.
 
 Pekerjaan:
 
-- [ ] Implementasikan lima bobot pada simplex berbatas minimum 0,02 dan repair yang mempertahankan jumlah satu.
-- [ ] Implementasikan equal/manual anchors serta common initial population.
-- [ ] Implementasikan candidate evaluation: dua PPO dari awal, K keputusan, validasi lima trace/workload/model, dan macro-average lima biaya.
-- [ ] Implementasikan NSGA-II 20 populasi × 4 generasi serta random search total 80 slot, dengan RNG yang ditetapkan.
-- [ ] Simpan semua kandidat, biaya, repeat, validation metrics, archive nondominated, D, dan pemilihan solusi seri.
-- [ ] Implementasikan pemilihan solusi pada validation, bukan berdasarkan test atau reward dengan bobot masing-masing.
-- [ ] Implementasikan hypervolume validasi sebagai metrik sekunder dengan reference point tetap.
-- [ ] Jalankan ranking fidelity delapan bobot pada tiga outer pilot sesuai spesifikasi.
+- [x] Implementasikan lima bobot pada simplex berbatas minimum 0,02 dan repair yang mempertahankan jumlah satu.
+- [x] Implementasikan equal/manual anchors serta common initial population.
+- [x] Implementasikan candidate evaluation: dua PPO dari awal, K keputusan, validasi lima trace/workload/model, dan macro-average lima biaya.
+- [x] Implementasikan NSGA-II 20 populasi × 4 generasi serta random search total 80 slot, dengan RNG yang ditetapkan.
+- [x] Simpan semua kandidat, biaya, repeat, validation metrics, archive nondominated, D, dan pemilihan solusi seri.
+- [x] Implementasikan pemilihan solusi pada validation, bukan berdasarkan test atau reward dengan bobot masing-masing.
+- [x] Implementasikan hypervolume validasi sebagai metrik sekunder dengan reference point tetap.
+- [x] Jalankan ranking fidelity delapan bobot pada tiga outer pilot sesuai spesifikasi.
 - [ ] Pilih K melalui ladder 5.120 → 10.240 → 20.480 menggunakan gerbang Spearman yang telah ditetapkan.
+- [x] Diagnosis kegagalan dan revisi eksploratori 30.720 → 40.960 → 46.080; pilih K=30.720 dengan ambang semula serta konfirmasi prefix independen.
 
 Deliverable: optimizer/baseline pencarian, candidate archive pilot, laporan fidelity, dan `P08_search_gate.md`.
 
@@ -285,19 +291,19 @@ Deliverable: optimizer/baseline pencarian, candidate archive pilot, laporan fide
 
 Pekerjaan:
 
-- [ ] Susun manifest berdasarkan outer run, metode, search/final role, protocol A/B, dan checkpoint; workload menjadi bagian evaluasi satu policy campuran.
-- [ ] Hitung Ntrace validasi, S, V, F, dan B sebelum menjalankan studi.
-- [ ] Tampilkan estimasi biaya dan artefak pada dry-run; biaya validasi tidak boleh dianggap gratis.
-- [ ] Implementasikan reuse search/model yang sah antara analisis A/B tanpa menghitung biaya studi dua kali.
-- [ ] Implementasikan baseline B dan checkpoint F/51.200; jika prefix equivalence gagal, dokumentasikan kebutuhan training terpisah.
-- [ ] Buat direktori run/attempt terisolasi, manifest atomik, checksum, serta validasi kelengkapan artefak sebelum status complete.
-- [ ] Implementasikan resume completed-run, retry teknis terbatas dengan seed sama, dan penolakan resume jika source/config/JAR/trace berubah.
-- [ ] Hindari dua proses menulis study/run yang sama melalui mekanisme ownership/lock yang dapat dipulihkan setelah crash.
-- [ ] Ukur waktu, CPU, RAM, interaksi, update, inference/RPC, serta startup secara terpisah.
-- [ ] Default satu worker; dukungan empat worker memerlukan JVM/port independen dan pembuktian hasil tidak berubah.
-- [ ] Pastikan interruption tidak meninggalkan server yang salah dipakai run lain.
+- [x] Susun manifest berdasarkan outer run, metode, search/final role, protocol A/B, dan checkpoint; workload menjadi bagian evaluasi satu policy campuran.
+- [x] Hitung Ntrace validasi, S, V, F, dan B sebelum menjalankan studi.
+- [x] Tampilkan estimasi biaya dan artefak pada dry-run; biaya validasi tidak boleh dianggap gratis.
+- [x] Implementasikan reuse search/model yang sah antara analisis A/B tanpa menghitung biaya studi dua kali.
+- [x] Implementasikan baseline B dan checkpoint F/51.200; jika prefix equivalence gagal, dokumentasikan kebutuhan training terpisah.
+- [x] Buat direktori run/attempt terisolasi, manifest atomik, checksum, serta validasi kelengkapan artefak sebelum status complete.
+- [x] Implementasikan resume completed-run, retry teknis terbatas dengan seed sama, dan penolakan resume jika source/config/JAR/trace berubah.
+- [x] Hindari dua proses menulis study/run yang sama melalui mekanisme ownership/lock yang dapat dipulihkan setelah crash.
+- [x] Ukur waktu, CPU, RAM, interaksi, update, inference/RPC, serta startup secara terpisah.
+- [x] Default satu worker; empat runner paralel (studi/shard terpisah, JVM dan port independen) terbukti identik dengan hasil sekuensial (speedup 3,55×). Tidak ada scheduler multi-worker di dalam satu studi.
+- [x] Pastikan interruption tidak meninggalkan server yang salah dipakai run lain.
 
-Deliverable: runner v2, dry-run budget report, fixture studi kecil, interruption/resume evidence, dan `P09_runner_validation.md`.
+Deliverable: runner v2, dry-run budget report, fixture studi kecil, interruption/resume evidence, dan [`P09_runner_validation.md`](docs/research_v2/milestones/P09_runner_validation.md) — **selesai**.
 
 **Kriteria lulus:** studi mini dari beberapa seed selesai tanpa menimpa hasil; hasil complete tidak diulang; partial run tidak dianggap complete; crash dapat dilanjutkan sesuai kontrak; jumlah interaksi sesuai ledger; worker tidak berbagi singleton CloudSim.
 
@@ -309,19 +315,19 @@ Perhatian kapasitas: dengan ekspektasi trace pada spesifikasi awal, B sekitar **
 
 Pekerjaan:
 
-- [ ] Implementasikan agregasi trace → workload → outer run → ringkasan antar-run.
-- [ ] Implementasikan Dglobal, Dw, lima metrik fisik/biaya, uncertainty, dan biaya komputasi.
-- [ ] Implementasikan tiga uji primer exact paired sign-flip dan koreksi Holm satu keluarga.
-- [ ] Implementasikan 60 uji sekunder, Monte Carlo correction, serta pelabelan eksploratif yang benar.
-- [ ] Implementasikan crossed paired bootstrap dengan indeks trace bersama pada model/run yang terpilih.
-- [ ] Validasi dengan fixture: seluruh selisih nol, selisih bertanda sama, ties, pasangan ditukar, SD nol, dan data hilang.
-- [ ] Periksa Holm terhadap contoh yang bisa dihitung manual dan implementasi referensi yang tervalidasi.
-- [ ] Pastikan laporan tidak mem-pool task/episode menjadi training replicate dan tidak merata-ratakan p-value.
-- [ ] Jalankan studi mini end-to-end pada namespace pilot, dengan anggaran kecil dan tanpa test final.
-- [ ] Bekukan K hasil pilot, config sistem, seed/split, source/build hash, keluarga hipotesis, dan aturan sensitivity.
-- [ ] Profil throughput pilot dan kapasitas penyimpanan; susun estimasi kebutuhan studi dari pengukuran, bukan perkiraan H200 semata.
+- [x] Implementasikan agregasi trace → workload → outer run → ringkasan antar-run.
+- [x] Implementasikan Dglobal, Dw, lima metrik fisik/biaya, uncertainty, dan biaya komputasi.
+- [x] Implementasikan tiga uji primer exact paired sign-flip dan koreksi Holm satu keluarga.
+- [x] Implementasikan 60 uji sekunder, Monte Carlo correction, serta pelabelan eksploratif yang benar.
+- [x] Implementasikan crossed paired bootstrap dengan indeks trace bersama pada model/run yang terpilih.
+- [x] Validasi dengan fixture: seluruh selisih nol, selisih bertanda sama, ties, pasangan ditukar, SD nol, dan data hilang.
+- [x] Periksa Holm terhadap contoh yang bisa dihitung manual dan implementasi referensi yang tervalidasi.
+- [x] Pastikan laporan tidak mem-pool task/episode menjadi training replicate dan tidak merata-ratakan p-value.
+- [x] Jalankan studi mini end-to-end pada namespace pilot, dengan anggaran kecil dan tanpa test final.
+- [x] Bekukan K hasil pilot, config sistem, seed/split, source/build hash, keluarga hipotesis, dan aturan sensitivity.
+- [x] Profil throughput pilot dan kapasitas penyimpanan; susun estimasi kebutuhan studi dari pengukuran, bukan perkiraan H200 semata.
 
-Deliverable: analysis module teruji, contoh laporan mini, protocol lock, resource estimate, dan `P10_readiness_review.md`.
+Deliverable: analysis module teruji, contoh laporan mini, protocol lock, resource estimate, dan [`P10_readiness_review.md`](docs/research_v2/milestones/P10_readiness_review.md) — **selesai**. Butir *go/no-go* M3 di bawah belum diputuskan.
 
 **Kriteria lulus:** validasi statistik dan studi mini benar; tidak ada konfigurasi tersisa yang dipilih dari hasil test; anggaran sumber daya layak; perubahan dari v0.2 tercatat.
 
@@ -426,10 +432,8 @@ Status `blocked` pada catatan proyek berarti dependensi/masalah milestone belum 
 4. Tulis acceptance cases untuk P01–P05 beserta nilai analitis yang diharapkan.
 5. Serahkan catatan P00 sebelum memperluas implementasi ke generator trace dan simulator.
 
-P01 trace deterministik, P02 engine CPU/lifecycle, P03 transport jaringan, P04 ledger energi dan lima metrik, P05 socket/Gymnasium, dan P06 baseline/kalibrasi juga sudah selesai. **Milestone berikutnya adalah P07: PPO dan pilot pembelajaran**, setelah tinjauan manusia M1 atas bukti P06. Tidak langsung mengubah runner legacy menjadi training besar, memigrasikan model lama ke 108 fitur, atau menjalankan 20 outer run.
+P01 trace deterministik, P02 engine CPU/lifecycle, P03 transport jaringan, P04 ledger energi dan lima metrik, P05 socket/Gymnasium, dan P06 baseline/kalibrasi juga sudah selesai. **P07 sudah dijalankan dan P08 diimplementasikan**; pilot fidelity asli gagal, lalu ekstensi diagnosis yang diaudit memilih K=30.720 secara eksploratori. P09 dan P10 sudah selesai pada fixture. Langkah berikutnya adalah keputusan go/no-go M3 (lihat `P10_readiness_review.md`) sebelum P11. Tidak langsung mengubah runner legacy menjadi training besar, memigrasikan model lama ke 108 fitur, atau menjalankan 20 outer run.
 
 ## 20. Batas dokumen ini
 
-P00–P06 telah diimplementasikan dan diverifikasi secara lokal; P07–P12 belum dimulai. Config, schema, package fondasi, CLI validasi/generator, trace immutable, guard split, build terpisah, probe native/numerik, scheduler FCFS bounded, engine task headless, transport jaringan store-and-forward, ledger energi dan metrik per trace, server socket dan environment Gymnasium, serta baseline heuristik dengan gerbang kalibrasi yang lulus sudah tersedia. PPO, Gym, analisis statistik konfirmatori, serta eksperimen utama belum tersedia. Status selesai P00–P06 tidak berarti simulator sudah siap untuk training; setiap phase berikutnya tetap harus memenuhi kriterianya sendiri.
-
-Kriteria eksperimen dan parameter tetap merujuk pada dokumen kesepakatan. Jika ada konflik, perbaiki dokumen dan catat keputusan sebelum melanjutkan; jangan menyelesaikan konflik melalui perubahan kode yang tidak terdokumentasi.
+P00–P06 telah diimplementasikan dan diverifikasi, termasuk regresi Linux. P07 selesai secara teknis; pilot pembelajaran negatif telah didiagnosis. P08 pilot asli gagal, sedangkan ekstensi eksploratori memilih K=30.720 dengan audit. P09 menyediakan runner studi dengan akuntansi budget, resume, retry terbatas, lock kepemilikan, dan isolasi worker; P10 menyediakan analisis statistik terdaftar dan protocol lock yang membekukan desain serta menyegel test. Keduanya diverifikasi pada fixture; regresi penuh 236 tes lulus. Pencarian 80 slot, studi 20 outer run, evaluasi test, dan eksperimen konfirmatori belum dijalankan. Gym tersedia; PPO telah menjalani smoke/pilot; pembelajaran efektif belum terbukti. Status selesai suatu phase tidak berarti hasil ilmiah sudah ada; P11 menunggu keputusan go/no-go M3.

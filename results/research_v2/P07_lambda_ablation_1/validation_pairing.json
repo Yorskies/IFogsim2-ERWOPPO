@@ -1,0 +1,11 @@
+{
+  "100": {
+    "same_twenty_validation_payloads_across_both_conditions_and_modes": true
+  },
+  "101": {
+    "same_twenty_validation_payloads_across_both_conditions_and_modes": true
+  },
+  "102": {
+    "same_twenty_validation_payloads_across_both_conditions_and_modes": true
+  }
+}

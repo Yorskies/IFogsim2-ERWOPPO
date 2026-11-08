@@ -1,0 +1,1239 @@
+{
+  "summary": {
+    "cost_order": [
+      "zL",
+      "zE",
+      "zD",
+      "zB",
+      "zQ"
+    ],
+    "costs_by_workload": {
+      "light": [
+        0.06271350972330342,
+        0.0563863346838933,
+        0.10746382592167085,
+        0.07867115449339512,
+        0.002027027027027027
+      ],
+      "moderate": [
+        0.09214812871801462,
+        0.06728505920282445,
+        0.33550252987591933,
+        0.41891315692481407,
+        0.008231381905640569
+      ],
+      "heavy": [
+        0.1584487605442883,
+        0.07383084580189032,
+        0.6161449978211928,
+        0.7518558431722295,
+        0.03961942620137185
+      ],
+      "dynamic": [
+        0.1552611511705032,
+        0.07160389564570194,
+        0.5203830611255852,
+        0.37106580650397014,
+        0.04580563258097989
+      ]
+    },
+    "macro_costs": [
+      0.11714288753902738,
+      0.06727653383357751,
+      0.39487360368609203,
+      0.40512649027360226,
+      0.023920866928754832
+    ],
+    "D_by_workload": {
+      "light": 0.07050409393859908,
+      "moderate": 0.24541250704236403,
+      "heavy": 0.44205170957585305,
+      "dynamic": 0.2965871413171685
+    },
+    "D_macro": 0.26033571863642263,
+    "episodes": 20,
+    "decisions": 19397,
+    "policy": "greedy_eft",
+    "training_decisions": 0,
+    "physical_by_workload": {
+      "light": {
+        "reliability": 0.9979729729729729,
+        "violation": 0.10746382592167085
+      },
+      "moderate": {
+        "reliability": 0.9917686180943595,
+        "violation": 0.33550252987591933
+      },
+      "heavy": {
+        "reliability": 0.9603805737986282,
+        "violation": 0.6161449978211928
+      },
+      "dynamic": {
+        "reliability": 0.9541943674190201,
+        "violation": 0.5203830611255852
+      }
+    }
+  },
+  "episodes": [
+    {
+      "namespace": {
+        "master": 20261103,
+        "split": "pilot_validation",
+        "outer_run": null,
+        "model_repeat": null,
+        "trace_id": 10000,
+        "workload": "light"
+      },
+      "trace_sha256": "73f4ffea179e2b558ff84c863320b7f2f74fbb1457efbce7cb22a490413ecbc2",
+      "metrics": {
+        "task_count": 296,
+        "on_time": 258,
+        "late_success": 36,
+        "failed": 2,
+        "success_count": 294,
+        "violation": 0.12837837837837837,
+        "reliability": 0.9932432432432432,
+        "latency": {
+          "completed_tasks": 294,
+          "failed_tasks_excluded": 2,
+          "percentile_method": "nearest_rank: element ceil(p*n) of the sorted completed latencies; median averages the two middle values for even n",
+          "mean_s": 0.5432647843103688,
+          "median_s": 0.3744462742857202,
+          "p95_s": 1.6762478220284738
+        },
+        "throughput": {
+          "results_received": 294,
+          "results_per_s": 4.260869565217392,
+          "results_during_arrival_window": 293,
+          "results_after_arrival_window": 1
+        },
+        "costs": {
+          "zL": 0.0667116541243425,
+          "zE": 0.05494227213873874,
+          "zD": 0.12837837837837837,
+          "zB": 0.07127125449611126,
+          "zQ": 0.006756756756756757
+        },
+        "D": 0.07625660834072631,
+        "out_of_reference": [],
+        "diagnosis_required": false,
+        "latency_penalty_s_applied_to_failed_in_zL": 9.0,
+        "latency_penalty_is_evaluation_convention_not_measured_latency": true,
+        "fog_count": 5,
+        "fog_utilization_std_integral_s": 2.409179254440493
+      },
+      "action_counts": [
+        21,
+        0,
+        0,
+        0,
+        2,
+        94,
+        179
+      ],
+      "reward": -6.561206317886557
+    },
+    {
+      "namespace": {
+        "master": 20261103,
+        "split": "pilot_validation",
+        "outer_run": null,
+        "model_repeat": null,
+        "trace_id": 10001,
+        "workload": "light"
+      },
+      "trace_sha256": "c87c9ca667c7693178c9e9896eedc7c6057d000c4500313b031edd9041a6bab8",
+      "metrics": {
+        "task_count": 296,
+        "on_time": 271,
+        "late_success": 24,
+        "failed": 1,
+        "success_count": 295,
+        "violation": 0.08445945945945946,
+        "reliability": 0.9966216216216216,
+        "latency": {
+          "completed_tasks": 295,
+          "failed_tasks_excluded": 1,
+          "percentile_method": "nearest_rank: element ceil(p*n) of the sorted completed latencies; median averages the two middle values for even n",
+          "mean_s": 0.5268393176163807,
+          "median_s": 0.38916445485714135,
+          "p95_s": 1.5847953112390556
+        },
+        "throughput": {
+          "results_received": 295,
+          "results_per_s": 4.27536231884058,
+          "results_during_arrival_window": 294,
+          "results_after_arrival_window": 1
+        },
+        "costs": {
+          "zL": 0.06171831782914125,
+          "zE": 0.055761129322908595,
+          "zD": 0.08445945945945946,
+          "zB": 0.07650612569330872,
+          "zQ": 0.0033783783783783786
+        },
+        "D": 0.0631133191969444,
+        "out_of_reference": [],
+        "diagnosis_required": false,
+        "latency_penalty_s_applied_to_failed_in_zL": 9.0,
+        "latency_penalty_is_evaluation_convention_not_measured_latency": true,
+        "fog_count": 5,
+        "fog_utilization_std_integral_s": 2.5861333880125956
+      },
+      "action_counts": [
+        18,
+        0,
+        0,
+        0,
+        2,
+        102,
+        174
+      ],
+      "reward": -5.636468213663923
+    },
+    {
+      "namespace": {
+        "master": 20261103,
+        "split": "pilot_validation",
+        "outer_run": null,
+        "model_repeat": null,
+        "trace_id": 10002,
+        "workload": "light"
+      },
+      "trace_sha256": "1b538524c4679b51bc491f599058e8f5325b171b609d2f8aea1da46ff90e2adb",
+      "metrics": {
+        "task_count": 291,
+        "on_time": 258,
+        "late_success": 33,
+        "failed": 0,
+        "success_count": 291,
+        "violation": 0.1134020618556701,
+        "reliability": 1.0,
+        "latency": {
+          "completed_tasks": 291,
+          "failed_tasks_excluded": 0,
+          "percentile_method": "nearest_rank: element ceil(p*n) of the sorted completed latencies; median averages the two middle values for even n",
+          "mean_s": 0.5662883193124103,
+          "median_s": 0.4097007739459242,
+          "p95_s": 1.7835646605714217
+        },
+        "throughput": {
+          "results_received": 291,
+          "results_per_s": 4.217391304347826,
+          "results_during_arrival_window": 291,
+          "results_after_arrival_window": 0
+        },
+        "costs": {
+          "zL": 0.06292092436804558,
+          "zE": 0.059493802562984775,
+          "zD": 0.1134020618556701,
+          "zB": 0.09868958673822072,
+          "zQ": 0.0
+        },
+        "D": 0.07758636146954018,
+        "out_of_reference": [],
+        "diagnosis_required": false,
+        "latency_penalty_s_applied_to_failed_in_zL": 9.0,
+        "latency_penalty_is_evaluation_convention_not_measured_latency": true,
+        "fog_count": 5,
+        "fog_utilization_std_integral_s": 3.335999999999997
+      },
+      "action_counts": [
+        20,
+        0,
+        0,
+        0,
+        0,
+        103,
+        168
+      ],
+      "reward": -6.690127510498426
+    },
+    {
+      "namespace": {
+        "master": 20261103,
+        "split": "pilot_validation",
+        "outer_run": null,
+        "model_repeat": null,
+        "trace_id": 10003,
+        "workload": "light"
+      },
+      "trace_sha256": "3fa9a1bf28251943782f71b3c16c6d1998ce00c715cea34703b60a2561e4141f",
+      "metrics": {
+        "task_count": 292,
+        "on_time": 257,
+        "late_success": 35,
+        "failed": 0,
+        "success_count": 292,
+        "violation": 0.11986301369863013,
+        "reliability": 1.0,
+        "latency": {
+          "completed_tasks": 292,
+          "failed_tasks_excluded": 0,
+          "percentile_method": "nearest_rank: element ceil(p*n) of the sorted completed latencies; median averages the two middle values for even n",
+          "mean_s": 0.5618291352510163,
+          "median_s": 0.4181403485714448,
+          "p95_s": 1.6505490891428707
+        },
+        "throughput": {
+          "results_received": 292,
+          "results_per_s": 4.231884057971015,
+          "results_during_arrival_window": 292,
+          "results_after_arrival_window": 0
+        },
+        "costs": {
+          "zL": 0.062425459472335146,
+          "zE": 0.05672953962726681,
+          "zD": 0.11986301369863013,
+          "zB": 0.07672588506023516,
+          "zQ": 0.0
+        },
+        "D": 0.07398537983662476,
+        "out_of_reference": [],
+        "diagnosis_required": false,
+        "latency_penalty_s_applied_to_failed_in_zL": 9.0,
+        "latency_penalty_is_evaluation_convention_not_measured_latency": true,
+        "fog_count": 5,
+        "fog_utilization_std_integral_s": 2.593561904761898
+      },
+      "action_counts": [
+        26,
+        0,
+        0,
+        0,
+        1,
+        106,
+        159
+      ],
+      "reward": -6.314877957169339
+    },
+    {
+      "namespace": {
+        "master": 20261103,
+        "split": "pilot_validation",
+        "outer_run": null,
+        "model_repeat": null,
+        "trace_id": 10004,
+        "workload": "light"
+      },
+      "trace_sha256": "e390a7d857213b2194bb3c44277037ee408ee5970f164460e2c673e563668ad3",
+      "metrics": {
+        "task_count": 296,
+        "on_time": 269,
+        "late_success": 27,
+        "failed": 0,
+        "success_count": 296,
+        "violation": 0.09121621621621621,
+        "reliability": 1.0,
+        "latency": {
+          "completed_tasks": 296,
+          "failed_tasks_excluded": 0,
+          "percentile_method": "nearest_rank: element ceil(p*n) of the sorted completed latencies; median averages the two middle values for even n",
+          "mean_s": 0.5381207354038734,
+          "median_s": 0.4125452317317446,
+          "p95_s": 1.544312958162827
+        },
+        "throughput": {
+          "results_received": 296,
+          "results_per_s": 4.2898550724637685,
+          "results_during_arrival_window": 292,
+          "results_after_arrival_window": 4
+        },
+        "costs": {
+          "zL": 0.059791192822652606,
+          "zE": 0.05500492976756758,
+          "zD": 0.09121621621621621,
+          "zB": 0.07016292047909979,
+          "zQ": 0.0
+        },
+        "D": 0.06299803576120552,
+        "out_of_reference": [],
+        "diagnosis_required": false,
+        "latency_penalty_s_applied_to_failed_in_zL": 9.0,
+        "latency_penalty_is_evaluation_convention_not_measured_latency": true,
+        "fog_count": 5,
+        "fog_utilization_std_integral_s": 2.3717142857142806
+      },
+      "action_counts": [
+        14,
+        0,
+        0,
+        0,
+        0,
+        103,
+        179
+      ],
+      "reward": -5.523505185710722
+    },
+    {
+      "namespace": {
+        "master": 20261103,
+        "split": "pilot_validation",
+        "outer_run": null,
+        "model_repeat": null,
+        "trace_id": 10000,
+        "workload": "moderate"
+      },
+      "trace_sha256": "1a84d15ee57c3c440aedf52ee2f95741c2792d8f6c767d86e3d2ce8f69d96fed",
+      "metrics": {
+        "task_count": 882,
+        "on_time": 565,
+        "late_success": 309,
+        "failed": 8,
+        "success_count": 874,
+        "violation": 0.35941043083900226,
+        "reliability": 0.9909297052154195,
+        "latency": {
+          "completed_tasks": 874,
+          "failed_tasks_excluded": 8,
+          "percentile_method": "nearest_rank: element ceil(p*n) of the sorted completed latencies; median averages the two middle values for even n",
+          "mean_s": 0.8253416012483384,
+          "median_s": 0.5721607763558101,
+          "p95_s": 2.1235597784181497
+        },
+        "throughput": {
+          "results_received": 874,
+          "results_per_s": 12.666666666666666,
+          "results_during_arrival_window": 860,
+          "results_after_arrival_window": 14
+        },
+        "costs": {
+          "zL": 0.09994312918758476,
+          "zE": 0.07215466892483532,
+          "zD": 0.35941043083900226,
+          "zB": 0.4486073047605963,
+          "zQ": 0.009070294784580499
+        },
+        "D": 0.2629454571759633,
+        "out_of_reference": [],
+        "diagnosis_required": false,
+        "latency_penalty_s_applied_to_failed_in_zL": 9.0,
+        "latency_penalty_is_evaluation_convention_not_measured_latency": true,
+        "fog_count": 5,
+        "fog_utilization_std_integral_s": 15.164254083371892
+      },
+      "action_counts": [
+        210,
+        0,
+        0,
+        3,
+        64,
+        288,
+        317
+      ],
+      "reward": -19.783716569932036
+    },
+    {
+      "namespace": {
+        "master": 20261103,
+        "split": "pilot_validation",
+        "outer_run": null,
+        "model_repeat": null,
+        "trace_id": 10001,
+        "workload": "moderate"
+      },
+      "trace_sha256": "e84931d0236bf405e84abe9887c649484d5c57fedc6845ae7d9c693272342996",
+      "metrics": {
+        "task_count": 961,
+        "on_time": 616,
+        "late_success": 338,
+        "failed": 7,
+        "success_count": 954,
+        "violation": 0.3590010405827263,
+        "reliability": 0.9927159209157128,
+        "latency": {
+          "completed_tasks": 954,
+          "failed_tasks_excluded": 7,
+          "percentile_method": "nearest_rank: element ceil(p*n) of the sorted completed latencies; median averages the two middle values for even n",
+          "mean_s": 0.7648308466987441,
+          "median_s": 0.5235556032601494,
+          "p95_s": 2.1299765681446257
+        },
+        "throughput": {
+          "results_received": 954,
+          "results_per_s": 13.826086956521738,
+          "results_during_arrival_window": 940,
+          "results_after_arrival_window": 14
+        },
+        "costs": {
+          "zL": 0.09164627445376367,
+          "zE": 0.0673683753721446,
+          "zD": 0.3590010405827263,
+          "zB": 0.4488848721004536,
+          "zQ": 0.007284079084287201
+        },
+        "D": 0.2620572345766336,
+        "out_of_reference": [],
+        "diagnosis_required": false,
+        "latency_penalty_s_applied_to_failed_in_zL": 9.0,
+        "latency_penalty_is_evaluation_convention_not_measured_latency": true,
+        "fog_count": 5,
+        "fog_utilization_std_integral_s": 15.173636680628277
+      },
+      "action_counts": [
+        248,
+        0,
+        0,
+        5,
+        84,
+        279,
+        345
+      ],
+      "reward": -19.483692831867486
+    },
+    {
+      "namespace": {
+        "master": 20261103,
+        "split": "pilot_validation",
+        "outer_run": null,
+        "model_repeat": null,
+        "trace_id": 10002,
+        "workload": "moderate"
+      },
+      "trace_sha256": "73767780972a8d4cbd6edd57e9a6fe22a3b21bedc3cc5ee022fca45d82fef890",
+      "metrics": {
+        "task_count": 893,
+        "on_time": 595,
+        "late_success": 288,
+        "failed": 10,
+        "success_count": 883,
+        "violation": 0.3337066069428891,
+        "reliability": 0.9888017917133258,
+        "latency": {
+          "completed_tasks": 883,
+          "failed_tasks_excluded": 10,
+          "percentile_method": "nearest_rank: element ceil(p*n) of the sorted completed latencies; median averages the two middle values for even n",
+          "mean_s": 0.7868100259019956,
+          "median_s": 0.5486387999999991,
+          "p95_s": 2.1451451645581194
+        },
+        "throughput": {
+          "results_received": 883,
+          "results_per_s": 12.797101449275363,
+          "results_during_arrival_window": 873,
+          "results_after_arrival_window": 10
+        },
+        "costs": {
+          "zL": 0.09764255976999653,
+          "zE": 0.0688848016839784,
+          "zD": 0.3337066069428891,
+          "zB": 0.42311004518265943,
+          "zQ": 0.011198208286674132
+        },
+        "D": 0.24689544147355905,
+        "out_of_reference": [],
+        "diagnosis_required": false,
+        "latency_penalty_s_applied_to_failed_in_zL": 9.0,
+        "latency_penalty_is_evaluation_convention_not_measured_latency": true,
+        "fog_count": 5,
+        "fog_utilization_std_integral_s": 14.302371277259628
+      },
+      "action_counts": [
+        214,
+        0,
+        0,
+        3,
+        72,
+        300,
+        304
+      ],
+      "reward": -18.690844437323953
+    },
+    {
+      "namespace": {
+        "master": 20261103,
+        "split": "pilot_validation",
+        "outer_run": null,
+        "model_repeat": null,
+        "trace_id": 10003,
+        "workload": "moderate"
+      },
+      "trace_sha256": "0a6f64a5a6ff71f756f42058896be14debc1644e1e1acd69261a39767083fced",
+      "metrics": {
+        "task_count": 893,
+        "on_time": 599,
+        "late_success": 286,
+        "failed": 8,
+        "success_count": 885,
+        "violation": 0.3292273236282195,
+        "reliability": 0.9910414333706606,
+        "latency": {
+          "completed_tasks": 885,
+          "failed_tasks_excluded": 8,
+          "percentile_method": "nearest_rank: element ceil(p*n) of the sorted completed latencies; median averages the two middle values for even n",
+          "mean_s": 0.7485736763265872,
+          "median_s": 0.5420000000000016,
+          "p95_s": 1.9588308000000008
+        },
+        "throughput": {
+          "results_received": 885,
+          "results_per_s": 12.826086956521738,
+          "results_during_arrival_window": 873,
+          "results_after_arrival_window": 12
+        },
+        "costs": {
+          "zL": 0.09138829209269997,
+          "zE": 0.06584121451065962,
+          "zD": 0.3292273236282195,
+          "zB": 0.4048492882038679,
+          "zQ": 0.008958566629339306
+        },
+        "D": 0.2387721584098492,
+        "out_of_reference": [],
+        "diagnosis_required": false,
+        "latency_penalty_s_applied_to_failed_in_zL": 9.0,
+        "latency_penalty_is_evaluation_convention_not_measured_latency": true,
+        "fog_count": 5,
+        "fog_utilization_std_integral_s": 13.685103667832543
+      },
+      "action_counts": [
+        195,
+        0,
+        0,
+        0,
+        70,
+        292,
+        336
+      ],
+      "reward": -18.005293701295702
+    },
+    {
+      "namespace": {
+        "master": 20261103,
+        "split": "pilot_validation",
+        "outer_run": null,
+        "model_repeat": null,
+        "trace_id": 10004,
+        "workload": "moderate"
+      },
+      "trace_sha256": "7e9f5ec03441f8edee0f21a2755286c80ddf484868d5666ae9f92d05cd4bcf1e",
+      "metrics": {
+        "task_count": 861,
+        "on_time": 606,
+        "late_success": 251,
+        "failed": 4,
+        "success_count": 857,
+        "violation": 0.2961672473867596,
+        "reliability": 0.9953542392566783,
+        "latency": {
+          "completed_tasks": 857,
+          "failed_tasks_excluded": 4,
+          "percentile_method": "nearest_rank: element ceil(p*n) of the sorted completed latencies; median averages the two middle values for even n",
+          "mean_s": 0.6824421088432118,
+          "median_s": 0.4939999999999998,
+          "p95_s": 1.8179377840865314
+        },
+        "throughput": {
+          "results_received": 857,
+          "results_per_s": 12.420289855072463,
+          "results_during_arrival_window": 846,
+          "results_after_arrival_window": 11
+        },
+        "costs": {
+          "zL": 0.0801203880860282,
+          "zE": 0.0621762355225043,
+          "zD": 0.2961672473867596,
+          "zB": 0.36911427437649313,
+          "zQ": 0.004645760743321719
+        },
+        "D": 0.21645652215483135,
+        "out_of_reference": [],
+        "diagnosis_required": false,
+        "latency_penalty_s_applied_to_failed_in_zL": 9.0,
+        "latency_penalty_is_evaluation_convention_not_measured_latency": true,
+        "fog_count": 5,
+        "fog_utilization_std_integral_s": 12.477154480201042
+      },
+      "action_counts": [
+        182,
+        0,
+        0,
+        0,
+        45,
+        296,
+        338
+      ],
+      "reward": -16.24447812230213
+    },
+    {
+      "namespace": {
+        "master": 20261103,
+        "split": "pilot_validation",
+        "outer_run": null,
+        "model_repeat": null,
+        "trace_id": 10000,
+        "workload": "heavy"
+      },
+      "trace_sha256": "b7a707d24e57e91bc8293174a3ec0b4c8e0e1775090ff8d8906c702c9e0d10fe",
+      "metrics": {
+        "task_count": 1746,
+        "on_time": 748,
+        "late_success": 945,
+        "failed": 53,
+        "success_count": 1693,
+        "violation": 0.5715922107674685,
+        "reliability": 0.9696449026345934,
+        "latency": {
+          "completed_tasks": 1693,
+          "failed_tasks_excluded": 53,
+          "percentile_method": "nearest_rank: element ceil(p*n) of the sorted completed latencies; median averages the two middle values for even n",
+          "mean_s": 1.0263512396858745,
+          "median_s": 0.5960000000000001,
+          "p95_s": 3.00349069311687
+        },
+        "throughput": {
+          "results_received": 1693,
+          "results_per_s": 24.536231884057973,
+          "results_during_arrival_window": 1659,
+          "results_after_arrival_window": 34
+        },
+        "costs": {
+          "zL": 0.1409324582403071,
+          "zE": 0.07056630852436521,
+          "zD": 0.5715922107674685,
+          "zB": 0.7437822747235777,
+          "zQ": 0.030355097365406643
+        },
+        "D": 0.42560374087253905,
+        "out_of_reference": [],
+        "diagnosis_required": false,
+        "latency_penalty_s_applied_to_failed_in_zL": 9.0,
+        "latency_penalty_is_evaluation_convention_not_measured_latency": true,
+        "fog_count": 5,
+        "fog_utilization_std_integral_s": 25.14204132863094
+      },
+      "action_counts": [
+        808,
+        0,
+        5,
+        50,
+        239,
+        269,
+        375
+      ],
+      "reward": -31.144566992422437
+    },
+    {
+      "namespace": {
+        "master": 20261103,
+        "split": "pilot_validation",
+        "outer_run": null,
+        "model_repeat": null,
+        "trace_id": 10001,
+        "workload": "heavy"
+      },
+      "trace_sha256": "39f53fde204b276aca23a0d1de02dcb28902049ccd9084eceb1f7e04aa24058a",
+      "metrics": {
+        "task_count": 1763,
+        "on_time": 670,
+        "late_success": 1022,
+        "failed": 71,
+        "success_count": 1692,
+        "violation": 0.6199659671015315,
+        "reliability": 0.9597277368122519,
+        "latency": {
+          "completed_tasks": 1692,
+          "failed_tasks_excluded": 71,
+          "percentile_method": "nearest_rank: element ceil(p*n) of the sorted completed latencies; median averages the two middle values for even n",
+          "mean_s": 1.089277116245342,
+          "median_s": 0.7419917229287591,
+          "p95_s": 3.0205201181252477
+        },
+        "throughput": {
+          "results_received": 1692,
+          "results_per_s": 24.52173913043478,
+          "results_during_arrival_window": 1649,
+          "results_after_arrival_window": 43
+        },
+        "costs": {
+          "zL": 0.15642887002502798,
+          "zE": 0.07385823204764293,
+          "zD": 0.6199659671015315,
+          "zB": 0.7656105421361136,
+          "zQ": 0.04027226318774816
+        },
+        "D": 0.44767492393362057,
+        "out_of_reference": [],
+        "diagnosis_required": false,
+        "latency_penalty_s_applied_to_failed_in_zL": 9.0,
+        "latency_penalty_is_evaluation_convention_not_measured_latency": true,
+        "fog_count": 5,
+        "fog_utilization_std_integral_s": 25.87990134502128
+      },
+      "action_counts": [
+        874,
+        0,
+        4,
+        49,
+        230,
+        254,
+        352
+      ],
+      "reward": -33.12271748996116
+    },
+    {
+      "namespace": {
+        "master": 20261103,
+        "split": "pilot_validation",
+        "outer_run": null,
+        "model_repeat": null,
+        "trace_id": 10002,
+        "workload": "heavy"
+      },
+      "trace_sha256": "811ee38efff9e594d15426de4de663782d0639f444d9b3c5eb90ed7fff13477e",
+      "metrics": {
+        "task_count": 1789,
+        "on_time": 664,
+        "late_success": 1055,
+        "failed": 70,
+        "success_count": 1719,
+        "violation": 0.6288429290106204,
+        "reliability": 0.9608719955282281,
+        "latency": {
+          "completed_tasks": 1719,
+          "failed_tasks_excluded": 70,
+          "percentile_method": "nearest_rank: element ceil(p*n) of the sorted completed latencies; median averages the two middle values for even n",
+          "mean_s": 1.1469290271067802,
+          "median_s": 0.7335139743854455,
+          "p95_s": 3.288591780228735
+        },
+        "throughput": {
+          "results_received": 1719,
+          "results_per_s": 24.91304347826087,
+          "results_during_arrival_window": 1680,
+          "results_after_arrival_window": 39
+        },
+        "costs": {
+          "zL": 0.16157822480569872,
+          "zE": 0.0754859124393527,
+          "zD": 0.6288429290106204,
+          "zB": 0.7568118786589683,
+          "zQ": 0.03912800447177194
+        },
+        "D": 0.4475587772545811,
+        "out_of_reference": [],
+        "diagnosis_required": false,
+        "latency_penalty_s_applied_to_failed_in_zL": 9.0,
+        "latency_penalty_is_evaluation_convention_not_measured_latency": true,
+        "fog_count": 5,
+        "fog_utilization_std_integral_s": 25.582480489084215
+      },
+      "action_counts": [
+        911,
+        0,
+        1,
+        46,
+        236,
+        235,
+        360
+      ],
+      "reward": -33.23693898772812
+    },
+    {
+      "namespace": {
+        "master": 20261103,
+        "split": "pilot_validation",
+        "outer_run": null,
+        "model_repeat": null,
+        "trace_id": 10003,
+        "workload": "heavy"
+      },
+      "trace_sha256": "eea2002233e6c1204e11d854c86f116a95d7184e4e1a1a50f15f94884ea563b9",
+      "metrics": {
+        "task_count": 1769,
+        "on_time": 635,
+        "late_success": 1044,
+        "failed": 90,
+        "success_count": 1679,
+        "violation": 0.64104013566987,
+        "reliability": 0.9491237987563595,
+        "latency": {
+          "completed_tasks": 1679,
+          "failed_tasks_excluded": 90,
+          "percentile_method": "nearest_rank: element ceil(p*n) of the sorted completed latencies; median averages the two middle values for even n",
+          "mean_s": 1.2248607996098781,
+          "median_s": 0.8576453905505019,
+          "p95_s": 3.75227691743428
+        },
+        "throughput": {
+          "results_received": 1679,
+          "results_per_s": 24.333333333333332,
+          "results_during_arrival_window": 1641,
+          "results_after_arrival_window": 38
+        },
+        "costs": {
+          "zL": 0.18004781625180485,
+          "zE": 0.07684165382803824,
+          "zD": 0.64104013566987,
+          "zB": 0.7568740477177212,
+          "zQ": 0.05087620124364047
+        },
+        "D": 0.45270321920686796,
+        "out_of_reference": [],
+        "diagnosis_required": false,
+        "latency_penalty_s_applied_to_failed_in_zL": 9.0,
+        "latency_penalty_is_evaluation_convention_not_measured_latency": true,
+        "fog_count": 5,
+        "fog_utilization_std_integral_s": 25.58458198719414
+      },
+      "action_counts": [
+        929,
+        0,
+        4,
+        58,
+        188,
+        237,
+        353
+      ],
+      "reward": -34.113597094221156
+    },
+    {
+      "namespace": {
+        "master": 20261103,
+        "split": "pilot_validation",
+        "outer_run": null,
+        "model_repeat": null,
+        "trace_id": 10004,
+        "workload": "heavy"
+      },
+      "trace_sha256": "b27beb9ee92bc10feab77fa9bbbe81fe962ca06a17d78357698f2a4be1f59666",
+      "metrics": {
+        "task_count": 1815,
+        "on_time": 691,
+        "late_success": 1056,
+        "failed": 68,
+        "success_count": 1747,
+        "violation": 0.6192837465564738,
+        "reliability": 0.962534435261708,
+        "latency": {
+          "completed_tasks": 1747,
+          "failed_tasks_excluded": 68,
+          "percentile_method": "nearest_rank: element ceil(p*n) of the sorted completed latencies; median averages the two middle values for even n",
+          "mean_s": 1.0826810758821857,
+          "median_s": 0.657159917822213,
+          "p95_s": 3.0466013957346334
+        },
+        "throughput": {
+          "results_received": 1747,
+          "results_per_s": 25.318840579710145,
+          "results_during_arrival_window": 1710,
+          "results_after_arrival_window": 37
+        },
+        "costs": {
+          "zL": 0.1532564333986029,
+          "zE": 0.07240212217005249,
+          "zD": 0.6192837465564738,
+          "zB": 0.7362004726247671,
+          "zQ": 0.03746556473829201
+        },
+        "D": 0.4371811443454303,
+        "out_of_reference": [],
+        "diagnosis_required": false,
+        "latency_penalty_s_applied_to_failed_in_zL": 9.0,
+        "latency_penalty_is_evaluation_convention_not_measured_latency": true,
+        "fog_count": 5,
+        "fog_utilization_std_integral_s": 24.885753987305627
+      },
+      "action_counts": [
+        949,
+        0,
+        6,
+        43,
+        219,
+        226,
+        372
+      ],
+      "reward": -32.37216678976348
+    },
+    {
+      "namespace": {
+        "master": 20261103,
+        "split": "pilot_validation",
+        "outer_run": null,
+        "model_repeat": null,
+        "trace_id": 10000,
+        "workload": "dynamic"
+      },
+      "trace_sha256": "ca0213591ed09e359e668125598a35b0ca8822e57eabd47ae68210b974705503",
+      "metrics": {
+        "task_count": 928,
+        "on_time": 440,
+        "late_success": 442,
+        "failed": 46,
+        "success_count": 882,
+        "violation": 0.5258620689655172,
+        "reliability": 0.9504310344827587,
+        "latency": {
+          "completed_tasks": 882,
+          "failed_tasks_excluded": 46,
+          "percentile_method": "nearest_rank: element ceil(p*n) of the sorted completed latencies; median averages the two middle values for even n",
+          "mean_s": 1.0454932508461736,
+          "median_s": 0.5900000000000034,
+          "p95_s": 3.407656772260715
+        },
+        "throughput": {
+          "results_received": 882,
+          "results_per_s": 12.782608695652174,
+          "results_during_arrival_window": 880,
+          "results_after_arrival_window": 2
+        },
+        "costs": {
+          "zL": 0.15997665795573815,
+          "zE": 0.07185868163059116,
+          "zD": 0.5258620689655172,
+          "zB": 0.3771355159880223,
+          "zQ": 0.04956896551724138
+        },
+        "D": 0.300657744472039,
+        "out_of_reference": [],
+        "diagnosis_required": false,
+        "latency_penalty_s_applied_to_failed_in_zL": 9.0,
+        "latency_penalty_is_evaluation_convention_not_measured_latency": true,
+        "fog_count": 5,
+        "fog_utilization_std_integral_s": 12.748296177116247
+      },
+      "action_counts": [
+        406,
+        0,
+        1,
+        20,
+        74,
+        192,
+        235
+      ],
+      "reward": -23.688037801142322
+    },
+    {
+      "namespace": {
+        "master": 20261103,
+        "split": "pilot_validation",
+        "outer_run": null,
+        "model_repeat": null,
+        "trace_id": 10001,
+        "workload": "dynamic"
+      },
+      "trace_sha256": "7d471eb8b8ad040a0a0215e3c55337a513efc1d38ede3ea47f7bd6ee2b5519e4",
+      "metrics": {
+        "task_count": 870,
+        "on_time": 426,
+        "late_success": 412,
+        "failed": 32,
+        "success_count": 838,
+        "violation": 0.5103448275862069,
+        "reliability": 0.9632183908045977,
+        "latency": {
+          "completed_tasks": 838,
+          "failed_tasks_excluded": 32,
+          "percentile_method": "nearest_rank: element ceil(p*n) of the sorted completed latencies; median averages the two middle values for even n",
+          "mean_s": 1.0264952250165162,
+          "median_s": 0.5849999999999991,
+          "p95_s": 3.311989902415803
+        },
+        "throughput": {
+          "results_received": 838,
+          "results_per_s": 12.144927536231885,
+          "results_during_arrival_window": 837,
+          "results_after_arrival_window": 1
+        },
+        "costs": {
+          "zL": 0.1466415068408481,
+          "zE": 0.0728404023226145,
+          "zD": 0.5103448275862069,
+          "zB": 0.3762347604635494,
+          "zQ": 0.0367816091954023
+        },
+        "D": 0.29331443215059766,
+        "out_of_reference": [],
+        "diagnosis_required": false,
+        "latency_penalty_s_applied_to_failed_in_zL": 9.0,
+        "latency_penalty_is_evaluation_convention_not_measured_latency": true,
+        "fog_count": 5,
+        "fog_utilization_std_integral_s": 12.717847975548514
+      },
+      "action_counts": [
+        368,
+        0,
+        1,
+        18,
+        85,
+        164,
+        234
+      ],
+      "reward": -22.856862128172477
+    },
+    {
+      "namespace": {
+        "master": 20261103,
+        "split": "pilot_validation",
+        "outer_run": null,
+        "model_repeat": null,
+        "trace_id": 10002,
+        "workload": "dynamic"
+      },
+      "trace_sha256": "a602d52e1a04ed14e1e6ad6416c263fcbd07f8ac2cb3e1fe7dd370eb300ec9a1",
+      "metrics": {
+        "task_count": 935,
+        "on_time": 460,
+        "late_success": 433,
+        "failed": 42,
+        "success_count": 893,
+        "violation": 0.5080213903743316,
+        "reliability": 0.9550802139037433,
+        "latency": {
+          "completed_tasks": 893,
+          "failed_tasks_excluded": 42,
+          "percentile_method": "nearest_rank: element ceil(p*n) of the sorted completed latencies; median averages the two middle values for even n",
+          "mean_s": 0.9899117564178007,
+          "median_s": 0.5660000000000025,
+          "p95_s": 3.279320410321226
+        },
+        "throughput": {
+          "results_received": 893,
+          "results_per_s": 12.942028985507246,
+          "results_during_arrival_window": 888,
+          "results_after_arrival_window": 5
+        },
+        "costs": {
+          "zL": 0.14996924521462818,
+          "zE": 0.06986800674308323,
+          "zD": 0.5080213903743316,
+          "zB": 0.36668476681313467,
+          "zQ": 0.044919786096256686
+        },
+        "D": 0.29049390745766157,
+        "out_of_reference": [],
+        "diagnosis_required": false,
+        "latency_penalty_s_applied_to_failed_in_zL": 9.0,
+        "latency_penalty_is_evaluation_convention_not_measured_latency": true,
+        "fog_count": 5,
+        "fog_utilization_std_integral_s": 12.395029936981885
+      },
+      "action_counts": [
+        374,
+        0,
+        2,
+        26,
+        91,
+        174,
+        268
+      ],
+      "reward": -22.7892639048288
+    },
+    {
+      "namespace": {
+        "master": 20261103,
+        "split": "pilot_validation",
+        "outer_run": null,
+        "model_repeat": null,
+        "trace_id": 10003,
+        "workload": "dynamic"
+      },
+      "trace_sha256": "4de67e748aee91a832e45838c82f62a8672fea756731ec0a2b62917e6e2873b6",
+      "metrics": {
+        "task_count": 909,
+        "on_time": 421,
+        "late_success": 441,
+        "failed": 47,
+        "success_count": 862,
+        "violation": 0.5368536853685368,
+        "reliability": 0.9482948294829483,
+        "latency": {
+          "completed_tasks": 862,
+          "failed_tasks_excluded": 47,
+          "percentile_method": "nearest_rank: element ceil(p*n) of the sorted completed latencies; median averages the two middle values for even n",
+          "mean_s": 1.0568267907606843,
+          "median_s": 0.5987369820729747,
+          "p95_s": 3.381602602277546
+        },
+        "throughput": {
+          "results_received": 862,
+          "results_per_s": 12.492753623188406,
+          "results_during_arrival_window": 861,
+          "results_after_arrival_window": 1
+        },
+        "costs": {
+          "zL": 0.1630588795545422,
+          "zE": 0.07302251378266682,
+          "zD": 0.5368536853685368,
+          "zB": 0.3746465609975365,
+          "zQ": 0.0517051705170517
+        },
+        "D": 0.3043569731548731,
+        "out_of_reference": [],
+        "diagnosis_required": false,
+        "latency_penalty_s_applied_to_failed_in_zL": 9.0,
+        "latency_penalty_is_evaluation_convention_not_measured_latency": true,
+        "fog_count": 5,
+        "fog_utilization_std_integral_s": 12.66416213498792
+      },
+      "action_counts": [
+        378,
+        0,
+        4,
+        21,
+        80,
+        177,
+        249
+      ],
+      "reward": -23.98573620440657
+    },
+    {
+      "namespace": {
+        "master": 20261103,
+        "split": "pilot_validation",
+        "outer_run": null,
+        "model_repeat": null,
+        "trace_id": 10004,
+        "workload": "dynamic"
+      },
+      "trace_sha256": "e9f1a30b2df21c1a026d30fd1c96adb6e778a3f38f179625072e348812575a49",
+      "metrics": {
+        "task_count": 912,
+        "on_time": 437,
+        "late_success": 433,
+        "failed": 42,
+        "success_count": 870,
+        "violation": 0.5208333333333334,
+        "reliability": 0.9539473684210527,
+        "latency": {
+          "completed_tasks": 870,
+          "failed_tasks_excluded": 42,
+          "percentile_method": "nearest_rank: element ceil(p*n) of the sorted completed latencies; median averages the two middle values for even n",
+          "mean_s": 1.0435182750364616,
+          "median_s": 0.597999999999999,
+          "p95_s": 3.3119999999999976
+        },
+        "throughput": {
+          "results_received": 870,
+          "results_per_s": 12.608695652173912,
+          "results_during_arrival_window": 868,
+          "results_after_arrival_window": 2
+        },
+        "costs": {
+          "zL": 0.15665946628675945,
+          "zE": 0.07042987374955396,
+          "zD": 0.5208333333333334,
+          "zB": 0.360627428257608,
+          "zQ": 0.046052631578947366
+        },
+        "D": 0.2942593765682868,
+        "out_of_reference": [],
+        "diagnosis_required": false,
+        "latency_penalty_s_applied_to_failed_in_zL": 9.0,
+        "latency_penalty_is_evaluation_convention_not_measured_latency": true,
+        "fog_count": 5,
+        "fog_utilization_std_integral_s": 12.190273973469365
+      },
+      "action_counts": [
+        397,
+        0,
+        0,
+        15,
+        79,
+        180,
+        241
+      ],
+      "reward": -23.092054664123975
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "status": "complete",
+  "job": {
+    "id": "r100_m1_vertex0",
+    "outer": 100,
+    "repeat": 1,
+    "weight_id": "vertex0",
+    "weights": [
+      0.92,
+      0.02,
+      0.02,
+      0.02,
+      0.02
+    ]
+  },
+  "budget": 10240,
+  "prefix_pass": true
+}
