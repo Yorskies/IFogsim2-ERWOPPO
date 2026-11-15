@@ -1,0 +1,22 @@
+{
+  "status": "complete",
+  "role": "baseline",
+  "outer": 18,
+  "method": "equal",
+  "weights": [
+    0.2,
+    0.2,
+    0.2,
+    0.2,
+    0.2
+  ],
+  "model_seed": 100018,
+  "training_decisions": 19637248,
+  "checkpoint_F": 102400,
+  "checkpoint_B": 19637248,
+  "protocols": [
+    "A",
+    "B"
+  ],
+  "test_accessed": false
+}

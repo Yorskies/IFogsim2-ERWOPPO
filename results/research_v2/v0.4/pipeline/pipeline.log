@@ -22,3 +22,150 @@
 [2026-11-08T02:40:47+00:00] protocol lock v0.4 created and verified: results/research_v2/v0.4/protocol_lock/protocol_lock.json
 [2026-11-08T02:40:47+00:00]   -> research_v2.analysis.verify p10 --protocol-version 0.4 --output /workspace/RISET S3 Rozi/IFogsim2-ERWOPPO/results/research_v2/v0.4/P10_verification.json --lock /workspace/RISET S3 Rozi/IFogsim2-ERWOPPO/results/research_v2/v0.4/protocol_lock/protocol_lock.json  (log: results/research_v2/v0.4/pipeline/p10_verification.log)
 [2026-11-08T02:42:08+00:00] preparation complete; lock verified. Re-run with --go to start P11 training.
+[2026-11-08T02:46:05+00:00] === p11_v04 run (go=True, open_test=True) pid=1252024 ===
+[2026-11-08T02:46:38+00:00] P11 training: 10 of 10 shards to run (2 outer runs each)
+[2026-11-08T02:46:38+00:00] progress: 0/120 jobs complete, free disk 991 GiB
+[2026-11-08T03:01:38+00:00] progress: 0/120 jobs complete, free disk 988 GiB
+[2026-11-08T03:16:38+00:00] progress: 0/120 jobs complete, free disk 984 GiB
+[2026-11-08T03:31:38+00:00] progress: 0/120 jobs complete, free disk 980 GiB
+[2026-11-08T03:46:38+00:00] progress: 0/120 jobs complete, free disk 976 GiB
+[2026-11-08T04:01:38+00:00] progress: 0/120 jobs complete, free disk 972 GiB
+[2026-11-08T04:16:38+00:00] progress: 0/120 jobs complete, free disk 969 GiB
+[2026-11-08T04:31:38+00:00] progress: 0/120 jobs complete, free disk 965 GiB
+[2026-11-08T04:46:38+00:00] progress: 0/120 jobs complete, free disk 961 GiB
+[2026-11-08T05:01:38+00:00] progress: 0/120 jobs complete, free disk 957 GiB
+[2026-11-08T05:16:38+00:00] progress: 0/120 jobs complete, free disk 954 GiB
+[2026-11-08T05:31:38+00:00] progress: 0/120 jobs complete, free disk 950 GiB
+[2026-11-08T05:46:38+00:00] progress: 0/120 jobs complete, free disk 946 GiB
+[2026-11-08T06:01:38+00:00] progress: 0/120 jobs complete, free disk 942 GiB
+[2026-11-08T06:16:38+00:00] progress: 0/120 jobs complete, free disk 938 GiB
+[2026-11-08T06:31:38+00:00] progress: 0/120 jobs complete, free disk 935 GiB
+[2026-11-08T06:46:38+00:00] progress: 10/120 jobs complete, free disk 930 GiB
+[2026-11-08T07:01:38+00:00] progress: 10/120 jobs complete, free disk 926 GiB
+[2026-11-08T07:16:38+00:00] progress: 10/120 jobs complete, free disk 922 GiB
+[2026-11-08T07:31:38+00:00] progress: 10/120 jobs complete, free disk 918 GiB
+[2026-11-08T07:46:38+00:00] progress: 10/120 jobs complete, free disk 915 GiB
+[2026-11-08T08:01:38+00:00] progress: 10/120 jobs complete, free disk 911 GiB
+[2026-11-08T08:16:38+00:00] progress: 10/120 jobs complete, free disk 907 GiB
+[2026-11-08T08:31:38+00:00] progress: 10/120 jobs complete, free disk 903 GiB
+[2026-11-08T08:46:38+00:00] progress: 10/120 jobs complete, free disk 899 GiB
+[2026-11-08T09:01:38+00:00] progress: 10/120 jobs complete, free disk 895 GiB
+[2026-11-08T09:16:38+00:00] progress: 10/120 jobs complete, free disk 892 GiB
+[2026-11-08T09:31:38+00:00] progress: 10/120 jobs complete, free disk 888 GiB
+[2026-11-08T09:46:38+00:00] progress: 10/120 jobs complete, free disk 884 GiB
+[2026-11-08T10:01:38+00:00] progress: 10/120 jobs complete, free disk 880 GiB
+[2026-11-08T10:16:38+00:00] progress: 10/120 jobs complete, free disk 876 GiB
+[2026-11-08T10:31:38+00:00] progress: 10/120 jobs complete, free disk 873 GiB
+[2026-11-08T10:46:38+00:00] progress: 40/120 jobs complete, free disk 869 GiB
+[2026-11-08T11:01:38+00:00] progress: 40/120 jobs complete, free disk 865 GiB
+[2026-11-08T11:16:38+00:00] progress: 40/120 jobs complete, free disk 862 GiB
+[2026-11-08T11:31:38+00:00] progress: 40/120 jobs complete, free disk 858 GiB
+[2026-11-08T11:46:38+00:00] progress: 40/120 jobs complete, free disk 854 GiB
+[2026-11-08T12:01:38+00:00] progress: 40/120 jobs complete, free disk 851 GiB
+[2026-11-08T12:16:38+00:00] progress: 40/120 jobs complete, free disk 847 GiB
+[2026-11-08T12:31:38+00:00] progress: 40/120 jobs complete, free disk 843 GiB
+[2026-11-08T12:46:38+00:00] progress: 40/120 jobs complete, free disk 840 GiB
+[2026-11-08T13:01:38+00:00] progress: 40/120 jobs complete, free disk 836 GiB
+[2026-11-08T13:16:38+00:00] progress: 40/120 jobs complete, free disk 832 GiB
+[2026-11-08T13:31:38+00:00] progress: 40/120 jobs complete, free disk 829 GiB
+[2026-11-08T13:46:39+00:00] progress: 40/120 jobs complete, free disk 825 GiB
+[2026-11-08T14:01:39+00:00] progress: 40/120 jobs complete, free disk 821 GiB
+[2026-11-08T14:16:39+00:00] progress: 40/120 jobs complete, free disk 818 GiB
+[2026-11-08T14:31:39+00:00] progress: 40/120 jobs complete, free disk 814 GiB
+[2026-11-08T14:46:39+00:00] progress: 40/120 jobs complete, free disk 810 GiB
+[2026-11-08T15:01:39+00:00] progress: 50/120 jobs complete, free disk 807 GiB
+[2026-11-08T15:16:39+00:00] progress: 50/120 jobs complete, free disk 803 GiB
+[2026-11-08T15:31:39+00:00] progress: 50/120 jobs complete, free disk 799 GiB
+[2026-11-08T15:46:39+00:00] progress: 50/120 jobs complete, free disk 795 GiB
+[2026-11-08T16:01:39+00:00] progress: 50/120 jobs complete, free disk 791 GiB
+[2026-11-08T16:16:39+00:00] progress: 50/120 jobs complete, free disk 787 GiB
+[2026-11-08T16:31:39+00:00] progress: 50/120 jobs complete, free disk 783 GiB
+[2026-11-08T16:46:39+00:00] progress: 50/120 jobs complete, free disk 779 GiB
+[2026-11-08T17:01:39+00:00] progress: 50/120 jobs complete, free disk 775 GiB
+[2026-11-08T17:16:39+00:00] progress: 50/120 jobs complete, free disk 771 GiB
+[2026-11-08T17:31:39+00:00] progress: 50/120 jobs complete, free disk 767 GiB
+[2026-11-08T17:46:39+00:00] progress: 50/120 jobs complete, free disk 763 GiB
+[2026-11-08T18:01:39+00:00] progress: 50/120 jobs complete, free disk 760 GiB
+[2026-11-08T18:16:39+00:00] progress: 50/120 jobs complete, free disk 756 GiB
+[2026-11-08T18:31:39+00:00] progress: 50/120 jobs complete, free disk 752 GiB
+[2026-11-08T18:46:39+00:00] progress: 50/120 jobs complete, free disk 748 GiB
+[2026-11-08T19:01:39+00:00] progress: 60/120 jobs complete, free disk 744 GiB
+[2026-11-08T19:16:39+00:00] progress: 60/120 jobs complete, free disk 740 GiB
+[2026-11-08T19:31:39+00:00] progress: 60/120 jobs complete, free disk 736 GiB
+[2026-11-08T19:46:39+00:00] progress: 60/120 jobs complete, free disk 733 GiB
+[2026-11-08T20:01:39+00:00] progress: 60/120 jobs complete, free disk 729 GiB
+[2026-11-08T20:16:39+00:00] progress: 60/120 jobs complete, free disk 725 GiB
+[2026-11-08T20:31:39+00:00] progress: 60/120 jobs complete, free disk 721 GiB
+[2026-11-08T20:46:39+00:00] progress: 60/120 jobs complete, free disk 717 GiB
+[2026-11-08T21:01:39+00:00] progress: 60/120 jobs complete, free disk 713 GiB
+[2026-11-08T21:16:39+00:00] progress: 60/120 jobs complete, free disk 710 GiB
+[2026-11-08T21:31:39+00:00] progress: 60/120 jobs complete, free disk 706 GiB
+[2026-11-08T21:46:39+00:00] progress: 60/120 jobs complete, free disk 702 GiB
+[2026-11-08T22:01:39+00:00] progress: 60/120 jobs complete, free disk 698 GiB
+[2026-11-08T22:16:39+00:00] progress: 60/120 jobs complete, free disk 695 GiB
+[2026-11-08T22:31:39+00:00] progress: 60/120 jobs complete, free disk 691 GiB
+[2026-11-08T22:46:39+00:00] progress: 60/120 jobs complete, free disk 687 GiB
+[2026-11-08T23:01:39+00:00] progress: 70/120 jobs complete, free disk 683 GiB
+[2026-11-08T23:16:39+00:00] progress: 70/120 jobs complete, free disk 680 GiB
+[2026-11-08T23:31:39+00:00] progress: 70/120 jobs complete, free disk 676 GiB
+[2026-11-08T23:46:39+00:00] progress: 70/120 jobs complete, free disk 672 GiB
+[2026-11-09T00:01:39+00:00] progress: 70/120 jobs complete, free disk 668 GiB
+[2026-11-09T00:16:39+00:00] progress: 70/120 jobs complete, free disk 664 GiB
+[2026-11-09T00:31:39+00:00] progress: 70/120 jobs complete, free disk 661 GiB
+[2026-11-09T00:46:39+00:00] progress: 70/120 jobs complete, free disk 657 GiB
+[2026-11-09T01:01:39+00:00] progress: 70/120 jobs complete, free disk 653 GiB
+[2026-11-09T01:16:39+00:00] progress: 70/120 jobs complete, free disk 649 GiB
+[2026-11-09T01:31:39+00:00] progress: 70/120 jobs complete, free disk 645 GiB
+[2026-11-09T01:46:39+00:00] progress: 70/120 jobs complete, free disk 642 GiB
+[2026-11-09T02:01:39+00:00] progress: 70/120 jobs complete, free disk 638 GiB
+[2026-11-09T02:16:39+00:00] progress: 70/120 jobs complete, free disk 634 GiB
+[2026-11-09T02:31:39+00:00] progress: 70/120 jobs complete, free disk 630 GiB
+[2026-11-09T02:46:39+00:00] progress: 70/120 jobs complete, free disk 626 GiB
+[2026-11-09T03:01:39+00:00] progress: 100/120 jobs complete, free disk 623 GiB
+[2026-11-09T03:16:39+00:00] progress: 100/120 jobs complete, free disk 619 GiB
+[2026-11-09T03:31:39+00:00] progress: 100/120 jobs complete, free disk 616 GiB
+[2026-11-09T03:46:39+00:00] progress: 100/120 jobs complete, free disk 612 GiB
+[2026-11-09T04:01:39+00:00] progress: 100/120 jobs complete, free disk 608 GiB
+[2026-11-09T04:16:40+00:00] progress: 100/120 jobs complete, free disk 605 GiB
+[2026-11-09T04:31:40+00:00] progress: 100/120 jobs complete, free disk 601 GiB
+[2026-11-09T04:46:40+00:00] progress: 100/120 jobs complete, free disk 597 GiB
+[2026-11-09T05:01:40+00:00] progress: 100/120 jobs complete, free disk 594 GiB
+[2026-11-09T05:16:40+00:00] progress: 100/120 jobs complete, free disk 590 GiB
+[2026-11-09T05:31:40+00:00] progress: 100/120 jobs complete, free disk 586 GiB
+[2026-11-09T05:46:40+00:00] progress: 100/120 jobs complete, free disk 583 GiB
+[2026-11-09T06:01:40+00:00] progress: 100/120 jobs complete, free disk 579 GiB
+[2026-11-09T06:16:40+00:00] progress: 100/120 jobs complete, free disk 576 GiB
+[2026-11-09T06:31:40+00:00] progress: 100/120 jobs complete, free disk 572 GiB
+[2026-11-09T06:46:40+00:00] progress: 100/120 jobs complete, free disk 568 GiB
+[2026-11-09T07:01:40+00:00] progress: 104/120 jobs complete, free disk 565 GiB
+[2026-11-09T07:16:40+00:00] progress: 110/120 jobs complete, free disk 561 GiB
+[2026-11-09T07:31:40+00:00] progress: 110/120 jobs complete, free disk 557 GiB
+[2026-11-09T07:46:40+00:00] progress: 110/120 jobs complete, free disk 553 GiB
+[2026-11-09T08:01:40+00:00] progress: 110/120 jobs complete, free disk 549 GiB
+[2026-11-09T08:16:40+00:00] progress: 110/120 jobs complete, free disk 545 GiB
+[2026-11-09T08:31:40+00:00] progress: 110/120 jobs complete, free disk 541 GiB
+[2026-11-09T08:46:40+00:00] progress: 110/120 jobs complete, free disk 537 GiB
+[2026-11-09T09:01:40+00:00] progress: 110/120 jobs complete, free disk 534 GiB
+[2026-11-09T09:16:40+00:00] progress: 110/120 jobs complete, free disk 530 GiB
+[2026-11-09T09:31:40+00:00] progress: 110/120 jobs complete, free disk 526 GiB
+[2026-11-09T09:46:40+00:00] progress: 110/120 jobs complete, free disk 522 GiB
+[2026-11-09T10:01:40+00:00] progress: 110/120 jobs complete, free disk 518 GiB
+[2026-11-09T10:16:40+00:00] progress: 110/120 jobs complete, free disk 514 GiB
+[2026-11-09T10:31:40+00:00] progress: 110/120 jobs complete, free disk 510 GiB
+[2026-11-09T10:46:40+00:00] progress: 110/120 jobs complete, free disk 506 GiB
+[2026-11-09T11:01:40+00:00] progress: 110/120 jobs complete, free disk 502 GiB
+[2026-11-09T11:06:30+00:00] shard 07 exited 0 (complete)
+[2026-11-09T11:08:10+00:00] shard 02 exited 0 (complete)
+[2026-11-09T11:09:50+00:00] shard 00 exited 0 (complete)
+[2026-11-09T11:12:00+00:00] shard 08 exited 0 (complete)
+[2026-11-09T11:12:20+00:00] shard 01 exited 0 (complete)
+[2026-11-09T11:13:40+00:00] shard 03 exited 0 (complete)
+[2026-11-09T11:14:00+00:00] shard 09 exited 0 (complete)
+[2026-11-09T11:15:00+00:00] shard 04 exited 0 (complete)
+[2026-11-09T11:15:00+00:00] shard 06 exited 0 (complete)
+[2026-11-09T11:15:40+00:00] shard 05 exited 0 (complete)
+[2026-11-09T11:15:50+00:00] P11 training complete for all 20 outer runs
+[2026-11-09T11:15:50+00:00] opening the TEST split (lock verified first) and evaluating all models + heuristics
+[2026-11-09T11:15:50+00:00]   -> research_v2.p11_eval run --output-dir /workspace/RISET S3 Rozi/IFogsim2-ERWOPPO/results/research_v2/v0.4/p11/test_evaluation --split test --lock /workspace/RISET S3 Rozi/IFogsim2-ERWOPPO/results/research_v2/v0.4/protocol_lock/protocol_lock.json --workers 12 --studies /workspace/RISET S3 Rozi/IFogsim2-ERWOPPO/results/research_v2/v0.4/p11/shard_00 /workspace/RISET S3 Rozi/IFogsim2-ERWOPPO/results/research_v2/v0.4/p11/shard_01 /workspace/RISET S3 Rozi/IFogsim2-ERWOPPO/results/research_v2/v0.4/p11/shard_02 /workspace/RISET S3 Rozi/IFogsim2-ERWOPPO/results/research_v2/v0.4/p11/shard_03 /workspace/RISET S3 Rozi/IFogsim2-ERWOPPO/results/research_v2/v0.4/p11/shard_04 /workspace/RISET S3 Rozi/IFogsim2-ERWOPPO/results/research_v2/v0.4/p11/shard_05 /workspace/RISET S3 Rozi/IFogsim2-ERWOPPO/results/research_v2/v0.4/p11/shard_06 /workspace/RISET S3 Rozi/IFogsim2-ERWOPPO/results/research_v2/v0.4/p11/shard_07 /workspace/RISET S3 Rozi/IFogsim2-ERWOPPO/results/research_v2/v0.4/p11/shard_08 /workspace/RISET S3 Rozi/IFogsim2-ERWOPPO/results/research_v2/v0.4/p11/shard_09  (log: results/research_v2/v0.4/pipeline/test_evaluation.log)
+[2026-11-09T11:59:31+00:00] analysis written: results/research_v2/v0.4/p11/test_evaluation/report.md
+[2026-11-09T11:59:31+00:00] === all stages complete ===

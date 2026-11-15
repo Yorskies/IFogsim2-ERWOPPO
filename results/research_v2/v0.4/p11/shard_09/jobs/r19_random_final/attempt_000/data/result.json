@@ -1,0 +1,21 @@
+{
+  "status": "complete",
+  "role": "final",
+  "outer": 19,
+  "weights": [
+    0.035149637521224665,
+    0.27297023043314184,
+    0.19091683563010828,
+    0.47012544894983244,
+    0.030837847465692653
+  ],
+  "model_seed": 100019,
+  "training_decisions": 102400,
+  "checkpoint_F": 102400,
+  "protocols": [
+    "A",
+    "B"
+  ],
+  "search_reused": "r19_random_search",
+  "test_accessed": false
+}

@@ -1,0 +1,30 @@
+{
+  "phase": "P09",
+  "fixture_only": false,
+  "outers": [
+    10,
+    11
+  ],
+  "learner_version": "0.3",
+  "K": 102400,
+  "Ntrace": 19690,
+  "S": 16384000,
+  "V": 3150400,
+  "F": 102400,
+  "C": 19636800,
+  "B": 19637248,
+  "rounding_overhead": 448,
+  "physical_total_per_outer": 78548096,
+  "physical_total_all_outers": 157096192,
+  "jobs_per_outer": 6,
+  "artifacts": [
+    "per-job attempts and logs",
+    "candidate search archive",
+    "final checkpoints",
+    "baseline checkpoints F/51200/B",
+    "validation trace manifest",
+    "checksums and profiles"
+  ],
+  "test_accessed": false,
+  "warning": "Dry-run only: nothing is executed or prepared; test split is never opened by P09."
+}

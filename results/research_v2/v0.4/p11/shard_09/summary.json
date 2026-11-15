@@ -1,0 +1,385 @@
+{
+  "status": "complete",
+  "jobs": [
+    {
+      "job": {
+        "id": "r18_nsga2_search",
+        "outer": 18,
+        "role": "search",
+        "method": "nsga2",
+        "protocols": [
+          "A",
+          "B"
+        ]
+      },
+      "attempt": "jobs/r18_nsga2_search/attempt_000",
+      "training_decisions": 16384000,
+      "validation_decisions": 3150400,
+      "profile": {
+        "wall_s": 14288.72971854359,
+        "cpu_user_s": 14848.320913,
+        "cpu_system_s": 621.226195,
+        "max_rss_kib": 840356,
+        "startup_wall_s": 25.920501759275794,
+        "rpc_roundtrip_wall_s_including_simulation": 4442.575915909372,
+        "inference_wall_s": 341.96418399643153,
+        "gradient_updates": 319985,
+        "decision_log_raw_bytes": 83887226335,
+        "decision_log_gzip_bytes": 6039142389,
+        "training_interactions": 16384000,
+        "candidate_validation_interactions": 3150400,
+        "environment_instances": 320,
+        "note": "CPU includes exited JVM children; RSS is max of worker/JVM, not summed concurrent memory."
+      }
+    },
+    {
+      "job": {
+        "id": "r18_random_search",
+        "outer": 18,
+        "role": "search",
+        "method": "random",
+        "protocols": [
+          "A",
+          "B"
+        ]
+      },
+      "attempt": "jobs/r18_random_search/attempt_000",
+      "training_decisions": 16384000,
+      "validation_decisions": 3150400,
+      "profile": {
+        "wall_s": 14239.762484997511,
+        "cpu_user_s": 14789.385522999999,
+        "cpu_system_s": 627.456345,
+        "max_rss_kib": 838936,
+        "startup_wall_s": 25.167612520977855,
+        "rpc_roundtrip_wall_s_including_simulation": 4451.23024856858,
+        "inference_wall_s": 341.95847321487963,
+        "gradient_updates": 319992,
+        "decision_log_raw_bytes": 83980418048,
+        "decision_log_gzip_bytes": 6117977707,
+        "training_interactions": 16384000,
+        "candidate_validation_interactions": 3150400,
+        "environment_instances": 320,
+        "note": "CPU includes exited JVM children; RSS is max of worker/JVM, not summed concurrent memory."
+      }
+    },
+    {
+      "job": {
+        "id": "r18_nsga2_final",
+        "outer": 18,
+        "role": "final",
+        "method": "nsga2",
+        "protocols": [
+          "A",
+          "B"
+        ],
+        "depends_on": "r18_nsga2_search"
+      },
+      "attempt": "jobs/r18_nsga2_final/attempt_000",
+      "training_decisions": 102400,
+      "validation_decisions": 0,
+      "profile": {
+        "wall_s": 80.22702861018479,
+        "cpu_user_s": 82.754049,
+        "cpu_system_s": 3.245006,
+        "max_rss_kib": 780916,
+        "startup_wall_s": 0.0771765410900116,
+        "rpc_roundtrip_wall_s_including_simulation": 23.17178380396217,
+        "inference_wall_s": 0.0,
+        "gradient_updates": 1999,
+        "decision_log_raw_bytes": 531929826,
+        "decision_log_gzip_bytes": 43091565,
+        "training_interactions": 102400,
+        "candidate_validation_interactions": 0,
+        "environment_instances": 1,
+        "note": "CPU includes exited JVM children; RSS is max of worker/JVM, not summed concurrent memory."
+      }
+    },
+    {
+      "job": {
+        "id": "r18_random_final",
+        "outer": 18,
+        "role": "final",
+        "method": "random",
+        "protocols": [
+          "A",
+          "B"
+        ],
+        "depends_on": "r18_random_search"
+      },
+      "attempt": "jobs/r18_random_final/attempt_000",
+      "training_decisions": 102400,
+      "validation_decisions": 0,
+      "profile": {
+        "wall_s": 80.52526410575956,
+        "cpu_user_s": 82.85171500000001,
+        "cpu_system_s": 3.3510590000000002,
+        "max_rss_kib": 777424,
+        "startup_wall_s": 0.07782030198723078,
+        "rpc_roundtrip_wall_s_including_simulation": 23.267427035607398,
+        "inference_wall_s": 0.0,
+        "gradient_updates": 1999,
+        "decision_log_raw_bytes": 531929826,
+        "decision_log_gzip_bytes": 43091565,
+        "training_interactions": 102400,
+        "candidate_validation_interactions": 0,
+        "environment_instances": 1,
+        "note": "CPU includes exited JVM children; RSS is max of worker/JVM, not summed concurrent memory."
+      }
+    },
+    {
+      "job": {
+        "id": "r18_equal",
+        "outer": 18,
+        "role": "baseline",
+        "method": "equal",
+        "protocols": [
+          "A",
+          "B"
+        ]
+      },
+      "attempt": "jobs/r18_equal/attempt_000",
+      "training_decisions": 19637248,
+      "validation_decisions": 0,
+      "profile": {
+        "wall_s": 14770.378102036193,
+        "cpu_user_s": 14567.766003,
+        "cpu_system_s": 492.44507899999996,
+        "max_rss_kib": 787124,
+        "startup_wall_s": 0.08437902480363846,
+        "rpc_roundtrip_wall_s_including_simulation": 4243.095189386047,
+        "inference_wall_s": 0.0,
+        "gradient_updates": 374653,
+        "decision_log_raw_bytes": 99381353445,
+        "decision_log_gzip_bytes": 6300877042,
+        "training_interactions": 19637248,
+        "candidate_validation_interactions": 0,
+        "environment_instances": 1,
+        "note": "CPU includes exited JVM children; RSS is max of worker/JVM, not summed concurrent memory."
+      }
+    },
+    {
+      "job": {
+        "id": "r18_manual",
+        "outer": 18,
+        "role": "baseline",
+        "method": "manual",
+        "protocols": [
+          "A",
+          "B"
+        ]
+      },
+      "attempt": "jobs/r18_manual/attempt_000",
+      "training_decisions": 19637248,
+      "validation_decisions": 0,
+      "profile": {
+        "wall_s": 14888.98118107114,
+        "cpu_user_s": 14681.214837,
+        "cpu_system_s": 501.811975,
+        "max_rss_kib": 6745460,
+        "startup_wall_s": 0.07712890300899744,
+        "rpc_roundtrip_wall_s_including_simulation": 4293.169607969932,
+        "inference_wall_s": 0.0,
+        "gradient_updates": 373013,
+        "decision_log_raw_bytes": 99984639152,
+        "decision_log_gzip_bytes": 6809236824,
+        "training_interactions": 19637248,
+        "candidate_validation_interactions": 0,
+        "environment_instances": 1,
+        "note": "CPU includes exited JVM children; RSS is max of worker/JVM, not summed concurrent memory."
+      }
+    },
+    {
+      "job": {
+        "id": "r19_nsga2_search",
+        "outer": 19,
+        "role": "search",
+        "method": "nsga2",
+        "protocols": [
+          "A",
+          "B"
+        ]
+      },
+      "attempt": "jobs/r19_nsga2_search/attempt_000",
+      "training_decisions": 16384000,
+      "validation_decisions": 3150400,
+      "profile": {
+        "wall_s": 14185.441123690456,
+        "cpu_user_s": 14818.962766,
+        "cpu_system_s": 606.065784,
+        "max_rss_kib": 7242408,
+        "startup_wall_s": 25.242721392773092,
+        "rpc_roundtrip_wall_s_including_simulation": 4406.817539138719,
+        "inference_wall_s": 346.18272607959807,
+        "gradient_updates": 319997,
+        "decision_log_raw_bytes": 84031298195,
+        "decision_log_gzip_bytes": 6146765770,
+        "training_interactions": 16384000,
+        "candidate_validation_interactions": 3150400,
+        "environment_instances": 320,
+        "note": "CPU includes exited JVM children; RSS is max of worker/JVM, not summed concurrent memory."
+      }
+    },
+    {
+      "job": {
+        "id": "r19_random_search",
+        "outer": 19,
+        "role": "search",
+        "method": "random",
+        "protocols": [
+          "A",
+          "B"
+        ]
+      },
+      "attempt": "jobs/r19_random_search/attempt_000",
+      "training_decisions": 16384000,
+      "validation_decisions": 3150400,
+      "profile": {
+        "wall_s": 14157.926853536628,
+        "cpu_user_s": 14777.54819,
+        "cpu_system_s": 617.816866,
+        "max_rss_kib": 7242408,
+        "startup_wall_s": 25.03167250007391,
+        "rpc_roundtrip_wall_s_including_simulation": 4403.4720422634855,
+        "inference_wall_s": 342.78301914967597,
+        "gradient_updates": 319988,
+        "decision_log_raw_bytes": 84008704215,
+        "decision_log_gzip_bytes": 6130422636,
+        "training_interactions": 16384000,
+        "candidate_validation_interactions": 3150400,
+        "environment_instances": 320,
+        "note": "CPU includes exited JVM children; RSS is max of worker/JVM, not summed concurrent memory."
+      }
+    },
+    {
+      "job": {
+        "id": "r19_nsga2_final",
+        "outer": 19,
+        "role": "final",
+        "method": "nsga2",
+        "protocols": [
+          "A",
+          "B"
+        ],
+        "depends_on": "r19_nsga2_search"
+      },
+      "attempt": "jobs/r19_nsga2_final/attempt_000",
+      "training_decisions": 102400,
+      "validation_decisions": 0,
+      "profile": {
+        "wall_s": 81.3219886450097,
+        "cpu_user_s": 82.41497199999999,
+        "cpu_system_s": 3.9423779999999997,
+        "max_rss_kib": 7242408,
+        "startup_wall_s": 0.07916363421827555,
+        "rpc_roundtrip_wall_s_including_simulation": 23.733487186022103,
+        "inference_wall_s": 0.0,
+        "gradient_updates": 2000,
+        "decision_log_raw_bytes": 524894963,
+        "decision_log_gzip_bytes": 38585773,
+        "training_interactions": 102400,
+        "candidate_validation_interactions": 0,
+        "environment_instances": 1,
+        "note": "CPU includes exited JVM children; RSS is max of worker/JVM, not summed concurrent memory."
+      }
+    },
+    {
+      "job": {
+        "id": "r19_random_final",
+        "outer": 19,
+        "role": "final",
+        "method": "random",
+        "protocols": [
+          "A",
+          "B"
+        ],
+        "depends_on": "r19_random_search"
+      },
+      "attempt": "jobs/r19_random_final/attempt_000",
+      "training_decisions": 102400,
+      "validation_decisions": 0,
+      "profile": {
+        "wall_s": 80.76287180371583,
+        "cpu_user_s": 82.849604,
+        "cpu_system_s": 3.3975679999999997,
+        "max_rss_kib": 7242408,
+        "startup_wall_s": 0.08433475345373154,
+        "rpc_roundtrip_wall_s_including_simulation": 22.889436151832342,
+        "inference_wall_s": 0.0,
+        "gradient_updates": 2000,
+        "decision_log_raw_bytes": 526070649,
+        "decision_log_gzip_bytes": 38937222,
+        "training_interactions": 102400,
+        "candidate_validation_interactions": 0,
+        "environment_instances": 1,
+        "note": "CPU includes exited JVM children; RSS is max of worker/JVM, not summed concurrent memory."
+      }
+    },
+    {
+      "job": {
+        "id": "r19_equal",
+        "outer": 19,
+        "role": "baseline",
+        "method": "equal",
+        "protocols": [
+          "A",
+          "B"
+        ]
+      },
+      "attempt": "jobs/r19_equal/attempt_000",
+      "training_decisions": 19637248,
+      "validation_decisions": 0,
+      "profile": {
+        "wall_s": 14850.477684229612,
+        "cpu_user_s": 14642.18422,
+        "cpu_system_s": 495.802334,
+        "max_rss_kib": 7242408,
+        "startup_wall_s": 0.08218407724052668,
+        "rpc_roundtrip_wall_s_including_simulation": 4267.731985225342,
+        "inference_wall_s": 0.0,
+        "gradient_updates": 374249,
+        "decision_log_raw_bytes": 99388436947,
+        "decision_log_gzip_bytes": 6301310390,
+        "training_interactions": 19637248,
+        "candidate_validation_interactions": 0,
+        "environment_instances": 1,
+        "note": "CPU includes exited JVM children; RSS is max of worker/JVM, not summed concurrent memory."
+      }
+    },
+    {
+      "job": {
+        "id": "r19_manual",
+        "outer": 19,
+        "role": "baseline",
+        "method": "manual",
+        "protocols": [
+          "A",
+          "B"
+        ]
+      },
+      "attempt": "jobs/r19_manual/attempt_000",
+      "training_decisions": 19637248,
+      "validation_decisions": 0,
+      "profile": {
+        "wall_s": 14899.596334361471,
+        "cpu_user_s": 14710.680777000001,
+        "cpu_system_s": 491.748448,
+        "max_rss_kib": 7242408,
+        "startup_wall_s": 0.07879168167710304,
+        "rpc_roundtrip_wall_s_including_simulation": 4282.5258729485795,
+        "inference_wall_s": 0.0,
+        "gradient_updates": 375812,
+        "decision_log_raw_bytes": 100051579121,
+        "decision_log_gzip_bytes": 6857364466,
+        "training_interactions": 19637248,
+        "candidate_validation_interactions": 0,
+        "environment_instances": 1,
+        "note": "CPU includes exited JVM children; RSS is max of worker/JVM, not summed concurrent memory."
+      }
+    }
+  ],
+  "total_training_decisions": 144494592,
+  "candidate_validation_decisions": 12601600,
+  "test_accessed": false,
+  "completed_utc": "2026-11-09T11:13:52.968679+00:00"
+}

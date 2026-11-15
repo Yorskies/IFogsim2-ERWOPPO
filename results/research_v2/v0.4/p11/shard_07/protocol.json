@@ -1,0 +1,347 @@
+{
+  "version": "P09-study-1",
+  "fixture_only": false,
+  "config_sha256": "3e32379ebd2e8770e025ff9cce11be28cbffe7e535b269a070030ce6d9dae025",
+  "outers": [
+    14,
+    15
+  ],
+  "jobs": [
+    {
+      "id": "r14_nsga2_search",
+      "outer": 14,
+      "role": "search",
+      "method": "nsga2",
+      "protocols": [
+        "A",
+        "B"
+      ]
+    },
+    {
+      "id": "r14_random_search",
+      "outer": 14,
+      "role": "search",
+      "method": "random",
+      "protocols": [
+        "A",
+        "B"
+      ]
+    },
+    {
+      "id": "r14_nsga2_final",
+      "outer": 14,
+      "role": "final",
+      "method": "nsga2",
+      "protocols": [
+        "A",
+        "B"
+      ],
+      "depends_on": "r14_nsga2_search"
+    },
+    {
+      "id": "r14_random_final",
+      "outer": 14,
+      "role": "final",
+      "method": "random",
+      "protocols": [
+        "A",
+        "B"
+      ],
+      "depends_on": "r14_random_search"
+    },
+    {
+      "id": "r14_equal",
+      "outer": 14,
+      "role": "baseline",
+      "method": "equal",
+      "protocols": [
+        "A",
+        "B"
+      ]
+    },
+    {
+      "id": "r14_manual",
+      "outer": 14,
+      "role": "baseline",
+      "method": "manual",
+      "protocols": [
+        "A",
+        "B"
+      ]
+    },
+    {
+      "id": "r15_nsga2_search",
+      "outer": 15,
+      "role": "search",
+      "method": "nsga2",
+      "protocols": [
+        "A",
+        "B"
+      ]
+    },
+    {
+      "id": "r15_random_search",
+      "outer": 15,
+      "role": "search",
+      "method": "random",
+      "protocols": [
+        "A",
+        "B"
+      ]
+    },
+    {
+      "id": "r15_nsga2_final",
+      "outer": 15,
+      "role": "final",
+      "method": "nsga2",
+      "protocols": [
+        "A",
+        "B"
+      ],
+      "depends_on": "r15_nsga2_search"
+    },
+    {
+      "id": "r15_random_final",
+      "outer": 15,
+      "role": "final",
+      "method": "random",
+      "protocols": [
+        "A",
+        "B"
+      ],
+      "depends_on": "r15_random_search"
+    },
+    {
+      "id": "r15_equal",
+      "outer": 15,
+      "role": "baseline",
+      "method": "equal",
+      "protocols": [
+        "A",
+        "B"
+      ]
+    },
+    {
+      "id": "r15_manual",
+      "outer": 15,
+      "role": "baseline",
+      "method": "manual",
+      "protocols": [
+        "A",
+        "B"
+      ]
+    }
+  ],
+  "budget": {
+    "K": 102400,
+    "F": 102400,
+    "B": 19637248,
+    "S": 16384000,
+    "V": 3150400,
+    "C": 19636800,
+    "rounding_overhead": 448,
+    "Ntrace": 19690,
+    "validation_episodes": 20,
+    "candidate_slots": 80,
+    "model_repeats": 2,
+    "rollout": 512,
+    "per_method_total": 19636800,
+    "two_method_search_and_final": 39273600,
+    "two_baseline_training": 39274496,
+    "physical_total_per_outer": 78548096,
+    "protocol_A": "Each method search plus one fresh final PPO(F); equal/manual use checkpoint F of their B run.",
+    "protocol_B": "Same search and final PPO(F) artifacts reused; equal/manual use PPO(B). No search charge twice."
+  },
+  "validation_traces": [
+    {
+      "workload": "light",
+      "trace_id": 10000,
+      "tasks": 279,
+      "payload_sha256": "1c447c8e49bead4d424bd3eb85a3404d6b23b93e4f7deb80b96124dd2d1da41c"
+    },
+    {
+      "workload": "light",
+      "trace_id": 10001,
+      "tasks": 277,
+      "payload_sha256": "c214e33318fcf23d9d316ece0525e5720f28ef0921e1cfc443e739fa109fbc53"
+    },
+    {
+      "workload": "light",
+      "trace_id": 10002,
+      "tasks": 293,
+      "payload_sha256": "3bf6a31da25509555d2c9398da5c0365a8fa1a27a6f66068d7333315baa2651b"
+    },
+    {
+      "workload": "light",
+      "trace_id": 10003,
+      "tasks": 292,
+      "payload_sha256": "456c3ea4f41334a94cc3734d53d4d553e8da4bd59fff0122039e306c42a66407"
+    },
+    {
+      "workload": "light",
+      "trace_id": 10004,
+      "tasks": 298,
+      "payload_sha256": "db13f2cd1702694fc33c0352dc59ead85a537e8778baa26987af6e4eba25976d"
+    },
+    {
+      "workload": "moderate",
+      "trace_id": 10000,
+      "tasks": 928,
+      "payload_sha256": "50dc99c8ac19013be819ac6dac0cab92d5e695d874ae473c850f7b3b8c112079"
+    },
+    {
+      "workload": "moderate",
+      "trace_id": 10001,
+      "tasks": 899,
+      "payload_sha256": "104ac1912ca24fc967ea577c83c124945393cbde4ae114805eb40f67d1a9210f"
+    },
+    {
+      "workload": "moderate",
+      "trace_id": 10002,
+      "tasks": 931,
+      "payload_sha256": "6ecc5a74dae86dfd8806066112f57205518f4663f7b867356c4e42a787b65202"
+    },
+    {
+      "workload": "moderate",
+      "trace_id": 10003,
+      "tasks": 975,
+      "payload_sha256": "b9fdd69cf9c18844befe0563b84e2052cce2eff3c34e90e9077f5c78732b687f"
+    },
+    {
+      "workload": "moderate",
+      "trace_id": 10004,
+      "tasks": 880,
+      "payload_sha256": "5c06037bf8269f67337b19905fc83b3858affbd279b4c4693f0499610963c7f4"
+    },
+    {
+      "workload": "heavy",
+      "trace_id": 10000,
+      "tasks": 1863,
+      "payload_sha256": "3d8ad09842510cfc44933e45a07a302a4530edc0ea0840649fea251680e2e065"
+    },
+    {
+      "workload": "heavy",
+      "trace_id": 10001,
+      "tasks": 1849,
+      "payload_sha256": "92cf585178f6d7e4d46725d4e0453877e310180c6a7d7fef98e7b16b6bada592"
+    },
+    {
+      "workload": "heavy",
+      "trace_id": 10002,
+      "tasks": 1757,
+      "payload_sha256": "25ab5b45fd3427c0aa1fc1dde0cdc461ee26d211f7e69e63c9c647bc22bff827"
+    },
+    {
+      "workload": "heavy",
+      "trace_id": 10003,
+      "tasks": 1874,
+      "payload_sha256": "f0554f7364cdd1c2964226de904f82c14af823b00e172fac18bd92e884bb82e2"
+    },
+    {
+      "workload": "heavy",
+      "trace_id": 10004,
+      "tasks": 1785,
+      "payload_sha256": "2b6428175ae35e8997dc3c69670ead6dfa2cede6210f850efd7f8367e3e69e59"
+    },
+    {
+      "workload": "dynamic",
+      "trace_id": 10000,
+      "tasks": 890,
+      "payload_sha256": "b0a3d3f64e77a8905a62a37a5c6e04734ae4b7eef5fab54519b80bb7a866ca75"
+    },
+    {
+      "workload": "dynamic",
+      "trace_id": 10001,
+      "tasks": 910,
+      "payload_sha256": "aa762c1365bd092c2a051a4e88376266d88ca598611713b5c717a539e5cca633"
+    },
+    {
+      "workload": "dynamic",
+      "trace_id": 10002,
+      "tasks": 939,
+      "payload_sha256": "dbf2e37b83a513623543c139d2687642ce2f2c68a9c03fbe5642998879008f74"
+    },
+    {
+      "workload": "dynamic",
+      "trace_id": 10003,
+      "tasks": 855,
+      "payload_sha256": "88af429df7144f0528dfd21c940d03097e1fbdf6707d0ba21d7ba1ca8a4978c2"
+    },
+    {
+      "workload": "dynamic",
+      "trace_id": 10004,
+      "tasks": 916,
+      "payload_sha256": "bb9c1f4eaa0a6ddc162699920385541cb23ecd4de2a81e45707711a6134d9981"
+    }
+  ],
+  "validation_manifest_sha256": "c896d1d0f7757498bc60eb098b986c1d234249089582fe4b0dd86b878843195c",
+  "test_accessed": false,
+  "workers": 1,
+  "reuse": "One search and one selected final model per method/outer are shared by protocols A and B.",
+  "learner_version": "0.3",
+  "learner": {
+    "version": "0.3",
+    "protocol": "research-v2-learner-0.3",
+    "ppo_overrides": {
+      "gamma": 0.97
+    },
+    "learner_config_sha256": "9e1ea5b0861974e676375d3efaa6c2eeb50eda484a57b0e7cc074d12b6f41c39",
+    "file_sha256": "d3aff3a93c6d928d417d4bd069fc5ce7f914e14788840d721f9555e3c7086403"
+  },
+  "prepared_utc": "2026-11-08T02:46:31.887294+00:00",
+  "jar_sha256": "ba5a7ca8a8f0cdd64839ccc7848d20009a5872b994aa1c529baf894eeff19e73",
+  "source_hashes": {
+    "research_v2/__init__.py": "253601bd0258003cb0b85c5324d62b390fb5521da9f955766bfec006d51bbc7b",
+    "research_v2/__main__.py": "49fffa04d43a5f4838c02865070bb4d968688fc697ff0150b19f0248a9d99b35",
+    "research_v2/baselines.py": "62f49e4d1aae5c890b1ef9ad1d431bc879cccc8fbad22708d1989f2906b85f2e",
+    "research_v2/calibration.py": "7f0b0fc9d69c1ac8ee60c35ea5382bb6a34809ef43bb78db1bdcdf78a1c3e0a2",
+    "research_v2/calibration_report.py": "d42514121d7246d73940731f6c1ddabf29512d9d204777a442c0b7d4335b7be8",
+    "research_v2/config.py": "ec5da2d05729e2056bd5827a85a806a250f875bbf5d1a5393807021d501999f3",
+    "research_v2/contracts.py": "f02ce133bbd14cc8a8ac30835b8617966c07ed02c24f0bddcf634110cb51bb72",
+    "research_v2/critic_ablation.py": "fbf2fdaad7d14950c5c732b583c05a9febfc81bf972520502f9fcba76546940e",
+    "research_v2/critic_ablation_report.py": "c5d585093e0418c3ddda7b4246c3e53df729bb48fc012ee2e046729cf74524b8",
+    "research_v2/critic_update_diagnostic.py": "7762d8bf1d5ccd967194c7ba69ee79eaf69a7bf6dab1cb9869de4ceb34dfd90f",
+    "research_v2/engine_runner.py": "c7fc66fd222b53936db9b165246aef8b91fcd764eba0a32cc5e09725c5425647",
+    "research_v2/evaluator.py": "d4ac6ea8b80057bcbb9accd2271fecd99027157548b0d5012094737b0270367a",
+    "research_v2/fidelity.py": "0f24a17eaec15634cd090ace7a9b59dc12aa31b472ac5e7795f64265d89a883c",
+    "research_v2/fidelity_extension.py": "84f9bc14531f69bb2e1095d77665984f8c9ccec14a154af439f9aa5f4328a8c8",
+    "research_v2/fidelity_report.py": "da07a697a95bb64ace5e799cda7d6ebaf0489ef1deddab90e539ec96459b18ff",
+    "research_v2/fidelity_v03.py": "8d58cec355c119096240f4b0a3db065608a6a52130dc2f722b66075edfa9e7eb",
+    "research_v2/gym_env.py": "629aeebd8ec2a5ed2bd11b7e7b991feadc9e024c31c253d5621a156a867a192f",
+    "research_v2/lambda_ablation.py": "357ea35605d794f82f0baa1ca62140c5cf14d10f6038e469055d18e2fbfb2e02",
+    "research_v2/lambda_ablation_report.py": "4f168592ae9d02f21e9ad46cf9adf98972a415eb07f0b1dd3e110bc11663cac2",
+    "research_v2/lambda_loss_diagnostic.py": "c52ebc891a05c35efac56fd6eadfc3b24de15601f1f07d8578a5c092a6fe2569",
+    "research_v2/learner.py": "a356914298dada1e39c018e73305768fc97254778a9f6908751538ba6fff6c0d",
+    "research_v2/learning.py": "378b7fb19c6553f154f9bf1926f8233a45ef87bae593baf4249694aa94063552",
+    "research_v2/learning_instrumentation.py": "e8379050c72b05e8d01cdaec05a971f63cd452dd15e922ff00fd609490d1cfc6",
+    "research_v2/learning_report.py": "1794a789dd93f3c6e1f9aa5daa3e092a72755f0f00208b176d187a0e13300955",
+    "research_v2/learning_review.py": "c49d96ded0bbf4bc1862bbd9cb9b1576a5c8e90dcf8310d98ad6d36e155c991d",
+    "research_v2/p11_eval.py": "4fb95418d6e40bd20af68e9b91767b2b4e0e7d8c3729b7e44bedb6f7db1670b2",
+    "research_v2/p11_v04.py": "222f63ab7d5fad35baa934f3ba45f7f6a9e941304005d3470534f9439f4bda9c",
+    "research_v2/rpc_client.py": "163c00ad1fa75de1e5d79b90a00cb042e4c8297bc82ccde79d5d6538fee7ba29",
+    "research_v2/schema_definitions.py": "34a6fa1e25823d6277115ac75862c56016ce0c1bbe437fb7070f0df03b5f5caa",
+    "research_v2/search.py": "e5bc595efe58c373fc9c7597cc9bc0fbd2a435f9a17c96619707f5736dac7bf6",
+    "research_v2/search_runner.py": "2918294484be9a8dfe3d252356a84e980937e4c8eb4545d8b1fdda4663df5509",
+    "research_v2/search_runner_extension.py": "4c94dd6838f9092629761be7f8066d193dd1523d3da0c074e67e9e38b4ab392d",
+    "research_v2/study_budget.py": "faf1f337ae5f0fed2bb64d33fe3d9da57473f58cd06b18bb90d782b7c082b666",
+    "research_v2/study_final.py": "dec510ef8e7bce7dfd1cac3f90b723017911ef7537f5706b7daa54dc2534253b",
+    "research_v2/study_runner.py": "1f0d470572031ccc0972ef3422a1248b9aaf463cd5b531776cda170e35e3ce3c",
+    "research_v2/study_worker.py": "0692641dad6ab9f033afcb6c6426ea7c5f097aed051b161e32657b38b3eb0485",
+    "research_v2/trace_access.py": "fdc6e1d6df2d18ad64defcf8fdd53784d43b96432804ddb523a706ade7f61afd",
+    "research_v2/trace_fixtures.py": "b1cab3be5dc837b98787c98d10992faeeea820297bc913fdd77975461c71618e",
+    "research_v2/trace_report.py": "b961d19921ec76a5b1b793bc1c56be4ddf5a1e562eb66b861a28e55f33d31388",
+    "research_v2/trace_store.py": "4513ab42daf1856ae2603684ee98b1991ed071b4d311b5a544dddcbcfe265548",
+    "research_v2/traces.py": "6f22e5850f47551a4a3850716399ffee2af14631c91d2ce4c96da403f6d89bf9",
+    "research_v2/verify_accounting.py": "0f2becdc3fdecc515d415d2cc548041bbeacf5f2025a80856dbcdea0f6c36006",
+    "research_v2/verify_calibration.py": "48dd3f32464fce9592d49027c4fa119d4a33638b992bb3b87fde9ade6e131746",
+    "research_v2/verify_engine.py": "f98bc27fba94dc60f6f8f8902b54d5ee69a7bb814c2afabe14eadd49b7563e29",
+    "research_v2/verify_foundation.py": "71278fc592138d4736523acbcc3586eaee63ba4a3555e4ee84419a5f74330bce",
+    "research_v2/verify_gym.py": "5cc86ff1b7d19744c7c91eec7c665a6765fb55522b0dea7b3d59a922fc1eb4a7",
+    "research_v2/verify_learning.py": "80fabd9cccb70840d20ad86f6dd00dace1adfc064070d698136b10c17c5a8e3f",
+    "research_v2/verify_network.py": "e9aa247469695eac2e1609385ba19c20e0b8559a82b48e7fda6bba2bf015be21",
+    "research_v2/verify_study.py": "5f2b9a25b2dbecec7156d276fcfc380212c41077bde098e2b231d92e7c158818",
+    "research_v2/verify_traces.py": "9cd358a3dd975941ed58e8b09cddd070b17206ead151f6768f5c62959dc73c1c"
+  },
+  "fidelity_evidence": "/workspace/RISET S3 Rozi/IFogsim2-ERWOPPO/configs/research_v2/design_v0.4.json",
+  "fidelity_result_sha256": "40ce7e052c7016cef26c1255fb3401893f6a93a3da31cef04b9c9622d6944331"
+}

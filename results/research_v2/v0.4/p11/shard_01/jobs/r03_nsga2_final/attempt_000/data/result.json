@@ -1,0 +1,21 @@
+{
+  "status": "complete",
+  "role": "final",
+  "outer": 3,
+  "weights": [
+    0.03373344283158358,
+    0.0937667701780377,
+    0.6105053057204634,
+    0.23326123195602452,
+    0.02873324931389084
+  ],
+  "model_seed": 100003,
+  "training_decisions": 102400,
+  "checkpoint_F": 102400,
+  "protocols": [
+    "A",
+    "B"
+  ],
+  "search_reused": "r03_nsga2_search",
+  "test_accessed": false
+}

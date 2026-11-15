@@ -1,0 +1,16 @@
+{
+  "wall_s": 14258.611857753247,
+  "cpu_user_s": 14819.501229999998,
+  "cpu_system_s": 619.213174,
+  "max_rss_kib": 830044,
+  "startup_wall_s": 25.695296552963555,
+  "rpc_roundtrip_wall_s_including_simulation": 4446.446929818019,
+  "inference_wall_s": 346.25644595734775,
+  "gradient_updates": 319995,
+  "decision_log_raw_bytes": 84387133635,
+  "decision_log_gzip_bytes": 6368338659,
+  "training_interactions": 16384000,
+  "candidate_validation_interactions": 3150400,
+  "environment_instances": 320,
+  "note": "CPU includes exited JVM children; RSS is max of worker/JVM, not summed concurrent memory."
+}

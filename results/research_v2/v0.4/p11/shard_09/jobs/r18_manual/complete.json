@@ -1,0 +1,23 @@
+{
+  "status": "complete",
+  "job_id": "r18_manual",
+  "attempt": "jobs/r18_manual/attempt_000",
+  "result_sha256": "f6317c941cbf21334c919c0d50e4ed19ae7019ca51a0371af513d63cd9ca447a",
+  "artifact_sha256": {
+    "profile.json": "6019fe9a8d3f67cfe104c32da76cd15bd2e7989663e6f4d3eeee286eaee2f236",
+    "data/result.json": "f6317c941cbf21334c919c0d50e4ed19ae7019ca51a0371af513d63cd9ca447a",
+    "data/training/manifest.json": "87805c3e8c6ff40e5f4eb81ee878f3651be85fb94569b85a86eaeb63ae30e533",
+    "data/training/outcome.json": "000d5ecd1bcd9cffdbadba3ad41febd86108d05c97b795df2c780ca07d66e1d7",
+    "data/training/decisions.jsonl.gz": "7a5dd1b9afe85d013140a66a09540af5dd9fc60d8fba38c410a16a7af8e803d9",
+    "data/training/checkpoint_00051200/state.json": "cad33972c6ac38e01fbc41ea326527e7d1f5aaf15f14762a236bc1f5f97f18ca",
+    "data/training/checkpoint_00051200/model.zip": "a587982d079d94c6f531f838ed2db8190bc6fa32c1f713b5d6a0c41fab282e0a",
+    "data/training/checkpoint_00051200/rng.pt": "f8a01a6698c65981c6fbc922de10e667ed04182728f916f18fd410fb01082bc1",
+    "data/training/checkpoint_00102400/state.json": "9d4000dc31115ed88db926f30913198131664834f99e9d498373e88f97cc8ba5",
+    "data/training/checkpoint_00102400/model.zip": "d2083d48cc73a264665856694cbea82dce1588d9b0637c895612b2e6104d1ac7",
+    "data/training/checkpoint_00102400/rng.pt": "ec365f90be263fdf1b776080969318b33115a52bd2c3c338d18fae3f13e52e6b",
+    "data/training/checkpoint_19637248/state.json": "3211810aa70413ca1e0535fe44171d3a6ef389169deba19bbed15346d3a34446",
+    "data/training/checkpoint_19637248/model.zip": "ab19ba7b57abc21aca93aaae467938b8213a3dcc20d39e7f3ba6eaed8a785f44",
+    "data/training/checkpoint_19637248/rng.pt": "ee89659c368c007e03e41ebc6c934f21714b9363e3cbd3cc08b12a63f0aeee1c"
+  },
+  "completed_utc": "2026-11-08T19:00:12.092205+00:00"
+}

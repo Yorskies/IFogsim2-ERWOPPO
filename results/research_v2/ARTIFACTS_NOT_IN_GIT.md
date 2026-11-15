@@ -12,3 +12,12 @@ diarsipkan terpisah dari repo source (butir P12), bukan di-commit:
 Akibat: lock (`P10_protocol_lock/protocol_lock.json`) dapat diverifikasi di clone baru hanya setelah JAR dibangun ulang dan hash-nya sama;
 bukti yang direferensikan lock (`P09_runner_evidence/live_evidence.json`, `P09_dry_run_full/budget_report.json`, hasil dan audit fidelity P08) ada di repo.
 Hash byte `model.zip` tidak reprodusibel antar-run (header zip memuat timestamp); kesetaraan model dinilai pada tensor, optimizer, penghitung, dan RNG.
+
+## P11 v0.4 (`results/research_v2/v0.4/p11/`, ≈ 491 GB lokal, 9 Nov 2026)
+
+Di repo: `test_evaluation/` (report.md/json, baris episode test per model), `shard_NN.log`, `protocol.json`, `budget_report.json`,
+`summary.json` per shard, `complete.json` per job, dan per attempt `profile.json`, `status.json`, `worker.log`, `data/protocol.json`,
+`data/result.json` (memuat seluruh record kandidat search dan bobot terpilih).
+Tidak di repo: `decisions.jsonl.gz` (+ `.meta.json`), `model.zip`, `rng.pt`, dan per checkpoint/kandidat `manifest.json`,
+`episodes.jsonl`, `learning_curve.jsonl`, `traces.jsonl`, `progress.json`, `outcome.json`, `candidate.json`, `summary.json`,
+`initial_policy.json`, `environment-freeze.txt`, `effective_learner_config.json` (≈ 6,1 GB metadata + checkpoint/log).
