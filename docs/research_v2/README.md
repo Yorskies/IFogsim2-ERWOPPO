@@ -1,12 +1,18 @@
-# Research v2 — fondasi P00, trace P01, engine P02, jaringan P03, akuntansi P04, Gym P05, dan kalibrasi P06
+# Research v2 — implementasi dan hasil P00–P12
 
 **P00 sampai P06 sudah selesai**: config/schema, kontrak lintas bahasa, audit API,
 build terpisah, probe native, generator/penyimpanan trace deterministik, engine
 task headless (CPU FCFS bounded, admission, deadline/timeout, horizon) di atas CloudSim,
 dan transport store-and-forward (kanal akses half-duplex, link LAN/WAN, antrean transfer,
 pembatalan parsial), serta ledger energi dan lima metrik per trace dengan evaluator independen.
-Server socket v2 dan environment Gymnasium (108 fitur, reward tertunda) tersedia; baseline deterministik dan gerbang kalibrasi yang lulus tersedia. PPO/pilot P07 telah diverifikasi secara teknis di Linux; tiga pilot belum memperbaiki D dan diagnosis tersimpan. Pilot fidelity P08 asli gagal; revisi eksploratori yang diaudit memilih K=30.720. Pencarian penuh belum dijalankan. Runner studi P09 dan analisis/protocol lock P10 tersedia dan diverifikasi pada fixture; eksperimen konfirmatori belum dijalankan. Mode fixture
-nol-jaringan P02 tetap ada dan berlabel. Panduan trace dan guard split: [TRACES.md](TRACES.md);
+Server socket v2 dan environment Gymnasium (108 fitur, reward tertunda) tersedia; baseline deterministik dan gerbang kalibrasi lulus.
+P07 selesai secara teknis, tetapi tiga pilot PPO belum memperbaiki D. Gerbang fidelity P08 asli gagal; revisi eksploratori yang diaudit
+memilih K=30.720. Runner P09 dan analisis P10 telah diverifikasi; protokol v0.4 kemudian mengunci K = F. Pencarian penuh dan eksperimen
+konfirmatori P11 selesai pada 9 November 2026. RQ1/RQ2 tidak didukung, sedangkan RQ3 bertentangan dengan hipotesis: equal-weight PPO
+dengan anggaran komputasi B lebih baik daripada NSGA-II search + training F. Sensitivitas dan audit P12 selesai pada 15 November 2026;
+hasil sensitivitas bersifat eksploratori. Lihat [hasil P11](milestones/P11_results.md) dan [hasil P12](milestones/P12_results.md).
+
+Mode fixture nol-jaringan P02 tetap ada dan berlabel. Panduan trace dan guard split: [TRACES.md](TRACES.md);
 bukti [P01](milestones/P01_trace_validation.md), [P02](milestones/P02_engine_validation.md),
 [P03](milestones/P03_network_validation.md), [P04](milestones/P04_accounting_validation.md), [P05](milestones/P05_gym_integration.md), dan [P06](milestones/P06_calibration_gate.md).
 
@@ -246,7 +252,7 @@ Eksperimen lanjutan [skala critic 0,5/0,05](../../results/research_v2/P07_critic
 
 ## P08 — search dan fidelity
 
-[Implementasi dan penggunaan](SEARCH.md) tersedia. [Pilot P08 asli](milestones/P08_search_gate.md) gagal pada K=5.120/10.240/20.480. [Diagnosis dan revisi eksploratori](milestones/P08_learning_diagnosis.md) memilih **K=30.720** melalui gate Spearman yang sama, dengan 48 konfirmasi prefix independen dan audit episode lengkap. Gate runner asli tetap menolak bukti lama; runner ekstensi menerima bukti revisi yang diaudit. Pencarian penuh dan studi konfirmatori belum dijalankan. Hasil revisi ini belum membuktikan konvergensi PPO atau stabilitas antarrepeat.
+[Implementasi dan penggunaan](SEARCH.md) tersedia. [Pilot P08 asli](milestones/P08_search_gate.md) gagal pada K=5.120/10.240/20.480. [Diagnosis dan revisi eksploratori](milestones/P08_learning_diagnosis.md) memilih **K=30.720** melalui gate Spearman yang sama, dengan 48 konfirmasi prefix independen dan audit episode lengkap. Gate runner asli tetap menolak bukti lama; runner ekstensi menerima bukti revisi yang diaudit. Hasil revisi ini belum membuktikan konvergensi PPO atau stabilitas antarrepeat. Protokol konfirmatori v0.4 kemudian memakai **K = F = 102.400**; hasil pencarian penuhnya tercatat pada P11.
 
 ## P09 — runner studi
 
@@ -265,6 +271,25 @@ venv/bin/python -m research_v2.verify_study --root results/research_v2/P09_runne
 ## P10 — analisis dan protocol lock
 
 [ANALYSIS.md](ANALYSIS.md): unit inferensi, tiga uji primer (sign-flip exact + Holm), 60 uji sekunder, bootstrap crossed, laporan mini, protocol lock
-dan penyegelan test. Tinjauan kesiapan M3: [P10_readiness_review.md](milestones/P10_readiness_review.md). Test split belum dievaluasi.
+dan penyegelan test. [Tinjauan kesiapan M3](milestones/P10_readiness_review.md) mencatat kondisi sebelum P11. Test split kemudian dibuka
+sekali di bawah lock v0.4 pada 9 November 2026; hasilnya dilaporkan di P11.
 
-**Versi protokol:** v0.2 diarsipkan pada tag `protocol-v0.2`; [v0.3](PROTOCOL_v0.3.md) (learner gamma 0,97, simulasi tidak berubah) gagal pada gerbang fidelity terdaftar → no-go; [v0.4](PROTOCOL_v0.4.md) (K = F) dikunci dan siap untuk P11 (`./run_p11_v04.sh go-open-test`).
+**Versi protokol:** v0.2 diarsipkan pada tag `protocol-v0.2`; [v0.3](PROTOCOL_v0.3.md) (learner gamma 0,97, simulasi tidak berubah) gagal pada gerbang fidelity terdaftar → no-go; [v0.4](PROTOCOL_v0.4.md) (K = F) dikunci dan digunakan untuk P11–P12.
+
+## P11 — eksperimen konfirmatori
+
+[Hasil P11](milestones/P11_results.md) mencatat 120/120 job selesai pada 20 outer run, evaluasi 120 model dan empat heuristik,
+serta tiga uji primer dengan koreksi Holm. RQ1 (NSGA-II vs equal_F) dan RQ2 (NSGA-II vs random search) tidak didukung;
+hasil nonsignifikan tidak menyatakan kedua metode setara. RQ3 berlawanan dengan hipotesis: equal_B mencapai Dglobal rata-rata
+0,167 dibanding NSGA-II 0,245 pada anggaran komputasi total yang setara. [Laporan lengkap](../../results/research_v2/v0.4/p11/test_evaluation/report.md)
+memuat seluruh metrik dan perbandingan.
+
+## P12 — sensitivitas dan paket reproduksi
+
+[Hasil P12](milestones/P12_results.md) mencatat audit akhir 7/7, uji reproduksi clone bersih, dan sensitivitas sembilan varian fisik.
+Arah RQ1–RQ3 tetap sama pada seluruh varian. Analisis sensitivitas berlabel eksploratori tanpa koreksi multiplisitas;
+model P11 tetap beku, sehingga hasilnya tidak menunjukkan robustness setelah retraining.
+[Artefak P12](../../results/research_v2/v0.4/p12/) memuat laporan, audit, tabel klaim, dan indeks paket.
+Checkpoint dan sebagian log/episode besar masih disimpan lokal; lihat [daftar artefak di luar Git](../../results/research_v2/ARTIFACTS_NOT_IN_GIT.md).
+Indeks paket P12 dibuat sebelum commit hasil P12, sehingga perlu dibuat ulang untuk mencakup berkas P12 yang kini ter-track.
+Pemetaan literatur dan pernyataan novelty masih perlu diselesaikan penulis sebelum klaim state of the art.
