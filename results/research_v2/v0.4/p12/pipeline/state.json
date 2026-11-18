@@ -1,0 +1,69 @@
+{
+  "stages": {
+    "preflight": {
+      "done_utc": "2026-11-15T13:00:38+00:00",
+      "lock_sha256": "63d07e43c01ebfcbf65b4feac24f6be73650481d09752c6f5f99b89641517ca7",
+      "lock_warnings": 2,
+      "free_disk_gib": 355
+    },
+    "variants": {
+      "done_utc": "2026-11-15T13:00:39+00:00",
+      "variants": [
+        "identity",
+        "timeout_k2",
+        "timeout_k4",
+        "fog_queue_8",
+        "fog_queue_32",
+        "wan_prop_0.01",
+        "wan_prop_0.04",
+        "dyn_power_x0.75",
+        "dyn_power_x1.25",
+        "homogeneous_fog"
+      ]
+    },
+    "identity_check": {
+      "done_utc": "2026-11-15T13:17:42+00:00",
+      "episodes_compared": 1200,
+      "models": [
+        "nsga2_r00",
+        "equal_B_r07",
+        "greedy_eft_r00"
+      ]
+    },
+    "audit": {
+      "done_utc": "2026-11-15T13:33:11+00:00",
+      "checks": {
+        "lock_deep_verify": true,
+        "build_and_config": true,
+        "test_opened_record": true,
+        "checkpoints": true,
+        "episodes": true,
+        "report_recomputed": true,
+        "job_ledger": true
+      },
+      "rows_checked": 49600
+    },
+    "repro": {
+      "done_utc": "2026-11-15T13:33:42+00:00",
+      "jar_entries_identical": true,
+      "physical_identical": true,
+      "learning_identical": true
+    },
+    "evaluations": {
+      "done_utc": "2026-11-15T18:34:46+00:00",
+      "tasks": 1240
+    },
+    "sensitivity_analysis": {
+      "done_utc": "2026-11-15T18:36:19+00:00",
+      "registered_comparisons_same_sign": "27/27"
+    },
+    "package": {
+      "done_utc": "2026-11-15T18:36:20+00:00",
+      "in_git": 2403,
+      "local_only": 120
+    },
+    "claims": {
+      "done_utc": "2026-11-15T18:36:20+00:00"
+    }
+  }
+}

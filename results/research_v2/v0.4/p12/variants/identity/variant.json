@@ -1,0 +1,15 @@
+{
+  "name": "identity",
+  "description": "main config through the variant-JAR mechanism (control; must equal P11 exactly)",
+  "options": {},
+  "changed_blocks": [],
+  "mode": "variant_jar",
+  "config_file": "results/research_v2/v0.4/p12/variants/identity/default.json",
+  "config_file_sha256": "f30310236ea1fbfcd5b86d327772dffbf3184765218356fe49e5880ac636be65",
+  "config_sha256": "3e32379ebd2e8770e025ff9cce11be28cbffe7e535b269a070030ce6d9dae025",
+  "jar": "ifogsim/dist_p12/research-v2-identity.jar",
+  "jar_sha256": "6148a9cc686f8fffcda1e528fa3f7eafc33243807c922537cf4f5c9b7c11b34c",
+  "entries": 725,
+  "entries_identical_to_main_except_config": true,
+  "config_entry_changed": false
+}

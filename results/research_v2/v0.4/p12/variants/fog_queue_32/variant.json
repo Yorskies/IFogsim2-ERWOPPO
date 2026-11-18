@@ -1,0 +1,17 @@
+{
+  "name": "fog_queue_32",
+  "description": "fog waiting-queue capacity 32 on F1-F5 (main 16)",
+  "options": {},
+  "changed_blocks": [
+    "topology"
+  ],
+  "mode": "variant_jar",
+  "config_file": "results/research_v2/v0.4/p12/variants/fog_queue_32/default.json",
+  "config_file_sha256": "f6a6d029a1f72c924c2007388d836ed49dcd862beb15b8999d37bbc232089a21",
+  "config_sha256": "915eecc6334ee84f34f548ebb059bfc331b03041f792ba1cab83720cef3bfa19",
+  "jar": "ifogsim/dist_p12/research-v2-fog_queue_32.jar",
+  "jar_sha256": "466da02e6192ed50bad66fb6f9c044d1e560d124c52f4e965b0394b4baf87221",
+  "entries": 725,
+  "entries_identical_to_main_except_config": true,
+  "config_entry_changed": true
+}

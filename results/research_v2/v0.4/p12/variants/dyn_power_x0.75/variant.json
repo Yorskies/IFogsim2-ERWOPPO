@@ -1,0 +1,18 @@
+{
+  "name": "dyn_power_x0.75",
+  "description": "dynamic power x0.75: node busy-idle increments, radio/AP increments and per-bit network energy; idle power and the energy reference unchanged",
+  "options": {},
+  "changed_blocks": [
+    "network",
+    "topology"
+  ],
+  "mode": "variant_jar",
+  "config_file": "results/research_v2/v0.4/p12/variants/dyn_power_x0.75/default.json",
+  "config_file_sha256": "f448045a713a4274529383a57995484fcf15e4796db0fbf6f3e3230201f79cea",
+  "config_sha256": "1e65a70509235ad20ec131854efffaf0ae7de8b2d88a1dbbb186948410f9fc60",
+  "jar": "ifogsim/dist_p12/research-v2-dyn_power_x0.75.jar",
+  "jar_sha256": "193a9a1c20eb3743ca98afa035c2a7a2f6c7ef5f6d6c9a35311de52969a51725",
+  "entries": 725,
+  "entries_identical_to_main_except_config": true,
+  "config_entry_changed": true
+}

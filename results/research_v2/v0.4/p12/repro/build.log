@@ -1,0 +1,12 @@
+/workspace/RISET S3 Rozi/IFogsim2-ERWOPPO/results/research_v2/v0.4/p12/repro/clone/ifogsim/src/org/fog/entities/ControllerComponent.java:165: warning: [removal] Integer(int) in Integer has been deprecated and marked for removal
+        if (serviceDiscoveryInfo.containsKey(microserviceName) && serviceDiscoveryInfo.get(microserviceName).contains(new Integer(deviceID))) {
+                                                                                                                      ^
+/workspace/RISET S3 Rozi/IFogsim2-ERWOPPO/results/research_v2/v0.4/p12/repro/clone/ifogsim/src/org/fog/entities/ControllerComponent.java:167: warning: [removal] Integer(int) in Integer has been deprecated and marked for removal
+            serviceDiscoveryInfo.get(microserviceName).remove(new Integer(deviceID));
+                                                              ^
+Note: Some input files use or override a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+Note: Some input files use unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+2 warnings
+{"artifact": "/workspace/RISET S3 Rozi/IFogsim2-ERWOPPO/results/research_v2/v0.4/p12/repro/clone/ifogsim/dist/research-v2-foundation.jar", "sha256": "bfa4f3dd60dfd4e97e6e8a032f566c43cb26878e5c4daa06baf2a1ac5b332797", "self_test": null}

@@ -1,0 +1,165 @@
+{
+  "identity": {
+    "name": "identity",
+    "description": "main config through the variant-JAR mechanism (control; must equal P11 exactly)",
+    "options": {},
+    "changed_blocks": [],
+    "mode": "variant_jar",
+    "config_file": "results/research_v2/v0.4/p12/variants/identity/default.json",
+    "config_file_sha256": "f30310236ea1fbfcd5b86d327772dffbf3184765218356fe49e5880ac636be65",
+    "config_sha256": "3e32379ebd2e8770e025ff9cce11be28cbffe7e535b269a070030ce6d9dae025",
+    "jar": "ifogsim/dist_p12/research-v2-identity.jar",
+    "jar_sha256": "6148a9cc686f8fffcda1e528fa3f7eafc33243807c922537cf4f5c9b7c11b34c",
+    "entries": 725,
+    "entries_identical_to_main_except_config": true,
+    "config_entry_changed": false
+  },
+  "timeout_k2": {
+    "name": "timeout_k2",
+    "description": "timeout factor k = 2 (main 3); horizon T + k*Dmax; latency reference and penalty unchanged",
+    "options": {},
+    "changed_blocks": [
+      "timing"
+    ],
+    "mode": "variant_jar",
+    "config_file": "results/research_v2/v0.4/p12/variants/timeout_k2/default.json",
+    "config_file_sha256": "de521b119add66e4ef81e36f46c16292db4a5b2d1349a1ab7598789e8877039d",
+    "config_sha256": "f564a3c6fe3c28535e82bc6b545406c5347e925b18cff04e19b1032bc369a156",
+    "jar": "ifogsim/dist_p12/research-v2-timeout_k2.jar",
+    "jar_sha256": "958ca1d381f01c4580afb7308d9c0ad88b8f5d0c2ad3684599e2c6af7bbe8e4b",
+    "entries": 725,
+    "entries_identical_to_main_except_config": true,
+    "config_entry_changed": true
+  },
+  "timeout_k4": {
+    "name": "timeout_k4",
+    "description": "timeout factor k = 4 (main 3); horizon T + k*Dmax; latency reference and penalty unchanged",
+    "options": {},
+    "changed_blocks": [
+      "timing"
+    ],
+    "mode": "variant_jar",
+    "config_file": "results/research_v2/v0.4/p12/variants/timeout_k4/default.json",
+    "config_file_sha256": "a94e38c561e789e708161537cbef32c342ba08264213a7be31ed5490f4eb0227",
+    "config_sha256": "2bc796dd29d72587bb434aeb2754ca4b82e9846dd6da52208a5302431cf59c20",
+    "jar": "ifogsim/dist_p12/research-v2-timeout_k4.jar",
+    "jar_sha256": "dff4dc1006c6342470112c61b834e9e0a8218c8ed27d8e827b67e84810bb1e0a",
+    "entries": 725,
+    "entries_identical_to_main_except_config": true,
+    "config_entry_changed": true
+  },
+  "fog_queue_8": {
+    "name": "fog_queue_8",
+    "description": "fog waiting-queue capacity 8 on F1-F5 (main 16)",
+    "options": {},
+    "changed_blocks": [
+      "topology"
+    ],
+    "mode": "variant_jar",
+    "config_file": "results/research_v2/v0.4/p12/variants/fog_queue_8/default.json",
+    "config_file_sha256": "72526984c7a5a0cfdb5d80a0b9667f6efdc297b210d7d706a60c7054bb92d398",
+    "config_sha256": "b3e300c2d258c8f7c0963ec55a7780616420cac90cd0dca60304f50948c435e4",
+    "jar": "ifogsim/dist_p12/research-v2-fog_queue_8.jar",
+    "jar_sha256": "06b9a0f2ee4dea253c9f5d105641c1023cfc455c7448263126dfc122ea38daf1",
+    "entries": 725,
+    "entries_identical_to_main_except_config": true,
+    "config_entry_changed": true
+  },
+  "fog_queue_32": {
+    "name": "fog_queue_32",
+    "description": "fog waiting-queue capacity 32 on F1-F5 (main 16)",
+    "options": {},
+    "changed_blocks": [
+      "topology"
+    ],
+    "mode": "variant_jar",
+    "config_file": "results/research_v2/v0.4/p12/variants/fog_queue_32/default.json",
+    "config_file_sha256": "f6a6d029a1f72c924c2007388d836ed49dcd862beb15b8999d37bbc232089a21",
+    "config_sha256": "915eecc6334ee84f34f548ebb059bfc331b03041f792ba1cab83720cef3bfa19",
+    "jar": "ifogsim/dist_p12/research-v2-fog_queue_32.jar",
+    "jar_sha256": "466da02e6192ed50bad66fb6f9c044d1e560d124c52f4e965b0394b4baf87221",
+    "entries": 725,
+    "entries_identical_to_main_except_config": true,
+    "config_entry_changed": true
+  },
+  "wan_prop_0.01": {
+    "name": "wan_prop_0.01",
+    "description": "WAN propagation 0.01 s (main 0.02 s)",
+    "options": {},
+    "changed_blocks": [
+      "network"
+    ],
+    "mode": "variant_jar",
+    "config_file": "results/research_v2/v0.4/p12/variants/wan_prop_0.01/default.json",
+    "config_file_sha256": "c6b43a79b0e3864fa307c87389e7b48eaeac84eb0392a4f066813b84b266878b",
+    "config_sha256": "727134dfb7aa6a35bfbf8026fd5b21f7b513107bf46a39b88007896c14052af3",
+    "jar": "ifogsim/dist_p12/research-v2-wan_prop_0.01.jar",
+    "jar_sha256": "27320de42e50b358d00308fcce5ac0588208777d6ea80f908117371f84cc2ee0",
+    "entries": 725,
+    "entries_identical_to_main_except_config": true,
+    "config_entry_changed": true
+  },
+  "wan_prop_0.04": {
+    "name": "wan_prop_0.04",
+    "description": "WAN propagation 0.04 s (main 0.02 s)",
+    "options": {},
+    "changed_blocks": [
+      "network"
+    ],
+    "mode": "variant_jar",
+    "config_file": "results/research_v2/v0.4/p12/variants/wan_prop_0.04/default.json",
+    "config_file_sha256": "159577a889c72be4fe73407a6429a3ab05b198acf9d7b2d795857960cba854ab",
+    "config_sha256": "d918c66b338866d94294d36eb831952c1d82f378dbdace39219b6533664a2ee9",
+    "jar": "ifogsim/dist_p12/research-v2-wan_prop_0.04.jar",
+    "jar_sha256": "f1cb7c747c5029ea870059f83c73d3006f125812db3068c11be15c7af98055ae",
+    "entries": 725,
+    "entries_identical_to_main_except_config": true,
+    "config_entry_changed": true
+  },
+  "dyn_power_x0.75": {
+    "name": "dyn_power_x0.75",
+    "description": "dynamic power x0.75: node busy-idle increments, radio/AP increments and per-bit network energy; idle power and the energy reference unchanged",
+    "options": {},
+    "changed_blocks": [
+      "network",
+      "topology"
+    ],
+    "mode": "variant_jar",
+    "config_file": "results/research_v2/v0.4/p12/variants/dyn_power_x0.75/default.json",
+    "config_file_sha256": "f448045a713a4274529383a57995484fcf15e4796db0fbf6f3e3230201f79cea",
+    "config_sha256": "1e65a70509235ad20ec131854efffaf0ae7de8b2d88a1dbbb186948410f9fc60",
+    "jar": "ifogsim/dist_p12/research-v2-dyn_power_x0.75.jar",
+    "jar_sha256": "193a9a1c20eb3743ca98afa035c2a7a2f6c7ef5f6d6c9a35311de52969a51725",
+    "entries": 725,
+    "entries_identical_to_main_except_config": true,
+    "config_entry_changed": true
+  },
+  "dyn_power_x1.25": {
+    "name": "dyn_power_x1.25",
+    "description": "dynamic power x1.25: node busy-idle increments, radio/AP increments and per-bit network energy; idle power and the energy reference unchanged",
+    "options": {},
+    "changed_blocks": [
+      "network",
+      "topology"
+    ],
+    "mode": "variant_jar",
+    "config_file": "results/research_v2/v0.4/p12/variants/dyn_power_x1.25/default.json",
+    "config_file_sha256": "03f83375f9ca80458cd22c9e29389fc391f99ed4762f289634c242f437e39f58",
+    "config_sha256": "819b7d57778018a59f36263feca659aced807cf03a38c99a273d7474da4bb0f7",
+    "jar": "ifogsim/dist_p12/research-v2-dyn_power_x1.25.jar",
+    "jar_sha256": "6b7dc458bb567ff8fee0ad97e2bd4b418316073768ae14f1685fe1118d680db8",
+    "entries": 725,
+    "entries_identical_to_main_except_config": true,
+    "config_entry_changed": true
+  },
+  "homogeneous_fog": {
+    "name": "homogeneous_fog",
+    "description": "homogeneous fog control: every fog uses the F3 profile (main JAR, reset option)",
+    "options": {
+      "homogeneous_fog": true
+    },
+    "mode": "main_jar",
+    "config_sha256": "3e32379ebd2e8770e025ff9cce11be28cbffe7e535b269a070030ce6d9dae025",
+    "changed_blocks": []
+  }
+}

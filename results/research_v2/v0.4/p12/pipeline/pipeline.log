@@ -1,0 +1,54 @@
+[2026-11-15T13:00:37+00:00] === p12 run pid=968880 workers=12 ===
+[2026-11-15T13:00:38+00:00] preflight ok: lock verified (0 problems, 2 warning(s): files added after the lock), P11 complete
+[2026-11-15T13:00:39+00:00] variants built: identity, timeout_k2, timeout_k4, fog_queue_8, fog_queue_32, wan_prop_0.01, wan_prop_0.04, dyn_power_x0.75, dyn_power_x1.25, homogeneous_fog (variant JARs differ from the main JAR only in the config resource)
+[2026-11-15T13:14:49+00:00] identity check: 3 of 3 evaluation tasks to run (12 workers)
+[2026-11-15T13:17:41+00:00] identity check: all 3 tasks complete
+[2026-11-15T13:17:42+00:00] identity check passed: 1200 test episodes identical to P11 (metrics, actions, reward)
+[2026-11-15T13:33:11+00:00] final audit passed: 7 checks, 49600 test episode rows traced to regenerated traces
+[2026-11-15T13:33:11+00:00] reproduction: clean clone of 0ecaf5bc91b7 and JAR rebuild
+[2026-11-15T13:33:16+00:00] reproduction: physical case and 1,024-decision learning run in the main tree
+[2026-11-15T13:33:29+00:00] reproduction: physical case and 1,024-decision learning run in the clone tree
+[2026-11-15T13:33:42+00:00] reproduction passed: rebuilt JAR entries, physical case and learning run identical in a clean clone
+[2026-11-15T14:02:22+00:00] sensitivity evaluation: 1240 of 1240 evaluation tasks to run (12 workers)
+[2026-11-15T14:17:23+00:00] sensitivity evaluation: 172/1240 tasks complete
+[2026-11-15T14:32:23+00:00] sensitivity evaluation: 232/1240 tasks complete
+[2026-11-15T14:47:23+00:00] sensitivity evaluation: 292/1240 tasks complete
+[2026-11-15T15:02:23+00:00] sensitivity evaluation: 352/1240 tasks complete
+[2026-11-15T15:17:23+00:00] sensitivity evaluation: 412/1240 tasks complete
+[2026-11-15T15:32:23+00:00] sensitivity evaluation: 472/1240 tasks complete
+[2026-11-15T15:47:23+00:00] sensitivity evaluation: 532/1240 tasks complete
+[2026-11-15T16:02:23+00:00] sensitivity evaluation: 592/1240 tasks complete
+[2026-11-15T16:17:23+00:00] sensitivity evaluation: 656/1240 tasks complete
+[2026-11-15T16:32:24+00:00] sensitivity evaluation: 718/1240 tasks complete
+[2026-11-15T16:47:24+00:00] sensitivity evaluation: 783/1240 tasks complete
+[2026-11-15T17:02:24+00:00] sensitivity evaluation: 844/1240 tasks complete
+[2026-11-15T17:17:24+00:00] sensitivity evaluation: 904/1240 tasks complete
+[2026-11-15T17:32:24+00:00] sensitivity evaluation: 964/1240 tasks complete
+[2026-11-15T17:47:24+00:00] sensitivity evaluation: 1026/1240 tasks complete
+[2026-11-15T18:02:24+00:00] sensitivity evaluation: 1088/1240 tasks complete
+[2026-11-15T18:17:24+00:00] sensitivity evaluation: 1156/1240 tasks complete
+[2026-11-15T18:32:24+00:00] sensitivity evaluation: 1224/1240 tasks complete
+[2026-11-15T18:34:46+00:00] sensitivity evaluation: all 1240 tasks complete
+[2026-11-15T18:34:46+00:00] analysis: main reference from the P11 test episodes
+[2026-11-15T18:34:54+00:00] analysis: timeout_k2
+[2026-11-15T18:35:02+00:00] analysis: timeout_k4
+[2026-11-15T18:35:10+00:00] analysis: fog_queue_8
+[2026-11-15T18:35:19+00:00] analysis: fog_queue_32
+[2026-11-15T18:35:27+00:00] analysis: wan_prop_0.01
+[2026-11-15T18:35:35+00:00] analysis: wan_prop_0.04
+[2026-11-15T18:35:43+00:00] analysis: dyn_power_x0.75
+[2026-11-15T18:35:51+00:00] analysis: dyn_power_x1.25
+[2026-11-15T18:35:59+00:00] analysis: homogeneous_fog
+[2026-11-15T18:36:07+00:00] analysis: normalization main definition (validation)
+[2026-11-15T18:36:09+00:00] analysis: normalization latency_ref_x0.8 (validation)
+[2026-11-15T18:36:10+00:00] analysis: normalization failure_penalty_x0.8 (validation)
+[2026-11-15T18:36:11+00:00] analysis: normalization energy_ref_x0.8 (validation)
+[2026-11-15T18:36:13+00:00] analysis: normalization imbalance_ref_x0.8 (validation)
+[2026-11-15T18:36:14+00:00] analysis: normalization latency_ref_x1.2 (validation)
+[2026-11-15T18:36:15+00:00] analysis: normalization failure_penalty_x1.2 (validation)
+[2026-11-15T18:36:16+00:00] analysis: normalization energy_ref_x1.2 (validation)
+[2026-11-15T18:36:18+00:00] analysis: normalization imbalance_ref_x1.2 (validation)
+[2026-11-15T18:36:19+00:00] sensitivity report written: results/research_v2/v0.4/p12/sensitivity/report.md (27/27 RQ directions kept)
+[2026-11-15T18:36:20+00:00] package written: results/research_v2/v0.4/p12/package (2403 tracked files, 120 local checkpoints hashed)
+[2026-11-15T18:36:20+00:00] claims table written: results/research_v2/v0.4/p12/claims.md
+[2026-11-15T18:36:20+00:00] === P12 all stages complete ===

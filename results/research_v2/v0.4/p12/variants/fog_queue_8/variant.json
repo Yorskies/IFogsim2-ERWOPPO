@@ -1,0 +1,17 @@
+{
+  "name": "fog_queue_8",
+  "description": "fog waiting-queue capacity 8 on F1-F5 (main 16)",
+  "options": {},
+  "changed_blocks": [
+    "topology"
+  ],
+  "mode": "variant_jar",
+  "config_file": "results/research_v2/v0.4/p12/variants/fog_queue_8/default.json",
+  "config_file_sha256": "72526984c7a5a0cfdb5d80a0b9667f6efdc297b210d7d706a60c7054bb92d398",
+  "config_sha256": "b3e300c2d258c8f7c0963ec55a7780616420cac90cd0dca60304f50948c435e4",
+  "jar": "ifogsim/dist_p12/research-v2-fog_queue_8.jar",
+  "jar_sha256": "06b9a0f2ee4dea253c9f5d105641c1023cfc455c7448263126dfc122ea38daf1",
+  "entries": 725,
+  "entries_identical_to_main_except_config": true,
+  "config_entry_changed": true
+}

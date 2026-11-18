@@ -1,0 +1,17 @@
+{
+  "name": "wan_prop_0.01",
+  "description": "WAN propagation 0.01 s (main 0.02 s)",
+  "options": {},
+  "changed_blocks": [
+    "network"
+  ],
+  "mode": "variant_jar",
+  "config_file": "results/research_v2/v0.4/p12/variants/wan_prop_0.01/default.json",
+  "config_file_sha256": "c6b43a79b0e3864fa307c87389e7b48eaeac84eb0392a4f066813b84b266878b",
+  "config_sha256": "727134dfb7aa6a35bfbf8026fd5b21f7b513107bf46a39b88007896c14052af3",
+  "jar": "ifogsim/dist_p12/research-v2-wan_prop_0.01.jar",
+  "jar_sha256": "27320de42e50b358d00308fcce5ac0588208777d6ea80f908117371f84cc2ee0",
+  "entries": 725,
+  "entries_identical_to_main_except_config": true,
+  "config_entry_changed": true
+}

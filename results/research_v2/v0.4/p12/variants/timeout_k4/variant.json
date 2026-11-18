@@ -1,0 +1,17 @@
+{
+  "name": "timeout_k4",
+  "description": "timeout factor k = 4 (main 3); horizon T + k*Dmax; latency reference and penalty unchanged",
+  "options": {},
+  "changed_blocks": [
+    "timing"
+  ],
+  "mode": "variant_jar",
+  "config_file": "results/research_v2/v0.4/p12/variants/timeout_k4/default.json",
+  "config_file_sha256": "a94e38c561e789e708161537cbef32c342ba08264213a7be31ed5490f4eb0227",
+  "config_sha256": "2bc796dd29d72587bb434aeb2754ca4b82e9846dd6da52208a5302431cf59c20",
+  "jar": "ifogsim/dist_p12/research-v2-timeout_k4.jar",
+  "jar_sha256": "dff4dc1006c6342470112c61b834e9e0a8218c8ed27d8e827b67e84810bb1e0a",
+  "entries": 725,
+  "entries_identical_to_main_except_config": true,
+  "config_entry_changed": true
+}

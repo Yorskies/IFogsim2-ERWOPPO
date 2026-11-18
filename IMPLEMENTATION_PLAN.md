@@ -1,6 +1,6 @@
 # Implementation plan dan milestone penelitian ERWO-PPO v2
 
-Tanggal: 3 November 2026 (diperbarui 8 November 2026). Status: **P00–P06 selesai dan terverifikasi; P07 selesai secara teknis dengan hasil pilot negatif yang didiagnosis; P08 asli gagal tetapi revisi eksploratori memilih K=30.720 yang diaudit; P09 (runner) dan P10 (analisis + protocol lock) selesai dan terverifikasi pada fixture; M3 v0.2 no-go (learner gamma 1 tidak belajar konsisten); protokol v0.3 (gamma 0,97) gagal pada gerbang fidelity terdaftar → no-go; protokol v0.4 (K = F) disiapkan dan dikunci (lock `63d07e43…`), P11 siap dijalankan dengan `./run_p11_v04.sh go-open-test`; P11 dan P12 belum dimulai**. Lihat `docs/research_v2/PROTOCOL_v0.3.md` dan `PROTOCOL_v0.4.md`.
+Tanggal: 3 November 2026 (diperbarui 18 November 2026). Status: **P00–P06 selesai dan terverifikasi; P07 selesai secara teknis dengan hasil pilot negatif yang didiagnosis; P08 asli gagal tetapi revisi eksploratori memilih K=30.720 yang diaudit; P09 (runner) dan P10 (analisis + protocol lock) selesai dan terverifikasi pada fixture; M3 v0.2 no-go (learner gamma 1 tidak belajar konsisten); protokol v0.3 (gamma 0,97) gagal pada gerbang fidelity terdaftar → no-go; protokol v0.4 (K = F) dikunci (lock `63d07e43…`); P11 selesai 9 November 2026 (RQ1/RQ2 tidak didukung, RQ3 bertentangan; `docs/research_v2/milestones/P11_results.md`); P12 selesai 15 November 2026 (sensitivitas, audit akhir 7/7, reproduksi clean clone identik, paket dan tabel klaim; `docs/research_v2/milestones/P12_results.md`); tersisa pemetaan literatur oleh penulis**. Lihat `docs/research_v2/PROTOCOL_v0.3.md` dan `PROTOCOL_v0.4.md`.
 
 Phase pertama yang telah dikerjakan adalah **P00 — Kontrak dan fondasi proyek**. Bukti: [catatan P00](docs/research_v2/milestones/P00_foundation.md) dan [laporan verifikasi](docs/research_v2/milestones/P00_verification.json): 23 tes lulus, tanpa failure/error/skip. Build menargetkan Java 21; lingkungan aktual Windows/Python 3.11/JDK 27. Pengujian langsung Ubuntu/Python 3.12/JDK 21 tetap menjadi preflight server sebelum penguncian protokol P10.
 
@@ -47,8 +47,8 @@ Dokumen ini mengatur urutan kerja, dependensi, deliverable, verifikasi, dan krit
 | P08 | Pencarian bobot dan fidelity | NSGA-II/random search serta pemilihan K | P07 | Pilot asli gagal; revisi eksploratori memilih K=30.720 dan lulus audit; pencarian penuh belum berjalan; M2 belum ditinjau ulang |
 | P09 | Orkestrasi dan budget | Runner studi v2, accounting biaya, resume | P08 | **Selesai — 12 tes + 6 skenario live lulus (fixture)** |
 | P10 | Analisis dan penguncian protokol | Statistik teruji, konfigurasi terkunci, readiness review | P06–P09 | **Selesai teknis; M3 no-go untuk v0.2 dan v0.3 (lihat PROTOCOL_v0.3.md)** |
-| P11 | Eksperimen konfirmatori | Dua protokol, 20 outer run, hasil lengkap | P10 lulus | Belum dimulai |
-| P12 | Sensitivitas dan paket publikasi | Robustness, audit, reproduksibilitas, batas klaim | P11 | Belum dimulai |
+| P11 | Eksperimen konfirmatori | Dua protokol, 20 outer run, hasil lengkap | P10 lulus | Selesai (9 Nov 2026), [hasil](docs/research_v2/milestones/P11_results.md) |
+| P12 | Sensitivitas dan paket publikasi | Robustness, audit, reproduksibilitas, batas klaim | P11 | Selesai (15 Nov 2026) kecuali pemetaan literatur, [hasil](docs/research_v2/milestones/P12_results.md) |
 
 Dependensi utama bersifat berurutan. Perancangan schema dan pembacaan source boleh dilakukan lebih awal, tetapi hasil downstream tidak boleh dinyatakan valid sebelum engine yang mendasarinya lulus.
 
@@ -339,14 +339,14 @@ Deliverable: analysis module teruji, contoh laporan mini, protocol lock, resourc
 
 Pekerjaan:
 
-- [ ] Jalankan search NSGA-II dan random search untuk outer run 0–19 dengan konfigurasi yang dibekukan.
-- [ ] Latih model akhir baru dari awal; simpan checkpoint yang direncanakan.
-- [ ] Latih PPO-Equal/PPO-Manual untuk protokol F sama dan total-budget sesuai kontrak reuse/checkpoint.
-- [ ] Evaluasi semua model dan heuristik pada 100 trace test per workload, pasangan yang sama untuk seluruh metode/run.
-- [ ] Tahan konfigurasi ketika test dibuka; temuan test dicatat, tidak digunakan untuk tuning ulang studi yang sama.
-- [ ] Lakukan audit per-run pada task conservation, energi, byte, outcome, reward identity, dan biaya.
-- [ ] Pertahankan seluruh hasil, termasuk seed buruk, metode kalah, dan kegagalan teknis/algoritmik.
-- [ ] Susun analisis primer/sekunder sesuai P10, lengkap dengan effect dan CI.
+- [x] Jalankan search NSGA-II dan random search untuk outer run 0–19 dengan konfigurasi yang dibekukan.
+- [x] Latih model akhir baru dari awal; simpan checkpoint yang direncanakan.
+- [x] Latih PPO-Equal/PPO-Manual untuk protokol F sama dan total-budget sesuai kontrak reuse/checkpoint.
+- [x] Evaluasi semua model dan heuristik pada 100 trace test per workload, pasangan yang sama untuk seluruh metode/run.
+- [x] Tahan konfigurasi ketika test dibuka; temuan test dicatat, tidak digunakan untuk tuning ulang studi yang sama.
+- [x] Lakukan audit per-run pada task conservation, energi, byte, outcome, reward identity, dan biaya.
+- [x] Pertahankan seluruh hasil, termasuk seed buruk, metode kalah, dan kegagalan teknis/algoritmik.
+- [x] Susun analisis primer/sekunder sesuai P10, lengkap dengan effect dan CI.
 
 Deliverable: seluruh model/log, dataset test per-trace/per-run, cost ledger, analysis output, dan laporan utama.
 
@@ -360,14 +360,14 @@ Signifikansi atau kemenangan ERWO bukan kriteria kelulusan milestone. Bukti yang
 
 Pekerjaan:
 
-- [ ] Evaluasi sensitivitas k, queue fog, propagasi WAN, daya dinamis, serta kapasitas/daya fog sesuai protokol.
-- [ ] Gunakan model beku untuk sensitivitas zero-shot; jangan mencampurkannya dengan studi retraining.
-- [ ] Tinjau sensitivitas normalisasi pada data validasi dan laporkan definisi utama secara tetap.
-- [ ] Laporkan hasil metrik fisik bersama skor kompromi; label satuan dan penalti evaluasi secara eksplisit.
-- [ ] Audit kesesuaian raw data, summary, statistik, model, trace, serta source/build/config hashes.
-- [ ] Siapkan arsip hasil terpisah dari repo source, indeks artefak, README reproduksi, dan checksum.
-- [ ] Uji reproduksi terpilih dari lingkungan bersih, sekurangnya satu kasus fisik dan satu run pembelajaran kecil.
-- [ ] Susun tabel klaim didukung/tidak didukung dan batas observabilitas, model energi, workload, serta biaya.
+- [x] Evaluasi sensitivitas k, queue fog, propagasi WAN, daya dinamis, serta kapasitas/daya fog sesuai protokol.
+- [x] Gunakan model beku untuk sensitivitas zero-shot; jangan mencampurkannya dengan studi retraining.
+- [x] Tinjau sensitivitas normalisasi pada data validasi dan laporkan definisi utama secara tetap.
+- [x] Laporkan hasil metrik fisik bersama skor kompromi; label satuan dan penalti evaluasi secara eksplisit.
+- [x] Audit kesesuaian raw data, summary, statistik, model, trace, serta source/build/config hashes.
+- [x] Siapkan arsip hasil terpisah dari repo source, indeks artefak, README reproduksi, dan checksum.
+- [x] Uji reproduksi terpilih dari lingkungan bersih, sekurangnya satu kasus fisik dan satu run pembelajaran kecil.
+- [x] Susun tabel klaim didukung/tidak didukung dan batas observabilitas, model energi, workload, serta biaya.
 - [ ] Perbarui pemetaan literatur terdekat sebelum menyatakan novelty atau state of the art.
 
 Deliverable: sensitivity report, audit akhir, reproduction package, serta tabel/figur untuk manuskrip.
@@ -432,8 +432,8 @@ Status `blocked` pada catatan proyek berarti dependensi/masalah milestone belum 
 4. Tulis acceptance cases untuk P01–P05 beserta nilai analitis yang diharapkan.
 5. Serahkan catatan P00 sebelum memperluas implementasi ke generator trace dan simulator.
 
-P01 trace deterministik, P02 engine CPU/lifecycle, P03 transport jaringan, P04 ledger energi dan lima metrik, P05 socket/Gymnasium, dan P06 baseline/kalibrasi juga sudah selesai. **P07 sudah dijalankan dan P08 diimplementasikan**; pilot fidelity asli gagal, lalu ekstensi diagnosis yang diaudit memilih K=30.720 secara eksploratori. P09 dan P10 sudah selesai pada fixture. Langkah berikutnya adalah keputusan go/no-go M3 (lihat `P10_readiness_review.md`) sebelum P11. Tidak langsung mengubah runner legacy menjadi training besar, memigrasikan model lama ke 108 fitur, atau menjalankan 20 outer run.
+P01 trace deterministik, P02 engine CPU/lifecycle, P03 transport jaringan, P04 ledger energi dan lima metrik, P05 socket/Gymnasium, dan P06 baseline/kalibrasi juga sudah selesai. **P07 sudah dijalankan dan P08 diimplementasikan**; pilot fidelity asli gagal, lalu ekstensi diagnosis yang diaudit memilih K=30.720 secara eksploratori. P09 dan P10 sudah selesai pada fixture. M3 v0.2 no-go dan v0.3 gagal gerbang; protokol v0.4 dijalankan: P11 dan P12 selesai. Tidak langsung mengubah runner legacy menjadi training besar, memigrasikan model lama ke 108 fitur, atau menjalankan 20 outer run.
 
 ## 20. Batas dokumen ini
 
-P00–P06 telah diimplementasikan dan diverifikasi, termasuk regresi Linux. P07 selesai secara teknis; pilot pembelajaran negatif telah didiagnosis. P08 pilot asli gagal, sedangkan ekstensi eksploratori memilih K=30.720 dengan audit. P09 menyediakan runner studi dengan akuntansi budget, resume, retry terbatas, lock kepemilikan, dan isolasi worker; P10 menyediakan analisis statistik terdaftar dan protocol lock yang membekukan desain serta menyegel test. Keduanya diverifikasi pada fixture; regresi penuh 236 tes lulus. Pencarian 80 slot, studi 20 outer run, evaluasi test, dan eksperimen konfirmatori belum dijalankan. Gym tersedia; PPO telah menjalani smoke/pilot; pembelajaran efektif belum terbukti. Status selesai suatu phase tidak berarti hasil ilmiah sudah ada; P11 menunggu keputusan go/no-go M3.
+P00–P06 telah diimplementasikan dan diverifikasi, termasuk regresi Linux. P07 selesai secara teknis; pilot pembelajaran negatif telah didiagnosis. P08 pilot asli gagal, sedangkan ekstensi eksploratori memilih K=30.720 dengan audit. P09 menyediakan runner studi dengan akuntansi budget, resume, retry terbatas, lock kepemilikan, dan isolasi worker; P10 menyediakan analisis statistik terdaftar dan protocol lock yang membekukan desain serta menyegel test. Keduanya diverifikasi pada fixture; regresi penuh 236 tes lulus. Di bawah protokol v0.4, P11 menjalankan 20 outer run (120 model) dan membuka test sekali: RQ1/RQ2 tidak didukung, RQ3 bertentangan (equal-weight dengan compute B terbaik). P12 menunjukkan arah ketiga RQ tetap pada semua varian sensitivitas terdaftar, audit akhir dan reproduksi clean clone lulus, dan menyediakan paket reproduksi serta tabel klaim; regresi penuh 258 tes lulus. Yang tersisa: arsip artefak besar di luar repo dan pemetaan literatur/novelty oleh penulis.

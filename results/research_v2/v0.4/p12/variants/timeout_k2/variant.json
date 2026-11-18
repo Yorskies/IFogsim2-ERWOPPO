@@ -1,0 +1,17 @@
+{
+  "name": "timeout_k2",
+  "description": "timeout factor k = 2 (main 3); horizon T + k*Dmax; latency reference and penalty unchanged",
+  "options": {},
+  "changed_blocks": [
+    "timing"
+  ],
+  "mode": "variant_jar",
+  "config_file": "results/research_v2/v0.4/p12/variants/timeout_k2/default.json",
+  "config_file_sha256": "de521b119add66e4ef81e36f46c16292db4a5b2d1349a1ab7598789e8877039d",
+  "config_sha256": "f564a3c6fe3c28535e82bc6b545406c5347e925b18cff04e19b1032bc369a156",
+  "jar": "ifogsim/dist_p12/research-v2-timeout_k2.jar",
+  "jar_sha256": "958ca1d381f01c4580afb7308d9c0ad88b8f5d0c2ad3684599e2c6af7bbe8e4b",
+  "entries": 725,
+  "entries_identical_to_main_except_config": true,
+  "config_entry_changed": true
+}

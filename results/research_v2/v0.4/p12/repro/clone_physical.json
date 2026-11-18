@@ -1,0 +1,3018 @@
+[
+  {
+    "policy": "greedy_eft",
+    "workload": "light",
+    "trace_sha256": "1c447c8e49bead4d424bd3eb85a3404d6b23b93e4f7deb80b96124dd2d1da41c",
+    "actions_sha256": "ce3ab2588eba531b134ce66a64175288220e4e8ecd1e037c013d400c26ccfb73",
+    "metrics": {
+      "task_count": 279,
+      "on_time": 254,
+      "late_success": 25,
+      "failed": 0,
+      "success_count": 279,
+      "violation": 0.08960573476702509,
+      "reliability": 1.0,
+      "latency": {
+        "completed_tasks": 279,
+        "failed_tasks_excluded": 0,
+        "percentile_method": "nearest_rank: element ceil(p*n) of the sorted completed latencies; median averages the two middle values for even n",
+        "mean_s": 0.5201347206833199,
+        "median_s": 0.39272418057142655,
+        "p95_s": 1.5484030788571417
+      },
+      "throughput": {
+        "results_received": 279,
+        "results_per_s": 4.043478260869565,
+        "results_during_arrival_window": 276,
+        "results_after_arrival_window": 3
+      },
+      "costs": {
+        "zL": 0.05779274674259109,
+        "zE": 0.05489426045495818,
+        "zD": 0.08960573476702509,
+        "zB": 0.06895141761574959,
+        "zQ": 0.0
+      },
+      "D": 0.06186576937420242,
+      "out_of_reference": [],
+      "diagnosis_required": false,
+      "latency_penalty_s_applied_to_failed_in_zL": 9.0,
+      "latency_penalty_is_evaluation_convention_not_measured_latency": true,
+      "fog_count": 5,
+      "fog_utilization_std_integral_s": 2.330761904761904
+    },
+    "energy": {
+      "horizon_s": 69.0,
+      "communication_modeled": true,
+      "idle_j": 43016.8977,
+      "dynamic_j": 765.7749333466667,
+      "total_j": 43782.672633346665,
+      "idle_power_w": 623.4333,
+      "by_group": {
+        "ap": {
+          "idle_j": 1035.0,
+          "dynamic_j": 81.6338512,
+          "total_j": 1116.6338512
+        },
+        "cpu_cloud": {
+          "idle_j": 6900.0,
+          "dynamic_j": 373.8281250000001,
+          "total_j": 7273.828125
+        },
+        "cpu_fog": {
+          "idle_j": 28871.8977,
+          "dynamic_j": 203.94166666666672,
+          "total_j": 29075.839366666667
+        },
+        "cpu_iot": {
+          "idle_j": 3450.0,
+          "dynamic_j": 14.004000000000016,
+          "total_j": 3464.004
+        },
+        "lan": {
+          "idle_j": 1380.0,
+          "dynamic_j": 5.82320848,
+          "total_j": 1385.82320848
+        },
+        "radio": {
+          "idle_j": 690.0,
+          "dynamic_j": 68.62341703999999,
+          "total_j": 758.62341704
+        },
+        "wan": {
+          "idle_j": 690.0,
+          "dynamic_j": 17.920664960000003,
+          "total_j": 707.92066496
+        }
+      },
+      "components": [
+        {
+          "id": "cpu:IoT-0",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.911999999999999
+        },
+        {
+          "id": "cpu:IoT-1",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-2",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-3",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.6960000000000015
+        },
+        {
+          "id": "cpu:IoT-4",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-5",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-6",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-7",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-8",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-9",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 1.1759999999999984
+        },
+        {
+          "id": "cpu:IoT-10",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-11",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-12",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.7360000000000007
+        },
+        {
+          "id": "cpu:IoT-13",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-14",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-15",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-16",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-17",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-18",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-19",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-20",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-21",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-22",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-23",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-24",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-25",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-26",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-27",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-28",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-29",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-30",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-31",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-32",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-33",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-34",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-35",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-36",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-37",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-38",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-39",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-40",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-41",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 1.176000000000002
+        },
+        {
+          "id": "cpu:IoT-42",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-43",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-44",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-45",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-46",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-47",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-48",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-49",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.784000000000006
+        },
+        {
+          "id": "cpu:IoT-50",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-51",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-52",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-53",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-54",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-55",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-56",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.3999999999999999
+        },
+        {
+          "id": "cpu:IoT-57",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-58",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-59",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-60",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-61",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-62",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-63",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-64",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-65",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 1.0999999999999943
+        },
+        {
+          "id": "cpu:IoT-66",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-67",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.42799999999999727
+        },
+        {
+          "id": "cpu:IoT-68",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-69",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-70",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-71",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.8879999999999999
+        },
+        {
+          "id": "cpu:IoT-72",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 1.064
+        },
+        {
+          "id": "cpu:IoT-73",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-74",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-75",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-76",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-77",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.5160000000000053
+        },
+        {
+          "id": "cpu:IoT-78",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-79",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.8240000000000016
+        },
+        {
+          "id": "cpu:IoT-80",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-81",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-82",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-83",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-84",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-85",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-86",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-87",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-88",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-89",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-90",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-91",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-92",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-93",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-94",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 1.0480000000000018
+        },
+        {
+          "id": "cpu:IoT-95",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-96",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 1.1000000000000014
+        },
+        {
+          "id": "cpu:IoT-97",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-98",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 1.156000000000006
+        },
+        {
+          "id": "cpu:IoT-99",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:F1",
+          "group": "cpu_fog",
+          "idle_j": 3450.0,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:F2",
+          "group": "cpu_fog",
+          "idle_j": 4485.0,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:F3",
+          "group": "cpu_fog",
+          "idle_j": 5756.8977,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:F4",
+          "group": "cpu_fog",
+          "idle_j": 6900.0,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:F5",
+          "group": "cpu_fog",
+          "idle_j": 8280.0,
+          "dynamic_j": 203.94166666666672
+        },
+        {
+          "id": "cpu:cloud",
+          "group": "cpu_cloud",
+          "idle_j": 6900.0,
+          "dynamic_j": 373.8281250000001
+        },
+        {
+          "id": "net:radio",
+          "group": "radio",
+          "idle_j": 690.0,
+          "dynamic_j": 68.62341703999999
+        },
+        {
+          "id": "net:ap",
+          "group": "ap",
+          "idle_j": 1035.0,
+          "dynamic_j": 81.6338512
+        },
+        {
+          "id": "net:lan",
+          "group": "lan",
+          "idle_j": 1380.0,
+          "dynamic_j": 5.82320848
+        },
+        {
+          "id": "net:wan",
+          "group": "wan",
+          "idle_j": 690.0,
+          "dynamic_j": 17.920664960000003
+        }
+      ],
+      "dynamic_attributed_to_tasks_j": 765.7749333466667,
+      "attribution_gap_j": 0.0,
+      "joules_per_arrived_task": 156.92714205500596,
+      "joules_per_successful_task": 156.92714205500596
+    }
+  },
+  {
+    "policy": "greedy_eft",
+    "workload": "heavy",
+    "trace_sha256": "3d8ad09842510cfc44933e45a07a302a4530edc0ea0840649fea251680e2e065",
+    "actions_sha256": "4b7c1b1ec0407effa210fa52263e4777a4eb2d8bb09a832af500cca3d57a035d",
+    "metrics": {
+      "task_count": 1863,
+      "on_time": 610,
+      "late_success": 1142,
+      "failed": 111,
+      "success_count": 1752,
+      "violation": 0.6725711218464842,
+      "reliability": 0.9404186795491143,
+      "latency": {
+        "completed_tasks": 1752,
+        "failed_tasks_excluded": 111,
+        "percentile_method": "nearest_rank: element ceil(p*n) of the sorted completed latencies; median averages the two middle values for even n",
+        "mean_s": 1.23802757000327,
+        "median_s": 0.8482770547850238,
+        "p95_s": 3.58675223689567
+      },
+      "throughput": {
+        "results_received": 1752,
+        "results_per_s": 25.391304347826086,
+        "results_during_arrival_window": 1712,
+        "results_after_arrival_window": 40
+      },
+      "costs": {
+        "zL": 0.18894401518731607,
+        "zE": 0.07801379440596297,
+        "zD": 0.6725711218464842,
+        "zB": 0.766249295013938,
+        "zQ": 0.05958132045088567
+      },
+      "D": 0.46579519593713864,
+      "out_of_reference": [],
+      "diagnosis_required": false,
+      "latency_penalty_s_applied_to_failed_in_zL": 9.0,
+      "latency_penalty_is_evaluation_convention_not_measured_latency": true,
+      "fog_count": 5,
+      "fog_utilization_std_integral_s": 25.901493082010457
+    },
+    "energy": {
+      "horizon_s": 69.0,
+      "communication_modeled": true,
+      "idle_j": 43016.8977,
+      "dynamic_j": 7266.98494891545,
+      "total_j": 50283.88264891545,
+      "idle_power_w": 623.4333,
+      "by_group": {
+        "ap": {
+          "idle_j": 1035.0,
+          "dynamic_j": 400.95069404513305,
+          "total_j": 1435.950694045133
+        },
+        "cpu_cloud": {
+          "idle_j": 6900.0,
+          "dynamic_j": 1187.6629464285713,
+          "total_j": 8087.662946428572
+        },
+        "cpu_fog": {
+          "idle_j": 28871.8977,
+          "dynamic_j": 3620.6817103503604,
+          "total_j": 32492.57941035036
+        },
+        "cpu_iot": {
+          "idle_j": 3450.0,
+          "dynamic_j": 1630.3383797710765,
+          "total_j": 5080.338379771077
+        },
+        "lan": {
+          "idle_j": 1380.0,
+          "dynamic_j": 33.2913352,
+          "total_j": 1413.2913352
+        },
+        "radio": {
+          "idle_j": 690.0,
+          "dynamic_j": 337.7016463203099,
+          "total_j": 1027.70164632031
+        },
+        "wan": {
+          "idle_j": 690.0,
+          "dynamic_j": 56.3582368,
+          "total_j": 746.3582368
+        }
+      },
+      "components": [
+        {
+          "id": "cpu:IoT-0",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 11.772000000000006
+        },
+        {
+          "id": "cpu:IoT-1",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 11.83447831771721
+        },
+        {
+          "id": "cpu:IoT-2",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 20.639332132119815
+        },
+        {
+          "id": "cpu:IoT-3",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 13.615999999999978
+        },
+        {
+          "id": "cpu:IoT-4",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 15.907999999999994
+        },
+        {
+          "id": "cpu:IoT-5",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 2.0960000000000036
+        },
+        {
+          "id": "cpu:IoT-6",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 19.227999999999987
+        },
+        {
+          "id": "cpu:IoT-7",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 16.844000000000026
+        },
+        {
+          "id": "cpu:IoT-8",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 14.972434789346234
+        },
+        {
+          "id": "cpu:IoT-9",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 14.332000000000008
+        },
+        {
+          "id": "cpu:IoT-10",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 11.763999999999998
+        },
+        {
+          "id": "cpu:IoT-11",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 20.755999999999993
+        },
+        {
+          "id": "cpu:IoT-12",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 8.759999999999994
+        },
+        {
+          "id": "cpu:IoT-13",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 22.160000000000004
+        },
+        {
+          "id": "cpu:IoT-14",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 22.189905581025315
+        },
+        {
+          "id": "cpu:IoT-15",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 17.108000000000004
+        },
+        {
+          "id": "cpu:IoT-16",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 15.727999999999994
+        },
+        {
+          "id": "cpu:IoT-17",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 16.73200000000001
+        },
+        {
+          "id": "cpu:IoT-18",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 21.77200000000001
+        },
+        {
+          "id": "cpu:IoT-19",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 8.703999999999999
+        },
+        {
+          "id": "cpu:IoT-20",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 19.211999999999986
+        },
+        {
+          "id": "cpu:IoT-21",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 21.75599999999998
+        },
+        {
+          "id": "cpu:IoT-22",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 14.636000000000003
+        },
+        {
+          "id": "cpu:IoT-23",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 25.683999999999997
+        },
+        {
+          "id": "cpu:IoT-24",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 35.38615962834842
+        },
+        {
+          "id": "cpu:IoT-25",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 20.675864185407388
+        },
+        {
+          "id": "cpu:IoT-26",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 5.007999999999996
+        },
+        {
+          "id": "cpu:IoT-27",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 8.687999999999988
+        },
+        {
+          "id": "cpu:IoT-28",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 24.291999999999987
+        },
+        {
+          "id": "cpu:IoT-29",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 6.06
+        },
+        {
+          "id": "cpu:IoT-30",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 10.151999999999981
+        },
+        {
+          "id": "cpu:IoT-31",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 20.191999999999997
+        },
+        {
+          "id": "cpu:IoT-32",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 10.0417076964332
+        },
+        {
+          "id": "cpu:IoT-33",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 18.287999999999993
+        },
+        {
+          "id": "cpu:IoT-34",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 27.855999999999987
+        },
+        {
+          "id": "cpu:IoT-35",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 23.72399999999999
+        },
+        {
+          "id": "cpu:IoT-36",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 15.691999999999979
+        },
+        {
+          "id": "cpu:IoT-37",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 14.460000000000008
+        },
+        {
+          "id": "cpu:IoT-38",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 14.456000000000017
+        },
+        {
+          "id": "cpu:IoT-39",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 23.999999999999993
+        },
+        {
+          "id": "cpu:IoT-40",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 22.2
+        },
+        {
+          "id": "cpu:IoT-41",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 14.252000000000002
+        },
+        {
+          "id": "cpu:IoT-42",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 18.231999999999992
+        },
+        {
+          "id": "cpu:IoT-43",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 9.704000000000002
+        },
+        {
+          "id": "cpu:IoT-44",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 15.663999999999998
+        },
+        {
+          "id": "cpu:IoT-45",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 8.612000000000005
+        },
+        {
+          "id": "cpu:IoT-46",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 13.628000000000013
+        },
+        {
+          "id": "cpu:IoT-47",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 18.208658752611854
+        },
+        {
+          "id": "cpu:IoT-48",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 16.368000000000002
+        },
+        {
+          "id": "cpu:IoT-49",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 16.22400000000001
+        },
+        {
+          "id": "cpu:IoT-50",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 14.398447567794818
+        },
+        {
+          "id": "cpu:IoT-51",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 9.304000000000006
+        },
+        {
+          "id": "cpu:IoT-52",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 10.827999999999998
+        },
+        {
+          "id": "cpu:IoT-53",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 15.207999999999998
+        },
+        {
+          "id": "cpu:IoT-54",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 21.155999999999988
+        },
+        {
+          "id": "cpu:IoT-55",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 16.60800000000001
+        },
+        {
+          "id": "cpu:IoT-56",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 20.27939028373907
+        },
+        {
+          "id": "cpu:IoT-57",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 8.645490632228245
+        },
+        {
+          "id": "cpu:IoT-58",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 26.0260458147369
+        },
+        {
+          "id": "cpu:IoT-59",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 25.81312090826895
+        },
+        {
+          "id": "cpu:IoT-60",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 18.324000000000005
+        },
+        {
+          "id": "cpu:IoT-61",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 32.687999999999995
+        },
+        {
+          "id": "cpu:IoT-62",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 15.904
+        },
+        {
+          "id": "cpu:IoT-63",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 16.86680241986825
+        },
+        {
+          "id": "cpu:IoT-64",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 18.28000000000001
+        },
+        {
+          "id": "cpu:IoT-65",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 20.436
+        },
+        {
+          "id": "cpu:IoT-66",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 15.984000000000007
+        },
+        {
+          "id": "cpu:IoT-67",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 22.91599999999999
+        },
+        {
+          "id": "cpu:IoT-68",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 12.375999999999998
+        },
+        {
+          "id": "cpu:IoT-69",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 10.632000000000009
+        },
+        {
+          "id": "cpu:IoT-70",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 23.374466222188858
+        },
+        {
+          "id": "cpu:IoT-71",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 9.747999999999989
+        },
+        {
+          "id": "cpu:IoT-72",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 19.239999999999995
+        },
+        {
+          "id": "cpu:IoT-73",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 24.555999999999997
+        },
+        {
+          "id": "cpu:IoT-74",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 17.355999999999998
+        },
+        {
+          "id": "cpu:IoT-75",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 13.46400000000001
+        },
+        {
+          "id": "cpu:IoT-76",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 10.84399999999998
+        },
+        {
+          "id": "cpu:IoT-77",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 7.467999999999997
+        },
+        {
+          "id": "cpu:IoT-78",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 9.091999999999999
+        },
+        {
+          "id": "cpu:IoT-79",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 19.696000000000005
+        },
+        {
+          "id": "cpu:IoT-80",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 11.792633884403758
+        },
+        {
+          "id": "cpu:IoT-81",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 12.600000000000005
+        },
+        {
+          "id": "cpu:IoT-82",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 14.596978044226354
+        },
+        {
+          "id": "cpu:IoT-83",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 21.328000000000003
+        },
+        {
+          "id": "cpu:IoT-84",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 7.315999999999995
+        },
+        {
+          "id": "cpu:IoT-85",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 22.36371570530122
+        },
+        {
+          "id": "cpu:IoT-86",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 20.144000000000005
+        },
+        {
+          "id": "cpu:IoT-87",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 15.059999999999988
+        },
+        {
+          "id": "cpu:IoT-88",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 6.435999999999994
+        },
+        {
+          "id": "cpu:IoT-89",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 14.164000000000003
+        },
+        {
+          "id": "cpu:IoT-90",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 5.824000000000007
+        },
+        {
+          "id": "cpu:IoT-91",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 22.476000000000003
+        },
+        {
+          "id": "cpu:IoT-92",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 9.119999999999997
+        },
+        {
+          "id": "cpu:IoT-93",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 10.560000000000006
+        },
+        {
+          "id": "cpu:IoT-94",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 11.448000000000008
+        },
+        {
+          "id": "cpu:IoT-95",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 18.964747205310694
+        },
+        {
+          "id": "cpu:IoT-96",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 25.220000000000013
+        },
+        {
+          "id": "cpu:IoT-97",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 27.67599999999999
+        },
+        {
+          "id": "cpu:IoT-98",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 15.77999999999999
+        },
+        {
+          "id": "cpu:IoT-99",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 9.688000000000008
+        },
+        {
+          "id": "cpu:F1",
+          "group": "cpu_fog",
+          "idle_j": 3450.0,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:F2",
+          "group": "cpu_fog",
+          "idle_j": 4485.0,
+          "dynamic_j": 34.11666666666669
+        },
+        {
+          "id": "cpu:F3",
+          "group": "cpu_fog",
+          "idle_j": 5756.8977,
+          "dynamic_j": 218.49497293165504
+        },
+        {
+          "id": "cpu:F4",
+          "group": "cpu_fog",
+          "idle_j": 6900.0,
+          "dynamic_j": 1344.9498999377595
+        },
+        {
+          "id": "cpu:F5",
+          "group": "cpu_fog",
+          "idle_j": 8280.0,
+          "dynamic_j": 2023.1201708142792
+        },
+        {
+          "id": "cpu:cloud",
+          "group": "cpu_cloud",
+          "idle_j": 6900.0,
+          "dynamic_j": 1187.6629464285713
+        },
+        {
+          "id": "net:radio",
+          "group": "radio",
+          "idle_j": 690.0,
+          "dynamic_j": 337.7016463203099
+        },
+        {
+          "id": "net:ap",
+          "group": "ap",
+          "idle_j": 1035.0,
+          "dynamic_j": 400.95069404513305
+        },
+        {
+          "id": "net:lan",
+          "group": "lan",
+          "idle_j": 1380.0,
+          "dynamic_j": 33.2913352
+        },
+        {
+          "id": "net:wan",
+          "group": "wan",
+          "idle_j": 690.0,
+          "dynamic_j": 56.3582368
+        }
+      ],
+      "dynamic_attributed_to_tasks_j": 7266.984948915446,
+      "attribution_gap_j": 4.547473508864641e-12,
+      "joules_per_arrived_task": 26.99081194252037,
+      "joules_per_successful_task": 28.700846260796492
+    }
+  },
+  {
+    "policy": "checkpoint",
+    "workload": "light",
+    "trace_sha256": "1c447c8e49bead4d424bd3eb85a3404d6b23b93e4f7deb80b96124dd2d1da41c",
+    "actions_sha256": "0b9f6f9b8612e69bd41537c10b2ca5dd00d9ae6bb984236a05b45acdc571208f",
+    "metrics": {
+      "task_count": 279,
+      "on_time": 245,
+      "late_success": 31,
+      "failed": 3,
+      "success_count": 276,
+      "violation": 0.12186379928315412,
+      "reliability": 0.989247311827957,
+      "latency": {
+        "completed_tasks": 276,
+        "failed_tasks_excluded": 3,
+        "percentile_method": "nearest_rank: element ceil(p*n) of the sorted completed latencies; median averages the two middle values for even n",
+        "mean_s": 0.5513522031270374,
+        "median_s": 0.44091968067667875,
+        "p95_s": 1.6386462285714387
+      },
+      "throughput": {
+        "results_received": 276,
+        "results_per_s": 4.0,
+        "results_during_arrival_window": 274,
+        "results_after_arrival_window": 2
+      },
+      "costs": {
+        "zL": 0.0713553198180256,
+        "zE": 0.06052707781491719,
+        "zD": 0.12186379928315412,
+        "zB": 0.10134244570682545,
+        "zQ": 0.010752688172043012
+      },
+      "D": 0.08245217522374614,
+      "out_of_reference": [],
+      "diagnosis_required": false,
+      "latency_penalty_s_applied_to_failed_in_zL": 9.0,
+      "latency_penalty_is_evaluation_convention_not_measured_latency": true,
+      "fog_count": 5,
+      "fog_utilization_std_integral_s": 3.425674481490535
+    },
+    "energy": {
+      "horizon_s": 69.0,
+      "communication_modeled": true,
+      "idle_j": 43016.8977,
+      "dynamic_j": 844.3527355180947,
+      "total_j": 43861.25043551809,
+      "idle_power_w": 623.4333,
+      "by_group": {
+        "ap": {
+          "idle_j": 1035.0,
+          "dynamic_j": 82.9722316,
+          "total_j": 1117.9722316
+        },
+        "cpu_cloud": {
+          "idle_j": 6900.0,
+          "dynamic_j": 353.2276785714285,
+          "total_j": 7253.227678571428
+        },
+        "cpu_fog": {
+          "idle_j": 28871.8977,
+          "dynamic_j": 314.2366666666663,
+          "total_j": 29186.13436666667
+        },
+        "cpu_iot": {
+          "idle_j": 3450.0,
+          "dynamic_j": 0.0,
+          "total_j": 3450.0
+        },
+        "lan": {
+          "idle_j": 1380.0,
+          "dynamic_j": 6.06947868,
+          "total_j": 1386.06947868
+        },
+        "radio": {
+          "idle_j": 690.0,
+          "dynamic_j": 69.75081872000001,
+          "total_j": 759.75081872
+        },
+        "wan": {
+          "idle_j": 690.0,
+          "dynamic_j": 18.09586128,
+          "total_j": 708.09586128
+        }
+      },
+      "components": [
+        {
+          "id": "cpu:IoT-0",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-1",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-2",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-3",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-4",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-5",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-6",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-7",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-8",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-9",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-10",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-11",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-12",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-13",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-14",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-15",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-16",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-17",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-18",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-19",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-20",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-21",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-22",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-23",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-24",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-25",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-26",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-27",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-28",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-29",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-30",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-31",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-32",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-33",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-34",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-35",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-36",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-37",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-38",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-39",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-40",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-41",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-42",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-43",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-44",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-45",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-46",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-47",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-48",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-49",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-50",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-51",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-52",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-53",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-54",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-55",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-56",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-57",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-58",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-59",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-60",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-61",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-62",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-63",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-64",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-65",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-66",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-67",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-68",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-69",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-70",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-71",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-72",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-73",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-74",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-75",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-76",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-77",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-78",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-79",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-80",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-81",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-82",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-83",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-84",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-85",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-86",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-87",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-88",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-89",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-90",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-91",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-92",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-93",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-94",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-95",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-96",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-97",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-98",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-99",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:F1",
+          "group": "cpu_fog",
+          "idle_j": 3450.0,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:F2",
+          "group": "cpu_fog",
+          "idle_j": 4485.0,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:F3",
+          "group": "cpu_fog",
+          "idle_j": 5756.8977,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:F4",
+          "group": "cpu_fog",
+          "idle_j": 6900.0,
+          "dynamic_j": 49.770000000000024
+        },
+        {
+          "id": "cpu:F5",
+          "group": "cpu_fog",
+          "idle_j": 8280.0,
+          "dynamic_j": 264.46666666666624
+        },
+        {
+          "id": "cpu:cloud",
+          "group": "cpu_cloud",
+          "idle_j": 6900.0,
+          "dynamic_j": 353.2276785714285
+        },
+        {
+          "id": "net:radio",
+          "group": "radio",
+          "idle_j": 690.0,
+          "dynamic_j": 69.75081872000001
+        },
+        {
+          "id": "net:ap",
+          "group": "ap",
+          "idle_j": 1035.0,
+          "dynamic_j": 82.9722316
+        },
+        {
+          "id": "net:lan",
+          "group": "lan",
+          "idle_j": 1380.0,
+          "dynamic_j": 6.06947868
+        },
+        {
+          "id": "net:wan",
+          "group": "wan",
+          "idle_j": 690.0,
+          "dynamic_j": 18.09586128
+        }
+      ],
+      "dynamic_attributed_to_tasks_j": 844.3527355180946,
+      "attribution_gap_j": 1.1368683772161603e-13,
+      "joules_per_arrived_task": 157.20878292300392,
+      "joules_per_successful_task": 158.91757404173222
+    }
+  },
+  {
+    "policy": "checkpoint",
+    "workload": "heavy",
+    "trace_sha256": "3d8ad09842510cfc44933e45a07a302a4530edc0ea0840649fea251680e2e065",
+    "actions_sha256": "d8d3b1844af90e0fbe292cc94b173846d5126dfa006d33f592def5c3483e977e",
+    "metrics": {
+      "task_count": 1863,
+      "on_time": 29,
+      "late_success": 241,
+      "failed": 1593,
+      "success_count": 270,
+      "violation": 0.9844337090713903,
+      "reliability": 0.14492753623188406,
+      "latency": {
+        "completed_tasks": 270,
+        "failed_tasks_excluded": 1593,
+        "percentile_method": "nearest_rank: element ceil(p*n) of the sorted completed latencies; median averages the two middle values for even n",
+        "mean_s": 2.6866826582029004,
+        "median_s": 1.8573943276051477,
+        "p95_s": 6.875516388530219
+      },
+      "throughput": {
+        "results_received": 270,
+        "results_per_s": 3.9130434782608696,
+        "results_during_arrival_window": 258,
+        "results_after_arrival_window": 12
+      },
+      "costs": {
+        "zL": 0.8983362746892577,
+        "zE": 0.05130496449164738,
+        "zD": 0.9844337090713903,
+        "zB": 0.8982970165806226,
+        "zQ": 0.855072463768116
+      },
+      "D": 0.8144736260496396,
+      "out_of_reference": [],
+      "diagnosis_required": false,
+      "latency_penalty_s_applied_to_failed_in_zL": 9.0,
+      "latency_penalty_is_evaluation_convention_not_measured_latency": true,
+      "fog_count": 5,
+      "fog_utilization_std_integral_s": 30.365096727600122
+    },
+    "energy": {
+      "horizon_s": 69.0,
+      "communication_modeled": true,
+      "idle_j": 43016.8977,
+      "dynamic_j": 4779.057442396953,
+      "total_j": 47795.95514239695,
+      "idle_power_w": 623.4333,
+      "by_group": {
+        "ap": {
+          "idle_j": 1035.0,
+          "dynamic_j": 455.5099956092185,
+          "total_j": 1490.5099956092185
+        },
+        "cpu_cloud": {
+          "idle_j": 6900.0,
+          "dynamic_j": 711.0715065228957,
+          "total_j": 7611.071506522896
+        },
+        "cpu_fog": {
+          "idle_j": 28871.8977,
+          "dynamic_j": 3124.5720800952213,
+          "total_j": 31996.469780095224
+        },
+        "cpu_iot": {
+          "idle_j": 3450.0,
+          "dynamic_j": 20.371999999999957,
+          "total_j": 3470.372
+        },
+        "lan": {
+          "idle_j": 1380.0,
+          "dynamic_j": 36.99741644,
+          "total_j": 1416.99741644
+        },
+        "radio": {
+          "idle_j": 690.0,
+          "dynamic_j": 391.5248682791902,
+          "total_j": 1081.5248682791903
+        },
+        "wan": {
+          "idle_j": 690.0,
+          "dynamic_j": 39.00957545042781,
+          "total_j": 729.0095754504279
+        }
+      },
+      "components": [
+        {
+          "id": "cpu:IoT-0",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-1",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-2",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-3",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-4",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-5",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-6",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-7",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-8",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-9",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-10",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-11",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-12",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-13",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-14",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-15",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-16",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-17",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-18",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-19",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-20",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-21",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 2.2079999999999984
+        },
+        {
+          "id": "cpu:IoT-22",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-23",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 1.6119999999999948
+        },
+        {
+          "id": "cpu:IoT-24",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.9440000000000026
+        },
+        {
+          "id": "cpu:IoT-25",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-26",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 1.4640000000000057
+        },
+        {
+          "id": "cpu:IoT-27",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 1.152000000000001
+        },
+        {
+          "id": "cpu:IoT-28",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 2.6599999999999966
+        },
+        {
+          "id": "cpu:IoT-29",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-30",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-31",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 1.0679999999999978
+        },
+        {
+          "id": "cpu:IoT-32",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.7639999999999958
+        },
+        {
+          "id": "cpu:IoT-33",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 1.7759999999999962
+        },
+        {
+          "id": "cpu:IoT-34",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-35",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-36",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 1.5959999999999894
+        },
+        {
+          "id": "cpu:IoT-37",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-38",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-39",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-40",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-41",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-42",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-43",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 1.1239999999999952
+        },
+        {
+          "id": "cpu:IoT-44",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-45",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-46",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.5199999999999996
+        },
+        {
+          "id": "cpu:IoT-47",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-48",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-49",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-50",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-51",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.671999999999997
+        },
+        {
+          "id": "cpu:IoT-52",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-53",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-54",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-55",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.43200000000000216
+        },
+        {
+          "id": "cpu:IoT-56",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.4839999999999982
+        },
+        {
+          "id": "cpu:IoT-57",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 1.0759999999999934
+        },
+        {
+          "id": "cpu:IoT-58",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.8199999999999932
+        },
+        {
+          "id": "cpu:IoT-59",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-60",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-61",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-62",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-63",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-64",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-65",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-66",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-67",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-68",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-69",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-70",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-71",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-72",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-73",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-74",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-75",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-76",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-77",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-78",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-79",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-80",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-81",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-82",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-83",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-84",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-85",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-86",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-87",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-88",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-89",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-90",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-91",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-92",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-93",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-94",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-95",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-96",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-97",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-98",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:IoT-99",
+          "group": "cpu_iot",
+          "idle_j": 34.5,
+          "dynamic_j": 0.0
+        },
+        {
+          "id": "cpu:F1",
+          "group": "cpu_fog",
+          "idle_j": 3450.0,
+          "dynamic_j": 1312.8145370853042
+        },
+        {
+          "id": "cpu:F2",
+          "group": "cpu_fog",
+          "idle_j": 4485.0,
+          "dynamic_j": 251.9521177300407
+        },
+        {
+          "id": "cpu:F3",
+          "group": "cpu_fog",
+          "idle_j": 5756.8977,
+          "dynamic_j": 976.5760977185347
+        },
+        {
+          "id": "cpu:F4",
+          "group": "cpu_fog",
+          "idle_j": 6900.0,
+          "dynamic_j": 441.70231739937054
+        },
+        {
+          "id": "cpu:F5",
+          "group": "cpu_fog",
+          "idle_j": 8280.0,
+          "dynamic_j": 141.527010161971
+        },
+        {
+          "id": "cpu:cloud",
+          "group": "cpu_cloud",
+          "idle_j": 6900.0,
+          "dynamic_j": 711.0715065228957
+        },
+        {
+          "id": "net:radio",
+          "group": "radio",
+          "idle_j": 690.0,
+          "dynamic_j": 391.5248682791902
+        },
+        {
+          "id": "net:ap",
+          "group": "ap",
+          "idle_j": 1035.0,
+          "dynamic_j": 455.5099956092185
+        },
+        {
+          "id": "net:lan",
+          "group": "lan",
+          "idle_j": 1380.0,
+          "dynamic_j": 36.99741644
+        },
+        {
+          "id": "net:wan",
+          "group": "wan",
+          "idle_j": 690.0,
+          "dynamic_j": 39.00957545042781
+        }
+      ],
+      "dynamic_attributed_to_tasks_j": 4779.057442396955,
+      "attribution_gap_j": -1.8189894035458565e-12,
+      "joules_per_arrived_task": 25.655370446804593,
+      "joules_per_successful_task": 177.02205608295168
+    }
+  }
+]

@@ -1,0 +1,26 @@
+{
+  "created_utc": "2026-11-15T13:33:41+00:00",
+  "head": "0ecaf5bc91b75a58299b0f07f2b2ea6f28c122ca",
+  "clone": "git clone of HEAD (removed after the check)",
+  "environment": "same container and Python venv; clean git clone of HEAD; JAR rebuilt from source in the clone",
+  "jar_rebuild": {
+    "class_and_resource_entries_identical": true,
+    "differing_entries": [],
+    "main_jar_sha256": "ba5a7ca8a8f0cdd64839ccc7848d20009a5872b994aa1c529baf894eeff19e73",
+    "rebuilt_jar_sha256": "bfa4f3dd60dfd4e97e6e8a032f566c43cb26878e5c4daa06baf2a1ac5b332797",
+    "note": "whole-file hashes may differ by zip timestamps; entry contents are compared"
+  },
+  "physical_case": {
+    "identical": true,
+    "cases": 4,
+    "description": "greedy_eft and the nsga2_r00 P11 checkpoint on validation trace 10000 (light, heavy)"
+  },
+  "learning_run": {
+    "identical": true,
+    "policy_tensor_sha256": "048351afa34d7b4429521481c0aa28614afccd43236145cf10582c21a6619452",
+    "num_timesteps": 1024,
+    "learning_curve_sha256": "e6a23e378358348f6d0353d28235dc0ac0794dd0dbf35d1ffd4c1a9ee4e27b38",
+    "description": "1,024-decision PPO run (pilot outer 100, repeat 0, equal weights, learner v0.3)"
+  },
+  "pass": true
+}

@@ -1,0 +1,10 @@
+{
+  "name": "homogeneous_fog",
+  "description": "homogeneous fog control: every fog uses the F3 profile (main JAR, reset option)",
+  "options": {
+    "homogeneous_fog": true
+  },
+  "mode": "main_jar",
+  "config_sha256": "3e32379ebd2e8770e025ff9cce11be28cbffe7e535b269a070030ce6d9dae025",
+  "changed_blocks": []
+}

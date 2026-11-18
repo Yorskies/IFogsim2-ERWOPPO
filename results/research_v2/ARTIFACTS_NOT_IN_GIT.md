@@ -21,3 +21,12 @@ Di repo: `test_evaluation/` (report.md/json, baris episode test per model), `sha
 Tidak di repo: `decisions.jsonl.gz` (+ `.meta.json`), `model.zip`, `rng.pt`, dan per checkpoint/kandidat `manifest.json`,
 `episodes.jsonl`, `learning_curve.jsonl`, `traces.jsonl`, `progress.json`, `outcome.json`, `candidate.json`, `summary.json`,
 `initial_policy.json`, `environment-freeze.txt`, `effective_learner_config.json` (≈ 6,1 GB metadata + checkpoint/log).
+
+## P12 v0.4 (`results/research_v2/v0.4/p12/`, ≈ 650 MB lokal, 15 Nov 2026)
+
+Di repo: `sensitivity/report.md|json`, episode varian `identity` (kontrol mekanisme), `validation_main/episodes/` (dasar analisis normalisasi),
+`audit/`, `repro/result.json`, `repro/worker.py`, `repro/*_physical.json` dan log, `package/` (ARTIFACT_INDEX.json, SHA256SUMS,
+README_REPRODUCTION.md), `claims.md`, `variants/` (config dan `index.json`), `pipeline/` (state, log, task_logs).
+Tidak di repo: baris episode sensitivitas per varian (`sensitivity/<varian>/episodes/`, 9 × ≈ 71 MB), run PPO kecil uji reproduksi
+(`repro/main_learn/`, `repro/clone_learn/`: checkpoint dan log keputusan), dan JAR varian (`ifogsim/dist_p12/`, dibangun ulang otomatis oleh
+`research_v2/p12.py`; hash tercatat di `variants/index.json`). Laporan sensitivitas dapat diregenerasi dengan `./run_p12.sh` dari model P11.

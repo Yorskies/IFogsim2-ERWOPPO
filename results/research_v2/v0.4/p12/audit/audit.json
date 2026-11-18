@@ -1,0 +1,79 @@
+{
+  "created_utc": "2026-11-15T13:33:11+00:00",
+  "git_head": "0ecaf5bc91b75a58299b0f07f2b2ea6f28c122ca",
+  "lock_sha256": "63d07e43c01ebfcbf65b4feac24f6be73650481d09752c6f5f99b89641517ca7",
+  "checks": {
+    "lock_deep_verify": {
+      "pass": true,
+      "problems": [],
+      "warnings": [
+        "2 file(s) added after the lock (must be audited): ['research_v2/p12.py', 'tests/research_v2/test_p12.py']",
+        "TEST_OPENED.json exists: the test split has been evaluated under this or an earlier lock"
+      ]
+    },
+    "build_and_config": {
+      "pass": true,
+      "jar_sha256": "ba5a7ca8a8f0cdd64839ccc7848d20009a5872b994aa1c529baf894eeff19e73",
+      "config_sha256": "3e32379ebd2e8770e025ff9cce11be28cbffe7e535b269a070030ce6d9dae025"
+    },
+    "test_opened_record": {
+      "pass": true,
+      "opened_utc": "2026-11-09T11:30:56.159936+00:00",
+      "lock": "/workspace/RISET S3 Rozi/IFogsim2-ERWOPPO/results/research_v2/v0.4/protocol_lock/protocol_lock.json",
+      "lock_sha256": "63d07e43c01ebfcbf65b4feac24f6be73650481d09752c6f5f99b89641517ca7",
+      "protocol_version": "0.4",
+      "models": 120,
+      "outers": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19
+      ],
+      "rule": "Findings on test are recorded and never used to retune this study."
+    },
+    "checkpoints": {
+      "pass": true,
+      "count": 120,
+      "bad": []
+    },
+    "episodes": {
+      "pass": true,
+      "rows_checked": 49600,
+      "files": 124,
+      "problems": []
+    },
+    "report_recomputed": {
+      "pass": true,
+      "note": "P11 report.json recomputed from raw episode rows (bootstrap and sign-flip seeds are fixed), compared for exact equality"
+    },
+    "job_ledger": {
+      "pass": true,
+      "jobs": 120,
+      "mismatch": [],
+      "budget": {
+        "S": 16384000,
+        "V": 3150400,
+        "F": 102400,
+        "C": 19636800,
+        "B": 19637248
+      }
+    }
+  },
+  "pass": true
+}

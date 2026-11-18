@@ -1,6 +1,6 @@
 # Protokol research v2 — versi 0.4
 
-Status: **P11 selesai (9 November 2026). Lock v0.4 (`P10-lock-3`, `63d07e43…`); test dibuka 2026-11-09T11:30:56Z. Hasil: [P11_results.md](milestones/P11_results.md).**
+Status: **P11 selesai (9 November 2026) dan P12 selesai (15 November 2026). Lock v0.4 (`P10-lock-3`, `63d07e43…`); test dibuka 2026-11-09T11:30:56Z. Hasil: [P11_results.md](milestones/P11_results.md), sensitivitas/audit/paket: [P12_results.md](milestones/P12_results.md).**
 Keputusan M3 = *go* diberikan oleh operator dengan menjalankan pipeline dengan `go`.
 
 ## Silsilah protokol
@@ -9,7 +9,7 @@ Keputusan M3 = *go* diberikan oleh operator dengan menjalankan pipeline dengan `
 |---|---|---|---|
 | v0.2 | learner gamma 1,0; K = 30.720 (ekstensi P08) | M3 no-go: PPO tidak belajar konsisten | tag `protocol-v0.2`; lock `0854491d…` |
 | v0.3 | learner gamma 0,97; gerbang fidelity diulang | gerbang gagal pada semua K → berhenti | tag `protocol-v0.3`; [PROTOCOL_v0.3.md](PROTOCOL_v0.3.md) |
-| **v0.4** | learner gamma 0,97; **K = F = 102.400** | P11 selesai: RQ1/RQ2 null, RQ3 negatif | `results/research_v2/v0.4/`, [desain](../../configs/research_v2/design_v0.4.json) |
+| **v0.4** | learner gamma 0,97; **K = F = 102.400** | P11 selesai: RQ1/RQ2 null, RQ3 negatif; P12: arah RQ tetap pada 27/27 varian sensitivitas | `results/research_v2/v0.4/`, [desain](../../configs/research_v2/design_v0.4.json) |
 
 v0.4 tidak mengubah simulasi (config, trace, JAR, normalisasi, P01–P06), learner v0.3, 80 slot × 2 model, F, kontrak reuse protokol A/B,
 maupun registri hipotesis (3 primer + 60 sekunder, Holm, bootstrap crossed). Satu-satunya perubahan desain: setiap kandidat dilatih penuh F,

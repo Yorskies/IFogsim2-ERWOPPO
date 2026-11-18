@@ -30,3 +30,10 @@ Thumbs.db
 /Microsoft/
 /ifogsim/build/
 /ifogsim/dist/*.jar
+
+# P12 sensitivity variant JARs (rebuilt by research_v2.p12 from the main JAR)
+ifogsim/dist_p12/
+# P12: heavy local-only outputs (see results/research_v2/ARTIFACTS_NOT_IN_GIT.md)
+results/research_v2/v0.4/p12/sensitivity/*/episodes/
+!results/research_v2/v0.4/p12/sensitivity/identity/episodes/
+results/research_v2/v0.4/p12/repro/*_learn/
