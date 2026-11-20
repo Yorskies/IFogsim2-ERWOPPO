@@ -1,0 +1,12 @@
+[2026-11-20T15:20:06+00:00] === p14 pilot run pid=1376089 workers=12 ===
+[2026-11-20T15:20:06+00:00] preflight ok: 310 GiB free; development data only
+[2026-11-20T15:20:06+00:00] determinism: 2 of 2 jobs to run (2 workers)
+[2026-11-20T15:20:22+00:00] determinism: all 2 jobs complete
+[2026-11-20T15:20:23+00:00] determinism ok: identical PPO runs and identical search replays
+[2026-11-20T15:20:23+00:00] q1 at F: 96 of 96 jobs to run (12 workers)
+[2026-11-20T15:35:23+00:00] q1 at F: 84 jobs finished, 12 running, 0 queued
+[2026-11-20T15:36:49+00:00] q1 at F: all 96 jobs complete
+[2026-11-20T15:36:52+00:00] q1 at 4F: 32 of 32 jobs to run (12 workers)
+[2026-11-20T15:51:52+00:00] q1 at 4F: 24 jobs finished, 8 running, 0 queued
+[2026-11-20T15:53:28+00:00] q1 at 4F: all 32 jobs complete
+[2026-11-20T15:53:31+00:00] stop requested: exiting; re-run the same command to resume

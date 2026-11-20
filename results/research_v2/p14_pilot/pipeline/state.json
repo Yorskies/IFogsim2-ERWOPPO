@@ -1,0 +1,30 @@
+{
+  "stages": {
+    "preflight": {
+      "done_utc": "2026-11-20T15:20:06+00:00",
+      "free_disk_gib": 310,
+      "sources": {
+        "research_v2/p14.py": "03d4e8b1db9fb9ae221f78846cfaff21cee7613a460e0f8a798f29ece55dcc5c",
+        "research_v2/p14_search.py": "cd507bf9b6382afd972d7a40a90386ed59ec0801270647890334a51af956943f",
+        "research_v2/p14_traces.py": "b1b65875d85d6bbe519de11fe3894f8de69e9d4f6d622b94868d1aef16f11e04",
+        "research_v2/p13_traces.py": "36c713b427da6b32c956a35e382ee4e10d5aacce462580949c4ffdbdf3bf7d46",
+        "research_v2/learning.py": "378b7fb19c6553f154f9bf1926f8233a45ef87bae593baf4249694aa94063552",
+        "research_v2/search.py": "e5bc595efe58c373fc9c7597cc9bc0fbd2a435f9a17c96619707f5736dac7bf6",
+        "docs/research_v2/P14_MOEA_PILOT_DESIGN.md": "c5837cc63d6a28bf901d9882eaeb35290f69c3cf9021060a7399049fb5fd5780"
+      },
+      "config_sha256": "3e32379ebd2e8770e025ff9cce11be28cbffe7e535b269a070030ce6d9dae025",
+      "smoke": false
+    },
+    "determinism": {
+      "done_utc": "2026-11-20T15:20:23+00:00",
+      "training_identical": true,
+      "search_replay_identical": true
+    },
+    "q1_F": {
+      "done_utc": "2026-11-20T15:36:52+00:00"
+    },
+    "q1_4F": {
+      "done_utc": "2026-11-20T15:53:29+00:00"
+    }
+  }
+}

@@ -1,0 +1,303 @@
+{
+  "protocol": "research-v2-p15-p16-1",
+  "created_utc": "2026-11-20T16:45:25+00:00",
+  "smoke": false,
+  "plan": "docs/research_v2/P15_P16_IMPLEMENTATION_PLAN.md",
+  "v04_lock_sha256": "63d07e43c01ebfcbf65b4feac24f6be73650481d09752c6f5f99b89641517ca7",
+  "config_sha256": "3e32379ebd2e8770e025ff9cce11be28cbffe7e535b269a070030ce6d9dae025",
+  "sources": {
+    "research_v2/p15.py": "56f3a5c6a6d6c6d5904a5b74f9d18602ee47fb970e863083bc0b20bda373cd1d",
+    "research_v2/p15_jobs.py": "816e1c16bac78b98b0c28c6144df2e2f6844f919bb71794fd5c58e7d69358f19",
+    "research_v2/p16.py": "85cf17cd0270e8c52cf0e8e49f63b480334e80864b28b774fa69deb8c3179f96",
+    "research_v2/p16_traces.py": "089f3f95ebff924a81d9bce6d1a43c0694d77a767c8d2aa9793cab8b9d4de172",
+    "research_v2/p14_search.py": "cd507bf9b6382afd972d7a40a90386ed59ec0801270647890334a51af956943f",
+    "research_v2/p14_traces.py": "b1b65875d85d6bbe519de11fe3894f8de69e9d4f6d622b94868d1aef16f11e04",
+    "research_v2/p13_traces.py": "36c713b427da6b32c956a35e382ee4e10d5aacce462580949c4ffdbdf3bf7d46",
+    "research_v2/search.py": "e5bc595efe58c373fc9c7597cc9bc0fbd2a435f9a17c96619707f5736dac7bf6",
+    "research_v2/learning.py": "378b7fb19c6553f154f9bf1926f8233a45ef87bae593baf4249694aa94063552",
+    "research_v2/learner.py": "a356914298dada1e39c018e73305768fc97254778a9f6908751538ba6fff6c0d",
+    "research_v2/learning_instrumentation.py": "e8379050c72b05e8d01cdaec05a971f63cd452dd15e922ff00fd609490d1cfc6",
+    "research_v2/study_final.py": "dec510ef8e7bce7dfd1cac3f90b723017911ef7537f5706b7daa54dc2534253b",
+    "research_v2/gym_env.py": "629aeebd8ec2a5ed2bd11b7e7b991feadc9e024c31c253d5621a156a867a192f",
+    "research_v2/rpc_client.py": "163c00ad1fa75de1e5d79b90a00cb042e4c8297bc82ccde79d5d6538fee7ba29",
+    "research_v2/baselines.py": "62f49e4d1aae5c890b1ef9ad1d431bc879cccc8fbad22708d1989f2906b85f2e",
+    "research_v2/config.py": "ec5da2d05729e2056bd5827a85a806a250f875bbf5d1a5393807021d501999f3",
+    "research_v2/contracts.py": "f02ce133bbd14cc8a8ac30835b8617966c07ed02c24f0bddcf634110cb51bb72",
+    "research_v2/traces.py": "6f22e5850f47551a4a3850716399ffee2af14631c91d2ce4c96da403f6d89bf9",
+    "research_v2/trace_access.py": "fdc6e1d6df2d18ad64defcf8fdd53784d43b96432804ddb523a706ade7f61afd",
+    "research_v2/schema_definitions.py": "34a6fa1e25823d6277115ac75862c56016ce0c1bbe437fb7070f0df03b5f5caa",
+    "research_v2/analysis/stats.py": "8fb6419e93a4be20736af10e3bcf9433cf86da70abd347633f68e02c235ebae8",
+    "research_v2/analysis/loader.py": "4498c1641958aa55d7d722695aa2786cfe41b84928f7d5cb198bd6d52682adbb",
+    "configs/research_v2/default.json": "f30310236ea1fbfcd5b86d327772dffbf3184765218356fe49e5880ac636be65",
+    "configs/research_v2/learner_v0.3.json": "d3aff3a93c6d928d417d4bd069fc5ce7f914e14788840d721f9555e3c7086403",
+    "configs/research_v2/wire_contract.json": "82995ce94187fbd655f7d22751c63eac6e71e536faee31ff2f9511d9181df146",
+    "run_p15.sh": "61b1c2686f24181441d4bce5f092d064a4059faad7a42e949467cf6639634496",
+    "run_p16.sh": "3dab35fcc94b7373b85a7ab99be9a921854a25dca55651992e4cec2d1370a34b",
+    "docs/research_v2/P15_P16_IMPLEMENTATION_PLAN.md": "de9a244f289fec063885985805643e04e94b8f43aaf0162bd2841e63a0325866",
+    "ifogsim/build/research_v2/build_receipt.json": "0bae9a020dab65b5d59ce38b159926d8f4fa461bbc573bc758b222c86c870f13"
+  },
+  "deviation": "Full benchmark run although P14 gates G1/G2 failed: researcher decision of 20 November 2026, recorded before any P15/P16 data (plan section 0); results are analysed whatever they show.",
+  "search": {
+    "methods": [
+      "nsga2",
+      "nsga3",
+      "moead",
+      "spea2",
+      "random"
+    ],
+    "outers": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19
+    ],
+    "population": 15,
+    "slots": 90,
+    "budget_F": 102400,
+    "learner": "0.3",
+    "stream": "train_candidate (repeat = model index mod 2)",
+    "seeds": "700000 + 100*outer + j, shared by all candidates and methods of an outer",
+    "evaluator": {
+      "base_models": 4,
+      "elite_extra_models": 8,
+      "elites_per_generation": 3,
+      "generation": 15,
+      "traces": {
+        "split": "dev_validation",
+        "ids": [
+          40000,
+          40004
+        ]
+      }
+    },
+    "selection": "lowest 12-model D among elites; ties to the earlier slot",
+    "decision_log_rows": 1024
+  },
+  "final": {
+    "arms": [
+      "nsga2",
+      "nsga3",
+      "moead",
+      "spea2",
+      "random",
+      "equal_F",
+      "lean_zD",
+      "equal_B_p11"
+    ],
+    "lean_zD": [
+      0.1,
+      0.1,
+      0.6,
+      0.1,
+      0.1
+    ],
+    "budget_F": 102400,
+    "seeds": "800000 + 10*outer + k, k < 4, shared by all arms of an outer",
+    "stream": "train_final outer r",
+    "models_per_arm_and_outer": 4,
+    "decision_log_rows": 10240,
+    "equal_B_p11": {
+      "budget": 19637248,
+      "checkpoints": {
+        "0": [
+          "results/research_v2/v0.4/p11/shard_00/jobs/r00_equal/attempt_000/data/training/checkpoint_19637248",
+          "d91a397e1a6b6b0cacebe28d4a6deab6e3e70c8d85c6bf049852a0c587123285"
+        ],
+        "1": [
+          "results/research_v2/v0.4/p11/shard_00/jobs/r01_equal/attempt_000/data/training/checkpoint_19637248",
+          "9652269e4777492bcab0a05378dc8afe50d0c871dbf0655483ea53dbf596cc3a"
+        ],
+        "2": [
+          "results/research_v2/v0.4/p11/shard_01/jobs/r02_equal/attempt_000/data/training/checkpoint_19637248",
+          "5b4579485bded75a4041edb888c35057c1b5ce0f403eeb6f8e2149b4df73a05c"
+        ],
+        "3": [
+          "results/research_v2/v0.4/p11/shard_01/jobs/r03_equal/attempt_000/data/training/checkpoint_19637248",
+          "56d238f73ae8da49836cfd0aa9988160d70c65c52ab9f97f605e5ac588c27fe7"
+        ],
+        "4": [
+          "results/research_v2/v0.4/p11/shard_02/jobs/r04_equal/attempt_000/data/training/checkpoint_19637248",
+          "42a6ab3678f48bd9729e6b8f742b9fac0345d5531036cea3f4515d03cddfd3a0"
+        ],
+        "5": [
+          "results/research_v2/v0.4/p11/shard_02/jobs/r05_equal/attempt_000/data/training/checkpoint_19637248",
+          "6d48b57303c9969e6e1e004edbdf69c9be40d6135bc7e00262698505c1e88e58"
+        ],
+        "6": [
+          "results/research_v2/v0.4/p11/shard_03/jobs/r06_equal/attempt_000/data/training/checkpoint_19637248",
+          "fee6df02cd00756e3b0d7d5c142bbd801cf78e7378a77338f3457dac5f69addd"
+        ],
+        "7": [
+          "results/research_v2/v0.4/p11/shard_03/jobs/r07_equal/attempt_000/data/training/checkpoint_19637248",
+          "9c5803321729e5a300f1c7287db5365a83ca7c7fa573267061d727d901049a47"
+        ],
+        "8": [
+          "results/research_v2/v0.4/p11/shard_04/jobs/r08_equal/attempt_000/data/training/checkpoint_19637248",
+          "3149cf4e853663a0a81fc247079ba57279e0427a435cfdde97f03035b9b3f5f1"
+        ],
+        "9": [
+          "results/research_v2/v0.4/p11/shard_04/jobs/r09_equal/attempt_000/data/training/checkpoint_19637248",
+          "83adbde9d3c81d1c96f3140a3088344c85caf0b7a83c9db4dad9d7905d7e42d8"
+        ],
+        "10": [
+          "results/research_v2/v0.4/p11/shard_05/jobs/r10_equal/attempt_000/data/training/checkpoint_19637248",
+          "0ac30107161ac6f763ac5f5bb98383a602b9cb2b81df3c252b374ba3df3dcb0f"
+        ],
+        "11": [
+          "results/research_v2/v0.4/p11/shard_05/jobs/r11_equal/attempt_000/data/training/checkpoint_19637248",
+          "89369f552106d8b517744a951525c5b477d1b50bc207b93eb2c410dd16e9618e"
+        ],
+        "12": [
+          "results/research_v2/v0.4/p11/shard_06/jobs/r12_equal/attempt_000/data/training/checkpoint_19637248",
+          "0a194d4fa7a919b7f65233eae9179da663b4fae5741ec44124efe050d40be108"
+        ],
+        "13": [
+          "results/research_v2/v0.4/p11/shard_06/jobs/r13_equal/attempt_000/data/training/checkpoint_19637248",
+          "7195767a24295a2d5bc5715f35c473e8ffb1b1f214c5655e3eb71b214c68ad25"
+        ],
+        "14": [
+          "results/research_v2/v0.4/p11/shard_07/jobs/r14_equal/attempt_000/data/training/checkpoint_19637248",
+          "058d1f92c6367929500e3ff6967f181af62a18e4cd4e1d724094b822f909b869"
+        ],
+        "15": [
+          "results/research_v2/v0.4/p11/shard_07/jobs/r15_equal/attempt_000/data/training/checkpoint_19637248",
+          "8ab85f08b0e485274a6f32043a1051a9da3b648112e21429fdba574133a8a47e"
+        ],
+        "16": [
+          "results/research_v2/v0.4/p11/shard_08/jobs/r16_equal/attempt_000/data/training/checkpoint_19637248",
+          "1f4d0061aa891c86da4765b0bf2d87d1de84d22f3ff41352b036a8d20b7c3631"
+        ],
+        "17": [
+          "results/research_v2/v0.4/p11/shard_08/jobs/r17_equal/attempt_000/data/training/checkpoint_19637248",
+          "744f7fd0d324901b990bb2c5761bf900068ce98cdd4e207525b6f71e6873e51c"
+        ],
+        "18": [
+          "results/research_v2/v0.4/p11/shard_09/jobs/r18_equal/attempt_000/data/training/checkpoint_19637248",
+          "04b5b99ad9471bf77f3a6b37a587fff6fe61501722afed41bc25b26e14e89c6d"
+        ],
+        "19": [
+          "results/research_v2/v0.4/p11/shard_09/jobs/r19_equal/attempt_000/data/training/checkpoint_19637248",
+          "7c5c9c646f08d28e1fc53efeeb75744bfd503b5abe14ddeb0eddf70410e901ad"
+        ]
+      }
+    },
+    "unit": "outer run; per-trace costs averaged over the arm's models of that outer"
+  },
+  "p16_test": {
+    "split": "p16_test",
+    "trace_ids": [
+      50000,
+      50099
+    ],
+    "traces": 400,
+    "tasks_total": 390107,
+    "rows_sha256": "52efd8cb715bc90e235b6a6f21c1458b59dab49ab2e8c29f30d0001766105c80"
+  },
+  "hypotheses": {
+    "orientation": "difference = D(comparator) - D(treatment); positive = treatment better",
+    "primary": {
+      "H1": [
+        [
+          "equal_F",
+          "nsga2"
+        ],
+        [
+          "equal_F",
+          "nsga3"
+        ],
+        [
+          "equal_F",
+          "moead"
+        ],
+        [
+          "equal_F",
+          "spea2"
+        ]
+      ],
+      "H2": [
+        [
+          "random",
+          "nsga2"
+        ],
+        [
+          "random",
+          "nsga3"
+        ],
+        [
+          "random",
+          "moead"
+        ],
+        [
+          "random",
+          "spea2"
+        ]
+      ],
+      "test": "exact sign-flip over outer runs; Holm within H1 and within H2; alpha 0.05"
+    },
+    "secondary": {
+      "H3": "Friedman over the 5 search methods (blocks = outer runs); pairwise Wilcoxon + Holm",
+      "H4": [
+        [
+          "equal_B_p11",
+          "nsga2"
+        ],
+        [
+          "equal_B_p11",
+          "nsga3"
+        ],
+        [
+          "equal_B_p11",
+          "moead"
+        ],
+        [
+          "equal_B_p11",
+          "spea2"
+        ],
+        [
+          "equal_B_p11",
+          "random"
+        ]
+      ],
+      "H5": [
+        [
+          "equal_F",
+          "lean_zD"
+        ]
+      ],
+      "E1": {
+        "pairs": "H1",
+        "margin_D": 0.02,
+        "rule": "90% crossed-bootstrap CI inside (-delta, delta)"
+      }
+    },
+    "descriptive": [
+      "winner's curse (search score vs final test D)",
+      "P11 selection rule vs 12-model rule",
+      "anytime minimum score, hypervolume and IGD+",
+      "compute",
+      "physical metrics",
+      "cost PCA"
+    ],
+    "bootstrap": {
+      "draws": 10000,
+      "seed": 20261105
+    }
+  },
+  "lock_sha256": "8f45b9b2f483eb9cdfcd6b8828d520b16b5890726a57729d91b2a9c78e4d4bea"
+}

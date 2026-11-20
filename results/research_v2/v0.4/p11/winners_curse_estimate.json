@@ -1,0 +1,340 @@
+{
+  "summary": {
+    "per_model_noise_sd": 0.07545161295390543,
+    "candidate_score_noise_sd": 0.05335234717116928,
+    "within_search_score_sd": 0.05215927863378195,
+    "implied_weight_signal_sd": 0.0,
+    "score_reliability": 0.0,
+    "within_search_corr_model0_model1": 0.1076430033045169,
+    "spearman_brown_2model_reliability_from_corr": 0.19436407395411198,
+    "mean_selected_score": 0.1737767371238091,
+    "mean_candidate_score": 0.25627091059271595,
+    "mean_predicted_true": 0.25627091059271595,
+    "mean_final_test_D": 0.24856252422675054,
+    "searches": 40,
+    "candidates": 3200,
+    "note": "model_0/model_1 share the 20 validation traces, so weight x trace interaction counts as signal here; the true reliability is at most this estimate. Final test D uses a fresh train_final model and the test traces."
+  },
+  "per_search": [
+    {
+      "method": "nsga2",
+      "outer": 0,
+      "selected_score": 0.1794227065245252,
+      "candidate_mean": 0.26692084805846983,
+      "predicted_true": 0.26692084805846983,
+      "final_test_D": 0.4499521959076011
+    },
+    {
+      "method": "nsga2",
+      "outer": 1,
+      "selected_score": 0.16748859704495164,
+      "candidate_mean": 0.24481779448581822,
+      "predicted_true": 0.24481779448581822,
+      "final_test_D": 0.33181559551805584
+    },
+    {
+      "method": "nsga2",
+      "outer": 2,
+      "selected_score": 0.17189068607231606,
+      "candidate_mean": 0.24995702793699767,
+      "predicted_true": 0.24995702793699767,
+      "final_test_D": 0.27257200817972
+    },
+    {
+      "method": "nsga2",
+      "outer": 3,
+      "selected_score": 0.16547222364863556,
+      "candidate_mean": 0.2329179252453367,
+      "predicted_true": 0.2329179252453367,
+      "final_test_D": 0.18184206478824144
+    },
+    {
+      "method": "nsga2",
+      "outer": 4,
+      "selected_score": 0.18615105217475034,
+      "candidate_mean": 0.2752048460547915,
+      "predicted_true": 0.2752048460547915,
+      "final_test_D": 0.4266247614018436
+    },
+    {
+      "method": "nsga2",
+      "outer": 5,
+      "selected_score": 0.17971685465269424,
+      "candidate_mean": 0.30554603995124674,
+      "predicted_true": 0.30554603995124674,
+      "final_test_D": 0.2750468266980058
+    },
+    {
+      "method": "nsga2",
+      "outer": 6,
+      "selected_score": 0.17152664931128148,
+      "candidate_mean": 0.2687142937747641,
+      "predicted_true": 0.2687142937747641,
+      "final_test_D": 0.19837750245379732
+    },
+    {
+      "method": "nsga2",
+      "outer": 7,
+      "selected_score": 0.16970568897111776,
+      "candidate_mean": 0.23804446066938573,
+      "predicted_true": 0.23804446066938573,
+      "final_test_D": 0.1676608110305316
+    },
+    {
+      "method": "nsga2",
+      "outer": 8,
+      "selected_score": 0.17813372070245553,
+      "candidate_mean": 0.253120733605605,
+      "predicted_true": 0.253120733605605,
+      "final_test_D": 0.17749089871110207
+    },
+    {
+      "method": "nsga2",
+      "outer": 9,
+      "selected_score": 0.16600377028732108,
+      "candidate_mean": 0.2284178297544058,
+      "predicted_true": 0.2284178297544058,
+      "final_test_D": 0.20943235274073932
+    },
+    {
+      "method": "nsga2",
+      "outer": 10,
+      "selected_score": 0.16547000618505953,
+      "candidate_mean": 0.24576783305248315,
+      "predicted_true": 0.24576783305248315,
+      "final_test_D": 0.17602601854198643
+    },
+    {
+      "method": "nsga2",
+      "outer": 11,
+      "selected_score": 0.16881967824069802,
+      "candidate_mean": 0.2531663911207559,
+      "predicted_true": 0.2531663911207559,
+      "final_test_D": 0.2561113266659503
+    },
+    {
+      "method": "nsga2",
+      "outer": 12,
+      "selected_score": 0.1704753607870062,
+      "candidate_mean": 0.23064310158048565,
+      "predicted_true": 0.23064310158048565,
+      "final_test_D": 0.175573504742578
+    },
+    {
+      "method": "nsga2",
+      "outer": 13,
+      "selected_score": 0.16597804481882897,
+      "candidate_mean": 0.2530572761060877,
+      "predicted_true": 0.2530572761060877,
+      "final_test_D": 0.2549337629332171
+    },
+    {
+      "method": "nsga2",
+      "outer": 14,
+      "selected_score": 0.1727651650266996,
+      "candidate_mean": 0.2683195015186861,
+      "predicted_true": 0.2683195015186861,
+      "final_test_D": 0.18911004663720632
+    },
+    {
+      "method": "nsga2",
+      "outer": 15,
+      "selected_score": 0.17986307507322058,
+      "candidate_mean": 0.2640827697318353,
+      "predicted_true": 0.2640827697318353,
+      "final_test_D": 0.16604934824970805
+    },
+    {
+      "method": "nsga2",
+      "outer": 16,
+      "selected_score": 0.19562639887852765,
+      "candidate_mean": 0.30017518251359177,
+      "predicted_true": 0.30017518251359177,
+      "final_test_D": 0.2058461357433621
+    },
+    {
+      "method": "nsga2",
+      "outer": 17,
+      "selected_score": 0.1775688285716639,
+      "candidate_mean": 0.2428318635905959,
+      "predicted_true": 0.2428318635905959,
+      "final_test_D": 0.1998339691557963
+    },
+    {
+      "method": "nsga2",
+      "outer": 18,
+      "selected_score": 0.17208969298137838,
+      "candidate_mean": 0.24824447953094042,
+      "predicted_true": 0.24824447953094042,
+      "final_test_D": 0.3452076619361082
+    },
+    {
+      "method": "nsga2",
+      "outer": 19,
+      "selected_score": 0.16806368929530607,
+      "candidate_mean": 0.2263149458969033,
+      "predicted_true": 0.2263149458969033,
+      "final_test_D": 0.24790525322490212
+    },
+    {
+      "method": "random",
+      "outer": 0,
+      "selected_score": 0.1794227065245252,
+      "candidate_mean": 0.2643068801956841,
+      "predicted_true": 0.2643068801956841,
+      "final_test_D": 0.4499521959076011
+    },
+    {
+      "method": "random",
+      "outer": 1,
+      "selected_score": 0.1774285408684168,
+      "candidate_mean": 0.24367846240105365,
+      "predicted_true": 0.24367846240105365,
+      "final_test_D": 0.1765041555584432
+    },
+    {
+      "method": "random",
+      "outer": 2,
+      "selected_score": 0.1778157524100009,
+      "candidate_mean": 0.26566603999481303,
+      "predicted_true": 0.26566603999481303,
+      "final_test_D": 0.20412981074150915
+    },
+    {
+      "method": "random",
+      "outer": 3,
+      "selected_score": 0.16972949762732956,
+      "candidate_mean": 0.24420890626627362,
+      "predicted_true": 0.24420890626627362,
+      "final_test_D": 0.19218726915250667
+    },
+    {
+      "method": "random",
+      "outer": 4,
+      "selected_score": 0.17563625230319188,
+      "candidate_mean": 0.2837878522562396,
+      "predicted_true": 0.2837878522562396,
+      "final_test_D": 0.4239342869563214
+    },
+    {
+      "method": "random",
+      "outer": 5,
+      "selected_score": 0.1746908565167061,
+      "candidate_mean": 0.2983166295659359,
+      "predicted_true": 0.2983166295659359,
+      "final_test_D": 0.18615109020671167
+    },
+    {
+      "method": "random",
+      "outer": 6,
+      "selected_score": 0.1698083883541501,
+      "candidate_mean": 0.27277087186280535,
+      "predicted_true": 0.27277087186280535,
+      "final_test_D": 0.17579613233899274
+    },
+    {
+      "method": "random",
+      "outer": 7,
+      "selected_score": 0.1674579674460625,
+      "candidate_mean": 0.23609497675292657,
+      "predicted_true": 0.23609497675292657,
+      "final_test_D": 0.1671330683557467
+    },
+    {
+      "method": "random",
+      "outer": 8,
+      "selected_score": 0.17813372070245553,
+      "candidate_mean": 0.2551865303946578,
+      "predicted_true": 0.2551865303946578,
+      "final_test_D": 0.17749089871110207
+    },
+    {
+      "method": "random",
+      "outer": 9,
+      "selected_score": 0.1730695676314271,
+      "candidate_mean": 0.23685169944507667,
+      "predicted_true": 0.23685169944507667,
+      "final_test_D": 0.19286563007094149
+    },
+    {
+      "method": "random",
+      "outer": 10,
+      "selected_score": 0.18156518015531495,
+      "candidate_mean": 0.2539083998837413,
+      "predicted_true": 0.2539083998837413,
+      "final_test_D": 0.2392034185724803
+    },
+    {
+      "method": "random",
+      "outer": 11,
+      "selected_score": 0.16925706420402487,
+      "candidate_mean": 0.25529375823828626,
+      "predicted_true": 0.25529375823828626,
+      "final_test_D": 0.19633924705768754
+    },
+    {
+      "method": "random",
+      "outer": 12,
+      "selected_score": 0.17371878289853498,
+      "candidate_mean": 0.23576738346979081,
+      "predicted_true": 0.23576738346979081,
+      "final_test_D": 0.2635224089447416
+    },
+    {
+      "method": "random",
+      "outer": 13,
+      "selected_score": 0.16929517530116117,
+      "candidate_mean": 0.24873685596116396,
+      "predicted_true": 0.24873685596116396,
+      "final_test_D": 0.20893861658342852
+    },
+    {
+      "method": "random",
+      "outer": 14,
+      "selected_score": 0.1727651650266996,
+      "candidate_mean": 0.26305894381209427,
+      "predicted_true": 0.26305894381209427,
+      "final_test_D": 0.18911004663720632
+    },
+    {
+      "method": "random",
+      "outer": 15,
+      "selected_score": 0.17021775792546057,
+      "candidate_mean": 0.2664292984363918,
+      "predicted_true": 0.2664292984363918,
+      "final_test_D": 0.17736740078253793
+    },
+    {
+      "method": "random",
+      "outer": 16,
+      "selected_score": 0.1775994640103874,
+      "candidate_mean": 0.302054844326623,
+      "predicted_true": 0.302054844326623,
+      "final_test_D": 0.3489994741181966
+    },
+    {
+      "method": "random",
+      "outer": 17,
+      "selected_score": 0.1866050851796947,
+      "candidate_mean": 0.2555127290262794,
+      "predicted_true": 0.2555127290262794,
+      "final_test_D": 0.4695588219799345
+    },
+    {
+      "method": "random",
+      "outer": 18,
+      "selected_score": 0.17208969298137838,
+      "candidate_mean": 0.2422587315634955,
+      "predicted_true": 0.2422587315634955,
+      "final_test_D": 0.3452076619361082
+    },
+    {
+      "method": "random",
+      "outer": 19,
+      "selected_score": 0.1625309776370033,
+      "candidate_mean": 0.23068148567612026,
+      "predicted_true": 0.23068148567612026,
+      "final_test_D": 0.25069728919737083
+    }
+  ]
+}

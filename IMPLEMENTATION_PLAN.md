@@ -49,6 +49,10 @@ Dokumen ini mengatur urutan kerja, dependensi, deliverable, verifikasi, dan krit
 | P10 | Analisis dan penguncian protokol | Statistik teruji, konfigurasi terkunci, readiness review | P06–P09 | **Selesai teknis; M3 no-go untuk v0.2 dan v0.3 (lihat PROTOCOL_v0.3.md)** |
 | P11 | Eksperimen konfirmatori | Dua protokol, 20 outer run, hasil lengkap | P10 lulus | Selesai (9 Nov 2026), [hasil](docs/research_v2/milestones/P11_results.md) |
 | P12 | Sensitivitas dan paket publikasi | Robustness, audit, reproduksibilitas, batas klaim | P11 | Selesai (15 Nov 2026) kecuali pemetaan literatur, [hasil](docs/research_v2/milestones/P12_results.md) |
+| P13 | Benchmark RL tambahan (DQN, Q-Learning tabular, DDPG) | Rancangan, lock P13, training F/B, evaluasi split baru | P12 | Diimplementasikan dan diuji (smoke), siap dijalankan dengan `./run_p13.sh`; [desain](docs/research_v2/P13_RL_BENCHMARK_DESIGN.md) |
+| P14 | Pilot study benchmark MOEA (NSGA-II, NSGA-III, MOEA/D, SPEA2) untuk bobot reward PPO | Lanskap bobot (ICC), reliabilitas evaluator, mini-run 4 MOEA + random, gerbang G1–G3 | P12 | Disetujui, implementasi berjalan (dijalankan sebelum P13), [desain](docs/research_v2/P14_MOEA_PILOT_DESIGN.md) |
+| P15 | Benchmark penuh 4 MOEA + random search, evaluator noise dikurangi (4 seed + resampling elite 12 seed) | 100 search × 90 slot, lock P15 | P14 Q1/Q2 | Rancangan (untuk ditinjau), [plan](docs/research_v2/P15_P16_IMPLEMENTATION_PLAN.md) |
+| P16 | Evaluasi akhir: model final 4 seed per metode, split test tersegel `p16_test`, analisis H1–H5/E1 | 560 model final, laporan, tabel klaim | P15 | Rancangan (untuk ditinjau), [plan](docs/research_v2/P15_P16_IMPLEMENTATION_PLAN.md) |
 
 Dependensi utama bersifat berurutan. Perancangan schema dan pembacaan source boleh dilakukan lebih awal, tetapi hasil downstream tidak boleh dinyatakan valid sebelum engine yang mendasarinya lulus.
 
